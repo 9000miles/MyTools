@@ -2,10 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace YouLe.MyTools
+namespace YouLe_MyTools
 {
     ///  <summary>
-    /// 自定义工具类
+    ///
     ///  </summary>
     public class MyTools
     {
@@ -46,18 +46,20 @@ namespace YouLe.MyTools
             return resultString;//最长公共字符串：  fgfgfgfgfgfgf5h45h
         }
         /// <summary>
-        /// 合并2个数组并排序
+        /// 合并2个数组，根据源数组的排序方式排序
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="arrayA">A数组</param>
         /// <param name="arrayB">B数组</param>
         /// <returns></returns>
-        public static T[] MergeArray<T>(T[] arrayA, T[] arrayB) where T : IComparable
+        public static T[] MergeSortedArray<T>(T[] arrayA, T[] arrayB) where T : IComparable
         {
             T[] mergeArray = new T[arrayA.Length + arrayB.Length];
             Array.Copy(arrayA, mergeArray, arrayA.Length);
-            Array.Copy(arrayB, 0, mergeArray, arrayA.Length, arrayB.Length);//2  3  64  74  34  5  4  75  7  79
-            Array.Sort(mergeArray);//2  3  4  5  7  34  64  74  75  79
+            Array.Copy(arrayB, 0, mergeArray, arrayA.Length, arrayB.Length);
+            Array.Sort(mergeArray);
+            if (arrayA[0].CompareTo(arrayA[1]) > 0)//判断源数组是什么排序方式，如果是从大到小就反转数组
+                Array.Reverse(mergeArray);
             return mergeArray;
         }
         /// <summary>
