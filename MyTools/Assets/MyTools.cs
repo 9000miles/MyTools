@@ -5,7 +5,7 @@ using UnityEngine;
 namespace YouLe_MyTools
 {
     ///  <summary>
-    ///
+    /// 自定义工具类
     ///  </summary>
     public class MyTools
     {
@@ -82,6 +82,62 @@ namespace YouLe_MyTools
                     }
                 }
             }
+        }
+        private List<string> list = new List<string>();
+        /// <summary>
+        /// 判断数组是否具有指定数量的重复个数元素
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="array">数组</param>
+        /// <param name="n">指定数量</param>
+        /// <returns></returns>
+        private bool IsAssignReiterationElement<T>(T[] array, int n) /*where T : IComparable*/
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                int num = 0;
+                for (int j = 0; j < array.Length; j++)
+                {
+                    if (array[i].Equals(array[j])/*.CompareTo(array[j]) == 0*/)
+                    {
+                        num++;
+                        if (num == n)
+                            return true;
+                    }
+                }
+            }
+            return false;
+        }
+        /// <summary>
+        /// 判断数组是否具有指定数量的重复个数元素
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="array">数组</param>
+        /// <param name="n">指定数量</param>
+        /// <param name="repeatElementArray">重复元素</param>
+        /// <returns></returns>
+        private bool IsAssignReiterationElement<T>(T[] array, int n, out T[] repeatElementArray) /*where T : IComparable*/
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                int num = 0;
+                for (int j = 0; j < array.Length; j++)
+                {
+                    if (array[i].Equals(array[j])/*.CompareTo(array[j]) == 0*/)
+                    {
+                        num++;
+                        if (num == n)
+                        {
+                            repeatElementArray = new T[n];
+                            for (int k = 0; k < n; k++)
+                                repeatElementArray[k] = array[i];
+                            return true;
+                        }
+                    }
+                }
+            }
+            repeatElementArray = null;
+            return false;
         }
     }
 }
