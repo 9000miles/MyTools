@@ -344,6 +344,19 @@ namespace MyCommonTools
         }
 
         /// <summary>
+        /// UI点击子物体隐藏父物体
+        /// </summary>
+        public void UIClickSonHideParent()
+        {
+            PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+            eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+            List<RaycastResult> results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+            GameObject go = results.Count > 0 ? results[0].gameObject : null;
+            go.gameObject.transform.parent.gameObject.SetActive(false);
+        }
+
+        /// <summary>
         /// 检查鼠标是否点击在UI上面
         /// </summary>
         /// <returns></returns>
