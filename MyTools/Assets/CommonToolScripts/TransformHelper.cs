@@ -4,29 +4,58 @@ using UnityEngine;
 namespace MyCommonTools
 {
     ///<summary>
-    /// 变换组件助手类
+    /// Transform组件助手类
     ///</summary>
     public static class TransformHelper
     {
         /// <summary>
-        /// 未知层级，查找后代物体。
+        /// 查找后代物体。
         /// </summary>
         /// <param name="tf"></param>
-        /// <param name="childName">需要查找的后代物体名称</param>
-        /// <returns></returns>
+        /// <param name="childName">需要查找的后代物体名字</param>
+        /// <returns>根据名字查找的物体</returns>
         public static Transform FindChildByName(this Transform tf, string childName)
         {
             Transform childTF = tf.Find(childName);
             //如果找到 则退出
             if (childTF != null)
                 return childTF;
-            //如果没有找到，则将问题推给子物体。
+            //如果没有找到，递归子物体进行查找。
             for (int i = 0; i < tf.childCount; i++)
             {
-                // tf.GetChild(i) 子物体
                 childTF = tf.GetChild(i).FindChildByName(childName);
                 if (childTF != null)
                     return childTF;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 根据子物体查找孙子物体。
+        /// </summary>
+        /// <param name="tf"></param>
+        /// <param name="childName">子物体名字</param>
+        /// <param name="grandChild">孙子物体名字</param>
+        /// <returns>根据名字查找的物体</returns>
+        public static Transform FindChildByName(this Transform tf, string childName, string grandChild)
+        {
+            //根据查找子物体
+            Transform childTF = tf.Find(childName);
+            if (childTF == null)
+                for (int i = 0; i < tf.childCount; i++)
+                    childTF = tf.GetChild(i).FindChildByName(childName);
+            if (childTF == null)
+                return null;
+
+            //根据子物体，查找孙子物体
+            Transform grandChildTF = childTF.Find(grandChild);
+            if (grandChildTF != null)
+                return grandChildTF;
+            for (int i = 0; i < childTF.childCount; i++)
+            {
+                grandChildTF = childTF.GetChild(i).FindChildByName(grandChild);
+                if (grandChildTF != null)
+                    return grandChildTF;
             }
             return null;
         }
