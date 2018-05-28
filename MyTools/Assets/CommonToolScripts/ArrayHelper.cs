@@ -114,5 +114,68 @@ namespace MyCommonTools
                     max = array[i];
             return max;
         }
+
+        /// <summary>
+        /// 数组快速排序
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        public static T[] QuickSort<T>(T[] arr) where T : IComparable
+        {
+            if (arr.Length < 2)//只有一个元素或者没有元素，直接返回
+                return arr;
+            T baseNum = arr[arr.Length / 2];//取第一个元素为基数
+            List<T> lessBaseArr = new List<T>();//小于基数的集合
+            List<T> greaterBaseArr = new List<T>();//大于基数的集合
+            for (int i = 0; i < arr.Length; i++)//与第一个元素比较，进行分区
+            {
+                if (i == arr.Length / 2)
+                    continue;
+                if (arr[i].CompareTo(baseNum) < 0)//小于基数
+                    lessBaseArr.Add(arr[i]);
+                else//大于基数
+                    greaterBaseArr.Add(arr[i]);
+            }
+            T[] lesSortArr = lessBaseArr.Count == 0 ? lessBaseArr.ToArray() : QuickSort(lessBaseArr.ToArray());//对小于基数的集合递归调用
+            T[] greaterSortArr = greaterBaseArr.Count == 0 ? greaterBaseArr.ToArray() : QuickSort(greaterBaseArr.ToArray());//对大于基数的集合递归调用
+            List<T> Arr = new List<T>();//用于拼接小于，基数，大于集合
+            Arr.AddRange(lesSortArr);
+            Arr.Add(baseNum);
+            Arr.AddRange(greaterSortArr);
+            return Arr.ToArray();
+        }
+
+        /// <summary>
+        /// 利用二分查找法，在数组中查找元素是否存在
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="arr"></param>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public static bool FindItemByHalfSerach<T>(T[] arr, T item) where T : IComparable
+        {
+            if (arr.Length == 1)//只有一个元素判断是否相等
+                return item.CompareTo(arr[0]) == 0;
+            int middle = arr.Length / 2;
+            T middleItem = arr[middle];
+            bool isFinded = false;
+            if (item.CompareTo(middleItem) < 0)//在比中间元素小的数组中查找
+            {
+                int lessArrayLength = arr.Length % 2 == 0 ? arr.Length - middle : arr.Length - middle - 1;
+                T[] tempArr = new T[lessArrayLength];
+                Array.Copy(arr, 0, tempArr, 0, lessArrayLength);
+                isFinded = FindItemByHalfSerach(tempArr, item);
+            }
+            else if (item.CompareTo(middleItem) > 0)//在比中间元素大的数组中查找
+            {
+                T[] tempArr = new T[arr.Length - middle - 1];
+                Array.Copy(arr, middle + 1, tempArr, 0, arr.Length - middle - 1);
+                isFinded = FindItemByHalfSerach(tempArr, item);
+            }
+            else//中间元素就是查找的元素
+                isFinded = true;
+            return isFinded;
+        }
     }
 }
