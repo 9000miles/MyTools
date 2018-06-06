@@ -30,7 +30,7 @@ public class ExMonoBehaviour : MonoBehaviour
     /// <returns></returns>
     public T ExmPathComponent<T>(string Path)
     {
-        Transform tf = transform.FindChild(Path);
+        Transform tf = transform.Find(Path);
         if (tf == null)
         {
             Debug.LogError("没有这个子物体: " + Path);
