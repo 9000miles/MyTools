@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MyCommonTools
+namespace Common
 {
     ///<summary>
     /// 脚本单例类
@@ -10,6 +10,7 @@ namespace MyCommonTools
     public class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T>
     {
         private static T instance;
+
         //按需加载
         public static T Instance
         {
@@ -24,7 +25,7 @@ namespace MyCommonTools
                         //创建该类型组件对象
                         instance = new GameObject("Singleto of " + typeof(T).ToString()).AddComponent<T>();
                     }
-                    instance.Initialized();//通知实现类初始化
+                    instance.Init();//通知实现类初始化
                 }
                 return instance;
             }
@@ -36,10 +37,11 @@ namespace MyCommonTools
             if (instance == null)
             {
                 instance = this as T;
-                Initialized();//通知实现类初始化
+                Init();//通知实现类初始化
             }
         }
-        protected virtual void Initialized()
+
+        public virtual void Init()
         {
         }
     }

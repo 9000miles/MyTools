@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace MyCommonTools
+namespace Common
 {
     ///  <summary>
     /// 自定义工具类
@@ -13,6 +13,7 @@ namespace MyCommonTools
     public class CommonTools
     {
         #region 字符串处理相关
+
         /// <summary>
         /// 求2个字符串最长公共字符串
         /// </summary>
@@ -49,9 +50,11 @@ namespace MyCommonTools
             }
             return resultString;//最长公共字符串：  fgfgfgfgfgfgf5h45h
         }
+
         #endregion 字符串处理相关
 
         #region 数组处理
+
         /// <summary>
         /// 合并2个数组，根据源数组的排序方式排序
         /// </summary>
@@ -222,9 +225,11 @@ namespace MyCommonTools
             int index = UnityEngine.Random.Range(0, array.Length);
             return array[index];
         }
+
         #endregion 数组处理
 
         #region 声音播放
+
         /// <summary>
         /// 根据名字播放声音
         /// </summary>
@@ -244,9 +249,11 @@ namespace MyCommonTools
             audioSource.clip = audioClip;
             audioSource.Play();
         }
+
         #endregion 声音播放
 
         #region 曲线运动
+
         /// <summary>
         /// 沿曲线运动
         /// </summary>
@@ -265,9 +272,11 @@ namespace MyCommonTools
                 yield return null;
             }
         }
+
         #endregion 曲线运动
 
         #region 距离位置
+
         /// <summary>
         /// 获取指定方向指定距离的位置
         /// </summary>
@@ -299,9 +308,11 @@ namespace MyCommonTools
             }
             return nodePoints;
         }
+
         #endregion 距离位置
 
         #region 方法处理
+
         /// <summary>
         /// 委托调用方法名
         /// </summary>
@@ -318,9 +329,11 @@ namespace MyCommonTools
         {
             obj.GetComponent<MonoBehaviour>().Invoke(methodName.Method.Name, timer);
         }
+
         #endregion 方法处理
 
         #region UI界面相关
+
         /// <summary>
         /// 刷新时间以00：00 格式显示
         /// </summary>
@@ -449,6 +462,7 @@ namespace MyCommonTools
                 yield return new WaitForSeconds(changeTimer);
             }
         }
+
         #endregion UI界面相关
     }
 

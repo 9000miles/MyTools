@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using MyCommonTools;
+using Common;
 public class FindChildTest : MonoBehaviour
 {
     void Start()

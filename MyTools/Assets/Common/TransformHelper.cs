@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MyCommonTools
+namespace Common
 {
     ///<summary>
     /// Transform组件助手类
