@@ -63,4 +63,37 @@ public class MyEditorTools /*: ScriptableWizard*/
                 ChangeChildRaycastTargetValue(go.transform.GetChild(i).gameObject, isOn);
         }
     }
+
+    /// <summary>
+    /// 手动递增改名
+    /// </summary>
+    [MenuItem("MyTools/Change Name")]
+    private static void ChangeNameOneByOne()
+    {
+        ChangeNameWindow window = new ChangeNameWindow();
+        window.Show();
+    }
+
+    /// <summary>
+    /// 排列物体
+    /// </summary>
+    [MenuItem("MyTools/Placing GameObject")]
+    private static void PlacingObject()
+    {
+        PlacingObjectWindow window = new PlacingObjectWindow();
+        window.Show();
+    }
+
+    /// <summary>
+    /// 改变物体激活状态
+    /// </summary>
+    [MenuItem("MyTools/Change GameObject Active State %w")]
+    private static void ToggleActiveState()
+    {
+        GameObject[] select = Selection.gameObjects;
+        foreach (GameObject item in select)
+        {
+            item.SetActive(!item.activeSelf);
+        }
+    }
 }

@@ -36,6 +36,7 @@ public class Student : Person
     public Student(int age, float atk, string str) : base()
     {
     }
+
     //public Student(int age, float atk, string str)
     //{
     //    this.age = age;
@@ -48,31 +49,12 @@ public class Student : Person
 //{
 //}
 
-public class Person
-{
-    public int age;
-    public float atk;
-    public string str;
-    public bool jsie;
-    public int[] arrayInt;
-    public Person()
-    {
-    }
-
-    public Person(int age, float atk, string str, bool js)
-    {
-        this.age = age;
-        this.atk = atk;
-        this.str = str;
-        this.jsie = js;
-    }
-    //public Person()
-    //{ }
-    //public List<Transform> arrayList;
-    //public void Person
-    //{
-    //}
-}
+//public Person()
+//{ }
+//public List<Transform> arrayList;
+//public void Person
+//{
+//}
 
 #region MyRegion
 
@@ -117,4 +99,5 @@ public class Person
 //    //DestroyImmediate(gogo, false);
 //    //DontDestroyOnLoad(gogo);
 //}
+
 #endregion MyRegion

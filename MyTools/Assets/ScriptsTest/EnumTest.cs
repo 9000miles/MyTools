@@ -7,7 +7,11 @@ public class EnumTest : MonoBehaviour
 {
     [EnumFlags]
     public EEHHH eHHH;
-
+    [Header("First")]
+    public int age;
+    public int owljo;
+    [SerializeField]
+    private int oaoejojw;
     public void Start()
     {
         int value = (int)eHHH;

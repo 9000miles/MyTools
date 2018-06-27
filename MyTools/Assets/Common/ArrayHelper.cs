@@ -103,7 +103,7 @@ namespace Common
         /// <param name="array">需要查找的对象数组</param>
         /// <param name="condition">查找条件</param>
         /// <returns></returns>
-        public static T GetMaxObject<T, Q>(this T[] array, Func<T, Q> condition) where Q : IComparable
+        public static T GetMax<T, Q>(this T[] array, Func<T, Q> condition) where Q : IComparable
         {
             T max = array[0];
             for (int i = 1; i < array.Length; i++)
@@ -120,7 +120,7 @@ namespace Common
         /// <param name="array">需要查找的对象数组</param>
         /// <param name="condition">查找条件</param>
         /// <returns></returns>
-        public static T GetMinObject<T, Q>(this T[] array, Func<T, Q> condition) where Q : IComparable
+        public static T GetMin<T, Q>(this T[] array, Func<T, Q> condition) where Q : IComparable
         {
             T min = array[0];
             for (int i = 1; i < array.Length; i++)

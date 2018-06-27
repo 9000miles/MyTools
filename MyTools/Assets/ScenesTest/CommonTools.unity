@@ -2608,7 +2608,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0066689ccdac3647a213ec42e067b9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eHHH: 16
+  eHHH: 17
+  age: 0
+  owljo: 0
+  oaoejojw: -42
 --- !u!1 &1206666713
 GameObject:
   m_ObjectHideFlags: 0

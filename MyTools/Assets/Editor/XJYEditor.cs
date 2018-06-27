@@ -1,10 +1,4 @@
-﻿/*编辑器常用小功能整合
- * By:xiongjunyu
- *QQ:506994768@qq.com
- * 编辑器快捷键：%ctrl #shift &Alt _无
- */
-
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -21,16 +15,6 @@ public class QuickEditor : EditorWindow
     public static string endName = "1";
 
     #region 快捷操作
-
-    [MenuItem("Quick/快捷操作/物体激活关闭 %w")]
-    private static void ToggleActiveState()
-    {
-        GameObject[] select = Selection.gameObjects;
-        foreach (GameObject item in select)
-        {
-            item.SetActive(!item.activeSelf);
-        }
-    }
 
     [MenuItem("Quick/快捷操作/只激活当前选择(在同一个父物体下,如果父物体下所有物体已禁用则激活所有物体) %e")]
     private static void ToggleActiveStateOnChild()
@@ -71,13 +55,6 @@ public class QuickEditor : EditorWindow
     {
         GameObject[] gos = GameObject.FindGameObjectsWithTag(tag);
         Selection.objects = gos;
-    }
-
-    [MenuItem("Quick/改名/手动递增改名 %q")]
-    private static void ChangeNameOneByOne()
-    {
-        Selection.activeGameObject.name = firstName + No.ToString();
-        No++;
     }
 
     private static void ChangeChidrensEndName()
