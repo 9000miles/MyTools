@@ -112,5 +112,15 @@ namespace Common
             );
             return list.ToArray();
         }
+
+        /// <summary>
+        /// 获取最近的物体，从身边开始查找
+        /// </summary>
+        /// <param name="currentTF"></param>
+        /// <returns></returns>
+        public static Transform GetMinDistanceObject(this Transform currentTF)
+        {
+            return null;
+        }
     }
 }

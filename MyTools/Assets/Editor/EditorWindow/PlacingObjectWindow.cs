@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEditor;
 using Common;
 
+/// <summary>
+/// 按照间距排列物体，可重置为初始位置，可快速将三维向量数值归零
+/// </summary>
 public class PlacingObjectWindow : EditorWindow
 {
     private static Vector3 spaceV;
@@ -18,11 +21,6 @@ public class PlacingObjectWindow : EditorWindow
     {
         EditorGUILayout.BeginHorizontal();
         spaceV = EditorGUILayout.Vector3Field("间距：", spaceV);
-        //if (GUILayout.Button("归零"))
-        //{
-        //    spaceV = Vector3.zero;
-        //    EditorGUILayout .Vector3Field()
-        //}
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.BeginHorizontal();
@@ -50,6 +48,11 @@ public class PlacingObjectWindow : EditorWindow
             {
                 selecteObject[i].transform.position = minSibling.transform.position;
             }
+        }
+        if (GUILayout.Button("数值归零"))
+        {
+            spaceV = Vector3.zero;
+            spaceV = EditorGUILayout.Vector3Field("", spaceV);
         }
         EditorGUILayout.EndHorizontal();
     }

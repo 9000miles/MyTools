@@ -1,4 +1,7 @@
-﻿using UnityEditor;
+﻿
+using System.Collections.Generic;
+using System.IO;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -94,6 +97,38 @@ public class MyEditorTools /*: ScriptableWizard*/
         foreach (GameObject item in select)
         {
             item.SetActive(!item.activeSelf);
+        }
+    }
+
+    /// <summary>
+    /// 改变物体激活状态
+    /// </summary>
+    [MenuItem("MyTools/GetObjectName")]
+    private static void GetObjectName()
+    {
+        GameObject[] select = Selection.gameObjects;
+        List<string> list = new List<string>();
+        foreach (GameObject item in select)
+        {
+            foreach (var childItem in item.GetComponentsInChildren<Transform>())
+            {
+                //ArticalTag tag = childItem.GetComponent<ArticalTag>();
+                //if (tag == null && childItem.transform.parent != null && childItem.transform.parent.name.Contains("Res_Map"))
+                //{
+                //    list.Add(childItem.name);
+                //}
+            }
+        }
+        if (list.Count > 0)
+        {
+            FileInfo file = new FileInfo(@"D:\MyWorkSpace\MyNotes\NotAddedArticalTagObjectName.txt");
+            StreamWriter writer = file.AppendText();
+            foreach (var item in list)
+            {
+                writer.WriteLine(item);
+            }
+            writer.Flush();
+            writer.Close();
         }
     }
 }
