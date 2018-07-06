@@ -19,7 +19,6 @@ public class ChangeNameWindow : EditorWindow
         EditorGUILayout.BeginHorizontal();
         GUILayout.Space(5);
         GUIStyle style = new GUIStyle();
-        //style.alignment = TextAnchor.MiddleCenter;//调节没有什么变化
         style.fixedWidth = 55;
         RectOffset offset = new RectOffset();
         offset.top = 2;
