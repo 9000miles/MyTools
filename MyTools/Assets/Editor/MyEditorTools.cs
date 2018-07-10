@@ -100,35 +100,63 @@ public class MyEditorTools /*: ScriptableWizard*/
     }
 
     /// <summary>
-    /// 改变物体激活状态
+    /// 获取选中的物体数量
     /// </summary>
-    [MenuItem("MyTools/GetObjectName")]
-    private static void GetObjectName()
+    [MenuItem("MyTools/Get Object Count")]
+    private static void GetObjectCount()
     {
         GameObject[] select = Selection.gameObjects;
-        GameObjectHelper.GetPaths(select);
-        //List<string> list = new List<string>();
-        //foreach (GameObject item in select)
-        //{
-        //    foreach (var childItem in item.GetComponentsInChildren<Transform>())
-        //    {
-        //        //ArticalTag tag = childItem.GetComponent<ArticalTag>();
-        //        //if (tag == null && childItem.transform.parent != null && childItem.transform.parent.name.Contains("Res_Map"))
-        //        //{
-        //        //    list.Add(childItem.name);
-        //        //}
-        //    }
-        //}
-        //if (list.Count > 0)
-        //{
-        //    FileInfo file = new FileInfo(@"D:\MyWorkSpace\MyNotes\NotAddedArticalTagObjectName.txt");
-        //    StreamWriter writer = file.AppendText();
-        //    foreach (var item in list)
-        //    {
-        //        writer.WriteLine(item);
-        //    }
-        //    writer.Flush();
-        //    writer.Close();
-        //}
+        int count = 0;
+        foreach (var item in select)
+        {
+            count += item.GetComponentsInChildren<Transform>().Length;
+            //count += GetObjcetCount(item);
+        }
+        Debug.Log(string.Format("-------选中{0}个物体，共有{1}个物体-------", select.Length, count));
+    }
+
+    private static int GetObjcetCount(GameObject go)
+    {
+        int count = 0;
+        if (go.transform.childCount > 0)
+        {
+            Transform[] tfs = go.transform.GetComponentsInChildren<Transform>();
+            foreach (var item in tfs)
+            {
+                if (item != go.transform)
+                    count += GetObjcetCount(item.gameObject);
+            }
+        }
+        else
+            count = 1;
+        return count;
+    }
+
+    /// <summary>
+    /// 选中Player
+    /// </summary>
+    [MenuItem("MyTools/Selected Player &Q")]
+    private static void SelectedPlayer()
+    {
+        GameObject player;
+        player = GameObject.Find("Player");
+        if (player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
+        if (player != null)
+        {
+            Selection.activeGameObject = player;
+        }
+    }
+
+    /// <summary>
+    /// 打开选择物体窗口
+    /// </summary>
+    [MenuItem("MyTools/Open Seleted Window")]
+    private static void OpenSelectionWindow()
+    {
+        SelectedGameObjectWindow window = new SelectedGameObjectWindow();
+        window.Show();
     }
 }
