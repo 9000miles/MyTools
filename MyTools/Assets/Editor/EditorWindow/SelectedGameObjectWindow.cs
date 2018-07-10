@@ -5,7 +5,7 @@ using UnityEditor;
 
 public class SelectedGameObjectWindow : EditorWindow
 {
-    /// <summary> 存储的容量大小 /// </summary>
+    /// <summary> 存储的容量大小 </summary>
     private static string count;
 
     /// <summary> 选中的物体集合 </summary>
@@ -16,7 +16,7 @@ public class SelectedGameObjectWindow : EditorWindow
 
     private void OnGUI()
     {
-        Window();
+        ShowWindow();
     }
 
     private void OnSelectionChange()
@@ -34,11 +34,17 @@ public class SelectedGameObjectWindow : EditorWindow
         if (selecte != null && objectList.Contains(selecte) == false)
         {
             int num = 0;
+            if (string.IsNullOrEmpty(count) || string.IsNullOrWhiteSpace(count))
+                return;
             if (int.TryParse(count, out num))
             {
                 if (objectList.Count >= num)
                 {
-                    objectList.RemoveAt(0);
+                    int n = objectList.Count - num;
+                    for (int i = 0; i <= n; i++)
+                    {
+                        objectList.RemoveAt(0);
+                    }
                 }
                 objectList.Add(selecte);
             }
@@ -76,7 +82,7 @@ public class SelectedGameObjectWindow : EditorWindow
     /// <summary>
     /// 窗口显示图元
     /// </summary>
-    private void Window()
+    private void ShowWindow()
     {
         EditorGUILayout.BeginHorizontal();
         GUILayout.Space(8);
