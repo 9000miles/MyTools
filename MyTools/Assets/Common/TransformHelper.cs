@@ -1,5 +1,6 @@
 ﻿using Common;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 namespace Common
@@ -121,6 +122,26 @@ namespace Common
         public static Transform GetMinDistanceObject(this Transform currentTF)
         {
             return null;
+        }
+
+        private static Vector3 ConverVector3(this Transform currentTF,string str,out string posStr)
+        {
+            Regex regex = new Regex(@"\([\d\.\,\ \-]*\)");
+            Match match = regex.Match(str);
+            posStr = match.Value;
+            string position = match.Value.Replace("(", "").Replace(")", "");
+            string[] pos = position.Split(',');
+            return new Vector3(float.Parse(pos[0]), float.Parse(pos[1]), float.Parse(pos[2]));
+        }
+
+        private static Quaternion ConvetQuaternion(this Transform currentTF,string str,out string rotStr)
+        {
+            Regex regex = new Regex(@"\([\d\.\,\ \-]*\)");
+            Match match = regex.Match(str);
+            rotStr = match.Value;
+            string rotation = match.Value.Replace("(", "").Replace(")", "");
+            string[] rot = rotation.Split(',');
+            return new Quaternion(float.Parse(rot[0]), float.Parse(rot[1]), float.Parse(rot[2]), float.Parse(rot[3]));
         }
     }
 }

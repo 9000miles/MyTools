@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Common;
+using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -147,6 +148,34 @@ public class MyEditorTools /*: ScriptableWizard*/
         if (player != null)
         {
             Selection.activeGameObject = player;
+        }
+    }
+
+    /// <summary>
+    /// Alt+Up向上移动GameObject的层级
+    /// </summary>
+    [MenuItem("MyTools/Move Up GameObject In Hierarchy &UP")]
+    private static void MoveUpGameObjectInHierarchy()
+    {
+        GameObject[] gos = Selection.gameObjects;
+        gos.OrderAscending((t) => t.transform.GetSiblingIndex());
+        foreach (var item in gos)
+        {
+            item.transform.SetSiblingIndex(item.transform.GetSiblingIndex() - 1);
+        }
+    }
+
+    /// <summary>
+    /// Alt+Down向下移动GameObject的层级
+    /// </summary>
+    [MenuItem("MyTools/Move Down GameObject In Hierarchy &DOWN")]
+    private static void MoveDownGameObjectInTheHierarchy()
+    {
+        GameObject[] gos = Selection.gameObjects;
+        gos.OrderDescending((t) => t.transform.GetSiblingIndex());
+        foreach (var item in gos)
+        {
+            item.transform.SetSiblingIndex(item.transform.GetSiblingIndex() + 1);
         }
     }
 
