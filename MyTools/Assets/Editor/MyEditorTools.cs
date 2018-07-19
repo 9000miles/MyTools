@@ -70,7 +70,7 @@ public class MyEditorTools /*: ScriptableWizard*/
     /// <summary>
     /// 手动递增改名
     /// </summary>
-    [MenuItem("MyTools/Change Name")]
+    [MenuItem("MyTools/Change Name[W]")]
     private static void ChangeNameOneByOne()
     {
         ChangeNameWindow window = new ChangeNameWindow();
@@ -188,4 +188,6 @@ public class MyEditorTools /*: ScriptableWizard*/
         SelectedGameObjectWindow window = new SelectedGameObjectWindow();
         window.Show();
     }
+
+    //功能：查找指定物体 是否在选中的物体中，如果在则选中此物体（如果有多个物体，则全部展开），否则提示没有。
 }

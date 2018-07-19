@@ -124,7 +124,14 @@ namespace Common
             return null;
         }
 
-        private static Vector3 ConverVector3(this Transform currentTF,string str,out string posStr)
+        /// <summary>
+        /// 将字符串转换成Vector3，输出该Vector3字符串
+        /// </summary>
+        /// <param name="currentTF"></param>
+        /// <param name="str">包含该格式的字符串"*(19.34, 1.5, 4.56)*"</param>
+        /// <param name="posStr">"输出该格式的字符串"(19.34, 1.5, 4.56)"</param>
+        /// <returns>返回Vector3值</returns>
+        public static Vector3 ConverVector3(this Transform currentTF, string str, out string posStr)
         {
             Regex regex = new Regex(@"\([\d\.\,\ \-]*\)");
             Match match = regex.Match(str);
@@ -134,7 +141,14 @@ namespace Common
             return new Vector3(float.Parse(pos[0]), float.Parse(pos[1]), float.Parse(pos[2]));
         }
 
-        private static Quaternion ConvetQuaternion(this Transform currentTF,string str,out string rotStr)
+        /// <summary>
+        /// 将字符串转换成Quaternion，输出该Quaternion字符串
+        /// </summary>
+        /// <param name="currentTF"></param>
+        /// <param name="str">包含该格式的字符串"*(0, 0.1961161, 0, 0.9805807)*"</param>
+        /// <param name="rotStr">"输出该格式的字符串"(0, 0.1961161, 0, 0.9805807)"</param>
+        /// <returns></returns>
+        public static Quaternion ConvetQuaternion(this Transform currentTF, string str, out string rotStr)
         {
             Regex regex = new Regex(@"\([\d\.\,\ \-]*\)");
             Match match = regex.Match(str);
