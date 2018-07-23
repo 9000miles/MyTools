@@ -1,4 +1,5 @@
 ﻿using Common;
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
@@ -11,7 +12,7 @@ namespace Common
     public static class TransformHelper
     {
         /// <summary>
-        /// 查找后代物体。
+        /// 根据名字查找子物体。
         /// </summary>
         /// <param name="tf"></param>
         /// <param name="childName">需要查找的后代物体名字</param>
@@ -33,13 +34,13 @@ namespace Common
         }
 
         /// <summary>
-        /// 根据子物体查找孙子物体。
+        /// 根据子名字和孙子名字，查找孙子物体。
         /// </summary>
         /// <param name="tf"></param>
         /// <param name="childName">子物体名字</param>
-        /// <param name="grandChild">孙子物体名字</param>
+        /// <param name="grandsonChild">孙子物体名字</param>
         /// <returns>根据名字查找的物体</returns>
-        public static Transform FindChildByName(this Transform tf, string childName, string grandChild)
+        public static Transform FindChildByName(this Transform tf, string childName, string grandsonChild)
         {
             //根据查找子物体
             Transform childTF = tf.Find(childName);
@@ -50,12 +51,12 @@ namespace Common
                 return null;
 
             //根据子物体，查找孙子物体
-            Transform grandChildTF = childTF.Find(grandChild);
+            Transform grandChildTF = childTF.Find(grandsonChild);
             if (grandChildTF != null)
                 return grandChildTF;
             for (int i = 0; i < childTF.childCount; i++)
             {
-                grandChildTF = childTF.GetChild(i).FindChildByName(grandChild);
+                grandChildTF = childTF.GetChild(i).FindChildByName(grandsonChild);
                 if (grandChildTF != null)
                     return grandChildTF;
             }
@@ -90,14 +91,14 @@ namespace Common
         }
 
         /// <summary>
-        /// 计算周边物体
+        /// 获取周边物体
         /// </summary>
         /// <param name="currentTF"></param>
         /// <param name="distance">距离</param>
         /// <param name="angle">角度</param>
         /// <param name="tags">标签</param>
         /// <returns></returns>
-        public static Transform[] CalculateAroundObject(this Transform currentTF, float distance, float angle, params string[] tags)
+        public static Transform[] GetAroundObject(this Transform currentTF, float distance, float angle, params string[] tags)
         {
             List<Transform> list = new List<Transform>();
             //根据所有标签查找物体
@@ -109,19 +110,81 @@ namespace Common
             //判断物体是否在攻击范围(距离、角度)
             list = list.FindAll(t =>
                  Vector3.Distance(t.position, currentTF.position) <= distance &&
-                 Vector3.Angle(currentTF.forward, t.position - currentTF.position) <= angle / 2
+                 Vector3.Angle(currentTF.forward, t.position - currentTF.position) <= angle / 2f
             );
             return list.ToArray();
         }
 
         /// <summary>
-        /// 获取最近的物体，从身边开始查找
+        /// 查找指定范围内的物体
         /// </summary>
         /// <param name="currentTF"></param>
-        /// <returns></returns>
-        public static Transform GetMinDistanceObject(this Transform currentTF)
+        /// <param name="arrary">目标数组</param>
+        /// <param name="distance">距离</param>
+        /// <param name="angle">角度</param>
+        /// <returns>匹配的数组</returns>
+        public static Transform[] GetAroundObject(this Transform currentTF, Transform[] arrary, float distance, float angle)
         {
-            return null;
+            if (arrary == null || arrary.Length <= 0) return null;
+            //返回指定范围内的物体(距离、角度)
+            return arrary.FindAll(t =>
+                 Vector3.Distance(t.position, currentTF.position) <= distance &&
+                 Vector3.Angle(currentTF.forward, t.position - currentTF.position) <= angle / 2f
+            );
+        }
+
+        /// <summary>
+        /// 获取最近的物体，在指定范围内查找，要求被查找物体有Collider组件
+        /// </summary>
+        /// <param name="currentTF"></param>
+        /// <param name="distance">距离</param>
+        /// <param name="angle">角度</param>
+        /// <param name="tags">标签数组</param>
+        /// <returns></returns>
+        public static Transform GetMinDistanceObject(this Transform currentTF, float distance, float angle, params string[] tags)
+        {
+            Collider[] colliders = Physics.OverlapSphere(currentTF.position, distance);
+            List<Collider> list = new List<Collider>();
+            foreach (var item in colliders)
+            {
+                if (Array.Exists(tags, (t) => item.tag == t) && item.transform != currentTF)
+                    list.Add(item);
+            }
+            if (list.Count <= 0) return null;
+
+            Transform[] tfs = colliders.GetOtherComponets((t) => t.GetComponent<Transform>());
+            Transform[] matchTFs = currentTF.GetAroundObject(tfs, distance, angle);
+            Transform minDistanceTF = matchTFs.GetMin((t) => Vector3.Distance(t.position, currentTF.position));
+            return minDistanceTF;
+        }
+
+        /// <summary>
+        /// 获取其它的Componet组件
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="Q">需要获取的组件类型</typeparam>
+        /// <param name="array">源数组</param>
+        /// <param name="func">GetComponet<<typeparamref name="Q"/>>()</param>
+        /// <param name="isMustGetAll">是否必须全部获得</param>
+        /// <returns>需要获取的组件数组</returns>
+        public static Q[] GetOtherComponets<T, Q>(this T[] array, Func<T, Q> func, bool isMustGetAll = true) where T : Component
+        {
+            List<Q> list = new List<Q>();
+            foreach (var item in array)
+            {
+                Q temp = func(item);
+                if (temp != null)
+                    list.Add(temp);
+            }
+            if (isMustGetAll == true)
+            {
+                if (array.Length != list.Count)
+                {
+                    Debug.LogError("Some components are not retrieved");
+                    return null;
+                }
+            }
+            return list.ToArray();
         }
 
         /// <summary>
@@ -156,6 +219,80 @@ namespace Common
             string rotation = match.Value.Replace("(", "").Replace(")", "");
             string[] rot = rotation.Split(',');
             return new Quaternion(float.Parse(rot[0]), float.Parse(rot[1]), float.Parse(rot[2]), float.Parse(rot[3]));
+        }
+
+        /// <summary>
+        /// 获取该物体的路径
+        /// </summary>
+        /// <param name="tf"></param>
+        /// <returns></returns>
+        public static string GetSelfPath(this Transform currentTF)
+        {
+            if (currentTF == null) return null;
+            string path = currentTF.name;
+            while (currentTF.transform.parent != null)
+            {
+                currentTF = currentTF.parent;
+                path = currentTF.name + "/" + path;
+            }
+            return path;
+        }
+
+        /// <summary>
+        /// 获取选中的多个物体路径
+        /// </summary>
+        /// <param name="tfs"></param>
+        /// <returns></returns>
+        public static string[] GetSelfPaths(this Transform[] tfs)
+        {
+            List<string> pathList = new List<string>();
+            foreach (var item in tfs)
+            {
+                pathList.Add(item.GetSelfPath());
+            }
+            return pathList.ToArray();
+        }
+
+        /// <summary>
+        /// 获取选中的多个物体路径
+        /// </summary>
+        /// <param name="tfList"></param>
+        /// <returns></returns>
+        public static string[] GetSelfPaths(this List<Transform> tfList)
+        {
+            return tfList.ToArray().GetSelfPaths();
+        }
+
+        /// <summary>
+        /// 获取本身和孩子的路径
+        /// </summary>
+        /// <param name="currentTF"></param>
+        /// <returns></returns>
+        public static string[] GetSelfAndChilderPaths(this Transform currentTF)
+        {
+            List<string> pathList = new List<string>();
+            Transform[] tfs = currentTF.GetComponentsInChildren<Transform>();
+            foreach (var item in tfs)
+            {
+                pathList.Add(item.GetSelfPath());
+            }
+            return pathList.ToArray();
+        }
+
+        /// <summary>
+        /// 获取本身和孩子的路径
+        /// </summary>
+        /// <param name="tfs"></param>
+        /// <returns></returns>
+        public static string[] GetSelfAndChilderPaths(this Transform[] tfs)
+        {
+            List<string> pathList = new List<string>();
+            foreach (var item in tfs)
+            {
+                string[] itemPaths = item.GetSelfAndChilderPaths();
+                pathList.AddRange(itemPaths);
+            }
+            return pathList.ToArray();
         }
     }
 }

@@ -26,6 +26,7 @@ namespace Common
         /// <param name="handler">排序依据</param>
         public static void OrderAscending<T, Q>(this T[] array, Func<T, Q> handler) where Q : IComparable
         {
+            if (array == null || array.Length <= 0) return;
             for (int i = 0; i < array.Length - 1; i++)
             {
                 for (int j = i + 1; j < array.Length; j++)
@@ -49,6 +50,7 @@ namespace Common
         /// <param name="handler">排序依据</param>
         public static void OrderDescending<T, Q>(this T[] array, Func<T, Q> handler) where Q : IComparable
         {
+            if (array == null || array.Length <= 0) return;
             for (int i = 0; i < array.Length - 1; i++)
             {
                 for (int j = i + 1; j < array.Length; j++)
@@ -72,6 +74,7 @@ namespace Common
         /// <returns></returns>
         public static T[] FindAll<T>(this T[] array, Func<T, bool> condition)
         {
+            if (array == null || array.Length <= 0) return null;
             List<T> list = new List<T>(array.Length);
             for (int i = 0; i < array.Length; i++)
                 if (condition(array[i]))
@@ -89,6 +92,7 @@ namespace Common
         /// <returns></returns>
         public static Q[] Select<T, Q>(this T[] array, Func<T, Q> handler)
         {
+            if (array == null || array.Length <= 0) return null;
             Q[] newArray = new Q[array.Length];
             for (int i = 0; i < array.Length; i++)
                 newArray[i] = handler(array[i]);
@@ -105,6 +109,7 @@ namespace Common
         /// <returns></returns>
         public static T GetMax<T, Q>(this T[] array, Func<T, Q> condition) where Q : IComparable
         {
+            if (array == null || array.Length <= 0) return default(T);
             T max = array[0];
             for (int i = 1; i < array.Length; i++)
                 if (condition(max).CompareTo(condition(array[i])) < 0)
@@ -122,6 +127,7 @@ namespace Common
         /// <returns></returns>
         public static T GetMin<T, Q>(this T[] array, Func<T, Q> condition) where Q : IComparable
         {
+            if (array == null || array.Length <= 0) return default(T);
             T min = array[0];
             for (int i = 1; i < array.Length; i++)
                 if (condition(min).CompareTo(condition(array[i])) > 0)

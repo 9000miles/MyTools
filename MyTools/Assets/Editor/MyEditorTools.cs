@@ -70,7 +70,7 @@ public class MyEditorTools /*: ScriptableWizard*/
     /// <summary>
     /// 手动递增改名
     /// </summary>
-    [MenuItem("MyTools/Change Name[W]")]
+    [MenuItem("MyTools/Change Name [W]")]
     private static void ChangeNameOneByOne()
     {
         ChangeNameWindow window = new ChangeNameWindow();
@@ -80,7 +80,7 @@ public class MyEditorTools /*: ScriptableWizard*/
     /// <summary>
     /// 排列物体
     /// </summary>
-    [MenuItem("MyTools/Placing GameObject")]
+    [MenuItem("MyTools/Placing GameObject [W]")]
     private static void PlacingObject()
     {
         PlacingObjectWindow window = new PlacingObjectWindow();
@@ -182,12 +182,21 @@ public class MyEditorTools /*: ScriptableWizard*/
     /// <summary>
     /// 打开选择物体窗口
     /// </summary>
-    [MenuItem("MyTools/Open Seleted Window")]
+    [MenuItem("MyTools/Open Selete History Window [W]")]
     private static void OpenSelectionWindow()
     {
         SelectedGameObjectWindow window = new SelectedGameObjectWindow();
         window.Show();
     }
 
-    //功能：查找指定物体 是否在选中的物体中，如果在则选中此物体（如果有多个物体，则全部展开），否则提示没有。
+    //查找指定物体 是否在选中的物体中，如果在则选中此物体（如果有多个物体，则全部展开），否则提示没有。
+    /// <summary>
+    /// 查找指定物体，是否在选中的物体中
+    /// </summary>
+    [MenuItem("MyTools/Find Object Window [W]")]
+    private static void FindObject()
+    {
+        FindObjectWindow window = new FindObjectWindow();
+        window.Show();
+    }
 }
