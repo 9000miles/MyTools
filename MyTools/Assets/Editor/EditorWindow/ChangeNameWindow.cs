@@ -17,10 +17,12 @@ public class ChangeNameWindow : EditorWindow
 
     private void SetStyle()
     {
+        titleContent = new GUIContent("更改名字");
         style = new GUIStyle();
         style.fixedWidth = 55;
         offset = new RectOffset();
         offset.top = 2;
+        offset.left = 5;
         style.padding = offset;
         style.normal.background = null;
         style.normal.textColor = new Color(0.7f, 0.7f, 0.7f);

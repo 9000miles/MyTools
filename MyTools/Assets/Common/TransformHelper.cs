@@ -176,13 +176,10 @@ namespace Common
                 if (temp != null)
                     list.Add(temp);
             }
-            if (isMustGetAll == true)
+            if (isMustGetAll == true && array.Length != list.Count)
             {
-                if (array.Length != list.Count)
-                {
-                    Debug.LogError("Some components are not retrieved");
-                    return null;
-                }
+                Debug.LogError("Some components are not retrieved");
+                return null;
             }
             return list.ToArray();
         }
@@ -268,7 +265,7 @@ namespace Common
         /// </summary>
         /// <param name="currentTF"></param>
         /// <returns></returns>
-        public static string[] GetSelfAndChilderPaths(this Transform currentTF)
+        public static string[] GetSelfAndChildrenPaths(this Transform currentTF)
         {
             List<string> pathList = new List<string>();
             Transform[] tfs = currentTF.GetComponentsInChildren<Transform>();
@@ -284,12 +281,12 @@ namespace Common
         /// </summary>
         /// <param name="tfs"></param>
         /// <returns></returns>
-        public static string[] GetSelfAndChilderPaths(this Transform[] tfs)
+        public static string[] GetSelfAndChildrenPaths(this Transform[] tfs)
         {
             List<string> pathList = new List<string>();
             foreach (var item in tfs)
             {
-                string[] itemPaths = item.GetSelfAndChilderPaths();
+                string[] itemPaths = item.GetSelfAndChildrenPaths();
                 pathList.AddRange(itemPaths);
             }
             return pathList.ToArray();

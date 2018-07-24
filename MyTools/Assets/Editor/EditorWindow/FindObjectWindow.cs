@@ -17,8 +17,6 @@ public class FindObjectWindow : EditorWindow
     private GUIStyle labelStyle;
     private RectOffset offset;
     private List<string> pathList = new List<string>();
-    private List<GameObject> resultList = new List<GameObject>();
-    private string path = "";
     private string tipStr = "";
 
     private void OnGUI()
@@ -68,7 +66,7 @@ public class FindObjectWindow : EditorWindow
             //if (GUILayout.Button("显示", buttonStyle))
             {
                 List<GameObject> goList = new List<GameObject>();
-                goList = GetAllSceneObjectsWithInactive("All");
+                goList = GetGamaObjectInHierarchy("All");
                 GameObject go = goList.Find((t) => t.GetSelfPath() == item);
                 Selection.activeGameObject = go;
             }
@@ -80,7 +78,7 @@ public class FindObjectWindow : EditorWindow
     private void FindInSelection(GameObject[] gos)
     {
         tipStr = "在选中的物体中";
-        string[] allPaths = gos.GetSelfAndChilderPaths();
+        string[] allPaths = gos.GetSelfAndChildrenPaths();
         if (isAllMatch == true)
         {
             string[] matchPath = allPaths.FindAll((str) =>
@@ -109,7 +107,7 @@ public class FindObjectWindow : EditorWindow
     {
         tipStr = "在整个Hierarchy面板中";
         List<GameObject> goList = new List<GameObject>();
-        goList = GetAllSceneObjectsWithInactive("All");
+        goList = GetGamaObjectInHierarchy("All");
         string[] allPaths = goList.GetSelfPaths();
 
         if (isAllMatch == true)
@@ -141,7 +139,7 @@ public class FindObjectWindow : EditorWindow
     /// </summary>
     /// <param name="type">请输入"All"、"Active"或者"UnActive"</param>
     /// <returns></returns>
-    private List<GameObject> GetAllSceneObjectsWithInactive(string type)
+    private List<GameObject> GetGamaObjectInHierarchy(string type)
     {
         var allTransforms = Resources.FindObjectsOfTypeAll(typeof(Transform));
         var previousSelection = Selection.objects;
@@ -163,7 +161,7 @@ public class FindObjectWindow : EditorWindow
                     .Cast<UnityEngine.Object>().ToArray();
                 break;
 
-            //只获取所有在Hierarchy中被禁用的物体  "UnActive"
+            //获取在Hierarchy中所有被禁用的物体（只包含禁用）  "UnActive"
             case "UnActive":
                 Selection.objects = allTransforms.Cast<Transform>().Where(x => x != null)
                     .Select(x => x.gameObject)
@@ -172,7 +170,7 @@ public class FindObjectWindow : EditorWindow
                 break;
 
             default:
-                Debug.LogError("输入参数错误");
+                Debug.LogError("type参数错误，请输入All 、Active或者UnActive");
                 return null;
         }
 
@@ -180,22 +178,6 @@ public class FindObjectWindow : EditorWindow
         Selection.objects = previousSelection;
         return selectedTransforms.Select(tr => tr.gameObject).ToList();
     }
-
-    //private void SetStyleTest()
-    //{
-    //    style = new GUIStyle();
-    //    style = GUISkin. new GUISkin().button;
-    //    GUISkin skin = new GUISkin();
-    //    style = skin.textField;
-    //    skin.button =
-    //    style.fixedWidth = 55;
-    //    style.alignment = TextAnchor.MiddleLeft;
-    //    offset = new RectOffset();
-    //    offset.top = 2;
-    //    style.padding = offset;
-    //    style.normal.background = null;
-    //    style.normal.textColor = new Color(0.7f, 0.7f, 0.7f);
-    //}
 
     private void SetButtonStyle()
     {

@@ -182,7 +182,7 @@ public class MyEditorTools /*: ScriptableWizard*/
     /// <summary>
     /// 打开选择物体窗口
     /// </summary>
-    [MenuItem("MyTools/Open Selete History Window [W]")]
+    [MenuItem("MyTools/Open Selete History [W]")]
     private static void OpenSelectionWindow()
     {
         SelectedGameObjectWindow window = new SelectedGameObjectWindow();
@@ -193,7 +193,7 @@ public class MyEditorTools /*: ScriptableWizard*/
     /// <summary>
     /// 查找指定物体，是否在选中的物体中
     /// </summary>
-    [MenuItem("MyTools/Find Object Window [W]")]
+    [MenuItem("MyTools/Find Object [W]")]
     private static void FindObject()
     {
         FindObjectWindow window = new FindObjectWindow();

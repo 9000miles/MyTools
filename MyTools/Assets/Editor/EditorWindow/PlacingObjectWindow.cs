@@ -19,6 +19,7 @@ public class PlacingObjectWindow : EditorWindow
 
     private void PlacingObject()
     {
+        titleContent = new GUIContent("阵列物体");
         EditorGUILayout.BeginHorizontal();
         spaceV = EditorGUILayout.Vector3Field("间距：", spaceV);
         EditorGUILayout.EndHorizontal();

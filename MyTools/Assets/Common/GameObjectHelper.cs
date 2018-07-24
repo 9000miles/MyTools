@@ -2,6 +2,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public static class GameObjectHelper
@@ -53,7 +55,7 @@ public static class GameObjectHelper
     /// </summary>
     /// <param name="currentGO"></param>
     /// <returns></returns>
-    public static string[] GetSelfAndChilderPaths(this GameObject currentGO)
+    public static string[] GetSelfAndChildrenPaths(this GameObject currentGO)
     {
         List<string> pathList = new List<string>();
         Transform[] tfs = currentGO.GetComponentsInChildren<Transform>();
@@ -69,12 +71,12 @@ public static class GameObjectHelper
     /// </summary>
     /// <param name="gos"></param>
     /// <returns></returns>
-    public static string[] GetSelfAndChilderPaths(this GameObject[] gos)
+    public static string[] GetSelfAndChildrenPaths(this GameObject[] gos)
     {
         List<string> pathList = new List<string>();
         foreach (var item in gos)
         {
-            string[] itemPaths = item.GetSelfAndChilderPaths();
+            string[] itemPaths = item.GetSelfAndChildrenPaths();
             pathList.AddRange(itemPaths);
         }
         return pathList.ToArray();
@@ -111,31 +113,47 @@ public static class GameObjectHelper
     }
 
     /// <summary>
-    /// 获取其它的Componet组件
+    /// 用于获取所有Hierarchy中的物体，包括被禁用的物体
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <typeparam name="Q">需要获取的组件类型</typeparam>
-    /// <param name="array">源数组</param>
-    /// <param name="func">GetComponet<<typeparamref name="Q"/>>()</param>
-    /// <param name="isMustGetAll">是否必须全部获得</param>
-    /// <returns>需要获取的组件数组</returns>
-    public static Q[] GetOtherComponets<T, Q>(this T[] array, Func<T, Q> func, bool isMustGetAll = true) where T : Component
+    /// <param name="type">请输入"All"、"Active"或者"UnActive"</param>
+    /// <returns></returns>
+    private static List<GameObject> GetGamaObjectInHierarchy(string type)
     {
-        List<Q> list = new List<Q>();
-        foreach (var item in array)
+        var allTransforms = Resources.FindObjectsOfTypeAll(typeof(Transform));
+        var previousSelection = Selection.objects;
+        switch (type)
         {
-            Q temp = func(item);
-            if (temp != null)
-                list.Add(temp);
-        }
-        if (isMustGetAll == true)
-        {
-            if (array.Length != list.Count)
-            {
-                Debug.LogError("Some components are not retrieved");
+            //获取在Hierarchy中所有的物体（包含禁用）"All"
+            case "All":
+                Selection.objects = allTransforms.Cast<Transform>().Where(x => x != null)
+               .Select(x => x.gameObject)
+               .Where(x => x != null || !x.activeInHierarchy)
+               .Cast<UnityEngine.Object>().ToArray();
+                break;
+
+            //获取在Hierarchy中所有激活的物体（不包含禁用）"Active"
+            case "Active":
+                Selection.objects = allTransforms.Cast<Transform>().Where(x => x != null)
+                    .Select(x => x.gameObject)
+                    .Where(x => x != null && x.activeInHierarchy)
+                    .Cast<UnityEngine.Object>().ToArray();
+                break;
+
+            //获取在Hierarchy中所有被禁用的物体（只包含禁用）  "UnActive"
+            case "UnActive":
+                Selection.objects = allTransforms.Cast<Transform>().Where(x => x != null)
+                    .Select(x => x.gameObject)
+                    .Where(x => x != null && !x.activeInHierarchy)
+                    .Cast<UnityEngine.Object>().ToArray();
+                break;
+
+            default:
+                Debug.LogError("type参数错误，请输入All 、Active或者UnActive");
                 return null;
-            }
         }
-        return list.ToArray();
+
+        var selectedTransforms = Selection.GetTransforms(SelectionMode.Editable | SelectionMode.ExcludePrefab);
+        Selection.objects = previousSelection;
+        return selectedTransforms.Select(tr => tr.gameObject).ToList();
     }
 }

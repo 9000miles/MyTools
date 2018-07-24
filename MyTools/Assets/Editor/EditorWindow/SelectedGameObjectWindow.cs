@@ -6,7 +6,7 @@ using UnityEditor;
 public class SelectedGameObjectWindow : EditorWindow
 {
     /// <summary> 存储的容量大小 </summary>
-    private static string count;
+    private static string count = "10";
 
     /// <summary> 选中的物体集合 </summary>
     private static List<GameObject> objectList = new List<GameObject>();
@@ -84,6 +84,7 @@ public class SelectedGameObjectWindow : EditorWindow
     /// </summary>
     private void ShowWindow()
     {
+        titleContent = new GUIContent("选择物体历史记录窗口");
         EditorGUILayout.BeginHorizontal();
         GUILayout.Space(8);
         GUIStyle style = new GUIStyle();
