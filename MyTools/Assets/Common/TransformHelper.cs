@@ -127,9 +127,13 @@ namespace Common
         {
             if (arrary == null || arrary.Length <= 0) return null;
             //返回指定范围内的物体(距离、角度)
+            //return arrary.FindAll(t =>
+            //     Vector3.Distance(t.position, currentTF.position) <= distance &&
+            //     Vector3.Angle(currentTF.forward, t.position - currentTF.position) <= angle / 2f
+            //);
             return arrary.FindAll(t =>
                  Vector3.Distance(t.position, currentTF.position) <= distance &&
-                 Vector3.Angle(currentTF.forward, t.position - currentTF.position) <= angle / 2f
+                 Vector3.Angle(currentTF.forward, Vector3.ProjectOnPlane(t.position - currentTF.position, currentTF.up)) <= angle / 2f
             );
         }
 
@@ -152,7 +156,7 @@ namespace Common
             }
             if (list.Count <= 0) return null;
 
-            Transform[] tfs = colliders.GetOtherComponets((t) => t.GetComponent<Transform>());
+            Transform[] tfs = list.ToArray().GetOtherComponets((t) => t.GetComponent<Transform>());
             Transform[] matchTFs = currentTF.GetAroundObject(tfs, distance, angle);
             Transform minDistanceTF = matchTFs.GetMin((t) => Vector3.Distance(t.position, currentTF.position));
             return minDistanceTF;

@@ -1,19 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Common;
 
 public class LookObjectTest : MonoBehaviour
 {
-    private void Start()
-    {
-    }
+    public float distance = 5;
+    public float angle = 60;
+    private Transform lastTF;
 
     private void Update()
     {
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        Debug.Log(other.name);
+        Transform tf = transform.GetMinDistanceObject(distance, angle, "Respawn"/*, "Finish"*/);
+        if (tf != lastTF)
+        {
+            if (tf != null)
+                tf.GetComponent<MeshRenderer>().material.color = Color.red;
+            if (lastTF != null)
+                lastTF.GetComponent<MeshRenderer>().material.color = Color.white;
+            lastTF = tf;
+        }
     }
 }

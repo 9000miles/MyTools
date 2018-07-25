@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using Common;
 
 public class ChangeNameWindow : EditorWindow
 {
@@ -64,14 +65,12 @@ public class ChangeNameWindow : EditorWindow
             int number;
             if (int.TryParse(strNo, out number))
             {
-                int firstIndex = 0;
                 selecteObject = Selection.gameObjects;
                 if (selecteObject.Length <= 0) return;
-                firstIndex = selecteObject[0].transform.GetSiblingIndex();
+                selecteObject.OrderAscending((t) => t.transform.GetSiblingIndex());
                 for (int i = 0; i < selecteObject.Length; i++)
                 {
                     selecteObject[i].name = firstName + number.ToString() + strSuffix;
-                    selecteObject[i].transform.SetSiblingIndex(firstIndex + i);
                     number++;
                 }
             }

@@ -6,6 +6,9 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
+/// <summary>
+/// 添加查找组件的功能，可以将脚本拖入到框中，进行查找
+/// </summary>
 public class FindObjectWindow : EditorWindow
 {
     private static string objectName = "";
