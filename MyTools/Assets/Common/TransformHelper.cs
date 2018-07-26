@@ -143,9 +143,10 @@ namespace Common
         /// <param name="currentTF"></param>
         /// <param name="distance">距离</param>
         /// <param name="angle">角度</param>
-        /// <param name="tags">标签数组</param>
+        /// <param name="isPenetrate">是否穿透墙壁</param>
+        /// <param name="tags">标签</param>
         /// <returns></returns>
-        public static Transform GetMinDistanceObject(this Transform currentTF, float distance, float angle, params string[] tags)
+        public static Transform GetMinDistanceObject(this Transform currentTF, float distance, float angle, bool isPenetrate, params string[] tags)
         {
             Collider[] colliders = Physics.OverlapSphere(currentTF.position, distance);
             List<Collider> list = new List<Collider>();
@@ -158,7 +159,26 @@ namespace Common
 
             Transform[] tfs = list.ToArray().GetOtherComponets((t) => t.GetComponent<Transform>());
             Transform[] matchTFs = currentTF.GetAroundObject(tfs, distance, angle);
-            Transform minDistanceTF = matchTFs.GetMin((t) => Vector3.Distance(t.position, currentTF.position));
+            Transform minDistanceTF = null;
+            if (isPenetrate)
+            {
+                List<Transform> getList = new List<Transform>();
+                foreach (var item in matchTFs)
+                {
+                    RaycastHit hit = new RaycastHit();
+                    bool isGet = Physics.Raycast(currentTF.position, (item.position - currentTF.position).normalized, out hit, distance);
+                    Debug.DrawLine(currentTF.position, hit.point);
+                    if (isGet == true && hit.transform == item)
+                    {
+                        getList.Add(item);
+                    }
+                }
+                minDistanceTF = getList.ToArray().GetMin((t) => Vector3.Distance(t.position, currentTF.position));
+            }
+            else
+            {
+                minDistanceTF = matchTFs.GetMin((t) => Vector3.Distance(t.position, currentTF.position));
+            }
             return minDistanceTF;
         }
 
