@@ -7,7 +7,6 @@ namespace Common
 {
     public class TxtHelper
     {
-        private readonly string filePath = @"E:\360Downloads\Hjofowe";
         private DirectoryInfo directoryInfo;
         private FileInfo fileInfo;
         private string txt = string.Empty;
@@ -15,9 +14,9 @@ namespace Common
 
         public TxtHelper(string path, string fileName)
         {
-            if (!Directory.Exists(filePath))
+            if (!Directory.Exists(path))
             {
-                Directory.CreateDirectory(filePath);
+                Directory.CreateDirectory(path);
             }
             directoryInfo = new DirectoryInfo(path);
             if (!directoryInfo.Exists)
@@ -40,7 +39,7 @@ namespace Common
             }
         }
 
-        public void ClearTxt()
+        public void EmptyTxt()
         {
             File.Open(pathAllName, FileMode.Create).Dispose();
         }

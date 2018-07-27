@@ -1313,7 +1313,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
 
             if (isExist)
             {
-                txtHelper.ClearTxt();
+                txtHelper.EmptyTxt();
                 int index = Array.FindIndex(txtLine, (t) => t.StartsWith(path));
                 txtLine[index] = path + positionStr;
                 txtLine[index] += rotationStr;
