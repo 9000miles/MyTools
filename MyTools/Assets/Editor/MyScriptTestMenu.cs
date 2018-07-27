@@ -20,10 +20,4 @@ public class MyScriptTestMenu
         txtHelper.Write("pohperpjoijioew");
         txtHelper.Write("eojoiogoreooi");
     }
-
-    [MenuItem("My Script Test Menu/Execute Test ChongXie", false, 2)]
-    private static void ExecuteTestChong()
-    {
-        txtHelper.ClearTxt();
-    }
 }

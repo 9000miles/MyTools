@@ -11,9 +11,13 @@ using UnityEngine;
 /// </summary>
 public class FindObjectWindow : EditorWindow
 {
-    private static string objectName = "";
+    private static string inputText = "";
     private static bool isAllMatch;
     private static bool isIgnoreCase = true;
+    private static bool isByName;
+    private static bool isByTag;
+    private static bool isByLayer;
+    private static bool isToggleGroup;
     private Vector2 scrollPos;
     private Vector2 size;
     private GUIStyle buttonStyle;
@@ -27,27 +31,41 @@ public class FindObjectWindow : EditorWindow
         titleContent = new GUIContent("查找物体");
         GUILayout.Space(5);
         GUILayout.Label("请输入需要查找物体的名字：");
-        objectName = GUILayout.TextField(objectName);
+        inputText = GUILayout.TextField(inputText);
 
         EditorGUILayout.BeginHorizontal();
         isAllMatch = GUILayout.Toggle(isAllMatch, "全字匹配");
         isIgnoreCase = GUILayout.Toggle(isIgnoreCase, "忽略大小写");
         EditorGUILayout.EndHorizontal();
 
+        isToggleGroup = EditorGUILayout.BeginToggleGroup("根据什么查找", isToggleGroup);
+        isByName = GUILayout.Toggle(isByName, "根据名字查找");
+        isByTag = GUILayout.Toggle(isByTag, "根据标签查找");
+        isByLayer = GUILayout.Toggle(isByLayer, "根据层查找");
+        EditorGUILayout.EndToggleGroup();
+
         if (GUILayout.Button("查找"))
         {
-            if (objectName == "") return;
+            if (inputText == "") return;
             pathList.Clear();
             GameObject[] gos = Selection.gameObjects;
+            string findWay = null;
+            if (isByName == true)
+                findWay = "ByName_" + inputText;
+            if (isByTag == true)
+                findWay = "ByTag_" + inputText;
+            if (isByLayer == true)
+                findWay = "ByLayer" + inputText;
+
             //在选中的物体中进行查找
             if (gos.Length > 0)
             {
-                FindInSelection(gos);
+                FindInSelection(gos, findWay);
             }
             //如果没有选中，在整个Hierarchy面板中查找
             else
             {
-                FindInHierarchy();
+                FindInHierarchy(findWay);
             }
         }
 
@@ -78,17 +96,43 @@ public class FindObjectWindow : EditorWindow
         GUILayout.EndScrollView();
     }
 
-    private void FindInSelection(GameObject[] gos)
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="gos"></param>
+    /// <param name="findWay">ByTag_Player</param>
+    private void FindInSelection(GameObject[] gos, string findWay)
     {
         tipStr = "在选中的物体中";
-        string[] allPaths = gos.GetSelfAndChildrenPaths();
+        string way = findWay.Substring(0, findWay.IndexOf('_'));
+        string text = findWay.Substring(findWay.IndexOf('_') + 1);
+        string[] allPaths = null;
+        switch (way)
+        {
+            case "ByName":
+                allPaths = gos.GetSelfAndChildrenPaths();
+                break;
+
+            case "ByTag":
+                allPaths = gos.FindAll((t) =>
+                {
+                    bool result = false;
+                    result = isIgnoreCase ? t.tag.ToLower() == text.ToLower() : t.tag == text;
+                    return result;
+                }).ToArray().GetSelfAndChildrenPaths();
+                break;
+
+            case "ByLayer":
+                allPaths = gos.FindAll((t) => t.layer == LayerMask.NameToLayer(text)).GetSelfAndChildrenPaths();
+                break;
+        }
         if (isAllMatch == true)
         {
             string[] matchPath = allPaths.FindAll((str) =>
             {
                 int index = str.LastIndexOf('/');
                 str = str.Substring(index + 1);
-                bool result = isIgnoreCase ? str.ToLower().Equals(objectName.ToLower()) : str.Equals(objectName);
+                bool result = isIgnoreCase ? str.ToLower().Equals(inputText.ToLower()) : str.Equals(inputText);
                 return result;
             });
             pathList.AddRange(matchPath);
@@ -99,19 +143,45 @@ public class FindObjectWindow : EditorWindow
             {
                 int index = str.LastIndexOf('/');
                 str = str.Substring(index + 1);
-                bool result = isIgnoreCase ? str.ToLower().Contains(objectName.ToLower()) : str.Contains(objectName);
+                bool result = isIgnoreCase ? str.ToLower().Contains(inputText.ToLower()) : str.Contains(inputText);
                 return result;
             });
             pathList.AddRange(matchPath);
         }
     }
 
-    private void FindInHierarchy()
+    private void FindInHierarchy(string findWay)
     {
         tipStr = "在整个Hierarchy面板中";
+        string way = findWay.Substring(0, findWay.IndexOf('_'));
+        string text = findWay.Substring(findWay.IndexOf('_') + 1);
         List<GameObject> goList = new List<GameObject>();
         goList = GetGamaObjectInHierarchy("All");
-        string[] allPaths = goList.GetSelfPaths();
+        string[] allPaths = null;
+        switch (way)
+        {
+            case "ByName":
+                allPaths = goList.GetSelfPaths();
+                break;
+
+            case "ByTag":
+                allPaths = goList.FindAll((t) =>
+                {
+                    bool result = false;
+                    result = isIgnoreCase ? t.tag.ToLower() == text.ToLower() : t.tag == text;
+                    return result;
+                }).ToArray().GetSelfAndChildrenPaths();
+                break;
+
+            case "ByLayer":
+                //allPaths = goList.FindAll((t) =>
+                //{
+                //    bool result = false;
+                //    result = isIgnoreCase ? t.layer == LayerMask.NameToLayer(text) : t.layer == LayerMask.NameToLayer(text);
+                //    return result;
+                //}).ToArray().GetSelfAndChildrenPaths();
+                break;
+        }
 
         if (isAllMatch == true)
         {
@@ -119,7 +189,7 @@ public class FindObjectWindow : EditorWindow
             {
                 int index = str.LastIndexOf('/');
                 str = str.Substring(index + 1);
-                bool result = isIgnoreCase ? str.ToLower().Equals(objectName.ToLower()) : str.Equals(objectName);
+                bool result = isIgnoreCase ? str.ToLower().Equals(inputText.ToLower()) : str.Equals(inputText);
                 return result;
             });
             pathList.AddRange(matchPath);
@@ -130,7 +200,7 @@ public class FindObjectWindow : EditorWindow
             {
                 int index = str.LastIndexOf('/');
                 str = str.Substring(index + 1);
-                bool result = isIgnoreCase ? str.ToLower().Contains(objectName.ToLower()) : str.Contains(objectName);
+                bool result = isIgnoreCase ? str.ToLower().Contains(inputText.ToLower()) : str.Contains(inputText);
                 return result;
             });
             pathList.AddRange(matchPath);
