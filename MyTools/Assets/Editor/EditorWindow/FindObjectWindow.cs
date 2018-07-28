@@ -11,83 +11,234 @@ using UnityEngine;
 /// </summary>
 public class FindObjectWindow : EditorWindow
 {
-    private static string inputText = "";
-    private static bool isAllMatch;
-    private static bool isIgnoreCase = true;
-    private static bool isByName;
-    private static bool isByTag;
-    private static bool isByLayer;
-    private static bool isToggleGroup;
+    private bool isAllMatch = false;
+    private bool isIgnoreCase = true;
+    private int pageIndex = 0;
+    private int layerField = 0;
+    private string tagField = "Untagged";
+    private string inputText = "";
+    private string tipStr = "";
+    private string[] pageNames = new string[] { "根据名字（Name）查找", "根据标签（Tag）查找", "根据层级（Layer）查找" };
     private Vector2 scrollPos;
-    private Vector2 size;
     private GUIStyle buttonStyle;
     private GUIStyle labelStyle;
     private RectOffset offset;
-    private List<string> pathList = new List<string>();
-    private string tipStr = "";
+    private List<string> namePathList = new List<string>();
+    private List<string> tagPathList = new List<string>();
+    private List<string> layerPathList = new List<string>();
 
     private void OnGUI()
     {
+        DrawPage();
+        DisplayResult();
+    }
+
+    private void DrawPage()
+    {
+        pageIndex = GUILayout.Toolbar(pageIndex, pageNames);
+        switch (pageIndex)
+        {
+            case 0:
+                DrawInterface("请输入需要查找物体的名字（Name）：", pageIndex);
+                break;
+            case 1:
+                DrawInterface("请选择需要查找的标签（Tag）：", pageIndex);
+                break;
+            case 2:
+                DrawInterface("请选择需要查找的层级（Layer）：", pageIndex);
+                break;
+        }
+    }
+
+    private void DrawInterface(string label, int pageIndex)
+    {
         titleContent = new GUIContent("查找物体");
         GUILayout.Space(5);
-        GUILayout.Label("请输入需要查找物体的名字：");
-        inputText = GUILayout.TextField(inputText);
-
         EditorGUILayout.BeginHorizontal();
-        isAllMatch = GUILayout.Toggle(isAllMatch, "全字匹配");
-        isIgnoreCase = GUILayout.Toggle(isIgnoreCase, "忽略大小写");
+        SetLableStyle(label.Length * 11f, TextAnchor.MiddleLeft, 2, 5);
+        GUILayout.Label(label, labelStyle);
+        switch (pageIndex)
+        {
+            case 0:
+                inputText = GUILayout.TextField(inputText);
+                break;
+            case 1:
+                tagField = EditorGUILayout.TagField(tagField);
+                break;
+            case 2:
+                layerField = EditorGUILayout.LayerField(layerField);
+                break;
+        }
         EditorGUILayout.EndHorizontal();
 
-        isToggleGroup = EditorGUILayout.BeginToggleGroup("根据什么查找", isToggleGroup);
-        isByName = GUILayout.Toggle(isByName, "根据名字查找");
-        isByTag = GUILayout.Toggle(isByTag, "根据标签查找");
-        isByLayer = GUILayout.Toggle(isByLayer, "根据层查找");
-        EditorGUILayout.EndToggleGroup();
-
-        if (GUILayout.Button("查找"))
+        if (pageIndex == 0)
         {
-            if (inputText == "") return;
-            pathList.Clear();
-            GameObject[] gos = Selection.gameObjects;
-            string findWay = null;
-            if (isByName == true)
-                findWay = "ByName_" + inputText;
-            if (isByTag == true)
-                findWay = "ByTag_" + inputText;
-            if (isByLayer == true)
-                findWay = "ByLayer" + inputText;
-
-            //在选中的物体中进行查找
-            if (gos.Length > 0)
-            {
-                FindInSelection(gos, findWay);
-            }
-            //如果没有选中，在整个Hierarchy面板中查找
-            else
-            {
-                FindInHierarchy(findWay);
-            }
+            EditorGUILayout.BeginHorizontal();
+            isAllMatch = GUILayout.Toggle(isAllMatch, "全字匹配");
+            isIgnoreCase = GUILayout.Toggle(isIgnoreCase, "忽略大小写");
+            EditorGUILayout.EndHorizontal();
         }
 
+        GUILayout.Space(5);
+        if (GUILayout.Button("查找"))
+        {
+            switch (pageIndex)
+            {
+                case 0:
+                    if (inputText == "") return;
+                    namePathList.Clear();
+                    break;
+                case 1:
+                    tagPathList.Clear();
+                    break;
+                case 2:
+                    layerPathList.Clear();
+                    break;
+            }
+
+            GameObject[] gos = Selection.gameObjects;
+            if (gos.Length > 0) //在选中的物体中进行查找
+            {
+                FindInSelection(gos, pageIndex);
+            }
+            else//如果没有选中，在整个Hierarchy面板中查找
+            {
+                FindInHierarchy(pageIndex);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 在选中的物体中查找
+    /// </summary>
+    /// <param name="gos"></param>
+    /// <param name="pageIndex">当前页面索引</param>
+    private void FindInSelection(GameObject[] gos, int pageIndex)
+    {
+        tipStr = "在选中的物体中";
+        string[] allPaths = null;
+        switch (pageIndex)
+        {
+            case 0:
+                allPaths = gos.GetSelfAndChildrenPaths();
+                if (isAllMatch == true)
+                {
+                    string[] matchPath = allPaths.FindAll((str) =>
+                    {
+                        int index = str.LastIndexOf('/');
+                        str = str.Substring(index + 1);
+                        bool result = isIgnoreCase ? str.ToLower().Equals(inputText.ToLower()) : str.Equals(inputText);
+                        return result;
+                    });
+                    namePathList.AddRange(matchPath);
+                }
+                else
+                {
+                    string[] matchPath = allPaths.FindAll((str) =>
+                    {
+                        int index = str.LastIndexOf('/');
+                        str = str.Substring(index + 1);
+                        bool result = isIgnoreCase ? str.ToLower().Contains(inputText.ToLower()) : str.Contains(inputText);
+                        return result;
+                    });
+                    namePathList.AddRange(matchPath);
+                }
+                break;
+            case 1:
+                allPaths = gos.FindAll((t) => t.tag == tagField).GetSelfPaths();
+                tagPathList.AddRange(allPaths);
+                break;
+            case 2:
+                allPaths = gos.FindAll((t) => t.layer == layerField).GetSelfPaths();
+                layerPathList.AddRange(allPaths);
+                break;
+        }
+    }
+
+    private void FindInHierarchy(int pageIndex)
+    {
+        tipStr = "在整个Hierarchy面板中";
+        List<GameObject> goList = new List<GameObject>();
+        goList = GetGamaObjectsInHierarchy("All");
+        string[] allPaths = null;
+        switch (pageIndex)
+        {
+            case 0:
+                allPaths = goList.GetSelfPaths();
+                if (isAllMatch == true)
+                {
+                    string[] matchPath = allPaths.FindAll((str) =>
+                    {
+                        int index = str.LastIndexOf('/');
+                        str = str.Substring(index + 1);
+                        bool result = isIgnoreCase ? str.ToLower().Equals(inputText.ToLower()) : str.Equals(inputText);
+                        return result;
+                    });
+                    namePathList.AddRange(matchPath);
+                }
+                else
+                {
+                    string[] matchPath = allPaths.FindAll((str) =>
+                    {
+                        int index = str.LastIndexOf('/');
+                        str = str.Substring(index + 1);
+                        bool result = isIgnoreCase ? str.ToLower().Contains(inputText.ToLower()) : str.Contains(inputText);
+                        return result;
+                    });
+                    namePathList.AddRange(matchPath);
+                }
+                break;
+            case 1:
+                allPaths = goList.FindAll((t) => t.tag == tagField).GetSelfPaths();
+                tagPathList.AddRange(allPaths);
+                break;
+            case 2:
+                allPaths = goList.FindAll((t) => t.layer == layerField).GetSelfPaths();
+                layerPathList.AddRange(allPaths);
+                break;
+        }
+    }
+
+    private void DisplayResult()
+    {
+        List<string> result = new List<string>();
+        switch (pageIndex)
+        {
+            //根据名字查找
+            case 0:
+                result = namePathList;
+                break;
+            //根据Tag查找
+            case 1:
+                result = tagPathList;
+                break;
+            //根据Layer查找
+            case 2:
+                result = layerPathList;
+                break;
+        }
         SetLableStyle(50, TextAnchor.MiddleRight, 2, 5);
         GUILayout.Space(10);
+
         EditorGUILayout.BeginHorizontal();
-        GUILayout.Label(string.Format("[  {0}  ] 查找到的结果如下（单击显示查看位置）：", tipStr));
-        GUILayout.Label(string.Format("[ 共找到  {0}  个 ]", pathList.Count), labelStyle);
+        GUILayout.Label(string.Format("[  {0}  ] 查找到的结果如下（单击显示查看位置）：", result.Count > 0 ? tipStr : ""));
+        GUILayout.Label(string.Format("[ 共找到  {0}  个 ]", result.Count), labelStyle);
         EditorGUILayout.EndHorizontal();
+
         SetButtonStyle();
         SetLableStyle(position.width - 80, TextAnchor.MiddleLeft, 8, 10);
+
         //绘制查找到的结果按钮
         scrollPos = GUILayout.BeginScrollView(scrollPos, GUILayout.ExpandWidth(false), GUILayout.ExpandHeight(true));
-        foreach (var item in pathList)
+        foreach (var item in result)
         {
             EditorGUILayout.BeginHorizontal();
             GUILayout.TextArea(item, labelStyle);
+            //EditorGUILayout.SelectableLabel(item/*, labelStyle*/);
             if (GUILayout.Button(new GUIContent("显示")))
-            //if (GUILayout.Button("显示", buttonStyle))
             {
                 List<GameObject> goList = new List<GameObject>();
-                goList = GetGamaObjectInHierarchy("All");
+                goList = GetGamaObjectsInHierarchy("All");
                 GameObject go = goList.Find((t) => t.GetSelfPath() == item);
                 Selection.activeGameObject = go;
             }
@@ -97,126 +248,15 @@ public class FindObjectWindow : EditorWindow
     }
 
     /// <summary>
-    ///
-    /// </summary>
-    /// <param name="gos"></param>
-    /// <param name="findWay">ByTag_Player</param>
-    private void FindInSelection(GameObject[] gos, string findWay)
-    {
-        tipStr = "在选中的物体中";
-        string way = findWay.Substring(0, findWay.IndexOf('_'));
-        string text = findWay.Substring(findWay.IndexOf('_') + 1);
-        string[] allPaths = null;
-        switch (way)
-        {
-            case "ByName":
-                allPaths = gos.GetSelfAndChildrenPaths();
-                break;
-
-            case "ByTag":
-                allPaths = gos.FindAll((t) =>
-                {
-                    bool result = false;
-                    result = isIgnoreCase ? t.tag.ToLower() == text.ToLower() : t.tag == text;
-                    return result;
-                }).ToArray().GetSelfAndChildrenPaths();
-                break;
-
-            case "ByLayer":
-                allPaths = gos.FindAll((t) => t.layer == LayerMask.NameToLayer(text)).GetSelfAndChildrenPaths();
-                break;
-        }
-        if (isAllMatch == true)
-        {
-            string[] matchPath = allPaths.FindAll((str) =>
-            {
-                int index = str.LastIndexOf('/');
-                str = str.Substring(index + 1);
-                bool result = isIgnoreCase ? str.ToLower().Equals(inputText.ToLower()) : str.Equals(inputText);
-                return result;
-            });
-            pathList.AddRange(matchPath);
-        }
-        else
-        {
-            string[] matchPath = allPaths.FindAll((str) =>
-            {
-                int index = str.LastIndexOf('/');
-                str = str.Substring(index + 1);
-                bool result = isIgnoreCase ? str.ToLower().Contains(inputText.ToLower()) : str.Contains(inputText);
-                return result;
-            });
-            pathList.AddRange(matchPath);
-        }
-    }
-
-    private void FindInHierarchy(string findWay)
-    {
-        tipStr = "在整个Hierarchy面板中";
-        string way = findWay.Substring(0, findWay.IndexOf('_'));
-        string text = findWay.Substring(findWay.IndexOf('_') + 1);
-        List<GameObject> goList = new List<GameObject>();
-        goList = GetGamaObjectInHierarchy("All");
-        string[] allPaths = null;
-        switch (way)
-        {
-            case "ByName":
-                allPaths = goList.GetSelfPaths();
-                break;
-
-            case "ByTag":
-                allPaths = goList.FindAll((t) =>
-                {
-                    bool result = false;
-                    result = isIgnoreCase ? t.tag.ToLower() == text.ToLower() : t.tag == text;
-                    return result;
-                }).ToArray().GetSelfAndChildrenPaths();
-                break;
-
-            case "ByLayer":
-                //allPaths = goList.FindAll((t) =>
-                //{
-                //    bool result = false;
-                //    result = isIgnoreCase ? t.layer == LayerMask.NameToLayer(text) : t.layer == LayerMask.NameToLayer(text);
-                //    return result;
-                //}).ToArray().GetSelfAndChildrenPaths();
-                break;
-        }
-
-        if (isAllMatch == true)
-        {
-            string[] matchPath = allPaths.FindAll((str) =>
-            {
-                int index = str.LastIndexOf('/');
-                str = str.Substring(index + 1);
-                bool result = isIgnoreCase ? str.ToLower().Equals(inputText.ToLower()) : str.Equals(inputText);
-                return result;
-            });
-            pathList.AddRange(matchPath);
-        }
-        else
-        {
-            string[] matchPath = allPaths.FindAll((str) =>
-            {
-                int index = str.LastIndexOf('/');
-                str = str.Substring(index + 1);
-                bool result = isIgnoreCase ? str.ToLower().Contains(inputText.ToLower()) : str.Contains(inputText);
-                return result;
-            });
-            pathList.AddRange(matchPath);
-        }
-    }
-
-    /// <summary>
     /// 用于获取所有Hierarchy中的物体，包括被禁用的物体
     /// </summary>
-    /// <param name="type">请输入"All"、"Active"或者"UnActive"</param>
+    /// <param name="range">请输入"All"、"Active"或者"UnActive"</param>
     /// <returns></returns>
-    private List<GameObject> GetGamaObjectInHierarchy(string type)
+    private List<GameObject> GetGamaObjectsInHierarchy(string range)
     {
         var allTransforms = Resources.FindObjectsOfTypeAll(typeof(Transform));
         var previousSelection = Selection.objects;
-        switch (type)
+        switch (range)
         {
             //获取在Hierarchy中所有的物体（包含禁用）"All"
             case "All":
