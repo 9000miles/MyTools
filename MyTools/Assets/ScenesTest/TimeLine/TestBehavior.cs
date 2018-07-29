@@ -4,10 +4,13 @@ using UnityEngine;
 
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
+using UnityEngine.UI;
 
 public class TestBehavior : PlayableBehaviour
 {
     private PlayableDirector playableDirector;
+    private Text textA;
+    private Text textB;
 
     public override void OnBehaviourDelay(Playable playable, FrameData info)
     {
@@ -25,6 +28,8 @@ public class TestBehavior : PlayableBehaviour
     {
         base.OnBehaviourPlay(playable, info);
         playableDirector = GameObject.Find("TimeLine").GetComponent<PlayableDirector>();
+        textA = GameObject.Find("TextA").GetComponent<Text>();
+        textB = GameObject.Find("TextB").GetComponent<Text>();
         //Debug.Log("OnBehaviourPlay");
     }
 
@@ -49,6 +54,12 @@ public class TestBehavior : PlayableBehaviour
     public override void PrepareFrame(Playable playable, FrameData info)//每帧调用
     {
         base.PrepareFrame(playable, info);
+        PlayableTrack playableTrack = playableDirector.playableAsset.outputs as PlayableTrack;
+        IEnumerable<TimelineClip> timelineClips = playableTrack.GetClips();
+        foreach (var item in timelineClips)
+        {
+            Debug.Log(item.displayName);
+        }
         //Debug.Log("PrepareFrame" + "            " + playableDirector.time);
     }
 
