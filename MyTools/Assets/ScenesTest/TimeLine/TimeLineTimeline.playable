@@ -21,6 +21,18 @@ MonoBehaviour:
     m_Framerate: 60
   m_DurationMode: 0
   m_Version: 0
+--- !u!114 &114001386932817786
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b1c35f04c8d917439e1b0ea1c8bc45a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: 
 --- !u!114 &114048234971597626
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -33,9 +45,6 @@ MonoBehaviour:
   m_Name: (Clone)(Clone)
   m_EditorClassIdentifier: 
   text: "\u9B54\u5076\u5947\u5076\u8BA9\u59D0\u59D0\u54E6"
-  listener:
-    exposedName: 
-    defaultValue: {fileID: 0}
 --- !u!114 &114199693725470022
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -261,7 +270,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: TestAsset
     m_Version: 1
-  - m_Start: 28.433333333333334
+  - m_Start: 28.583333333333332
     m_ClipIn: 0
     m_Asset: {fileID: 114493142633442310}
     m_Duration: 10.76666666666667
@@ -330,6 +339,75 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: TestAsset
     m_Version: 1
+  - m_Start: 42.833333333333336
+    m_ClipIn: 0
+    m_Asset: {fileID: 114001386932817786}
+    m_Duration: 5
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 114199693725470022}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: TestAsset
+    m_Version: 1
   m_Version: 1
 --- !u!114 &114307193872676482
 MonoBehaviour:
@@ -343,9 +421,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: 
-  listener:
-    exposedName: 
-    defaultValue: {fileID: 0}
 --- !u!114 &114398675389405266
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -358,9 +433,6 @@ MonoBehaviour:
   m_Name: (Clone)
   m_EditorClassIdentifier: 
   text: "\u5947\u5076\u56F4\u6BB4\u79EF\u5206\u6CD5"
-  listener:
-    exposedName: 
-    defaultValue: {fileID: 0}
 --- !u!114 &114493142633442310
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -373,9 +445,6 @@ MonoBehaviour:
   m_Name: (Clone)(Clone)(Clone)
   m_EditorClassIdentifier: 
   text: "\u6B27\u6587\u53EF\u504F\u504FPVP\u6015\u70ED"
-  listener:
-    exposedName: 
-    defaultValue: {fileID: 0}
 --- !u!114 &114682419504532650
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -388,9 +457,6 @@ MonoBehaviour:
   m_Name: (Clone)
   m_EditorClassIdentifier: 
   text: "\u6539\u91D1\u878D\u7EA0\u7EB7\u672A\u4ED8\u6B3E\u53EF "
-  listener:
-    exposedName: 
-    defaultValue: {fileID: 0}
 --- !u!114 &114692725832992868
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -402,10 +468,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b1c35f04c8d917439e1b0ea1c8bc45a, type: 3}
   m_Name: (Clone)(Clone)(Clone)(Clone)
   m_EditorClassIdentifier: 
-  text: "\u6539\u5076\u5947\u5076\u53D1\u6587\u6B27\u4F69\u514B\u54E6\u6392\u4F4D "
-  listener:
-    exposedName: 
-    defaultValue: {fileID: 0}
+  text: "\u6539\u5076\u5947\u5076\u53D1\u6587\u6B27\u4F69\u514B\u54E6\u6392\u4F4D
+    \u5947\u5076\u53D1\u7ED9\u5076\u52A0\u6211\u8033\u673A\u54E6\u9644\u8FD1\u5076\u5947\u5076\u623F\u95F4\u6211\u8033\u673A\u5076\u5BB6\u4F5B\u6559\u6211\u8033\u673A\u4F5B\n\u7B80\u6B27\u98CE\u666F\u54E6\u63A5\u54E6\u54E6\u54E6\u9762\u819C\u65B9\u9762\u6C83\u5C14\u592B\u54E6\u4EEC\u4F5B\u6C83\u6069\u4F5B\u5F04\u54E6\u4F60\u5947\u5076\u5947\u5076\u53D1\u5947\u5076\u6587\u4EF6\u4F5B\u6559\u5076\u5BB6\u997F\u54E6\u623F\u95F4\u5076\u5BB6\u5947\u5076\u91D1\u4F5B\u6211\n\u7B80\u6B27\u7B80\u6B27\u98CE\u666F\u54E6\u6211\u5C31\u997F\u54E6\u9E21\u5C3E\u9152\u54E6\u54E6\u5F04\u5F04\u54E6\u7B80\u6B27\u98CE\u666F\u54E6\u672A\u63A5\u6B27\u6587"
 --- !u!114 &114795750442289914
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -418,9 +482,6 @@ MonoBehaviour:
   m_Name: (Clone)(Clone)
   m_EditorClassIdentifier: 
   text: "\u89E3\u8026\u6539\u5947\u5076\u5947\u5076\u4F5B\u513F\u54E6"
-  listener:
-    exposedName: 
-    defaultValue: {fileID: 0}
 --- !u!114 &114833403322309448
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -433,9 +494,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: "\u7ED9\u5076\u52A0\u79EF\u5206\u4E3A"
-  listener:
-    exposedName: 
-    defaultValue: {fileID: 0}
 --- !u!114 &114930663494191380
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -588,7 +646,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: TestAsset
     m_Version: 1
-  - m_Start: 21.25
+  - m_Start: 21.249999999999986
     m_ClipIn: 0
     m_Asset: {fileID: 114962931030811434}
     m_Duration: 5
@@ -597,7 +655,7 @@ MonoBehaviour:
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
     m_BlendInDuration: -1
-    m_BlendOutDuration: 0
+    m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -647,7 +705,7 @@ MonoBehaviour:
     m_ParentTrack: {fileID: 114937225477128686}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 0
+    m_BlendInDuration: -1
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
@@ -690,10 +748,10 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: TestAsset
     m_Version: 1
-  - m_Start: 41.36666666666667
+  - m_Start: 40.25
     m_ClipIn: 0
     m_Asset: {fileID: 114307193872676482}
-    m_Duration: 5
+    m_Duration: 7.583333333333336
     m_TimeScale: 1
     m_ParentTrack: {fileID: 114937225477128686}
     m_EaseInDuration: 0
@@ -772,6 +830,3 @@ MonoBehaviour:
   m_Name: (Clone)(Clone)(Clone)
   m_EditorClassIdentifier: 
   text: "\u89E3\u8026\u6539\u5947\u5076\u5076\u8089\u8033\u673A\u54E6\u5A46\u5A46 "
-  listener:
-    exposedName: 
-    defaultValue: {fileID: 0}
