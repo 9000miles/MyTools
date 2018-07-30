@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class DelayTest : MonoBehaviour
 {
@@ -14,16 +15,24 @@ public class DelayTest : MonoBehaviour
         image = GetComponent<Image>();
     }
 
+    private Tweener tweener;
+
     // Update is called once per frame
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
             //Fade(time);
-            StartCoroutine(FadeEnumerator(time));
+            //StartCoroutine(FadeEnumerator(time));
+            image.DOFade(0, time);
+            //transform.DOPunchScale(new Vector3(0.5f, 0.5f, 0.5f), time, 10, 0).Flip();
+            //tweener = transform.DOPunchScale(new Vector3(0.5f, 0.5f, 0.5f), time, 10, 0).Flip();
         }
         if (Input.GetMouseButtonDown(1))
+        {
             image.color = new Color(1, 1, 1, 1);
+            tweener.Pause();
+        }
     }
 
     private IEnumerator FadeEnumerator(float time)
