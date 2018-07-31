@@ -111,49 +111,4 @@ public static class GameObjectHelper
         }
         return list;
     }
-
-    /// <summary>
-    /// 用于获取所有Hierarchy中的物体，包括被禁用的物体
-    /// </summary>
-    /// <param name="type">请输入"All"、"Active"或者"UnActive"</param>
-    /// <returns></returns>
-    private static List<GameObject> GetGamaObjectInHierarchy(string type)
-    {
-        var allTransforms = Resources.FindObjectsOfTypeAll(typeof(Transform));
-        var previousSelection = Selection.objects;
-        switch (type)
-        {
-            //获取在Hierarchy中所有的物体（包含禁用）"All"
-            case "All":
-                Selection.objects = allTransforms.Cast<Transform>().Where(x => x != null)
-               .Select(x => x.gameObject)
-               .Where(x => x != null || !x.activeInHierarchy)
-               .Cast<UnityEngine.Object>().ToArray();
-                break;
-
-            //获取在Hierarchy中所有激活的物体（不包含禁用）"Active"
-            case "Active":
-                Selection.objects = allTransforms.Cast<Transform>().Where(x => x != null)
-                    .Select(x => x.gameObject)
-                    .Where(x => x != null && x.activeInHierarchy)
-                    .Cast<UnityEngine.Object>().ToArray();
-                break;
-
-            //获取在Hierarchy中所有被禁用的物体（只包含禁用）  "UnActive"
-            case "UnActive":
-                Selection.objects = allTransforms.Cast<Transform>().Where(x => x != null)
-                    .Select(x => x.gameObject)
-                    .Where(x => x != null && !x.activeInHierarchy)
-                    .Cast<UnityEngine.Object>().ToArray();
-                break;
-
-            default:
-                Debug.LogError("type参数错误，请输入All 、Active或者UnActive");
-                return null;
-        }
-
-        var selectedTransforms = Selection.GetTransforms(SelectionMode.Editable | SelectionMode.ExcludePrefab);
-        Selection.objects = previousSelection;
-        return selectedTransforms.Select(tr => tr.gameObject).ToList();
-    }
 }
