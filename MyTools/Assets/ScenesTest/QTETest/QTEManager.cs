@@ -8,7 +8,6 @@ public class QTEManager : MonoBehaviour
 {
     public Transform panel;
     public Text qteText;
-    public List<QTECondition> conditionList;
     private Dictionary<QTECondition, List<QTEInfo>> qteDic;
     public QTEInfo currentQTE;
     public QTEInfo lastQTE;
@@ -25,7 +24,6 @@ public class QTEManager : MonoBehaviour
 
     public void Init()
     {
-        conditionList = new List<QTECondition>();
         qteDic = new Dictionary<QTECondition, List<QTEInfo>>();
         QTECollisionTrigger trigger = FindObjectOfType<QTECollisionTrigger>();
         AddQTE(trigger, trigger.info);
@@ -71,7 +69,7 @@ public class QTEManager : MonoBehaviour
 
     public void CheckCondition()
     {
-        foreach (var item in conditionList)
+        foreach (var item in qteDic.Keys)
         {
             item.CheckIsTrue();
             if (item.isTrue)
@@ -97,19 +95,7 @@ public class QTEManager : MonoBehaviour
         return currentQTE;
     }
 
-    public void ShowQTE()
-    {
-        panel.position = currentQTE.position;
-        qteText.text = currentQTE.description;
-        panel.gameObject.SetActive(true);
-    }
-
-    public void HideQTE()
-    {
-        panel.gameObject.SetActive(false);
-    }
-
-    public void ExcuteQTE(QTEInfo info, Action onCall = null)
+    public void ExcuteQTE(QTEInfo info, Action endCall = null)
     {
         switch (currentQTE.type)
         {
@@ -126,13 +112,62 @@ public class QTEManager : MonoBehaviour
                 break;
         }
         ShowQTE();
-        onCall?.Invoke();
-        currentQTE.result = CheckQTEResult();
+        currentQTE.result = CheckQTEResult(info);
+        HideQTE();
+        if (currentQTE.result == QTEResult.Succed)
+        {
+            endCall?.Invoke();
+        }
+        else
+        {
+            Debug.LogError("QTE Operation Failure !");
+        }
+        lastQTE = currentQTE;
     }
 
-    public QTEResult CheckQTEResult()
+    public void ShowQTE()
     {
-        return QTEResult.None;
+        panel.localPosition = currentQTE.position;
+        qteText.text = currentQTE.description;
+        panel.gameObject.SetActive(true);
+    }
+
+    public QTEResult CheckQTEResult(QTEInfo info)
+    {
+        bool isSucced = GetOperationIsSucced(info);
+        bool isInTime = GetOperationIsInTime(info);
+        if (isSucced == true && isInTime == true)
+            info.result = QTEResult.Succed;
+        else
+            info.result = QTEResult.Failure;
+        return info.result;
+    }
+
+    /// <summary>
+    /// 检测操作是否正确
+    /// </summary>
+    /// <param name="info"></param>
+    /// <returns></returns>
+    public bool GetOperationIsSucced(QTEInfo info)
+    {
+        return false;
+    }
+
+    /// <summary>
+    /// 检测是否在指定时间内完成操作
+    /// </summary>
+    /// <param name="info"></param>
+    /// <returns></returns>
+    public bool GetOperationIsInTime(QTEInfo info)
+    {
+        //检测在时间范围内，是否作出正确操作
+        //如果失败了，打印错误类型
+        return false;
+    }
+
+    public void HideQTE()
+    {
+        panel.gameObject.SetActive(false);
     }
 }
 
@@ -140,6 +175,7 @@ public class QTEManager : MonoBehaviour
 public class QTEInfo
 {
     public string description;
+    public float startTime;
     public float time;
     public Vector2 position;
     private QTECondition condition;
@@ -148,16 +184,25 @@ public class QTEInfo
 
     public QTEInfo()
     {
+        startTime = Time.time;
     }
 
     public QTEInfo(string description, float time, Vector2 position, QTEType type)
     {
         this.description = description;
         this.time = time;
+        this.startTime = Time.time;
         this.position = position;
         this.type = type;
         this.result = QTEResult.None;
     }
+}
+
+public enum QTEErrorType
+{
+    None,
+    OverTime,
+    OperatingError,
 }
 
 public enum QTEType
@@ -165,6 +210,7 @@ public enum QTEType
     None,
     SingleKey,
     MultiKey,
+    Other,
 }
 
 public enum QTEResult
