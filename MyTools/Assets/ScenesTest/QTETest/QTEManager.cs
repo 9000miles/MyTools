@@ -4,14 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Common;
+using System.Threading.Tasks;
 
 //[RequireComponent(typeof(QTEOperationResult))]
 //[RequireComponent(typeof(QTEOperationBase))]
 //[RequireComponent(typeof(QTECondition))]
 public class QTEManager : MonoSingleton<QTEManager>
 {
+    public bool isGetResult;
     public Transform panel;
     public Text qteText;
+    public GameObject image;
     private List<QTECondition> conditionList;
     public QTECondition currentCondition;
     public QTEInfo currentQTE;
@@ -111,12 +114,11 @@ public class QTEManager : MonoSingleton<QTEManager>
     public void ExcuteQTE(QTEInfo info, Action endCall = null)
     {
         if (info == null) return;
+        isGetResult = false;
         ShowQTEPanel(info);
         operation = SelecteOperationType(info);
         operation.Excute(info);
-        HideQTEPanel(info);
-        if (info.result == QTEResult.Succed)
-            endCall?.Invoke();
+        HideQTEPanel(info, endCall);
         PrintMessage(info);
         currentQTE = info;
         lastQTE = currentQTE;
@@ -170,18 +172,25 @@ public class QTEManager : MonoSingleton<QTEManager>
         panel.gameObject.SetActive(true);
     }
 
-    public async void HideQTEPanel(QTEInfo info)
+    public async void HideQTEPanel(QTEInfo info, Action endCall)
     {
-        if (info.result == QTEResult.Succed)
+        if (info.result == QTEResult.Succed || info.result == QTEResult.Failure)
         {
             panel.gameObject.SetActive(false);
+            if (info.result == QTEResult.Succed)
+                endCall?.Invoke();
+            Debug.Log("          操作结果：" + info.result + "             错误类型：" + info.errorType);
+            info.ResetQTEInfo();
+            currentQTE = null;
+            isGetResult = true;
         }
-        else
-        {
-            await new WaitForSeconds(info.duration);
-            panel.gameObject.SetActive(false);
-        }
-        info.ResetQTEInfo();
+        //else
+        //{
+        //    await new WaitForSeconds(info.duration);
+        //    if (isGetResult == true && info.errorType != QTEErrorType.OverTime) return;
+        //    panel.gameObject.SetActive(false);
+        //    Debug.Log("超时未操作");
+        //}
     }
 
     private void OnGUI()

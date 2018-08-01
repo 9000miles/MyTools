@@ -13,27 +13,41 @@ public class DelayTest : MonoBehaviour
     private void Start()
     {
         image = GetComponent<Image>();
+        //StartCoroutine(Test());
+        TestAsync();
+    }
+
+    private IEnumerator Test()
+    {
+        yield return new WaitForSeconds(2);
+        Debug.Log("jojofwoejo");
+    }
+
+    private async void TestAsync()
+    {
+        await new WaitForSeconds(2);
+        Debug.Log("jojofwoejo");
     }
 
     private Tweener tweener;
 
     // Update is called once per frame
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            //Fade(time);
-            //StartCoroutine(FadeEnumerator(time));
-            image.DOFade(0, time);
-            //transform.DOPunchScale(new Vector3(0.5f, 0.5f, 0.5f), time, 10, 0).Flip();
-            //tweener = transform.DOPunchScale(new Vector3(0.5f, 0.5f, 0.5f), time, 10, 0).Flip();
-        }
-        if (Input.GetMouseButtonDown(1))
-        {
-            image.color = new Color(1, 1, 1, 1);
-            tweener.Pause();
-        }
-    }
+    //private void Update()
+    //{
+    //    if (Input.GetMouseButtonDown(0))
+    //    {
+    //        //Fade(time);
+    //        //StartCoroutine(FadeEnumerator(time));
+    //        image.DOFade(0, time);
+    //        //transform.DOPunchScale(new Vector3(0.5f, 0.5f, 0.5f), time, 10, 0).Flip();
+    //        //tweener = transform.DOPunchScale(new Vector3(0.5f, 0.5f, 0.5f), time, 10, 0).Flip();
+    //    }
+    //    if (Input.GetMouseButtonDown(1))
+    //    {
+    //        image.color = new Color(1, 1, 1, 1);
+    //        tweener.Pause();
+    //    }
+    //}
 
     private IEnumerator FadeEnumerator(float time)
     {

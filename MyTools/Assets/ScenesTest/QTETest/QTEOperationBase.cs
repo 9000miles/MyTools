@@ -5,6 +5,7 @@ using Common;
 
 public class QTEOperationBase : MonoSingleton<QTEOperationBase>
 {
+    protected bool isInTime;
     public int clickCount;
     public float time;
     public List<KeyCode> keyList;
@@ -31,21 +32,24 @@ public class QTEOperationBase : MonoSingleton<QTEOperationBase>
 
     public virtual void Excute(QTEInfo info)
     {
-        Check(info);
+        CheckIsInTime(info);
     }
 
-    protected virtual void Check(QTEInfo info)
+    protected virtual void CheckIsInTime(QTEInfo info)
     {
         //检查是否在时间范围内
         if (Time.time <= info.startTime + info.duration)
         {
-            info.result = QTEResult.Succed;
+            info.result = QTEResult.None;
             info.errorType = QTEErrorType.None;
+            isInTime = true;
         }
         else
         {
             info.result = QTEResult.Failure;
             info.errorType = QTEErrorType.OverTime;
+            QTEManager.Instance.isGetResult = true;
+            isInTime = false;
         }
     }
 }
@@ -61,9 +65,9 @@ public class QTEQuickClick : QTEOperationBase
         throw new System.NotImplementedException();
     }
 
-    protected override void Check(QTEInfo info)
+    protected override void CheckIsInTime(QTEInfo info)
     {
-        base.Check(info);
+        base.CheckIsInTime(info);
         throw new System.NotImplementedException();
     }
 }
@@ -79,9 +83,9 @@ public class QTEPreciseClick : QTEOperationBase
         throw new System.NotImplementedException();
     }
 
-    protected override void Check(QTEInfo info)
+    protected override void CheckIsInTime(QTEInfo info)
     {
-        base.Check(info);
+        base.CheckIsInTime(info);
         throw new System.NotImplementedException();
     }
 }
@@ -97,9 +101,9 @@ public class QTEMouseGestures : QTEOperationBase
         throw new System.NotImplementedException();
     }
 
-    protected override void Check(QTEInfo info)
+    protected override void CheckIsInTime(QTEInfo info)
     {
-        base.Check(info);
+        base.CheckIsInTime(info);
         throw new System.NotImplementedException();
     }
 }
@@ -116,17 +120,19 @@ public class QTEKeyCombination : QTEOperationBase
         base.Excute(info);
     }
 
-    protected override void Check(QTEInfo info)
+    protected override void CheckIsInTime(QTEInfo info)
     {
-        base.Check(info);
+        base.CheckIsInTime(info);
+        if (isInTime == false) return;
         //检查操作是否正确
-        if (keyList.Count == info.keyList.Count)
+        if (info.keyList != null && keyList.Count == info.keyList.Count && keyList.Count > 0)
         {
             for (int i = 0; i < keyList.Count; i++)
             {
                 if (keyList[i] != info.keyList[i])
                 {
                     info.result = QTEResult.Failure;
+                    info.errorType = QTEErrorType.OperatingError;
                     return;
                 }
             }
@@ -135,8 +141,8 @@ public class QTEKeyCombination : QTEOperationBase
         }
         else
         {
-            info.result = QTEResult.Failure;
-            info.errorType = QTEErrorType.OperatingError;
+            info.result = QTEResult.None;
+            info.errorType = QTEErrorType.None;
             return;
         }
     }
