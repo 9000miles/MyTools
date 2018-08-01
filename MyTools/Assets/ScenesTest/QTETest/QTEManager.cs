@@ -3,14 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Common;
 
-public class QTEManager : MonoBehaviour
+//[RequireComponent(typeof(QTEOperationResult))]
+//[RequireComponent(typeof(QTEOperationBase))]
+//[RequireComponent(typeof(QTECondition))]
+public class QTEManager : MonoSingleton<QTEManager>
 {
     public Transform panel;
     public Text qteText;
-    private Dictionary<QTECondition, List<QTEInfo>> qteDic;
+    private List<QTECondition> conditionList;
+    public QTECondition currentCondition;
     public QTEInfo currentQTE;
-    public QTEInfo lastQTE;
+    private QTEInfo lastQTE;
+    private KeyCode currentKey;
+    [HideInInspector]
+    public List<KeyCode> keyList;
+    private QTEOperationBase operation;
 
     private void Start()
     {
@@ -22,72 +31,76 @@ public class QTEManager : MonoBehaviour
         CheckCondition();
     }
 
-    public void Init()
+    public override void Init()
     {
-        qteDic = new Dictionary<QTECondition, List<QTEInfo>>();
-        QTECollisionTrigger trigger = FindObjectOfType<QTECollisionTrigger>();
-        AddQTE(trigger, trigger.info);
+        keyList = new List<KeyCode>();
+        conditionList = new List<QTECondition>();
+        QTECondition[] conditions = FindObjectsOfType<QTECondition>();
+        AddQTE(conditions);
     }
 
     public void AddQTE(QTECondition condition)
     {
-        if (!qteDic.ContainsKey(condition))
-            qteDic.Add(condition, new List<QTEInfo>());
-        else
-            qteDic[condition] = new List<QTEInfo>();
+        if (!conditionList.Contains(condition))
+            conditionList.Add(condition);
+    }
+
+    public void AddQTE(QTECondition[] conditions)
+    {
+        conditionList.AddRange(conditions.FindAll(t => !conditionList.Contains(t)));
     }
 
     public void AddQTE(QTECondition condition, QTEInfo info)
     {
-        if (!qteDic.ContainsKey(condition))
-        {
-            qteDic.Add(condition, new List<QTEInfo>());
-            if (!qteDic[condition].Contains(info))
-                qteDic[condition].Add(info);
-        }
+        if (!conditionList.Contains(condition))
+            conditionList.Add(condition);
         else
-        {
-            if (!qteDic[condition].Contains(info))
-                qteDic[condition].Add(info);
-        }
+            conditionList.Find((t) => t == condition).infoList.Add(info);
     }
 
     public void RemoveQTE(QTECondition condition)
     {
-        qteDic.Remove(condition);
+        if (conditionList.Contains(condition))
+            conditionList.Remove(condition);
     }
 
     public void RemoveQTE(QTECondition condition, QTEInfo info)
     {
-        qteDic[condition].Remove(info);
+        if (conditionList.Contains(condition))
+        {
+            List<QTEInfo> infoList = conditionList.Find((t) => t == condition).infoList;
+            if (infoList.Contains(info))
+                infoList.Remove(info);
+        }
     }
 
     public void ClearQTE()
     {
-        qteDic.Clear();
+        conditionList.Clear();
     }
 
     public void CheckCondition()
     {
-        foreach (var item in qteDic.Keys)
+        foreach (var item in conditionList)
         {
             item.CheckIsTrue();
             if (item.isTrue)
             {
-                currentQTE = GetQTE(item, item.description);
-                ExcuteQTE(currentQTE);
+                currentQTE = item.currentQTEInfo;
+                if (currentQTE != null && currentQTE.isActive == true)
+                    ExcuteQTE(currentQTE);
             }
         }
     }
 
     public QTEInfo GetQTE(QTECondition condition, string description)
     {
-        return qteDic[condition].Find((t) => t.description == description);
+        return conditionList.Find((t) => t == condition).infoList.Find((t) => t.description == description);
     }
 
     public QTEInfo GetQTE(QTECondition condition, int index)
     {
-        return qteDic[condition][index];
+        return conditionList.Find((t) => t == condition).infoList[index];
     }
 
     public QTEInfo GetCurrentQTE()
@@ -97,125 +110,87 @@ public class QTEManager : MonoBehaviour
 
     public void ExcuteQTE(QTEInfo info, Action endCall = null)
     {
-        switch (currentQTE.type)
+        if (info == null) return;
+        ShowQTEPanel(info);
+        operation = SelecteOperationType(info);
+        operation.Excute(info);
+        HideQTEPanel(info);
+        if (info.result == QTEResult.Succed)
+            endCall?.Invoke();
+        PrintMessage(info);
+        currentQTE = info;
+        lastQTE = currentQTE;
+    }
+
+    private void PrintMessage(QTEInfo info)
+    {
+        if (info.result == QTEResult.Failure)
+        {
+            //Debug.LogError("QTE Operation Failure !    -- " + info.errorType);5
+        }
+    }
+
+    private QTEOperationBase SelecteOperationType(QTEInfo info)
+    {
+        QTEOperationBase operationBase = null;
+        switch (info.type)
         {
             case QTEType.None:
                 break;
 
-            case QTEType.SingleKey:
+            case QTEType.QuickClick:
+                operationBase = new QTEQuickClick();
                 break;
 
-            case QTEType.MultiKey:
+            case QTEType.PreciseClick:
+                operationBase = new QTEPreciseClick();
+                break;
+
+            case QTEType.MouseGestures:
+                operationBase = new QTEMouseGestures();
+                break;
+
+            case QTEType.KeyCombination:
+                operationBase = new QTEKeyCombination();
+                break;
+
+            case QTEType.Others:
                 break;
 
             default:
                 break;
         }
-        ShowQTE();
-        currentQTE.result = CheckQTEResult(info);
-        HideQTE();
-        if (currentQTE.result == QTEResult.Succed)
-        {
-            endCall?.Invoke();
-        }
-        else
-        {
-            Debug.LogError("QTE Operation Failure !");
-        }
-        lastQTE = currentQTE;
+        return operationBase;
     }
 
-    public void ShowQTE()
+    public void ShowQTEPanel(QTEInfo info)
     {
-        panel.localPosition = currentQTE.position;
-        qteText.text = currentQTE.description;
+        panel.localPosition = info.UILocalPosition;
+        qteText.text = info.description;
         panel.gameObject.SetActive(true);
     }
 
-    public QTEResult CheckQTEResult(QTEInfo info)
+    public async void HideQTEPanel(QTEInfo info)
     {
-        bool isSucced = GetOperationIsSucced(info);
-        bool isInTime = GetOperationIsInTime(info);
-        if (isSucced == true && isInTime == true)
-            info.result = QTEResult.Succed;
+        if (info.result == QTEResult.Succed)
+        {
+            panel.gameObject.SetActive(false);
+        }
         else
-            info.result = QTEResult.Failure;
-        return info.result;
+        {
+            await new WaitForSeconds(info.duration);
+            panel.gameObject.SetActive(false);
+        }
+        info.ResetQTEInfo();
     }
 
-    /// <summary>
-    /// 检测操作是否正确
-    /// </summary>
-    /// <param name="info"></param>
-    /// <returns></returns>
-    public bool GetOperationIsSucced(QTEInfo info)
+    private void OnGUI()
     {
-        return false;
+        Event e = Event.current;
+        if (e != null && e.isKey)
+        {
+            if (e.keyCode != KeyCode.None && e.type == EventType.KeyDown)
+                keyList.Add(e.keyCode);
+        }
     }
-
-    /// <summary>
-    /// 检测是否在指定时间内完成操作
-    /// </summary>
-    /// <param name="info"></param>
-    /// <returns></returns>
-    public bool GetOperationIsInTime(QTEInfo info)
-    {
-        //检测在时间范围内，是否作出正确操作
-        //如果失败了，打印错误类型
-        return false;
-    }
-
-    public void HideQTE()
-    {
-        panel.gameObject.SetActive(false);
-    }
-}
-
-[Serializable]
-public class QTEInfo
-{
-    public string description;
-    public float startTime;
-    public float time;
-    public Vector2 position;
-    private QTECondition condition;
-    public QTEType type;
-    public QTEResult result;
-
-    public QTEInfo()
-    {
-        startTime = Time.time;
-    }
-
-    public QTEInfo(string description, float time, Vector2 position, QTEType type)
-    {
-        this.description = description;
-        this.time = time;
-        this.startTime = Time.time;
-        this.position = position;
-        this.type = type;
-        this.result = QTEResult.None;
-    }
-}
-
-public enum QTEErrorType
-{
-    None,
-    OverTime,
-    OperatingError,
-}
-
-public enum QTEType
-{
-    None,
-    SingleKey,
-    MultiKey,
-    Other,
-}
-
-public enum QTEResult
-{
-    None,
-    Succed,
-    Failure,
 }

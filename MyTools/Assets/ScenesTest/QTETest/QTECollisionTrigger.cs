@@ -16,4 +16,16 @@ public class QTECollisionTrigger : QTECondition
         if (other.tag == "Player")
             isCollisionTarget = true;
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "Player")
+            isCollisionTarget = true;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+            isCollisionTarget = false;
+    }
 }
