@@ -214,7 +214,8 @@ public class QTEManager : SingletonBehaviour<QTEManager>
     private void OnGUI()
     {
         Event e = Event.current;
-        if (e != null && e.type == EventType.KeyDown && e.isKey)
+        if (e != null && e.type == EventType.KeyDown && e.isKey && e.keyCode != KeyCode.None &&
+          ((int)e.keyCode < 323 || (int)e.keyCode > 329))
         {
             keyCode = e.keyCode;
         }

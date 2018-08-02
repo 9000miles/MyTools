@@ -136,10 +136,11 @@ public class QTEKeyCombination : QTEOperationBase
         base.CheckIsInTime(info);
         if (isInTime == false) return;
         if (Input.anyKeyDown &&//会检测鼠标点击操作，包括鼠标上的扩展按键
-            ((int)QTEManager.Singleton.keyCode < 323 || (int)QTEManager.Singleton.keyCode > 329))
+           QTEManager.Singleton.keyCode != KeyCode.None)
         {
-            keyDownCount++;
+            keyDownCount++;//鼠标操作第一次，会进入
             Debug.Log("InputCount           " + keyDownCount + "          keyCode    " + QTEManager.Singleton.keyCode);
+            QTEManager.Singleton.keyCode = KeyCode.None;
         }
         //检查操作是否正确
         if (Input.GetKeyDown(info.keyList[0].ToString().ToLower()))
