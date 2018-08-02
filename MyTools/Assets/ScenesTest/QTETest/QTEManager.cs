@@ -14,6 +14,7 @@ public class QTEManager : SingletonBehaviour<QTEManager>
     public bool isNewQTE;
     public Transform panel;
     public Text qteText;
+    public KeyCode keyCode;
     private List<QTEConditionBase> conditionList;
     private QTEConditionBase currentCondition;
     private QTEConditionBase lastCondition;
@@ -208,5 +209,14 @@ public class QTEManager : SingletonBehaviour<QTEManager>
         info.ResetQTEInfo();
         currentQTE = null;
         QTEOperationBase.Singleton.EmptyResult();
+    }
+
+    private void OnGUI()
+    {
+        Event e = Event.current;
+        if (e != null && e.type == EventType.KeyDown && e.isKey)
+        {
+            keyCode = e.keyCode;
+        }
     }
 }
