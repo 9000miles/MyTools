@@ -155,7 +155,7 @@ public class QTEManager : SingletonBehaviour<QTEManager>
                 break;
 
             case QTEType.QuickClick:
-                operationBase = new QTEQuickClick();
+                operationBase = QTEQuickClick.Singleton;
                 break;
 
             case QTEType.PreciseClick:
@@ -168,6 +168,7 @@ public class QTEManager : SingletonBehaviour<QTEManager>
 
             case QTEType.KeyCombination:
                 operationBase = new QTEKeyCombination();
+                //operationBase = QTEKeyCombination.Singleton;
                 break;
 
             case QTEType.Others:

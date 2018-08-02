@@ -8,6 +8,7 @@ public class QTEOperationBase : SingletonTemplate<QTEOperationBase>
     protected bool isInTime;
     public int clickCount;
     public float time;
+    protected int inputCount;
     public Vector2 clickPosition;
     //public MouseGestures mouseGestures;
 
@@ -46,6 +47,7 @@ public class QTEOperationBase : SingletonTemplate<QTEOperationBase>
             info.result = QTEResult.Failure;
             info.errorType = QTEErrorType.OverTime;
             isInTime = false;
+            inputCount = 0;
         }
     }
 }
@@ -119,6 +121,11 @@ public class QTEKeyCombination : QTEOperationBase
     {
         base.CheckIsInTime(info);
         if (isInTime == false) return;
+        if (Input.anyKeyDown)
+        {
+            inputCount++;
+            Debug.Log("InputCount           " + inputCount);
+        }
         //检查操作是否正确
         if (Input.GetKeyDown(info.keyList[0].ToString().ToLower()))
         {
@@ -129,6 +136,7 @@ public class QTEKeyCombination : QTEOperationBase
         {
             info.result = QTEResult.Succed;
             info.errorType = QTEErrorType.None;
+            inputCount = 0;
         }
         //else
         //{
