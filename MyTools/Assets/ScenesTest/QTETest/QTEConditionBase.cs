@@ -6,9 +6,12 @@ public abstract class QTEConditionBase : MonoBehaviour
 {
     public bool isTrue;
     private bool isStartTimeHasSet;
+    /// <summary>
+    /// 存储该条件下的所有QTE，通过编辑器赋值，后面考虑读档赋值
+    /// </summary>
     public List<QTEInfo> infoList;
     [HideInInspector]
-    public Transform ower;
+    public Transform owerTF;
     [HideInInspector]
     public QTEInfo currentQTEInfo;
 
@@ -19,7 +22,7 @@ public abstract class QTEConditionBase : MonoBehaviour
 
     private void Init()
     {
-        ower = transform;
+        owerTF = transform;
         //infoList = new List<QTEInfo>();
     }
 
@@ -45,8 +48,6 @@ public abstract class QTEConditionBase : MonoBehaviour
         }
         else
         {
-            if (this == QTEManager.Singleton.currentCondition)
-                QTEManager.Singleton.lastCondition = null;
             isStartTimeHasSet = false;
         }
     }

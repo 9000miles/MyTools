@@ -15,9 +15,9 @@ public class QTEManager : SingletonBehaviour<QTEManager>
     public Transform panel;
     public Text qteText;
     private List<QTEConditionBase> conditionList;
-    public QTEConditionBase currentCondition;
-    public QTEConditionBase lastCondition;
-    public QTEInfo currentQTE;
+    private QTEConditionBase currentCondition;
+    private QTEConditionBase lastCondition;
+    private QTEInfo currentQTE;
     private QTEInfo lastQTE;
     private QTEOperationBase operation;
     public Action succedCall;
@@ -56,10 +56,10 @@ public class QTEManager : SingletonBehaviour<QTEManager>
         if (!conditionList.Contains(condition))
             conditionList.Add(condition);
         else
-            conditionList.Find((t) => t == condition).infoList.Add(info);
+            conditionList.Find(t => t == condition).infoList.Add(info);
     }
 
-    public void RemoveQTE(QTEConditionBase condition)
+    public void RemoveQTECondition(QTEConditionBase condition)
     {
         if (conditionList.Contains(condition))
             conditionList.Remove(condition);
@@ -69,7 +69,7 @@ public class QTEManager : SingletonBehaviour<QTEManager>
     {
         if (conditionList.Contains(condition))
         {
-            List<QTEInfo> infoList = conditionList.Find((t) => t == condition).infoList;
+            List<QTEInfo> infoList = conditionList.Find(t => t == condition).infoList;
             if (infoList.Contains(info))
             {
                 infoList.Remove(info);
@@ -79,7 +79,7 @@ public class QTEManager : SingletonBehaviour<QTEManager>
 
     private void AutoActiveNextQTE(QTEConditionBase condition)
     {
-        List<QTEInfo> infoList = conditionList.Find((t) => t == condition).infoList;
+        List<QTEInfo> infoList = conditionList.Find(t => t == condition).infoList;
         if (infoList.Count > 0)
         {
             infoList[0].isActive = true;
@@ -96,7 +96,7 @@ public class QTEManager : SingletonBehaviour<QTEManager>
         foreach (var item in conditionList)
         {
             item.CheckIsTrue();
-            if (item.isTrue && (lastCondition != currentCondition || currentCondition == null))
+            if (item.isTrue)
             {
                 if (item.currentQTEInfo != null && item.currentQTEInfo.isActive == true)
                     ExcuteQTE(item, item.currentQTEInfo);
@@ -106,12 +106,12 @@ public class QTEManager : SingletonBehaviour<QTEManager>
 
     public QTEInfo GetQTE(QTEConditionBase condition, string description)
     {
-        return conditionList.Find((t) => t == condition).infoList.Find((t) => t.description == description);
+        return conditionList.Find(t => t == condition).infoList.Find(t => t.description == description);
     }
 
-    public QTEInfo GetQTE(QTEConditionBase condition, int index)
+    public QTEInfo GetQTE(QTEConditionBase condition, int id)
     {
-        return conditionList.Find((t) => t == condition).infoList[index];
+        return conditionList.Find(t => t == condition).infoList.Find(t => t.ID == id);
     }
 
     public QTEInfo GetCurrentQTE()
@@ -133,17 +133,7 @@ public class QTEManager : SingletonBehaviour<QTEManager>
         ShowQTEPanel(info);
         operation = SelecteOperationType(info);
         operation.Excute(info);
-        HideQTEPanel(info, endCall);
-        PrintMessage(info);
-        lastQTE = currentQTE;
-    }
-
-    private void PrintMessage(QTEInfo info)
-    {
-        if (info.result == QTEResult.Failure)
-        {
-            //Debug.LogError("QTE Operation Failure !    -- " + info.errorType);5
-        }
+        QTEExecutiveOutcomes(info, endCall);
     }
 
     private QTEOperationBase SelecteOperationType(QTEInfo info)
@@ -169,6 +159,7 @@ public class QTEManager : SingletonBehaviour<QTEManager>
             case QTEType.KeyCombination:
                 operationBase = new QTEKeyCombination();
                 //operationBase = QTEKeyCombination.Singleton;
+                //operationBase = QTEKeyCombination.;
                 break;
 
             case QTEType.Others:
@@ -187,7 +178,12 @@ public class QTEManager : SingletonBehaviour<QTEManager>
         panel.gameObject.SetActive(true);
     }
 
-    public void HideQTEPanel(QTEInfo info, Action endCall)
+    /// <summary>
+    /// QTE执行结果
+    /// </summary>
+    /// <param name="info"></param>
+    /// <param name="endCall"></param>
+    public void QTEExecutiveOutcomes(QTEInfo info, Action endCall)
     {
         if (info.result == QTEResult.None) return;
         switch (info.result)
@@ -207,6 +203,7 @@ public class QTEManager : SingletonBehaviour<QTEManager>
         Debug.Log("          操作结果：" + info.result + "             错误类型：" + info.errorType);
 
         lastCondition = currentCondition;
+        lastQTE = currentQTE;
         RemoveQTE(currentCondition, info);
         info.ResetQTEInfo();
         currentQTE = null;

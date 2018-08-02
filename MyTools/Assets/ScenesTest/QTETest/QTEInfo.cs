@@ -8,6 +8,7 @@ using Cinemachine;
 public class QTEInfo
 {
     public bool isActive;
+    public int ID;
     public float duration;
     public float startTime;
     public string description;
@@ -23,8 +24,9 @@ public class QTEInfo
     {
     }
 
-    public QTEInfo(string description, float time, Vector2 position, QTEType type)
+    public QTEInfo(string description, int id, float time, Vector2 position, QTEType type)
     {
+        this.ID = id;
         this.type = type;
         this.duration = time;
         this.description = description;
@@ -34,6 +36,7 @@ public class QTEInfo
 
     public void ResetQTEInfo()
     {
+        this.ID = 0;
         this.description = "";
         this.startTime = 0;
         this.duration = 0;
@@ -48,6 +51,9 @@ public class QTEInfo
     }
 }
 
+/// <summary>
+/// QTE按键种类
+/// </summary>
 public enum QTEKeyCode
 {
     Space = 32,
@@ -74,13 +80,31 @@ public enum QTEErrorType
     OperatingError,
 }
 
+/// <summary>
+/// QTE类型
+/// </summary>
 public enum QTEType
 {
     None,
+    /// <summary>
+    /// 快速点击
+    /// </summary>
     QuickClick,
+    /// <summary>
+    /// 精准点击
+    /// </summary>
     PreciseClick,
+    /// <summary>
+    /// 鼠标手势
+    /// </summary>
     MouseGestures,
+    /// <summary>
+    /// 按键组合
+    /// </summary>
     KeyCombination,
+    /// <summary>
+    /// 其它
+    /// </summary>
     Others,
 }
 

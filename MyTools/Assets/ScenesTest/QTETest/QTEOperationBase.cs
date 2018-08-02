@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Common;
+using UnityEngine.Experimental.UIElements;
 
 public class QTEOperationBase : SingletonTemplate<QTEOperationBase>
 {
     protected bool isInTime;
     public int clickCount;
     public float time;
-    protected int inputCount;
+    /// <summary>
+    /// 计算按键按下次数
+    /// </summary>
+    protected static int keyDownCount;
     public Vector2 clickPosition;
     //public MouseGestures mouseGestures;
 
@@ -47,7 +51,7 @@ public class QTEOperationBase : SingletonTemplate<QTEOperationBase>
             info.result = QTEResult.Failure;
             info.errorType = QTEErrorType.OverTime;
             isInTime = false;
-            inputCount = 0;
+            keyDownCount = 0;
         }
     }
 }
@@ -108,6 +112,16 @@ public class QTEMouseGestures : QTEOperationBase
 
 public class QTEKeyCombination : QTEOperationBase
 {
+    public override QTEOperationBase GetSingleton()
+    {
+        //return base.GetSingleton();
+        if (singleton == null)
+        {
+            singleton = new QTEOperationBase();
+        }
+        return singleton;
+    }
+
     public QTEKeyCombination() : base()
     {
     }
@@ -121,10 +135,10 @@ public class QTEKeyCombination : QTEOperationBase
     {
         base.CheckIsInTime(info);
         if (isInTime == false) return;
-        if (Input.anyKeyDown)
+        if (Input.anyKeyDown)//会检测鼠标点击操作，包括鼠标上的扩展按键
         {
-            inputCount++;
-            Debug.Log("InputCount           " + inputCount);
+            keyDownCount++;
+            Debug.Log("InputCount           " + keyDownCount);
         }
         //检查操作是否正确
         if (Input.GetKeyDown(info.keyList[0].ToString().ToLower()))
@@ -136,7 +150,7 @@ public class QTEKeyCombination : QTEOperationBase
         {
             info.result = QTEResult.Succed;
             info.errorType = QTEErrorType.None;
-            inputCount = 0;
+            keyDownCount = 0;
         }
         //else
         //{
