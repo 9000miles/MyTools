@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class QTECollisionTrigger : QTECondition
+public class QTECollisionTrigger : QTEConditionBase
 {
     private bool isCollisionTarget;
 

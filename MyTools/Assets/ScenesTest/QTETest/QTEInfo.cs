@@ -7,14 +7,14 @@ using Cinemachine;
 [Serializable]
 public class QTEInfo
 {
-    public string description;
-    public float startTime;
-    public float duration;
     public bool isActive;
-    public Vector2 UILocalPosition;
+    public float duration;
+    public float startTime;
+    public string description;
     public QTEType type;
     public QTEResult result;
-    public List<KeyCode> keyList;
+    public Vector2 UILocalPosition;
+    public List<QTEKeyCode> keyList;
     public QTEErrorType errorType;
     public Animation animation;
     public CinemachineVirtualCameraBase cinemachine;
@@ -25,10 +25,10 @@ public class QTEInfo
 
     public QTEInfo(string description, float time, Vector2 position, QTEType type)
     {
-        this.description = description;
-        this.duration = time;
-        this.UILocalPosition = position;
         this.type = type;
+        this.duration = time;
+        this.description = description;
+        this.UILocalPosition = position;
         this.result = QTEResult.None;
     }
 
@@ -50,11 +50,15 @@ public class QTEInfo
 
 public enum QTEKeyCode
 {
-    A,
-    B,
-    E,
-    Q,
-    R,
+    Space = 32,
+    A = 97,
+    B = 98,
+    E = 101,
+    H = 104,
+    P = 112,
+    Q = 113,
+    R = 114,
+    Y = 121,
 }
 
 public enum QTEBehaviorType
@@ -83,6 +87,6 @@ public enum QTEType
 public enum QTEResult
 {
     None,
-    Succed,
     Failure,
+    Succed,
 }

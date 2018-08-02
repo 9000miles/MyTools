@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Common;
 
-public class QTEOperationBase : MonoSingleton<QTEOperationBase>
+public class QTEOperationBase : SingletonTemplate<QTEOperationBase>
 {
     protected bool isInTime;
     public int clickCount;
     public float time;
-    public List<KeyCode> keyList;
     public Vector2 clickPosition;
     //public MouseGestures mouseGestures;
 
@@ -18,14 +17,12 @@ public class QTEOperationBase : MonoSingleton<QTEOperationBase>
 
     public QTEOperationBase()
     {
-        keyList = new List<KeyCode>();
     }
 
-    public void EnptyResult()
+    public void EmptyResult()
     {
         clickCount = 0;
         time = 0;
-        keyList.Clear();
         clickPosition = Vector2.zero;
         //mouseGestures = null;
     }
@@ -48,7 +45,6 @@ public class QTEOperationBase : MonoSingleton<QTEOperationBase>
         {
             info.result = QTEResult.Failure;
             info.errorType = QTEErrorType.OverTime;
-            QTEManager.Instance.isGetResult = true;
             isInTime = false;
         }
     }
@@ -116,7 +112,6 @@ public class QTEKeyCombination : QTEOperationBase
 
     public override void Excute(QTEInfo info)
     {
-        keyList = QTEManager.Instance.keyList;
         base.Excute(info);
     }
 
@@ -125,25 +120,21 @@ public class QTEKeyCombination : QTEOperationBase
         base.CheckIsInTime(info);
         if (isInTime == false) return;
         //检查操作是否正确
-        if (info.keyList != null && keyList.Count == info.keyList.Count && keyList.Count > 0)
+        if (Input.GetKeyDown(info.keyList[0].ToString().ToLower()))
         {
-            for (int i = 0; i < keyList.Count; i++)
-            {
-                if (keyList[i] != info.keyList[i])
-                {
-                    info.result = QTEResult.Failure;
-                    info.errorType = QTEErrorType.OperatingError;
-                    return;
-                }
-            }
+            //Debug.Log("按下了：" + info.keyList[0]);
+            info.keyList.RemoveAt(0);
+        }
+        if (info.keyList.Count <= 0)
+        {
             info.result = QTEResult.Succed;
             info.errorType = QTEErrorType.None;
         }
-        else
-        {
-            info.result = QTEResult.None;
-            info.errorType = QTEErrorType.None;
-            return;
-        }
+        //else
+        //{
+        //    info.result = QTEResult.Failure;
+        //    info.errorType = QTEErrorType.OperatingError;
+        //    return;
+        //}
     }
 }

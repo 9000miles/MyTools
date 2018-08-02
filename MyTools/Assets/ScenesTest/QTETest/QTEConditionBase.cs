@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class QTECondition : MonoBehaviour
+public abstract class QTEConditionBase : MonoBehaviour
 {
     public bool isTrue;
     private bool isStartTimeHasSet;
+    public List<QTEInfo> infoList;
     [HideInInspector]
     public Transform ower;
-    public List<QTEInfo> infoList;
+    [HideInInspector]
     public QTEInfo currentQTEInfo;
 
     private void Start()
@@ -44,10 +45,9 @@ public abstract class QTECondition : MonoBehaviour
         }
         else
         {
-            currentQTEInfo = null;
+            if (this == QTEManager.Singleton.currentCondition)
+                QTEManager.Singleton.lastCondition = null;
             isStartTimeHasSet = false;
-            QTEOperationBase.Instance.EnptyResult();
-            QTEManager.Instance.keyList.Clear();
         }
     }
 }

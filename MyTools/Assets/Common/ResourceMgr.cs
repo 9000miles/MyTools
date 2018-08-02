@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResourceMgr : MonoSingleton<ResourceMgr>
+public class ResourceMgr : SingletonBehaviour<ResourceMgr>
 {
     #region 初始化
 

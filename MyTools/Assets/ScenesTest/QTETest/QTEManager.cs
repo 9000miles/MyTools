@@ -9,20 +9,19 @@ using System.Threading.Tasks;
 //[RequireComponent(typeof(QTEOperationResult))]
 //[RequireComponent(typeof(QTEOperationBase))]
 //[RequireComponent(typeof(QTECondition))]
-public class QTEManager : MonoSingleton<QTEManager>
+public class QTEManager : SingletonBehaviour<QTEManager>
 {
-    public bool isGetResult;
+    public bool isNewQTE;
     public Transform panel;
     public Text qteText;
-    public GameObject image;
-    private List<QTECondition> conditionList;
-    public QTECondition currentCondition;
+    private List<QTEConditionBase> conditionList;
+    public QTEConditionBase currentCondition;
+    public QTEConditionBase lastCondition;
     public QTEInfo currentQTE;
     private QTEInfo lastQTE;
-    private KeyCode currentKey;
-    [HideInInspector]
-    public List<KeyCode> keyList;
     private QTEOperationBase operation;
+    public Action succedCall;
+    public Action failureCall;
 
     private void Start()
     {
@@ -36,24 +35,23 @@ public class QTEManager : MonoSingleton<QTEManager>
 
     public override void Init()
     {
-        keyList = new List<KeyCode>();
-        conditionList = new List<QTECondition>();
-        QTECondition[] conditions = FindObjectsOfType<QTECondition>();
+        conditionList = new List<QTEConditionBase>();
+        QTEConditionBase[] conditions = FindObjectsOfType<QTEConditionBase>();
         AddQTE(conditions);
     }
 
-    public void AddQTE(QTECondition condition)
+    public void AddQTE(QTEConditionBase condition)
     {
         if (!conditionList.Contains(condition))
             conditionList.Add(condition);
     }
 
-    public void AddQTE(QTECondition[] conditions)
+    public void AddQTE(QTEConditionBase[] conditions)
     {
         conditionList.AddRange(conditions.FindAll(t => !conditionList.Contains(t)));
     }
 
-    public void AddQTE(QTECondition condition, QTEInfo info)
+    public void AddQTE(QTEConditionBase condition, QTEInfo info)
     {
         if (!conditionList.Contains(condition))
             conditionList.Add(condition);
@@ -61,19 +59,30 @@ public class QTEManager : MonoSingleton<QTEManager>
             conditionList.Find((t) => t == condition).infoList.Add(info);
     }
 
-    public void RemoveQTE(QTECondition condition)
+    public void RemoveQTE(QTEConditionBase condition)
     {
         if (conditionList.Contains(condition))
             conditionList.Remove(condition);
     }
 
-    public void RemoveQTE(QTECondition condition, QTEInfo info)
+    public void RemoveQTE(QTEConditionBase condition, QTEInfo info)
     {
         if (conditionList.Contains(condition))
         {
             List<QTEInfo> infoList = conditionList.Find((t) => t == condition).infoList;
             if (infoList.Contains(info))
+            {
                 infoList.Remove(info);
+            }
+        }
+    }
+
+    private void AutoActiveNextQTE(QTEConditionBase condition)
+    {
+        List<QTEInfo> infoList = conditionList.Find((t) => t == condition).infoList;
+        if (infoList.Count > 0)
+        {
+            infoList[0].isActive = true;
         }
     }
 
@@ -87,21 +96,20 @@ public class QTEManager : MonoSingleton<QTEManager>
         foreach (var item in conditionList)
         {
             item.CheckIsTrue();
-            if (item.isTrue)
+            if (item.isTrue && (lastCondition != currentCondition || currentCondition == null))
             {
-                currentQTE = item.currentQTEInfo;
-                if (currentQTE != null && currentQTE.isActive == true)
-                    ExcuteQTE(currentQTE);
+                if (item.currentQTEInfo != null && item.currentQTEInfo.isActive == true)
+                    ExcuteQTE(item, item.currentQTEInfo);
             }
         }
     }
 
-    public QTEInfo GetQTE(QTECondition condition, string description)
+    public QTEInfo GetQTE(QTEConditionBase condition, string description)
     {
         return conditionList.Find((t) => t == condition).infoList.Find((t) => t.description == description);
     }
 
-    public QTEInfo GetQTE(QTECondition condition, int index)
+    public QTEInfo GetQTE(QTEConditionBase condition, int index)
     {
         return conditionList.Find((t) => t == condition).infoList[index];
     }
@@ -111,16 +119,22 @@ public class QTEManager : MonoSingleton<QTEManager>
         return currentQTE;
     }
 
-    public void ExcuteQTE(QTEInfo info, Action endCall = null)
+    public QTEConditionBase GetCurrentQTECondition()
+    {
+        return currentCondition;
+    }
+
+    public void ExcuteQTE(QTEConditionBase condition, QTEInfo info, Action endCall = null)
     {
         if (info == null) return;
-        isGetResult = false;
+        isNewQTE = true;
+        currentCondition = condition;
+        currentQTE = info;
         ShowQTEPanel(info);
         operation = SelecteOperationType(info);
         operation.Excute(info);
         HideQTEPanel(info, endCall);
         PrintMessage(info);
-        currentQTE = info;
         lastQTE = currentQTE;
     }
 
@@ -172,34 +186,29 @@ public class QTEManager : MonoSingleton<QTEManager>
         panel.gameObject.SetActive(true);
     }
 
-    public async void HideQTEPanel(QTEInfo info, Action endCall)
+    public void HideQTEPanel(QTEInfo info, Action endCall)
     {
-        if (info.result == QTEResult.Succed || info.result == QTEResult.Failure)
+        if (info.result == QTEResult.None) return;
+        switch (info.result)
         {
-            panel.gameObject.SetActive(false);
-            if (info.result == QTEResult.Succed)
-                endCall?.Invoke();
-            Debug.Log("          操作结果：" + info.result + "             错误类型：" + info.errorType);
-            info.ResetQTEInfo();
-            currentQTE = null;
-            isGetResult = true;
-        }
-        //else
-        //{
-        //    await new WaitForSeconds(info.duration);
-        //    if (isGetResult == true && info.errorType != QTEErrorType.OverTime) return;
-        //    panel.gameObject.SetActive(false);
-        //    Debug.Log("超时未操作");
-        //}
-    }
+            case QTEResult.Succed:
+                succedCall?.Invoke();
+                break;
 
-    private void OnGUI()
-    {
-        Event e = Event.current;
-        if (e != null && e.isKey)
-        {
-            if (e.keyCode != KeyCode.None && e.type == EventType.KeyDown)
-                keyList.Add(e.keyCode);
+            case QTEResult.Failure:
+                failureCall?.Invoke();
+                break;
         }
+        if (info.result == QTEResult.Succed || info.errorType == QTEErrorType.OverTime)
+            panel.gameObject.SetActive(false);
+        //AutoActiveNextQTE(currentCondition);
+        isNewQTE = false;
+        Debug.Log("          操作结果：" + info.result + "             错误类型：" + info.errorType);
+
+        lastCondition = currentCondition;
+        RemoveQTE(currentCondition, info);
+        info.ResetQTEInfo();
+        currentQTE = null;
+        QTEOperationBase.Singleton.EmptyResult();
     }
 }

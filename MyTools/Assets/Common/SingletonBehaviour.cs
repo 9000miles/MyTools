@@ -7,36 +7,36 @@ namespace Common
     ///<summary>
     /// 脚本单例类
     ///</summary>
-    public class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T>
+    public class SingletonBehaviour<T> : MonoBehaviour where T : SingletonBehaviour<T>
     {
-        private static T instance;
+        private static T singleton;
 
         //按需加载
-        public static T Instance
+        public static T Singleton
         {
             get
             {
-                if (instance == null)
+                if (singleton == null)
                 {
                     //在场景中查找该类型实例
-                    instance = FindObjectOfType<T>();
-                    if (instance == null)
+                    singleton = FindObjectOfType<T>();
+                    if (singleton == null)
                     {
                         //创建该类型组件对象
-                        instance = new GameObject("Singleto of " + typeof(T).ToString()).AddComponent<T>();
+                        singleton = new GameObject("Singleto of " + typeof(T).ToString()).AddComponent<T>();
                     }
-                    instance.Init();//通知实现类初始化
+                    singleton.Init();//通知实现类初始化
                 }
-                return instance;
+                return singleton;
             }
         }
 
         protected void Awake()
         {
             //如果当前组件在场景中默认存在  则通过as为字段赋值
-            if (instance == null)
+            if (singleton == null)
             {
-                instance = this as T;
+                singleton = this as T;
                 Init();//通知实现类初始化
             }
         }

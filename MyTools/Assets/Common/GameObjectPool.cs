@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameObjectPool : MonoSingleton<GameObjectPool>
+public class GameObjectPool : SingletonBehaviour<GameObjectPool>
 {
     /// <summary>用于做缓存的内部容器</summary>
     private Dictionary<string, List<GameObject>> cache = new Dictionary<string, List<GameObject>>();
