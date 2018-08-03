@@ -34,6 +34,7 @@ public class QTEMouseGestures : QTEOperationBase
     public override void ExcuteCheck(QTEInfo info)
     {
         base.ExcuteCheck(info);
+
         if (Event.current.type == EventType.MouseDown)
         {
             //记录鼠标按下的位置 　　
