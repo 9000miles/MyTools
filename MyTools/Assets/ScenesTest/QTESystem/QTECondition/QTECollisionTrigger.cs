@@ -8,6 +8,7 @@ public class QTECollisionTrigger : QTEConditionBase
 
     protected override bool Check()
     {
+        if (base.Check() == false) return false;
         return isCollisionTarget;
     }
 

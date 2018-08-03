@@ -4,15 +4,6 @@ public class SingletonTemplate<T> where T : class, new()
 {
     protected static T singleton = null;
 
-    public virtual T GetSingleton()
-    {
-        if (singleton == null)
-        {
-            singleton = new T();
-        }
-        return singleton;
-    }
-
     public static T Singleton
     {
         get

@@ -13,9 +13,14 @@ public class QTEInfo
     public float startTime;
     public string description;
     public QTEType type;
+
+    public QuickClickInfo quickClick;
+    public PreciseClickInfo preciseClick;
+    public MouseGesturesInfo mouseGestures;
+    public KeyCombinationInfo keyCombination;
+
+    public Vector2 UILocalPosition = new Vector2(-560, 475);
     public QTEResult result;
-    public Vector2 UILocalPosition;
-    public List<QTEKeyCode> keyList;
     public QTEErrorType errorType;
     public Animation animation;
     public CinemachineVirtualCameraBase cinemachine;
@@ -44,11 +49,42 @@ public class QTEInfo
         this.UILocalPosition = Vector2.zero;
         this.type = QTEType.None;
         this.result = QTEResult.None;
-        this.keyList = null;
+        //this.keyList = null;
         this.errorType = QTEErrorType.None;
         this.animation = null;
         this.cinemachine = null;
     }
+}
+
+[Serializable]
+public class QuickClickInfo
+{
+    public int clickCount;
+    public float IntervalTime;
+    public QTEMouseButton mouseButton;
+}
+
+[Serializable]
+public class PreciseClickInfo
+{
+    //public Vector2 clickScreenPosition;
+    public List<GameObject> targetList;
+    public QTEMouseButton mouseButton;
+}
+
+[Serializable]
+public class MouseGesturesInfo
+{
+    [Range(50, 100)]
+    public float recognitionRate = 90;
+    public QTEMouseButton mouseButton;
+    public MouseGestures gestures;
+}
+
+[Serializable]
+public class KeyCombinationInfo
+{
+    public List<QTEKeyCode> keyList;
 }
 
 /// <summary>
@@ -75,9 +111,9 @@ public enum QTEBehaviorType
 
 public enum QTEErrorType
 {
-    None,
-    OverTime,
-    OperatingError,
+    None = 0,
+    OverTime = 1,
+    OperatingError = 2,
 }
 
 /// <summary>
@@ -85,32 +121,54 @@ public enum QTEErrorType
 /// </summary>
 public enum QTEType
 {
-    None,
+    None = 0,
     /// <summary>
     /// 快速点击
     /// </summary>
-    QuickClick,
+    QuickClick = 1,
     /// <summary>
     /// 精准点击
     /// </summary>
-    PreciseClick,
+    PreciseClick = 2,
     /// <summary>
     /// 鼠标手势
     /// </summary>
-    MouseGestures,
+    MouseGestures = 3,
     /// <summary>
     /// 按键组合
     /// </summary>
-    KeyCombination,
+    KeyCombination = 4,
     /// <summary>
     /// 其它
     /// </summary>
-    Others,
+    Others = 999,
+}
+
+public enum MouseGestures
+{
+    LeftSlide,
+    RightSlide,
+    UpSlide,
+    DownSlide,
+    CheckMark,
+    Capital_C,
+    Capital_Z,
+    Capital_U,
+    Capital_O,
+    Capital_S,
+    Capital_L,
+}
+
+public enum QTEMouseButton
+{
+    LeftButton = 0,
+    RightButtton = 1,
+    MiddleButton = 2,
 }
 
 public enum QTEResult
 {
-    None,
-    Failure,
-    Succed,
+    None = 0,
+    Failure = 1,
+    Succed = 2,
 }

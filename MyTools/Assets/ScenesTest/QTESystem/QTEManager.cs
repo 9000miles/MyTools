@@ -15,6 +15,7 @@ public class QTEManager : SingletonBehaviour<QTEManager>
     public Transform panel;
     public Text qteText;
     public KeyCode keyCode;
+    public EventType eventType;
     private List<QTEConditionBase> conditionList;
     private QTEConditionBase currentCondition;
     private QTEConditionBase lastCondition;
@@ -103,6 +104,8 @@ public class QTEManager : SingletonBehaviour<QTEManager>
                     ExcuteQTE(item, item.currentQTEInfo);
             }
         }
+        if (currentCondition != null && currentCondition.isTrue == false)
+            panel.gameObject.SetActive(false);
     }
 
     public QTEInfo GetQTE(QTEConditionBase condition, string description)
@@ -133,43 +136,32 @@ public class QTEManager : SingletonBehaviour<QTEManager>
         currentQTE = info;
         ShowQTEPanel(info);
         operation = SelecteOperationType(info);
-        operation.Excute(info);
+        operation.ExcuteCheck(info);
         QTEExecutiveOutcomes(info, endCall);
     }
 
     private QTEOperationBase SelecteOperationType(QTEInfo info)
     {
-        QTEOperationBase operationBase = null;
+        QTEOperationBase operation = null;
         switch (info.type)
         {
-            case QTEType.None:
-                break;
-
             case QTEType.QuickClick:
-                operationBase = QTEQuickClick.Singleton;
+                operation = QTEQuickClick.Singleton;
                 break;
 
             case QTEType.PreciseClick:
-                operationBase = new QTEPreciseClick();
+                operation = QTEPreciseClick.Singleton;
                 break;
 
             case QTEType.MouseGestures:
-                operationBase = new QTEMouseGestures();
+                operation = QTEMouseGestures.Singleton;
                 break;
 
             case QTEType.KeyCombination:
-                operationBase = new QTEKeyCombination();
-                //operationBase = QTEKeyCombination.Singleton;
-                //operationBase = QTEKeyCombination.;
-                break;
-
-            case QTEType.Others:
-                break;
-
-            default:
+                operation = QTEKeyCombination.Singleton;
                 break;
         }
-        return operationBase;
+        return operation;
     }
 
     public void ShowQTEPanel(QTEInfo info)
@@ -197,7 +189,7 @@ public class QTEManager : SingletonBehaviour<QTEManager>
                 failureCall?.Invoke();
                 break;
         }
-        if (info.result == QTEResult.Succed || info.errorType == QTEErrorType.OverTime)
+        if (info.result == QTEResult.Succed || info.result == QTEResult.Failure || info.errorType == QTEErrorType.OverTime)
             panel.gameObject.SetActive(false);
         //AutoActiveNextQTE(currentCondition);
         isNewQTE = false;
@@ -208,16 +200,16 @@ public class QTEManager : SingletonBehaviour<QTEManager>
         RemoveQTE(currentCondition, info);
         info.ResetQTEInfo();
         currentQTE = null;
-        QTEOperationBase.Singleton.EmptyResult();
+        operation.ResetData();
     }
 
     private void OnGUI()
     {
         Event e = Event.current;
-        if (e != null && e.type == EventType.KeyDown && e.isKey && e.keyCode != KeyCode.None &&
-          ((int)e.keyCode < 323 || (int)e.keyCode > 329))
+        if (e != null && e.type == EventType.KeyDown && e.isKey && e.keyCode != KeyCode.None && ((int)e.keyCode < 323 || (int)e.keyCode > 329))
         {
             keyCode = e.keyCode;
+            eventType = e.type;
         }
     }
 }

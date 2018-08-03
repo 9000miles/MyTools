@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Common;
 
-public abstract class QTEConditionBase : MonoBehaviour
+public abstract class QTEConditionBase : SingletonBehaviour<QTEConditionBase>
 {
     public bool isTrue;
     private bool isStartTimeHasSet;
@@ -20,13 +21,24 @@ public abstract class QTEConditionBase : MonoBehaviour
         Init();
     }
 
-    private void Init()
+    public override void Init()
     {
+        base.Init();
         owerTF = transform;
         //infoList = new List<QTEInfo>();
     }
 
-    protected abstract bool Check();
+    protected virtual bool Check()
+    {
+        bool isActiveCondition = true;
+        List<QTEInfo> activeQTE = infoList.FindAll(t => t.isActive);
+        if (activeQTE.Count > 1)
+        {
+            isActiveCondition = false;
+            Debug.LogError("请保证同时只有一个QTE被激活");
+        }
+        return isActiveCondition;
+    }
 
     public void CheckIsTrue()
     {

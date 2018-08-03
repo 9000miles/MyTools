@@ -12,7 +12,7 @@ public class QTEPlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (QTEManager.Singleton.isNewQTE == true) return;
+        //if (QTEManager.Singleton.isNewQTE == true) return;
         if (Input.GetKey(KeyCode.A))
         {
             transform.Translate(Vector3.left * Time.deltaTime * speed);
