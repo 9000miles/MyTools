@@ -3,55 +3,73 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Common;
+using System.Threading.Tasks;
 
 /// <summary>
-/// 求出所有点最高距离、最宽距离
-/// 按照最高和最宽分别做一次比例适配，然后计算命中率
-/// 取其中命中率最大值，作为结果
-///
-/// 求质心点与所有点父物体的偏移距离
-/// 然后将所有的子物体移动一个偏移距离，这样父物体的位置便是质心点
-/// 将父物体移动到模板上，进行比例适配，计算结果
-///
-/// 需要增加对标准模板长和宽的相似程度
+/// 在模板路径放置识别点，
+/// 每个识别点获取识别范围内的数据点
+/// 计算总的数据点在识别点范围内比例
 /// </summary>
-public class InSideTest : MonoBehaviour
+public class MouseGesturesPlan_B : MonoBehaviour
 {
     public Image point;
     public List<Vector3> pointList;
     //public List<Transform> inSidePointTF;
     //public List<Vector3> inSidePoint;
     private List<Transform> allPoint;
-    private List<Transform> inSidePoint;
+    private List<Transform> inSidePointList;
     public RectTransform pointsPanel;
     public RectTransform gravityCenter;
     public float templateLength;
     public float templateWidth;
+
+    [Range(5, 100)]
+    public float recognitionRange = 60;
+
+    [Space(5)]
     /// <summary>
     /// 长度方向适配识别率
     /// </summary>
     public float lengthRecognitionRate;
+    public float lengthFixedPointCount;
+    public float lengthFixedPointRate;
+
+    [Space(5)]
     /// <summary>
     /// 宽度方向适配识别率
     /// </summary>
     public float widthRecognitionRate;
+    public float widthFixedPointCount;
+    public float widthFixedPointRate;
+
+    [Space(5)]
     /// <summary>
     /// 长宽方向整体识别率
     /// </summary>
     public float wholeRecognitionRate;
+    public float wholeFixedPointCount;
+    public float wholeFixedPointRate;
+
+    [Space(5)]
     /// <summary>
     /// 最终的识别率 = （lengthRecognitionRate + widthRecognitionRate + wholeRecognitionRate）/ 3
     /// </summary>
     public float recognitionRate;
     private PolygonCollider2D templateCollider;
 
+    private List<Transform> fixedPointList;
+
     // Use this for initialization
     private void Start()
     {
         allPoint = new List<Transform>();
-        inSidePoint = new List<Transform>();
+        inSidePointList = new List<Transform>();
         templateCollider = GetComponent<PolygonCollider2D>();
         GetTemplateWidthAndHeight();
+
+        fixedPointList = new List<Transform>();
+        fixedPointList.AddRange(transform.GetComponentsInChildren<Transform>());
+        fixedPointList.Remove(transform);
     }
 
     // Update is called once per frame
@@ -91,25 +109,29 @@ public class InSideTest : MonoBehaviour
         {
             MoveOffsetDistance();
             await new WaitForUpdate();
-            FitTemplateProportions();
-            Debug.Log("所有的：" + allPoint.Count + "   在内部：" + inSidePoint.Count);
-            inSidePoint.TrimExcess();
-            if (inSidePoint.Count > 0)
-                Debug.Log("比例：" + CalculateRecongnitionRate() + "%");
+            await FitTemplateProportions();
+            Debug.Log("所有的：" + allPoint.Count + "   在内部：" + inSidePointList.Count);
+            inSidePointList.TrimExcess();
+            //if (inSidePointList.Count > 0)
+            //    Debug.Log("比例：" + CalculateRecongnitionRate() + "%");
         }
     }
 
     private void Clear()
     {
-        pointList.Clear();
         if (Input.GetMouseButtonDown(1))
         {
+            pointList.Clear();
+            lengthFixedPointCount = 0;
+            widthFixedPointCount = 0;
+            wholeFixedPointCount = 0;
             for (int i = 0; i < allPoint.Count; i++)
             {
                 Destroy(allPoint[i].gameObject);
             }
+
             allPoint.Clear();
-            inSidePoint.Clear();
+            inSidePointList.Clear();
             pointsPanel.localScale = Vector3.one;
         }
     }
@@ -123,62 +145,28 @@ public class InSideTest : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (!inSidePoint.Contains(collision.transform))
-        {
-            inSidePoint.Add(collision.transform);
-        }
-    }
+    //private void OnTriggerStay2D(Collider2D collision)
+    //{
+    //    if (!inSidePoint.Contains(collision.transform))
+    //    {
+    //        inSidePoint.Add(collision.transform);
+    //    }
+    //}
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        inSidePoint.Remove(collision.transform);
-    }
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    inSidePoint.Remove(collision.transform);
+    //}
 
     public Vector3 GetCenterOfGravity(Vector3[] points)
     {
         if (points.Length <= 0) return Vector3.zero;
-
-        float minX = points[0].x;
-        float maxX = points[0].x;
-        float minY = points[0].y;
-        float maxY = points[0].y;
-        float minZ = points[0].z;
-        float maxZ = points[0].z;
-        minX = points.GetMin(t => t.x).x;
-        maxX = points.GetMax(t => t.x).x;
-        minY = points.GetMin(t => t.y).y;
-        maxY = points.GetMax(t => t.y).y;
-        minZ = points.GetMin(t => t.z).z;
-        maxZ = points.GetMax(t => t.z).z;
-        //for (int i = 0; i < vect3s.Length; i++)
-        //{
-        //    if (minx > vect3s[i].x)
-        //    {
-        //        minx = vect3s[i].x;
-        //    }
-        //    if (maxx < vect3s[i].x)
-        //    {
-        //        maxx = vect3s[i].x;
-        //    }
-        //    if (miny > vect3s[i].y)
-        //    {
-        //        miny = vect3s[i].y;
-        //    }
-        //    if (maxy < vect3s[i].y)
-        //    {
-        //        maxy = vect3s[i].y;
-        //    }
-        //    if (minz > vect3s[i].z)
-        //    {
-        //        minz = vect3s[i].z;
-        //    }
-        //    if (maxz < vect3s[i].z)
-        //    {
-        //        maxz = vect3s[i].z;
-        //    }
-        //}
+        float minX = points.GetMin(t => t.x).x;
+        float maxX = points.GetMax(t => t.x).x;
+        float minY = points.GetMin(t => t.y).y;
+        float maxY = points.GetMax(t => t.y).y;
+        float minZ = points.GetMin(t => t.z).z;
+        float maxZ = points.GetMax(t => t.z).z;
         return new Vector3((minX + maxX) / 2, (minY + maxY) / 2, (minZ + maxZ) / 2);
     }
 
@@ -217,7 +205,7 @@ public class InSideTest : MonoBehaviour
         height = maxZ - minZ;
     }
 
-    private async void FitTemplateProportions()
+    private async Task FitTemplateProportions()
     {
         float length = 0;
         float width = 0;
@@ -229,22 +217,38 @@ public class InSideTest : MonoBehaviour
         float lengthRatio = templateLength / length;
         pointsPanel.localScale = new Vector3(originalScale.x * lengthRatio, originalScale.y, originalScale.z);
         await new WaitForFixedUpdate();
-        lengthRecognitionRate = CalculateRecongnitionRate();
+        lengthRecognitionRate = CalculateRecongnitionRate(ref lengthFixedPointCount, ref lengthFixedPointRate);
 
         float widthRatio = templateWidth / width;
         pointsPanel.localScale = new Vector3(originalScale.x, originalScale.y * widthRatio, originalScale.z);
         await new WaitForFixedUpdate();
-        widthRecognitionRate = CalculateRecongnitionRate();
+        widthRecognitionRate = CalculateRecongnitionRate(ref widthFixedPointCount, ref widthFixedPointRate);
 
         pointsPanel.localScale = new Vector3(originalScale.x * lengthRatio, originalScale.y * widthRatio, originalScale.z);
         await new WaitForFixedUpdate();
-        wholeRecognitionRate = CalculateRecongnitionRate();
+        wholeRecognitionRate = CalculateRecongnitionRate(ref wholeFixedPointCount, ref wholeFixedPointRate);
 
         recognitionRate = (lengthRecognitionRate + widthRecognitionRate + wholeRecognitionRate) / 3f;
     }
 
-    private float CalculateRecongnitionRate()
+    private float CalculateRecongnitionRate(ref float fixedPointCount, ref float fixedPointRate)
     {
-        return (float)inSidePoint.Count / (float)allPoint.Count * 100f;
+        foreach (var item in fixedPointList)
+        {
+            Transform[] inSidePoint = item.GetAroundObject(recognitionRange, 360, "Point");
+            if (inSidePoint.Length > 0) fixedPointCount++;
+            foreach (var inSideItem in inSidePoint)
+            {
+                if (!inSidePointList.Contains(inSideItem))
+                    inSidePointList.Add(inSideItem);
+            }
+        }
+
+        float rate = 0;
+        if (fixedPointCount != 0)
+            fixedPointRate = fixedPointCount / fixedPointList.Count * 100f;
+        if (inSidePointList.Count != 0)
+            rate = (float)inSidePointList.Count / (float)allPoint.Count * 100f;
+        return rate;
     }
 }
