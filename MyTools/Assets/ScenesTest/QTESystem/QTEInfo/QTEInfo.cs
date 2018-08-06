@@ -13,7 +13,6 @@ public class QTEInfo
     public float startTime;
     public string description;
     public QTEType type;
-
     public QuickClickInfo quickClick;
     public PreciseClickInfo preciseClick;
     public MouseGesturesInfo mouseGestures;

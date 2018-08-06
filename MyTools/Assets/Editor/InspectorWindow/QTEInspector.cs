@@ -1,39 +1,70 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
+﻿//using System.Collections;
+//using System.Collections.Generic;
+//using UnityEditor;
+//using UnityEngine;
 
-[CustomEditor(typeof(QTEInfo))]
-public class QTEInspector : Editor
-{
-    private bool isShow;
-    private QTEInfo QTE;
+//显示不正常
+//[CustomEditor(typeof(QTEInfo))]
+//public class QTEInspector : Editor
+//{
+//    private bool isShow;
+//    private SerializedObject QTE;
+//    private SerializedProperty qteType;
+//    private SerializedProperty quickClick;
+//    private SerializedProperty preciseClick;
+//    private SerializedProperty mouseGestures;
+//    private SerializedProperty keyCombination;
 
-    public override void OnInspectorGUI()
-    {
-        base.OnInspectorGUI();
+//    private void OnEnable()
+//    {
+//        QTE = new SerializedObject(target);
+//        qteType = QTE.FindProperty("type");//获取m_type
+//        quickClick = QTE.FindProperty("quickClick");//获取a_int
+//        preciseClick = QTE.FindProperty("preciseClick");//获取b_int
+//        mouseGestures = QTE.FindProperty("mouseGestures");//获取b_int
+//        keyCombination = QTE.FindProperty("keyCombination");//获取b_int
+//    }
 
-        isShow = EditorGUILayout.Foldout(isShow, "Set QTE");
-        if (isShow)
-        {
-            switch (QTE.type)
-            {
-                case QTEType.None:
-                    break;
-                case QTEType.QuickClick:
-                    QTE.quickClick.clickCount = EditorGUILayout.IntField(QTE.quickClick.clickCount);
-                    break;
-                case QTEType.PreciseClick:
-                    break;
-                case QTEType.MouseGestures:
-                    break;
-                case QTEType.KeyCombination:
-                    break;
-                case QTEType.Others:
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
-}
+//    //public override void OnInspectorGUI()
+//    //{
+//    //    test.Update();//更新test
+//    //    EditorGUILayout.PropertyField(m_type);
+//    //    if (m_type.enumValueIndex == 0)
+//    //    {//当选择第一个枚举类型
+//    //        EditorGUILayout.PropertyField(a_int);
+//    //    }
+//    //    else if (m_type.enumValueIndex == 1)
+//    //    {
+//    //        EditorGUILayout.PropertyField(b_int);
+//    //    }
+//    //    //serializedObject.ApplyModifiedProperties();
+//    //    test.ApplyModifiedProperties();//应用
+//    //}
+
+//    public override void OnInspectorGUI()
+//    {
+//        base.OnInspectorGUI();
+//        QTE.Update();
+//        EditorGUILayout.PropertyField(qteType);
+//        switch (qteType.enumValueIndex)
+//        {
+//            case 0:
+//                break;
+//            case 1:
+//                EditorGUILayout.PropertyField(quickClick);
+//                break;
+//            case 2:
+//                EditorGUILayout.PropertyField(preciseClick);
+//                break;
+//            case 3:
+//                EditorGUILayout.PropertyField(mouseGestures);
+//                break;
+//            case 4:
+//                EditorGUILayout.PropertyField(keyCombination);
+//                break;
+//            case 999:
+//                break;
+//        }
+//        QTE.ApplyModifiedProperties();
+//    }
+//}

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -555,26 +555,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 1
+  - isActive: 0
     ID: 0
-    duration: 10
+    duration: 0
     startTime: 0
-    description: "\u5FEB\u901F\u70B9\u51FB2\u6B21\u9F20\u6807\u5DE6\u952E"
-    type: 1
+    description: 
+    type: 0
     quickClick:
-      clickCount: 2
-      IntervalTime: 0.5
+      clickCount: 0
+      IntervalTime: 0
       mouseButton: 0
     preciseClick:
       targetList: []
       mouseButton: 0
     mouseGestures:
       angleLimit: 30
+      augularOffset: 30
       mouseButton: 0
       gesturesType: 0
     keyCombination:
       keyList: 
-    UILocalPosition: {x: -750, y: -37}
+    UILocalPosition: {x: -560, y: 475}
     result: 0
     errorType: 0
     animation: {fileID: 0}
@@ -596,11 +597,12 @@ MonoBehaviour:
       mouseButton: 0
     mouseGestures:
       angleLimit: 30
+      augularOffset: 30
       mouseButton: 0
       gesturesType: 0
     keyCombination:
       keyList: 
-    UILocalPosition: {x: 0, y: 0}
+    UILocalPosition: {x: -560, y: 475}
     result: 0
     errorType: 0
     animation: {fileID: 0}
@@ -939,23 +941,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 1
+  - isActive: 0
     ID: 0
-    duration: 15
+    duration: 0
     startTime: 0
-    description: "\u8BF7\u3010\u53F3\u952E\u3011\u70B9\u51FB\u3010\u6309\u952E\u7EC4\u5408\u3011\u4E2D\u7684\u7EFF\u3001\u9EC4\u8272\u7269\u4F53"
-    type: 2
+    description: 
+    type: 0
     quickClick:
       clickCount: 0
       IntervalTime: 0
       mouseButton: 0
     preciseClick:
-      targetList:
-      - {fileID: 1369098738}
-      - {fileID: 1956787180}
-      mouseButton: 1
+      targetList: []
+      mouseButton: 0
     mouseGestures:
       angleLimit: 30
+      augularOffset: 30
       mouseButton: 0
       gesturesType: 0
     keyCombination:
@@ -982,11 +983,12 @@ MonoBehaviour:
       mouseButton: 0
     mouseGestures:
       angleLimit: 30
+      augularOffset: 30
       mouseButton: 0
       gesturesType: 0
     keyCombination:
       keyList: 
-    UILocalPosition: {x: 0, y: 0}
+    UILocalPosition: {x: -560, y: 475}
     result: 0
     errorType: 0
     animation: {fileID: 0}
@@ -1091,12 +1093,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 1
+  - isActive: 0
     ID: 0
-    duration: 10
+    duration: 0
     startTime: 0
-    description: "\u8BF7\u6309R\u952E"
-    type: 4
+    description: 
+    type: 0
     quickClick:
       clickCount: 0
       IntervalTime: 0
@@ -1106,11 +1108,12 @@ MonoBehaviour:
       mouseButton: 0
     mouseGestures:
       angleLimit: 30
+      augularOffset: 30
       mouseButton: 0
       gesturesType: 0
     keyCombination:
-      keyList: 72000000
-    UILocalPosition: {x: -20, y: 465}
+      keyList: 
+    UILocalPosition: {x: -560, y: 475}
     result: 0
     errorType: 0
     animation: {fileID: 0}
@@ -1132,11 +1135,12 @@ MonoBehaviour:
       mouseButton: 0
     mouseGestures:
       angleLimit: 30
+      augularOffset: 30
       mouseButton: 0
       gesturesType: 0
     keyCombination:
       keyList: 
-    UILocalPosition: {x: 0, y: 0}
+    UILocalPosition: {x: -560, y: 475}
     result: 0
     errorType: 0
     animation: {fileID: 0}
@@ -1455,26 +1459,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 1
+  - isActive: 0
     ID: 0
-    duration: 5
+    duration: 0
     startTime: 0
-    description: "\u5FEB\u901F\u70B9\u51FB3\u6B21\u9F20\u6807\u4E2D\u952E"
-    type: 1
+    description: 
+    type: 0
     quickClick:
-      clickCount: 3
-      IntervalTime: 0.5
-      mouseButton: 2
+      clickCount: 0
+      IntervalTime: 0
+      mouseButton: 0
     preciseClick:
       targetList: []
       mouseButton: 0
     mouseGestures:
       angleLimit: 30
+      augularOffset: 30
       mouseButton: 0
       gesturesType: 0
     keyCombination:
       keyList: 
-    UILocalPosition: {x: 0, y: 0}
+    UILocalPosition: {x: -560, y: 475}
     result: 0
     errorType: 0
     animation: {fileID: 0}
@@ -1496,11 +1501,12 @@ MonoBehaviour:
       mouseButton: 0
     mouseGestures:
       angleLimit: 30
+      augularOffset: 30
       mouseButton: 0
       gesturesType: 0
     keyCombination:
       keyList: 
-    UILocalPosition: {x: 0, y: 0}
+    UILocalPosition: {x: -560, y: 475}
     result: 0
     errorType: 0
     animation: {fileID: 0}
@@ -1721,12 +1727,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 1
+  - isActive: 0
     ID: 0
-    duration: 50
+    duration: 0
     startTime: 0
-    description: "\u8BF7\u6309\u4F4F\u5DE6\u952E\u4E0A\u6ED1\u9F20\u6807"
-    type: 3
+    description: 
+    type: 0
     quickClick:
       clickCount: 0
       IntervalTime: 0
@@ -1736,11 +1742,12 @@ MonoBehaviour:
       mouseButton: 0
     mouseGestures:
       angleLimit: 30
+      augularOffset: 30
       mouseButton: 0
-      gesturesType: 1
+      gesturesType: 0
     keyCombination:
       keyList: 
-    UILocalPosition: {x: 0, y: 0}
+    UILocalPosition: {x: -560, y: 475}
     result: 0
     errorType: 0
     animation: {fileID: 0}
@@ -1762,6 +1769,7 @@ MonoBehaviour:
       mouseButton: 0
     mouseGestures:
       angleLimit: 30
+      augularOffset: 30
       mouseButton: 0
       gesturesType: 0
     keyCombination:
@@ -2180,12 +2188,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 1
+  - isActive: 0
     ID: 0
-    duration: 10
+    duration: 0
     startTime: 0
-    description: "\u8BF7\u6309E\uFF0CH\u952E"
-    type: 4
+    description: 
+    type: 0
     quickClick:
       clickCount: 0
       IntervalTime: 0
@@ -2195,21 +2203,22 @@ MonoBehaviour:
       mouseButton: 0
     mouseGestures:
       angleLimit: 30
+      augularOffset: 30
       mouseButton: 0
       gesturesType: 0
     keyCombination:
-      keyList: 6500000068000000
-    UILocalPosition: {x: -240, y: 465}
+      keyList: 
+    UILocalPosition: {x: -560, y: 475}
     result: 0
     errorType: 0
     animation: {fileID: 0}
     cinemachine: {fileID: 0}
   - isActive: 0
     ID: 0
-    duration: 10
+    duration: 0
     startTime: 0
-    description: "\u8BF7\u6309Y\u952E"
-    type: 4
+    description: 
+    type: 0
     quickClick:
       clickCount: 0
       IntervalTime: 0
@@ -2219,11 +2228,12 @@ MonoBehaviour:
       mouseButton: 0
     mouseGestures:
       angleLimit: 30
+      augularOffset: 30
       mouseButton: 0
       gesturesType: 0
     keyCombination:
-      keyList: 79000000
-    UILocalPosition: {x: -240, y: 465}
+      keyList: 
+    UILocalPosition: {x: -560, y: 475}
     result: 0
     errorType: 0
     animation: {fileID: 0}
@@ -2245,11 +2255,12 @@ MonoBehaviour:
       mouseButton: 0
     mouseGestures:
       angleLimit: 30
+      augularOffset: 30
       mouseButton: 0
       gesturesType: 0
     keyCombination:
       keyList: 
-    UILocalPosition: {x: 0, y: 0}
+    UILocalPosition: {x: -560, y: 475}
     result: 0
     errorType: 0
     animation: {fileID: 0}
@@ -2620,22 +2631,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 1
+  - isActive: 0
     ID: 0
-    duration: 15
+    duration: 0
     startTime: 0
-    description: "\u8BF7\u3010\u5DE6\u952E\u3011\u70B9\u51FB\u3010\u6309\u952E\u7EC4\u5408\u3011\u4E2D\u7684\u7EFF\u8272\u7269\u4F53"
-    type: 2
+    description: 
+    type: 0
     quickClick:
       clickCount: 0
       IntervalTime: 0
       mouseButton: 0
     preciseClick:
-      targetList:
-      - {fileID: 1369098738}
+      targetList: []
       mouseButton: 0
     mouseGestures:
       angleLimit: 30
+      augularOffset: 30
       mouseButton: 0
       gesturesType: 0
     keyCombination:
@@ -2662,11 +2673,12 @@ MonoBehaviour:
       mouseButton: 0
     mouseGestures:
       angleLimit: 30
+      augularOffset: 30
       mouseButton: 0
       gesturesType: 0
     keyCombination:
       keyList: 
-    UILocalPosition: {x: 0, y: 0}
+    UILocalPosition: {x: -560, y: 475}
     result: 0
     errorType: 0
     animation: {fileID: 0}
@@ -2770,12 +2782,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 1
+  - isActive: 0
     ID: 0
-    duration: 50
+    duration: 0
     startTime: 0
-    description: "\u8BF7\u6309\u4F4F\u5DE6\u952E\u5DE6\u6ED1\u9F20\u6807"
-    type: 3
+    description: 
+    type: 0
     quickClick:
       clickCount: 0
       IntervalTime: 0
@@ -2785,11 +2797,12 @@ MonoBehaviour:
       mouseButton: 0
     mouseGestures:
       angleLimit: 30
+      augularOffset: 30
       mouseButton: 0
-      gesturesType: 2
+      gesturesType: 0
     keyCombination:
-      keyList: 00000000
-    UILocalPosition: {x: 0, y: 0}
+      keyList: 
+    UILocalPosition: {x: -560, y: 475}
     result: 0
     errorType: 0
     animation: {fileID: 0}
@@ -2811,6 +2824,7 @@ MonoBehaviour:
       mouseButton: 0
     mouseGestures:
       angleLimit: 30
+      augularOffset: 30
       mouseButton: 0
       gesturesType: 0
     keyCombination:
@@ -3062,12 +3076,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 1
+  - isActive: 0
     ID: 0
-    duration: 50
+    duration: 0
     startTime: 0
-    description: "\u8BF7\u6309\u4F4F\u5DE6\u952E\u53F3\u6ED1\u9F20\u6807"
-    type: 3
+    description: 
+    type: 0
     quickClick:
       clickCount: 0
       IntervalTime: 0
@@ -3077,11 +3091,12 @@ MonoBehaviour:
       mouseButton: 0
     mouseGestures:
       angleLimit: 30
+      augularOffset: 30
       mouseButton: 0
-      gesturesType: 1
+      gesturesType: 0
     keyCombination:
       keyList: 
-    UILocalPosition: {x: 0, y: 0}
+    UILocalPosition: {x: -560, y: 475}
     result: 0
     errorType: 0
     animation: {fileID: 0}
@@ -3103,6 +3118,7 @@ MonoBehaviour:
       mouseButton: 0
     mouseGestures:
       angleLimit: 30
+      augularOffset: 30
       mouseButton: 0
       gesturesType: 0
     keyCombination:
@@ -3212,24 +3228,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 1
+  - isActive: 0
     ID: 0
-    duration: 15
+    duration: 0
     startTime: 0
-    description: "\u8BF7\u3010\u4E2D\u952E\u3011\u70B9\u51FB\u3010\u5FEB\u901F\u70B9\u51FB\u3011\u4E2D\u7684\u7EFF\u3001\u9EC4\u8272\u3001\u84DD\u7269\u4F53"
-    type: 2
+    description: 
+    type: 0
     quickClick:
       clickCount: 0
       IntervalTime: 0
       mouseButton: 0
     preciseClick:
-      targetList:
-      - {fileID: 568776609}
-      - {fileID: 980501783}
-      - {fileID: 2141496583}
-      mouseButton: 2
+      targetList: []
+      mouseButton: 0
     mouseGestures:
       angleLimit: 30
+      augularOffset: 30
       mouseButton: 0
       gesturesType: 0
     keyCombination:
@@ -3256,6 +3270,7 @@ MonoBehaviour:
       mouseButton: 0
     mouseGestures:
       angleLimit: 30
+      augularOffset: 30
       mouseButton: 0
       gesturesType: 0
     keyCombination:
@@ -3804,12 +3819,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 1
+  - isActive: 0
     ID: 0
-    duration: 2
+    duration: 0
     startTime: 0
-    description: "\u8BF7\u6309A\u952E"
-    type: 4
+    description: 
+    type: 0
     quickClick:
       clickCount: 0
       IntervalTime: 0
@@ -3819,21 +3834,22 @@ MonoBehaviour:
       mouseButton: 0
     mouseGestures:
       angleLimit: 30
+      augularOffset: 30
       mouseButton: 0
       gesturesType: 0
     keyCombination:
-      keyList: 61000000
-    UILocalPosition: {x: 222, y: 465}
+      keyList: 
+    UILocalPosition: {x: -560, y: 475}
     result: 0
     errorType: 0
     animation: {fileID: 0}
     cinemachine: {fileID: 0}
   - isActive: 0
     ID: 0
-    duration: 10
+    duration: 0
     startTime: 0
-    description: "\u8BF7\u6309A,Q\u952E"
-    type: 4
+    description: 
+    type: 0
     quickClick:
       clickCount: 0
       IntervalTime: 0
@@ -3843,21 +3859,22 @@ MonoBehaviour:
       mouseButton: 0
     mouseGestures:
       angleLimit: 30
+      augularOffset: 30
       mouseButton: 0
       gesturesType: 0
     keyCombination:
-      keyList: 6100000071000000
-    UILocalPosition: {x: 222, y: 465}
+      keyList: 
+    UILocalPosition: {x: -560, y: 475}
     result: 0
     errorType: 0
     animation: {fileID: 0}
     cinemachine: {fileID: 0}
   - isActive: 0
     ID: 0
-    duration: 10
+    duration: 0
     startTime: 0
-    description: "\u8BF7\u6309Space\u952E"
-    type: 4
+    description: 
+    type: 0
     quickClick:
       clickCount: 0
       IntervalTime: 0
@@ -3867,11 +3884,12 @@ MonoBehaviour:
       mouseButton: 0
     mouseGestures:
       angleLimit: 30
+      augularOffset: 30
       mouseButton: 0
       gesturesType: 0
     keyCombination:
-      keyList: 20000000
-    UILocalPosition: {x: 222, y: 465}
+      keyList: 
+    UILocalPosition: {x: -560, y: 475}
     result: 0
     errorType: 0
     animation: {fileID: 0}
@@ -3893,11 +3911,12 @@ MonoBehaviour:
       mouseButton: 0
     mouseGestures:
       angleLimit: 30
+      augularOffset: 30
       mouseButton: 0
       gesturesType: 0
     keyCombination:
       keyList: 
-    UILocalPosition: {x: 0, y: 0}
+    UILocalPosition: {x: -560, y: 475}
     result: 0
     errorType: 0
     animation: {fileID: 0}
@@ -4145,26 +4164,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 1
+  - isActive: 0
     ID: 0
-    duration: 5
+    duration: 0
     startTime: 0
-    description: "\u5FEB\u901F\u70B9\u51FB3\u6B21\u9F20\u6807\u53F3\u952E"
-    type: 1
+    description: 
+    type: 0
     quickClick:
-      clickCount: 3
-      IntervalTime: 1
-      mouseButton: 1
+      clickCount: 0
+      IntervalTime: 0
+      mouseButton: 0
     preciseClick:
       targetList: []
       mouseButton: 0
     mouseGestures:
       angleLimit: 30
+      augularOffset: 30
       mouseButton: 0
       gesturesType: 0
     keyCombination:
       keyList: 
-    UILocalPosition: {x: -750, y: -37}
+    UILocalPosition: {x: -560, y: 475}
     result: 0
     errorType: 0
     animation: {fileID: 0}
@@ -4186,11 +4206,12 @@ MonoBehaviour:
       mouseButton: 0
     mouseGestures:
       angleLimit: 30
+      augularOffset: 30
       mouseButton: 0
       gesturesType: 0
     keyCombination:
       keyList: 
-    UILocalPosition: {x: 0, y: 0}
+    UILocalPosition: {x: -560, y: 475}
     result: 0
     errorType: 0
     animation: {fileID: 0}

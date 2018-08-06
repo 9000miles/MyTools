@@ -5,6 +5,7 @@ using Common;
 /// <summary>
 /// 生成贝塞尔曲线
 /// </summary>
+[RequireComponent(typeof(LineRenderer))]
 public class BezierGenerate : SingletonBehaviour<BezierGenerate>
 {
     #region 变量
@@ -44,27 +45,21 @@ public class BezierGenerate : SingletonBehaviour<BezierGenerate>
     }
 
     //生成曲线坐标
-    public void GenerateCurve()
+    public void GenerateCurve(Vector3 startPos, Vector3 startContrllor, Vector3 endContrllor, Vector3 endPos)
     {
+        float distance = Vector3.Distance(startPos, endPos);
+        int nodeCount = (int)distance > 1 ? (int)distance : 2;// 2;
+        int startIndex = line.positionCount;
+        line.positionCount = startIndex + nodeCount;
         //每段所占比例
         float ratio = 1f / (nodeCount - 1);
         float t = 0;
         for (int i = 0; i < nodeCount; i++)
         {
-            nodePoints[i] = CreatePoint(
-                startTF.position,
-                startContrllor.position,
-                endContrllor.position,
-                endTF.position,
-                t);
+            Vector3 pos = CreatePoint(startPos, startContrllor, endContrllor, endPos, t);
+            line.SetPosition(startIndex + i, pos);
             t += ratio;
         }
-    }
-
-    //3. 绘制曲线
-    public void DrawCurve()
-    {
-        line.SetPositions(nodePoints);
     }
 
     /// <summary>
@@ -73,7 +68,30 @@ public class BezierGenerate : SingletonBehaviour<BezierGenerate>
     /// <param name="nodePoints">点数组</param>
     public void DrawCurve(Vector3[] nodePoints)
     {
-        GenerateCurve();
+        for (int i = 0; i < nodePoints.Length - 1; i++)
+        {
+            Vector3 startContrllor = SetBezierStartControlTF(nodePoints[i], nodePoints[i + 1]);
+            Vector3 endContrllor = SetBezierEndControlTF(nodePoints[i], nodePoints[i + 1]);
+            GenerateCurve(nodePoints[i], startContrllor, endContrllor, nodePoints[i + 1]);
+        }
         line.SetPositions(nodePoints);
+    }
+
+    /// <summary>
+    /// 设置贝赛尔曲线起点控制点
+    /// </summary>
+    private Vector3 SetBezierStartControlTF(Vector3 first, Vector3 scend)
+    {
+        float distance = Vector3.Distance(first, scend);
+        return new Vector3(first.x + distance / 2f, first.y + distance / 1f, first.z);
+    }
+
+    /// <summary>
+    /// 设置贝赛尔曲线终点控制点
+    /// </summary>
+    private Vector3 SetBezierEndControlTF(Vector3 first, Vector3 scend)
+    {
+        float distance = Vector3.Distance(first, scend);
+        return new Vector3(first.x, first.y + distance, first.z);
     }
 }
