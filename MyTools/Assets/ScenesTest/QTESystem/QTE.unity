@@ -569,9 +569,9 @@ MonoBehaviour:
       targetList: []
       mouseButton: 0
     mouseGestures:
-      recognitionRate: 0
+      angleLimit: 30
       mouseButton: 0
-      gestures: 0
+      gesturesType: 0
     keyCombination:
       keyList: 
     UILocalPosition: {x: -750, y: -37}
@@ -595,9 +595,9 @@ MonoBehaviour:
       targetList: []
       mouseButton: 0
     mouseGestures:
-      recognitionRate: 0
+      angleLimit: 30
       mouseButton: 0
-      gestures: 0
+      gesturesType: 0
     keyCombination:
       keyList: 
     UILocalPosition: {x: 0, y: 0}
@@ -955,9 +955,9 @@ MonoBehaviour:
       - {fileID: 1956787180}
       mouseButton: 1
     mouseGestures:
-      recognitionRate: 0
+      angleLimit: 30
       mouseButton: 0
-      gestures: 0
+      gesturesType: 0
     keyCombination:
       keyList: 
     UILocalPosition: {x: -560, y: 475}
@@ -981,9 +981,9 @@ MonoBehaviour:
       targetList: []
       mouseButton: 0
     mouseGestures:
-      recognitionRate: 0
+      angleLimit: 30
       mouseButton: 0
-      gestures: 0
+      gesturesType: 0
     keyCombination:
       keyList: 
     UILocalPosition: {x: 0, y: 0}
@@ -1105,9 +1105,9 @@ MonoBehaviour:
       targetList: []
       mouseButton: 0
     mouseGestures:
-      recognitionRate: 0
+      angleLimit: 30
       mouseButton: 0
-      gestures: 0
+      gesturesType: 0
     keyCombination:
       keyList: 72000000
     UILocalPosition: {x: -20, y: 465}
@@ -1131,9 +1131,9 @@ MonoBehaviour:
       targetList: []
       mouseButton: 0
     mouseGestures:
-      recognitionRate: 0
+      angleLimit: 30
       mouseButton: 0
-      gestures: 0
+      gesturesType: 0
     keyCombination:
       keyList: 
     UILocalPosition: {x: 0, y: 0}
@@ -1469,9 +1469,9 @@ MonoBehaviour:
       targetList: []
       mouseButton: 0
     mouseGestures:
-      recognitionRate: 0
+      angleLimit: 30
       mouseButton: 0
-      gestures: 0
+      gesturesType: 0
     keyCombination:
       keyList: 
     UILocalPosition: {x: 0, y: 0}
@@ -1495,9 +1495,9 @@ MonoBehaviour:
       targetList: []
       mouseButton: 0
     mouseGestures:
-      recognitionRate: 0
+      angleLimit: 30
       mouseButton: 0
-      gestures: 0
+      gesturesType: 0
     keyCombination:
       keyList: 
     UILocalPosition: {x: 0, y: 0}
@@ -1632,6 +1632,7 @@ GameObject:
   - component: {fileID: 1250859360}
   - component: {fileID: 1250859359}
   - component: {fileID: 1250859358}
+  - component: {fileID: 1250859361}
   m_Layer: 0
   m_Name: QTE_Yellow
   m_TagString: Untagged
@@ -1707,6 +1708,69 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1250859356}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1250859361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1250859356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d1800fbfc988564eadacb20dc1a1a6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTrue: 0
+  infoList:
+  - isActive: 1
+    ID: 0
+    duration: 50
+    startTime: 0
+    description: "\u8BF7\u6309\u4F4F\u5DE6\u952E\u4E0A\u6ED1\u9F20\u6807"
+    type: 3
+    quickClick:
+      clickCount: 0
+      IntervalTime: 0
+      mouseButton: 0
+    preciseClick:
+      targetList: []
+      mouseButton: 0
+    mouseGestures:
+      angleLimit: 30
+      mouseButton: 0
+      gesturesType: 1
+    keyCombination:
+      keyList: 
+    UILocalPosition: {x: 0, y: 0}
+    result: 0
+    errorType: 0
+    animation: {fileID: 0}
+    cinemachine: {fileID: 0}
+  owerTF: {fileID: 0}
+  currentQTEInfo:
+    isActive: 0
+    ID: 0
+    duration: 0
+    startTime: 0
+    description: 
+    type: 0
+    quickClick:
+      clickCount: 0
+      IntervalTime: 0
+      mouseButton: 0
+    preciseClick:
+      targetList: []
+      mouseButton: 0
+    mouseGestures:
+      angleLimit: 30
+      mouseButton: 0
+      gesturesType: 0
+    keyCombination:
+      keyList: 
+    UILocalPosition: {x: -560, y: 475}
+    result: 0
+    errorType: 0
+    animation: {fileID: 0}
+    cinemachine: {fileID: 0}
 --- !u!1 &1254104352
 GameObject:
   m_ObjectHideFlags: 0
@@ -2130,9 +2194,9 @@ MonoBehaviour:
       targetList: []
       mouseButton: 0
     mouseGestures:
-      recognitionRate: 0
+      angleLimit: 30
       mouseButton: 0
-      gestures: 0
+      gesturesType: 0
     keyCombination:
       keyList: 6500000068000000
     UILocalPosition: {x: -240, y: 465}
@@ -2154,9 +2218,9 @@ MonoBehaviour:
       targetList: []
       mouseButton: 0
     mouseGestures:
-      recognitionRate: 0
+      angleLimit: 30
       mouseButton: 0
-      gestures: 0
+      gesturesType: 0
     keyCombination:
       keyList: 79000000
     UILocalPosition: {x: -240, y: 465}
@@ -2180,9 +2244,9 @@ MonoBehaviour:
       targetList: []
       mouseButton: 0
     mouseGestures:
-      recognitionRate: 0
+      angleLimit: 30
       mouseButton: 0
-      gestures: 0
+      gesturesType: 0
     keyCombination:
       keyList: 
     UILocalPosition: {x: 0, y: 0}
@@ -2571,9 +2635,9 @@ MonoBehaviour:
       - {fileID: 1369098738}
       mouseButton: 0
     mouseGestures:
-      recognitionRate: 0
+      angleLimit: 30
       mouseButton: 0
-      gestures: 0
+      gesturesType: 0
     keyCombination:
       keyList: 
     UILocalPosition: {x: -560, y: 475}
@@ -2597,9 +2661,9 @@ MonoBehaviour:
       targetList: []
       mouseButton: 0
     mouseGestures:
-      recognitionRate: 0
+      angleLimit: 30
       mouseButton: 0
-      gestures: 0
+      gesturesType: 0
     keyCombination:
       keyList: 
     UILocalPosition: {x: 0, y: 0}
@@ -2708,9 +2772,9 @@ MonoBehaviour:
   infoList:
   - isActive: 1
     ID: 0
-    duration: 0
+    duration: 50
     startTime: 0
-    description: 
+    description: "\u8BF7\u6309\u4F4F\u5DE6\u952E\u5DE6\u6ED1\u9F20\u6807"
     type: 3
     quickClick:
       clickCount: 0
@@ -2720,9 +2784,9 @@ MonoBehaviour:
       targetList: []
       mouseButton: 0
     mouseGestures:
-      recognitionRate: 90.4
+      angleLimit: 30
       mouseButton: 0
-      gestures: 0
+      gesturesType: 2
     keyCombination:
       keyList: 00000000
     UILocalPosition: {x: 0, y: 0}
@@ -2746,9 +2810,9 @@ MonoBehaviour:
       targetList: []
       mouseButton: 0
     mouseGestures:
-      recognitionRate: 0
+      angleLimit: 30
       mouseButton: 0
-      gestures: 0
+      gesturesType: 0
     keyCombination:
       keyList: 
     UILocalPosition: {x: -560, y: 475}
@@ -2998,12 +3062,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 0
+  - isActive: 1
     ID: 0
-    duration: 0
+    duration: 50
     startTime: 0
-    description: 
-    type: 0
+    description: "\u8BF7\u6309\u4F4F\u5DE6\u952E\u53F3\u6ED1\u9F20\u6807"
+    type: 3
     quickClick:
       clickCount: 0
       IntervalTime: 0
@@ -3012,9 +3076,9 @@ MonoBehaviour:
       targetList: []
       mouseButton: 0
     mouseGestures:
-      recognitionRate: 0
+      angleLimit: 30
       mouseButton: 0
-      gestures: 0
+      gesturesType: 1
     keyCombination:
       keyList: 
     UILocalPosition: {x: 0, y: 0}
@@ -3038,9 +3102,9 @@ MonoBehaviour:
       targetList: []
       mouseButton: 0
     mouseGestures:
-      recognitionRate: 90
+      angleLimit: 30
       mouseButton: 0
-      gestures: 0
+      gesturesType: 0
     keyCombination:
       keyList: 
     UILocalPosition: {x: -560, y: 475}
@@ -3165,9 +3229,9 @@ MonoBehaviour:
       - {fileID: 2141496583}
       mouseButton: 2
     mouseGestures:
-      recognitionRate: 0
+      angleLimit: 30
       mouseButton: 0
-      gestures: 0
+      gesturesType: 0
     keyCombination:
       keyList: 
     UILocalPosition: {x: -560, y: 475}
@@ -3191,9 +3255,9 @@ MonoBehaviour:
       targetList: []
       mouseButton: 0
     mouseGestures:
-      recognitionRate: 0
+      angleLimit: 30
       mouseButton: 0
-      gestures: 0
+      gesturesType: 0
     keyCombination:
       keyList: 
     UILocalPosition: {x: -560, y: 475}
@@ -3754,9 +3818,9 @@ MonoBehaviour:
       targetList: []
       mouseButton: 0
     mouseGestures:
-      recognitionRate: 0
+      angleLimit: 30
       mouseButton: 0
-      gestures: 0
+      gesturesType: 0
     keyCombination:
       keyList: 61000000
     UILocalPosition: {x: 222, y: 465}
@@ -3778,9 +3842,9 @@ MonoBehaviour:
       targetList: []
       mouseButton: 0
     mouseGestures:
-      recognitionRate: 0
+      angleLimit: 30
       mouseButton: 0
-      gestures: 0
+      gesturesType: 0
     keyCombination:
       keyList: 6100000071000000
     UILocalPosition: {x: 222, y: 465}
@@ -3802,9 +3866,9 @@ MonoBehaviour:
       targetList: []
       mouseButton: 0
     mouseGestures:
-      recognitionRate: 0
+      angleLimit: 30
       mouseButton: 0
-      gestures: 0
+      gesturesType: 0
     keyCombination:
       keyList: 20000000
     UILocalPosition: {x: 222, y: 465}
@@ -3828,9 +3892,9 @@ MonoBehaviour:
       targetList: []
       mouseButton: 0
     mouseGestures:
-      recognitionRate: 0
+      angleLimit: 30
       mouseButton: 0
-      gestures: 0
+      gesturesType: 0
     keyCombination:
       keyList: 
     UILocalPosition: {x: 0, y: 0}
@@ -4095,9 +4159,9 @@ MonoBehaviour:
       targetList: []
       mouseButton: 0
     mouseGestures:
-      recognitionRate: 0
+      angleLimit: 30
       mouseButton: 0
-      gestures: 0
+      gesturesType: 0
     keyCombination:
       keyList: 
     UILocalPosition: {x: -750, y: -37}
@@ -4121,9 +4185,9 @@ MonoBehaviour:
       targetList: []
       mouseButton: 0
     mouseGestures:
-      recognitionRate: 0
+      angleLimit: 30
       mouseButton: 0
-      gestures: 0
+      gesturesType: 0
     keyCombination:
       keyList: 
     UILocalPosition: {x: 0, y: 0}

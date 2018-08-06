@@ -16,6 +16,7 @@ public class QTEManager : SingletonBehaviour<QTEManager>
     public Text qteText;
     public KeyCode keyCode;
     public EventType eventType;
+    public Event QTEInputEvent;
     private List<QTEConditionBase> conditionList;
     private QTEConditionBase currentCondition;
     private QTEConditionBase lastCondition;
@@ -205,11 +206,13 @@ public class QTEManager : SingletonBehaviour<QTEManager>
 
     private void OnGUI()
     {
-        Event e = Event.current;
-        if (e != null && e.type == EventType.KeyDown && e.isKey && e.keyCode != KeyCode.None && ((int)e.keyCode < 323 || (int)e.keyCode > 329))
+        QTEInputEvent = Event.current;
+        if (QTEInputEvent != null && QTEInputEvent.type == EventType.KeyDown &&
+            QTEInputEvent.isKey && QTEInputEvent.keyCode != KeyCode.None &&
+            ((int)QTEInputEvent.keyCode < 323 || (int)QTEInputEvent.keyCode > 329))
         {
-            keyCode = e.keyCode;
-            eventType = e.type;
+            keyCode = QTEInputEvent.keyCode;
+            eventType = QTEInputEvent.type;
         }
     }
 }

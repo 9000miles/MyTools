@@ -10,11 +10,10 @@ using System.Threading.Tasks;
 /// 每个识别点获取识别范围内的数据点
 /// 计算总的数据点在识别点范围内比例
 /// </summary>
-public class MouseGesturesPlan_B : MonoBehaviour
+public class MouseGesturesPlan_D : MonoBehaviour
 {
-    private bool isDraw;
     public Image point;
-    private Vector3 lastMousePos;
+    //public List<Vector3> pointList;
     //public List<Transform> inSidePointTF;
     //public List<Vector3> inSidePoint;
     private List<Transform> allPoint;
@@ -43,8 +42,7 @@ public class MouseGesturesPlan_B : MonoBehaviour
     public float widthFixedPointCount;
     public float widthFixedPointRate;
 
-    [Space(15)]
-    public bool isTrue;
+    [Space(5)]
     /// <summary>
     /// 长宽方向整体识别率
     /// </summary>
@@ -97,6 +95,7 @@ public class MouseGesturesPlan_B : MonoBehaviour
 
     private void SetGravityCenterPosition()
     {
+        if (allPoint.Count <= 0) return;
         Vector3 center = GetCenterOfGravity(allPoint.ToArray().Select(t => t.position));
         gravityCenter.position = center;
     }
@@ -108,7 +107,6 @@ public class MouseGesturesPlan_B : MonoBehaviour
             MoveOffsetDistance();
             await new WaitForUpdate();
             await FitTemplateProportions();
-            //Debug.Log("所有的：" + allPoint.Count + "   在内部：" + inSidePointList.Count);
             inSidePointList.TrimExcess();
             //if (inSidePointList.Count > 0)
             //    Debug.Log("比例：" + CalculateRecongnitionRate() + "%");
@@ -157,7 +155,7 @@ public class MouseGesturesPlan_B : MonoBehaviour
 
     public Vector3 GetCenterOfGravity(Vector3[] points)
     {
-        if (points == null || points.Length <= 0) return Vector3.zero;
+        if (points.Length <= 0) return Vector3.zero;
         float minX = points.GetMin(t => t.x).x;
         float maxX = points.GetMax(t => t.x).x;
         float minY = points.GetMin(t => t.y).y;
@@ -214,40 +212,24 @@ public class MouseGesturesPlan_B : MonoBehaviour
         float lengthRatio = templateLength / length;
         pointsPanel.localScale = new Vector3(originalScale.x * lengthRatio, originalScale.y, originalScale.z);
         await new WaitForFixedUpdate();
-        //lengthRecognitionRate = CalculateRecongnitionRate(ref lengthFixedPointCount, ref lengthFixedPointRate);
+        lengthRecognitionRate = CalculateRecongnitionRate(ref lengthFixedPointCount, ref lengthFixedPointRate);
 
         float widthRatio = templateWidth / width;
         pointsPanel.localScale = new Vector3(originalScale.x, originalScale.y * widthRatio, originalScale.z);
         await new WaitForFixedUpdate();
-        //widthRecognitionRate = CalculateRecongnitionRate(ref widthFixedPointCount, ref widthFixedPointRate);
+        widthRecognitionRate = CalculateRecongnitionRate(ref widthFixedPointCount, ref widthFixedPointRate);
 
         float wholeRatio = lengthRatio < widthRatio ? lengthRatio : widthRatio;
         pointsPanel.localScale = new Vector3(originalScale.x * wholeRatio, originalScale.y * wholeRatio, originalScale.z);
         await new WaitForFixedUpdate();
         wholeRecognitionRate = CalculateRecongnitionRate(ref wholeFixedPointCount, ref wholeFixedPointRate);
 
-        //recognitionRate = (lengthRecognitionRate + widthRecognitionRate + wholeRecognitionRate) / 3f;
-        recognitionRate = (wholeRecognitionRate + wholeFixedPointRate) / 2f;
-        if (wholeFixedPointRate < 65 || wholeRecognitionRate < 80)
-        {
-            isTrue = false;
-        }
-        else isTrue = true;
+        recognitionRate = (lengthRecognitionRate + widthRecognitionRate + wholeRecognitionRate) / 3f;
     }
 
     private float CalculateRecongnitionRate(ref float fixedPointCount, ref float fixedPointRate)
     {
         CheckIsInSide();
-        foreach (var item in fixedPointList)
-        {
-            Transform[] inSidePoint = item.GetAroundObject(recognitionRange, 360, "Point");
-            if (inSidePoint.Length > 0) fixedPointCount++;
-            foreach (var inSideItem in inSidePoint)
-            {
-                if (!inSidePointList.Contains(inSideItem))
-                    inSidePointList.Add(inSideItem);
-            }
-        }
 
         float rate = 0;
         if (fixedPointCount != 0)

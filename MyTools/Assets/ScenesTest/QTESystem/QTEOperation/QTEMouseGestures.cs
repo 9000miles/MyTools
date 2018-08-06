@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class QTEMouseGestures : QTEOperationBase
 {
+    private float angle;
+    private Vector2 downPos;
+    private Vector2 upPos;
     private List<Vector2> posList;
     private static QTEMouseGestures singleton = null;
     public static QTEMouseGestures Singleton
@@ -34,26 +37,95 @@ public class QTEMouseGestures : QTEOperationBase
     public override void ExcuteCheck(QTEInfo info)
     {
         base.ExcuteCheck(info);
-
-        if (Event.current.type == EventType.MouseDown)
+        MouseGesturesType gesturesType = HandGestureRecognition(info);
+        if (gesturesType == info.mouseGestures.gesturesType)
         {
-            //记录鼠标按下的位置 　　
-            posList.Add(Event.current.mousePosition);
+            info.result = QTEResult.Succed;
+            info.errorType = QTEErrorType.None;
         }
-        if (Event.current.type == EventType.MouseDrag)
-        {
-            //记录鼠标拖动的位置 　　
-            //second = Event.current.mousePosition;
+    }
 
-            //if (second.x < first.x)
-            //{
-            //    //拖动的位置的x坐标比按下的位置的x坐标小时,响应向左事件 　　
-            //}
-            //if (second.x > first.x)
-            //{
-            //    //拖动的位置的x坐标比按下的位置的x坐标大时,响应向右事件
-            //}
+    private MouseGesturesType HandGestureRecognition(QTEInfo info)
+    {
+        MouseGesturesType gesturesType = MouseGesturesType.None;
+        if (Input.GetMouseButtonDown((int)info.mouseGestures.mouseButton))
+        {
+            downPos = Input.mousePosition;
         }
+        if (Input.GetMouseButtonUp((int)info.mouseGestures.mouseButton))
+        {
+            upPos = Input.mousePosition;
+            switch (info.mouseGestures.gesturesType)
+            {
+                case MouseGesturesType.LeftSlide:
+                    angle = Vector2.Angle(upPos - downPos, Vector2.left);
+                    if (downPos.x > upPos.x && angle < info.mouseGestures.angleLimit)
+                        gesturesType = MouseGesturesType.LeftSlide;
+                    break;
+
+                case MouseGesturesType.LeftUpSlide:
+                    angle = Vector2.Angle(upPos - downPos, Quaternion.Euler(new Vector3(0, 0, -45)) * Vector3.left);
+                    if (downPos.x > upPos.x && angle < info.mouseGestures.angleLimit)
+                        gesturesType = MouseGesturesType.LeftUpSlide;
+                    break;
+
+                case MouseGesturesType.LeftDownSlide:
+                    angle = Vector2.Angle(upPos - downPos, Quaternion.Euler(new Vector3(0, 0, 45)) * Vector3.left);
+                    if (downPos.x > upPos.x && angle < info.mouseGestures.angleLimit)
+                        gesturesType = MouseGesturesType.LeftDownSlide;
+                    break;
+
+                case MouseGesturesType.RightSlide:
+                    angle = Vector2.Angle(upPos - downPos, Vector2.left);
+                    if (downPos.x < upPos.x && angle < info.mouseGestures.angleLimit)
+                        gesturesType = MouseGesturesType.RightSlide;
+                    break;
+
+                case MouseGesturesType.RightUpSilde:
+                    angle = Vector2.Angle(upPos - downPos, Quaternion.Euler(new Vector3(0, 0, 45)) * Vector3.right);
+                    if (downPos.x < upPos.x && angle < info.mouseGestures.angleLimit)
+                        gesturesType = MouseGesturesType.RightUpSilde;
+                    break;
+
+                case MouseGesturesType.RightDownSlide:
+                    angle = Vector2.Angle(upPos - downPos, Quaternion.Euler(new Vector3(0, 0, -45)) * Vector3.right);
+                    if (downPos.x < upPos.x && angle < info.mouseGestures.angleLimit)
+                        gesturesType = MouseGesturesType.RightDownSlide;
+                    break;
+
+                case MouseGesturesType.UpSlide:
+                    if (downPos.y < upPos.y && angle < info.mouseGestures.angleLimit)
+                        gesturesType = MouseGesturesType.UpSlide;
+                    break;
+
+                case MouseGesturesType.DownSlide:
+                    if (downPos.y > upPos.y && angle < info.mouseGestures.angleLimit)
+                        gesturesType = MouseGesturesType.DownSlide;
+                    break;
+
+                case MouseGesturesType.CheckMark:
+                    break;
+
+                case MouseGesturesType.Capital_C:
+                    break;
+
+                case MouseGesturesType.Capital_Z:
+                    break;
+
+                case MouseGesturesType.Capital_U:
+                    break;
+
+                case MouseGesturesType.Capital_O:
+                    break;
+
+                case MouseGesturesType.Capital_S:
+                    break;
+
+                case MouseGesturesType.Capital_L:
+                    break;
+            }
+        }
+        return gesturesType;
     }
 
     public override void ResetData()

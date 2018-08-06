@@ -75,10 +75,12 @@ public class PreciseClickInfo
 [Serializable]
 public class MouseGesturesInfo
 {
-    [Range(50, 100)]
-    public float recognitionRate = 90;
+    //[Range(50, 100)]
+    //public float recognitionRate = 90;
+    public float angleLimit = 30;
+    public float augularOffset = 30;//角度偏移误差
     public QTEMouseButton mouseButton;
-    public MouseGestures gestures;
+    public MouseGesturesType gesturesType;
 }
 
 [Serializable]
@@ -144,12 +146,16 @@ public enum QTEType
     Others = 999,
 }
 
-public enum MouseGestures
+public enum MouseGesturesType
 {
-    LeftSlide,
-    RightSlide,
-    UpSlide,
-    DownSlide,
+    LeftSlide,//←
+    LeftUpSlide,//↖
+    LeftDownSlide,//↙
+    RightSlide,//→
+    RightUpSilde,//↗
+    RightDownSlide,//↘
+    UpSlide,//↑
+    DownSlide,//↓
     CheckMark,
     Capital_C,
     Capital_Z,
@@ -157,10 +163,12 @@ public enum MouseGestures
     Capital_O,
     Capital_S,
     Capital_L,
+    None,
 }
 
 public enum QTEMouseButton
 {
+    //None,
     LeftButton = 0,
     RightButtton = 1,
     MiddleButton = 2,
