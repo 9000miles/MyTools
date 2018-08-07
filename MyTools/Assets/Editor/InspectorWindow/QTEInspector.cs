@@ -3,7 +3,7 @@
 //using UnityEditor;
 //using UnityEngine;
 
-//显示不正常
+////显示不正常
 //[CustomEditor(typeof(QTEInfo))]
 //public class QTEInspector : Editor
 //{
@@ -45,23 +45,45 @@
 //    {
 //        base.OnInspectorGUI();
 //        QTE.Update();
+//        int index = 0;
+//        //index = EditorGUILayout.Popup(index, new string[] { "quickClick", "preciseClick" });
+//        //switch (index)
+//        //{
+//        //    case 0:
+//        //        Debug.Log("55555");
+//        //        break;
+
+//        //    case 1:
+//        //        Debug.Log("6666666666");
+//        //        break;
+
+//        //    default:
+//        //        break;
+//        //}
 //        EditorGUILayout.PropertyField(qteType);
 //        switch (qteType.enumValueIndex)
 //        {
 //            case 0:
 //                break;
+
 //            case 1:
+//                Debug.Log("55555");
 //                EditorGUILayout.PropertyField(quickClick);
 //                break;
+
 //            case 2:
+//                Debug.Log("6666666666");
 //                EditorGUILayout.PropertyField(preciseClick);
 //                break;
+
 //            case 3:
 //                EditorGUILayout.PropertyField(mouseGestures);
 //                break;
+
 //            case 4:
 //                EditorGUILayout.PropertyField(keyCombination);
 //                break;
+
 //            case 999:
 //                break;
 //        }

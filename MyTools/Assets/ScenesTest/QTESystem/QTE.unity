@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1511,6 +1511,100 @@ MonoBehaviour:
     errorType: 0
     animation: {fileID: 0}
     cinemachine: {fileID: 0}
+--- !u!1 &1034330246
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1034330248}
+  - component: {fileID: 1034330247}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1034330247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1034330246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d1800fbfc988564eadacb20dc1a1a6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTrue: 0
+  infoList:
+  - isActive: 0
+    ID: 0
+    duration: 0
+    startTime: 0
+    description: 
+    type: 1
+    quickClick:
+      clickCount: 0
+      IntervalTime: 0
+      mouseButton: 0
+    preciseClick:
+      targetList: []
+      mouseButton: 0
+    mouseGestures:
+      angleLimit: 30
+      augularOffset: 30
+      mouseButton: 0
+      gesturesType: 0
+    keyCombination:
+      keyList: 
+    UILocalPosition: {x: -560, y: 475}
+    result: 0
+    errorType: 0
+    animation: {fileID: 0}
+    cinemachine: {fileID: 0}
+  owerTF: {fileID: 0}
+  currentQTEInfo:
+    isActive: 0
+    ID: 0
+    duration: 0
+    startTime: 0
+    description: 
+    type: 0
+    quickClick:
+      clickCount: 0
+      IntervalTime: 0
+      mouseButton: 0
+    preciseClick:
+      targetList: []
+      mouseButton: 0
+    mouseGestures:
+      angleLimit: 30
+      augularOffset: 30
+      mouseButton: 0
+      gesturesType: 0
+    keyCombination:
+      keyList: 
+    UILocalPosition: {x: -560, y: 475}
+    result: 0
+    errorType: 0
+    animation: {fileID: 0}
+    cinemachine: {fileID: 0}
+--- !u!4 &1034330248
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1034330246}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 939.1295, y: 487.96964, z: -108.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1119845284
 GameObject:
   m_ObjectHideFlags: 0
