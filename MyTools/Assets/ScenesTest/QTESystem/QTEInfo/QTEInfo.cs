@@ -27,44 +27,34 @@ public class QTEInfo
 
     public QTEInfo()
     {
+        quickClick = new QuickClickInfo();
+        preciseClick = new PreciseClickInfo();
+        mouseGestures = new MouseGesturesInfo();
+        keyCombination = new KeyCombinationInfo();
     }
 
-    public QTEInfo(string description, int id, float time, Vector2 position, QTEType type)
+    public void ResetQTEInfo(bool isReuse)
     {
-        this.ID = id;
-        this.type = type;
-        this.duration = time;
-        this.description = description;
-        this.UILocalPosition = position;
-        this.result = QTEResult.None;
-    }
-
-    public void ResetQTEInfo()
-    {
-        this.ID = 0;
-        this.description = "";
-        this.startTime = 0;
-        this.duration = 0;
-        this.isActive = false;
-        this.UILocalPosition = Vector2.zero;
-        this.type = QTEType.None;
-        this.result = QTEResult.None;
-        //this.keyList = null;
-        this.errorType = QTEErrorType.None;
-        this.animation = null;
-        this.cinemachine = null;
-    }
-
-    public void ResetQTEInfo(bool isManual)
-    {
-        this.ID = 0;
-        this.startTime = 0;
-        this.isActive = false;
-        this.result = QTEResult.None;
-        //this.keyList = null;
-        this.errorType = QTEErrorType.None;
-        this.animation = null;
-        this.cinemachine = null;
+        if (isReuse)
+        {
+            this.startTime = 0;
+            this.result = QTEResult.None;
+            this.errorType = QTEErrorType.None;
+        }
+        else
+        {
+            this.ID = 0;
+            this.description = "";
+            this.startTime = 0;
+            this.duration = 0;
+            this.isActive = false;
+            this.UILocalPosition = Vector2.zero;
+            this.type = QTEType.None;
+            this.result = QTEResult.None;
+            this.errorType = QTEErrorType.None;
+            this.animation = null;
+            this.cinemachine = null;
+        }
     }
 }
 

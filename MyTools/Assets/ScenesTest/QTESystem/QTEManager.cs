@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 public class QTEManager : SingletonBehaviour<QTEManager>
 {
     [HideInInspector]
-    public bool isNewQTE;
+    public bool isManualQTE;
     private bool isStartTimeHasSet;
     public Transform panel;
     public Text qteText;
@@ -26,7 +26,7 @@ public class QTEManager : SingletonBehaviour<QTEManager>
     private QTEConditionBase lastCondition;
     private QTEInfo currentQTE;
     private QTEInfo lastQTE;
-    private QTEOperationBase handler;
+    private QTEOperationBase QTEOperator;
     public Action succedCall;
     public Action failureCall;
     public Action<QTEInfo> endCallAction;
@@ -39,7 +39,8 @@ public class QTEManager : SingletonBehaviour<QTEManager>
     private void Update()
     {
         CheckCondition();
-        ManualExcuteQTE(currentQTE, endCallAction);
+        if (isManualQTE == true)
+            ManualExcuteQTE(currentQTE, endCallAction);
     }
 
     public override void Init()
@@ -142,31 +143,30 @@ public class QTEManager : SingletonBehaviour<QTEManager>
     public void ManualExcuteQTE(QTEInfo info, Action<QTEInfo> endCall = null)
     {
         if (info == null) return;
-        isNewQTE = true;
+        isManualQTE = true;
         if (isStartTimeHasSet == false)
             info.startTime = Time.time;
         isStartTimeHasSet = true;
         currentQTE = info;
         endCallAction = endCall;
         ShowQTEPanel(info);
-        handler = SelecteOperationType(info);
-        handler?.ExcuteAndCheck(info);
-        QTEExecutiveOutcomes(info, endCall);
+        QTEOperator = SelecteOperatorType(info);
+        QTEOperator?.ExcuteAndCheck(info);
+        QTEExecutiveOutcomes(info, true, endCall);
     }
 
     public void ExcuteQTE(QTEConditionBase condition, QTEInfo info, Action<QTEInfo> endCall = null)
     {
         if (info == null) return;
-        isNewQTE = true;
         currentCondition = condition;
         currentQTE = info;
         ShowQTEPanel(info);
-        handler = SelecteOperationType(info);
-        handler.ExcuteAndCheck(info);
-        QTEExecutiveOutcomes(info, endCall);
+        QTEOperator = SelecteOperatorType(info);
+        QTEOperator.ExcuteAndCheck(info);
+        QTEExecutiveOutcomes(info, false, endCall);
     }
 
-    private QTEOperationBase SelecteOperationType(QTEInfo info)
+    private QTEOperationBase SelecteOperatorType(QTEInfo info)
     {
         QTEOperationBase operation = null;
         switch (info.type)
@@ -195,7 +195,7 @@ public class QTEManager : SingletonBehaviour<QTEManager>
         panel.localPosition = info.UILocalPosition;
         qteText.text = info.description;
         panel.gameObject.SetActive(true);
-        info.isActive = true;
+        //info.isActive = true;
     }
 
     /// <summary>
@@ -203,7 +203,7 @@ public class QTEManager : SingletonBehaviour<QTEManager>
     /// </summary>
     /// <param name="info"></param>
     /// <param name="endCall"></param>
-    public void QTEExecutiveOutcomes(QTEInfo info, Action<QTEInfo> endCall)
+    public void QTEExecutiveOutcomes(QTEInfo info, bool isManual, Action<QTEInfo> endCall)
     {
         if (info.result == QTEResult.None) return;
         isStartTimeHasSet = false;
@@ -222,13 +222,17 @@ public class QTEManager : SingletonBehaviour<QTEManager>
         if (info.result == QTEResult.Succed || info.result == QTEResult.Failure || info.errorType == QTEErrorType.OverTime)
             panel.gameObject.SetActive(false);
 
-        isNewQTE = false;
+        isManualQTE = false;
         lastCondition = currentCondition;
         lastQTE = currentQTE;
         RemoveQTE(currentCondition, info);
-        info.ResetQTEInfo();
+        if (isManual)
+            info.ResetQTEInfo(true);
+        else
+            info.ResetQTEInfo(false);
+
         currentQTE = null;
-        handler.ResetData();
+        QTEOperator.ResetData();
     }
 
     private void OnGUI()

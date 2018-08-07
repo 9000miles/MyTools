@@ -5,7 +5,9 @@ using UnityEngine;
 public class QTEPreciseClick : QTEOperationBase
 {
     private RaycastHit hit;
+    private List<GameObject> targetList;
     private static QTEPreciseClick singleton = null;
+
     public static QTEPreciseClick Singleton
     {
         get
@@ -18,17 +20,26 @@ public class QTEPreciseClick : QTEOperationBase
 
     public QTEPreciseClick() : base()
     {
+        targetList = new List<GameObject>();
     }
 
     public override void ExcuteAndCheck(QTEInfo info)
     {
         base.ExcuteAndCheck(info);
+
+        if (targetList.Count == 0)
+        {
+            GameObject[] targets = new GameObject[info.preciseClick.targetList.Count];
+            info.preciseClick.targetList.CopyTo(targets);
+            targetList.AddRange(targets);
+        }
+
         if (Input.GetMouseButtonDown((int)info.preciseClick.mouseButton))
         {
             Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit);
             if (hit.transform.gameObject == info.preciseClick.targetList[0])
             {
-                info.preciseClick.targetList.RemoveAt(0);
+                targetList.RemoveAt(0);
             }
             else
             {
@@ -45,7 +56,7 @@ public class QTEPreciseClick : QTEOperationBase
         //    info.result = QTEResult.Failure;
         //    info.errorType = QTEErrorType.OperatingError;
         //}
-        if (info.preciseClick.targetList.Count <= 0)
+        if (targetList.Count <= 0)
         {
             info.excuteTime = Time.time - info.startTime;
             info.result = QTEResult.Succed;
@@ -55,5 +66,6 @@ public class QTEPreciseClick : QTEOperationBase
 
     public override void ResetData()
     {
+        targetList.Clear();
     }
 }

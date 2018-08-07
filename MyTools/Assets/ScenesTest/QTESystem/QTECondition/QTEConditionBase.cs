@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Common;
 
-public class QTEConditionBase : SingletonBehaviour<QTEConditionBase>
+public abstract class QTEConditionBase : SingletonBehaviour<QTEConditionBase>
 {
     public bool isTrue;
     private bool isStartTimeHasSet;
