@@ -555,15 +555,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 0
+  - isActive: 1
     ID: 0
-    duration: 0
+    duration: 20
     startTime: 0
-    description: 
-    type: 0
+    description: "\u5DE6\u952E\u5FEB\u901F\u5355\u51FB2\u6B21"
+    type: 1
     quickClick:
-      clickCount: 0
-      IntervalTime: 0
+      clickCount: 2
+      IntervalTime: 0.5
       mouseButton: 0
     preciseClick:
       targetList: []
@@ -941,19 +941,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 0
+  - isActive: 1
     ID: 0
-    duration: 0
+    duration: 20
     startTime: 0
-    description: 
-    type: 0
+    description: "\u53F3\u952E\u70B9\u51FB\u3010\u9F20\u6807\u624B\u52BF\u3011\u4E2D\u7684\u7EFF\u8272\u7269\u4F53"
+    type: 2
     quickClick:
       clickCount: 0
       IntervalTime: 0
       mouseButton: 0
     preciseClick:
-      targetList: []
-      mouseButton: 0
+      targetList:
+      - {fileID: 1437961729}
+      mouseButton: 1
     mouseGestures:
       angleLimit: 30
       augularOffset: 30
@@ -1093,12 +1094,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 0
+  - isActive: 1
     ID: 0
-    duration: 0
+    duration: 20
     startTime: 0
-    description: 
-    type: 0
+    description: "\u8BF7\u6309E\u3001H\u952E"
+    type: 4
     quickClick:
       clickCount: 0
       IntervalTime: 0
@@ -1112,7 +1113,7 @@ MonoBehaviour:
       mouseButton: 0
       gesturesType: 0
     keyCombination:
-      keyList: 
+      keyList: 6500000068000000
     UILocalPosition: {x: -560, y: 475}
     result: 0
     errorType: 0
@@ -1459,16 +1460,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 0
+  - isActive: 1
     ID: 0
-    duration: 0
+    duration: 20
     startTime: 0
-    description: 
-    type: 0
+    description: "\u4E2D\u952E\u5FEB\u901F\u5355\u51FB1\u6B21"
+    type: 1
     quickClick:
-      clickCount: 0
+      clickCount: 1
       IntervalTime: 0
-      mouseButton: 0
+      mouseButton: 2
     preciseClick:
       targetList: []
       mouseButton: 0
@@ -1519,7 +1520,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1034330248}
-  - component: {fileID: 1034330247}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -1527,71 +1527,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1034330247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1034330246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d1800fbfc988564eadacb20dc1a1a6b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isTrue: 0
-  infoList:
-  - isActive: 0
-    ID: 0
-    duration: 0
-    startTime: 0
-    description: 
-    type: 1
-    quickClick:
-      clickCount: 0
-      IntervalTime: 0
-      mouseButton: 0
-    preciseClick:
-      targetList: []
-      mouseButton: 0
-    mouseGestures:
-      angleLimit: 30
-      augularOffset: 30
-      mouseButton: 0
-      gesturesType: 0
-    keyCombination:
-      keyList: 
-    UILocalPosition: {x: -560, y: 475}
-    result: 0
-    errorType: 0
-    animation: {fileID: 0}
-    cinemachine: {fileID: 0}
-  owerTF: {fileID: 0}
-  currentQTEInfo:
-    isActive: 0
-    ID: 0
-    duration: 0
-    startTime: 0
-    description: 
-    type: 0
-    quickClick:
-      clickCount: 0
-      IntervalTime: 0
-      mouseButton: 0
-    preciseClick:
-      targetList: []
-      mouseButton: 0
-    mouseGestures:
-      angleLimit: 30
-      augularOffset: 30
-      mouseButton: 0
-      gesturesType: 0
-    keyCombination:
-      keyList: 
-    UILocalPosition: {x: -560, y: 475}
-    result: 0
-    errorType: 0
-    animation: {fileID: 0}
-    cinemachine: {fileID: 0}
 --- !u!4 &1034330248
 Transform:
   m_ObjectHideFlags: 0
@@ -1821,12 +1756,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 0
+  - isActive: 1
     ID: 0
-    duration: 0
+    duration: 20
     startTime: 0
-    description: 
-    type: 0
+    description: "\u53F3\u952E\u6309\u4F4F\u5DE6\u4E0B\u6ED1"
+    type: 3
     quickClick:
       clickCount: 0
       IntervalTime: 0
@@ -1837,8 +1772,8 @@ MonoBehaviour:
     mouseGestures:
       angleLimit: 30
       augularOffset: 30
-      mouseButton: 0
-      gesturesType: 0
+      mouseButton: 1
+      gesturesType: 2
     keyCombination:
       keyList: 
     UILocalPosition: {x: -560, y: 475}
@@ -2282,12 +2217,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 0
+  - isActive: 1
     ID: 0
-    duration: 0
+    duration: 10
     startTime: 0
-    description: 
-    type: 0
+    description: "\u8BF7\u6309B\u952E"
+    type: 4
     quickClick:
       clickCount: 0
       IntervalTime: 0
@@ -2301,7 +2236,7 @@ MonoBehaviour:
       mouseButton: 0
       gesturesType: 0
     keyCombination:
-      keyList: 
+      keyList: 62000000
     UILocalPosition: {x: -560, y: 475}
     result: 0
     errorType: 0
@@ -2559,7 +2494,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 2a5007bfdfbe0c94680e4dd1f607f972, type: 2}
+  - {fileID: 2100000, guid: aedd2c0f13101bd4a922e5f3aad28167, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2725,18 +2660,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 0
+  - isActive: 1
     ID: 0
-    duration: 0
+    duration: 20
     startTime: 0
-    description: 
-    type: 0
+    description: "\u5DE6\u952E\u70B9\u51FB\u3010\u6309\u952E\u7EC4\u5408\u3011\u4E2D\u7684\u9EC4\u8272\u7269\u4F53"
+    type: 2
     quickClick:
       clickCount: 0
       IntervalTime: 0
       mouseButton: 0
     preciseClick:
-      targetList: []
+      targetList:
+      - {fileID: 1956787180}
       mouseButton: 0
     mouseGestures:
       angleLimit: 30
@@ -2876,18 +2812,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 0
+  - isActive: 1
     ID: 0
-    duration: 0
+    duration: 20
     startTime: 0
-    description: 
-    type: 0
+    description: "\u5DE6\u952E\u6309\u4F4F\u5DE6\u6ED1"
+    type: 3
     quickClick:
       clickCount: 0
       IntervalTime: 0
       mouseButton: 0
     preciseClick:
-      targetList: []
+      targetList:
+      - {fileID: 0}
       mouseButton: 0
     mouseGestures:
       angleLimit: 30
@@ -3170,12 +3107,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 0
+  - isActive: 1
     ID: 0
-    duration: 0
+    duration: 20
     startTime: 0
-    description: 
-    type: 0
+    description: "\u5DE6\u952E\u6309\u4F4F\u53F3\u4E0A\u6ED1"
+    type: 3
     quickClick:
       clickCount: 0
       IntervalTime: 0
@@ -3187,7 +3124,7 @@ MonoBehaviour:
       angleLimit: 30
       augularOffset: 30
       mouseButton: 0
-      gesturesType: 0
+      gesturesType: 4
     keyCombination:
       keyList: 
     UILocalPosition: {x: -560, y: 475}
@@ -3324,7 +3261,7 @@ MonoBehaviour:
   infoList:
   - isActive: 0
     ID: 0
-    duration: 0
+    duration: 20
     startTime: 0
     description: 
     type: 0
@@ -3913,12 +3850,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 0
+  - isActive: 1
     ID: 0
-    duration: 0
+    duration: 20
     startTime: 0
-    description: 
-    type: 0
+    description: "\u8BF7\u6309Y\u952E"
+    type: 4
     quickClick:
       clickCount: 0
       IntervalTime: 0
@@ -3932,7 +3869,7 @@ MonoBehaviour:
       mouseButton: 0
       gesturesType: 0
     keyCombination:
-      keyList: 
+      keyList: 79000000
     UILocalPosition: {x: -560, y: 475}
     result: 0
     errorType: 0
@@ -4258,16 +4195,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 0
+  - isActive: 1
     ID: 0
-    duration: 0
+    duration: 20
     startTime: 0
-    description: 
-    type: 0
+    description: "\u53F3\u952E\u5FEB\u901F\u5355\u51FB3\u6B21"
+    type: 1
     quickClick:
-      clickCount: 0
-      IntervalTime: 0
-      mouseButton: 0
+      clickCount: 3
+      IntervalTime: 0.5
+      mouseButton: 1
     preciseClick:
       targetList: []
       mouseButton: 0
