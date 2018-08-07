@@ -15,7 +15,7 @@ public abstract class QTEOperationBase/* : SingletonTemplate<QTEOperationBase>*/
 
     public abstract void ResetData();
 
-    public virtual void ExcuteCheck(QTEInfo info)
+    public virtual void ExcuteAndCheck(QTEInfo info)
     {
         CheckIsInTime(info);
     }
@@ -31,6 +31,7 @@ public abstract class QTEOperationBase/* : SingletonTemplate<QTEOperationBase>*/
         }
         else
         {
+            info.excuteTime = Time.time - info.startTime;
             info.result = QTEResult.Failure;
             info.errorType = QTEErrorType.OverTime;
             isInTime = false;

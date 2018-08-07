@@ -11,10 +11,14 @@ using System.Threading.Tasks;
 //[RequireComponent(typeof(QTECondition))]
 public class QTEManager : SingletonBehaviour<QTEManager>
 {
+    [HideInInspector]
     public bool isNewQTE;
+    private bool isStartTimeHasSet;
     public Transform panel;
     public Text qteText;
+    [HideInInspector]
     public KeyCode keyCode;
+    [HideInInspector]
     public EventType eventType;
     public Event QTEInputEvent;
     private List<QTEConditionBase> conditionList;
@@ -22,9 +26,10 @@ public class QTEManager : SingletonBehaviour<QTEManager>
     private QTEConditionBase lastCondition;
     private QTEInfo currentQTE;
     private QTEInfo lastQTE;
-    private QTEOperationBase operation;
+    private QTEOperationBase handler;
     public Action succedCall;
     public Action failureCall;
+    public Action<QTEInfo> endCallAction;
 
     private void Start()
     {
@@ -34,6 +39,7 @@ public class QTEManager : SingletonBehaviour<QTEManager>
     private void Update()
     {
         CheckCondition();
+        ManualExcuteQTE(currentQTE, endCallAction);
     }
 
     public override void Init()
@@ -59,7 +65,11 @@ public class QTEManager : SingletonBehaviour<QTEManager>
         if (!conditionList.Contains(condition))
             conditionList.Add(condition);
         else
-            conditionList.Find(t => t == condition).infoList.Add(info);
+        {
+            List<QTEInfo> list = conditionList.Find(t => t == condition).infoList;
+            if (!list.Contains(info))
+                list.Add(info);
+        }
     }
 
     public void RemoveQTECondition(QTEConditionBase condition)
@@ -129,15 +139,30 @@ public class QTEManager : SingletonBehaviour<QTEManager>
         return currentCondition;
     }
 
-    public void ExcuteQTE(QTEConditionBase condition, QTEInfo info, Action endCall = null)
+    public void ManualExcuteQTE(QTEInfo info, Action<QTEInfo> endCall = null)
+    {
+        if (info == null) return;
+        isNewQTE = true;
+        if (isStartTimeHasSet == false)
+            info.startTime = Time.time;
+        isStartTimeHasSet = true;
+        currentQTE = info;
+        endCallAction = endCall;
+        ShowQTEPanel(info);
+        handler = SelecteOperationType(info);
+        handler?.ExcuteAndCheck(info);
+        QTEExecutiveOutcomes(info, endCall);
+    }
+
+    public void ExcuteQTE(QTEConditionBase condition, QTEInfo info, Action<QTEInfo> endCall = null)
     {
         if (info == null) return;
         isNewQTE = true;
         currentCondition = condition;
         currentQTE = info;
         ShowQTEPanel(info);
-        operation = SelecteOperationType(info);
-        operation.ExcuteCheck(info);
+        handler = SelecteOperationType(info);
+        handler.ExcuteAndCheck(info);
         QTEExecutiveOutcomes(info, endCall);
     }
 
@@ -170,6 +195,7 @@ public class QTEManager : SingletonBehaviour<QTEManager>
         panel.localPosition = info.UILocalPosition;
         qteText.text = info.description;
         panel.gameObject.SetActive(true);
+        info.isActive = true;
     }
 
     /// <summary>
@@ -177,9 +203,10 @@ public class QTEManager : SingletonBehaviour<QTEManager>
     /// </summary>
     /// <param name="info"></param>
     /// <param name="endCall"></param>
-    public void QTEExecutiveOutcomes(QTEInfo info, Action endCall)
+    public void QTEExecutiveOutcomes(QTEInfo info, Action<QTEInfo> endCall)
     {
         if (info.result == QTEResult.None) return;
+        isStartTimeHasSet = false;
         switch (info.result)
         {
             case QTEResult.Succed:
@@ -190,18 +217,18 @@ public class QTEManager : SingletonBehaviour<QTEManager>
                 failureCall?.Invoke();
                 break;
         }
+        endCall?.Invoke(info);
+        Debug.Log("          操作结果：" + info.result + "             错误类型：" + info.errorType);
         if (info.result == QTEResult.Succed || info.result == QTEResult.Failure || info.errorType == QTEErrorType.OverTime)
             panel.gameObject.SetActive(false);
-        //AutoActiveNextQTE(currentCondition);
-        isNewQTE = false;
-        Debug.Log("          操作结果：" + info.result + "             错误类型：" + info.errorType);
 
+        isNewQTE = false;
         lastCondition = currentCondition;
         lastQTE = currentQTE;
         RemoveQTE(currentCondition, info);
         info.ResetQTEInfo();
         currentQTE = null;
-        operation.ResetData();
+        handler.ResetData();
     }
 
     private void OnGUI()

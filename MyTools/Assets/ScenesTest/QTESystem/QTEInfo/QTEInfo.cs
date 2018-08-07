@@ -9,14 +9,15 @@ public class QTEInfo
 {
     public bool isActive;
     public int ID;
-    public float duration;
+    public float duration = 10;
     public float startTime;
-    public string description;
-    public QTEType type;
-    public QuickClickInfo quickClick;
-    public PreciseClickInfo preciseClick;
-    public MouseGesturesInfo mouseGestures;
-    public KeyCombinationInfo keyCombination;
+    public float excuteTime;
+    public string description = "";
+    public QTEType type = QTEType.None;
+    public QuickClickInfo quickClick = null;
+    public PreciseClickInfo preciseClick = null;
+    public MouseGesturesInfo mouseGestures = null;
+    public KeyCombinationInfo keyCombination = null;
 
     public Vector2 UILocalPosition = new Vector2(-560, 475);
     public QTEResult result;
@@ -53,22 +54,34 @@ public class QTEInfo
         this.animation = null;
         this.cinemachine = null;
     }
+
+    public void ResetQTEInfo(bool isManual)
+    {
+        this.ID = 0;
+        this.startTime = 0;
+        this.isActive = false;
+        this.result = QTEResult.None;
+        //this.keyList = null;
+        this.errorType = QTEErrorType.None;
+        this.animation = null;
+        this.cinemachine = null;
+    }
 }
 
 [Serializable]
 public class QuickClickInfo
 {
-    public int clickCount;
-    public float IntervalTime;
-    public QTEMouseButton mouseButton;
+    public int clickCount = 2;
+    public float IntervalTime = 0.5f;
+    public QTEMouseButton mouseButton = QTEMouseButton.LeftButton;
 }
 
 [Serializable]
 public class PreciseClickInfo
 {
     //public Vector2 clickScreenPosition;
-    public List<GameObject> targetList;
-    public QTEMouseButton mouseButton;
+    public List<GameObject> targetList = null;
+    public QTEMouseButton mouseButton = QTEMouseButton.LeftButton;
 }
 
 [Serializable]
@@ -78,14 +91,14 @@ public class MouseGesturesInfo
     //public float recognitionRate = 90;
     public float angleLimit = 30;
     public float augularOffset = 30;//角度偏移误差
-    public QTEMouseButton mouseButton;
-    public MouseGesturesType gesturesType;
+    public QTEMouseButton mouseButton = QTEMouseButton.LeftButton;
+    public MouseGesturesType gesturesType = MouseGesturesType.None;
 }
 
 [Serializable]
 public class KeyCombinationInfo
 {
-    public List<QTEKeyCode> keyList;
+    public List<QTEKeyCode> keyList = new List<QTEKeyCode>();
 }
 
 /// <summary>

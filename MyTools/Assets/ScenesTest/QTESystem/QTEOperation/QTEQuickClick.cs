@@ -33,11 +33,12 @@ public class QTEQuickClick : QTEOperationBase
         lastClickTime = 0;
     }
 
-    public override void ExcuteCheck(QTEInfo info)
+    public override void ExcuteAndCheck(QTEInfo info)
     {
-        base.ExcuteCheck(info);
+        base.ExcuteAndCheck(info);
         if (clickCount > 0 && Time.time > lastClickTime + info.quickClick.IntervalTime)
         {
+            info.excuteTime = Time.time - info.startTime;
             info.result = QTEResult.Failure;
             info.errorType = QTEErrorType.OperatingError;
         }
@@ -70,9 +71,10 @@ public class QTEQuickClick : QTEOperationBase
                 }
                 break;
         }
-        Debug.Log(info.quickClick.mouseButton + "单击次数：  " + clickCount);
+        //Debug.Log(info.quickClick.mouseButton + "单击次数：  " + clickCount);
         if (clickCount == info.quickClick.clickCount)
         {
+            info.excuteTime = Time.time - info.startTime;
             info.result = QTEResult.Succed;
             info.errorType = QTEErrorType.None;
         }

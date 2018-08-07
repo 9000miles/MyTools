@@ -26,9 +26,9 @@ public class QTEKeyCombination : QTEOperationBase
         keyDownCount = 0;
     }
 
-    public override void ExcuteCheck(QTEInfo info)
+    public override void ExcuteAndCheck(QTEInfo info)
     {
-        base.ExcuteCheck(info);
+        base.ExcuteAndCheck(info);
         if (isInTime == false) return;
         if (Input.anyKeyDown &&//会检测鼠标点击操作，包括鼠标上的扩展按键
            QTEManager.Singleton.keyCode != KeyCode.None &&
@@ -46,6 +46,7 @@ public class QTEKeyCombination : QTEOperationBase
         }
         if (info.keyCombination.keyList.Count <= 0)
         {
+            info.excuteTime = Time.time - info.startTime;
             info.result = QTEResult.Succed;
             info.errorType = QTEErrorType.None;
         }

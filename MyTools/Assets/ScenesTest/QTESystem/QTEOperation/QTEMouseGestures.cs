@@ -34,12 +34,13 @@ public class QTEMouseGestures : QTEOperationBase
     ///
     /// </summary>
     /// <param name="info"></param>
-    public override void ExcuteCheck(QTEInfo info)
+    public override void ExcuteAndCheck(QTEInfo info)
     {
-        base.ExcuteCheck(info);
+        base.ExcuteAndCheck(info);
         MouseGesturesType gesturesType = HandGestureRecognition(info);
         if (gesturesType == info.mouseGestures.gesturesType)
         {
+            info.excuteTime = Time.time - info.startTime;
             info.result = QTEResult.Succed;
             info.errorType = QTEErrorType.None;
         }

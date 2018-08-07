@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Common;
 
-public abstract class QTEConditionBase : SingletonBehaviour<QTEConditionBase>
+public class QTEConditionBase : SingletonBehaviour<QTEConditionBase>
 {
     public bool isTrue;
     private bool isStartTimeHasSet;
@@ -15,6 +15,11 @@ public abstract class QTEConditionBase : SingletonBehaviour<QTEConditionBase>
     public Transform owerTF;
     [HideInInspector]
     public QTEInfo currentQTEInfo;
+
+    public QTEConditionBase()
+    {
+        infoList = new List<QTEInfo>();
+    }
 
     private void Start()
     {

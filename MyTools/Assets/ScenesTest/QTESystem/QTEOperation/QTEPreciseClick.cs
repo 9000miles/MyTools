@@ -20,9 +20,9 @@ public class QTEPreciseClick : QTEOperationBase
     {
     }
 
-    public override void ExcuteCheck(QTEInfo info)
+    public override void ExcuteAndCheck(QTEInfo info)
     {
-        base.ExcuteCheck(info);
+        base.ExcuteAndCheck(info);
         if (Input.GetMouseButtonDown((int)info.preciseClick.mouseButton))
         {
             Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit);
@@ -32,6 +32,7 @@ public class QTEPreciseClick : QTEOperationBase
             }
             else
             {
+                info.excuteTime = Time.time - info.startTime;
                 info.result = QTEResult.Failure;
                 info.errorType = QTEErrorType.OperatingError;
             }
@@ -46,6 +47,7 @@ public class QTEPreciseClick : QTEOperationBase
         //}
         if (info.preciseClick.targetList.Count <= 0)
         {
+            info.excuteTime = Time.time - info.startTime;
             info.result = QTEResult.Succed;
             info.errorType = QTEErrorType.None;
         }
