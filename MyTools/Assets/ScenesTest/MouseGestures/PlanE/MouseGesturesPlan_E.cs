@@ -63,6 +63,8 @@ public class MouseGesturesPlan_E : MonoBehaviour
             MoveOffsetDistance();
             FitTemplateProportions();
             await new WaitForUpdate();
+            JudgeTrend();
+            await new WaitForUpdate();
             JudgePointsIncludedAngleLine();
             CalculateRecongnitionRate();
         }
@@ -130,22 +132,94 @@ public class MouseGesturesPlan_E : MonoBehaviour
         height = maxZ - minZ;
     }
 
-    /// <summary>
-    /// 判断每个点在对应的模板中哪些夹角内，
-    /// 先顺向判断夹角是否在夹角内，如果在则放入一个集合中
-    /// 然后再反向计算，如果在则放入一个集合中
-    /// 然后然后提取2个集合中的公共部分，作为识别率的主要参考
-    ///
-    /// 判断邻接的下一个点角度，在不在模板的下一个点的夹角内
-    ///
     /// 1、【判断走向】
     /// 存储模板的走向
     /// 然后从第一个点开始，依次判断后面的点是否在走向角度（60°）范围内
     /// 如果超出该范围，则转入下一个走向角度范围检测
-    /// 取开始点的走向角度范围角平分线最近的点作为下一个走向检测的起点
+    /// 根据模板的下一个方向，计算检测角度区域的边界（需要判断方向）
+    /// 计算出边界后再向模板下一个方向偏转一半的角度（角度范围角平分线），找出离中心角度最近的点，作为下一个走向检测的起点
     /// 再从新起点开始向后检测
-    /// 如果有点超出角度走向范围，则手势失败，识别率为0
-    ///
+    /// 如果有点超出角度走向范围极限，则手势失败，识别率为0
+
+    private bool JudgeTrend()
+    {
+        List<Vector2> trendList = DrawTemplate.Singleton.trendList;
+        int trendListIndex = 0;
+        Transform entrAngleTF;
+        Transform outAngleTF;
+        Transform outAngleLineTF = null;
+        //最大角度，偏移检测角度
+        Vector2 outsideAngleLine;
+        float maxAngle = 0;
+
+        List<Vector2> safePoint = new List<Vector2>();
+        for (int pointIndex = 0; pointIndex < allPoint.Count - 1; pointIndex++)
+        {
+            //用于快速判断走向是否和模板路径的走向一致
+            if (trendListIndex >= trendList.Count) return false;
+
+            entrAngleTF = allPoint[0];
+            outAngleLineTF = entrAngleTF;
+            Vector2 dir = allPoint[pointIndex + 1].position - entrAngleTF.position;
+            float angle = Vector2.Angle(dir, trendList[trendListIndex]);//求每个点和当前模板走向的角度
+            if (maxAngle < angle)//求最大角度，用于确定走向最大反向边界角度
+            {
+                maxAngle = angle;
+                //需要判断下一个的方向是否在正方向，当前点的方向和模板的外边方向一致的话
+                //                                    本身      模板
+                //外边方向：A（异侧）: <0         >0     True
+                //[走向右侧]  B（同侧）: >0         >0
+
+                //外边方向：A（异侧）: <0         <0
+                //[走向左侧]  B（同侧）: >0         <0    True
+                if ((Vector2.Dot(allPoint[pointIndex].position - entrAngleTF.position, trendList[trendListIndex + 1] - trendList[trendListIndex]) < 0 &&
+                   Vector2.Dot(trendList[trendListIndex + 2] - trendList[trendListIndex - 1], trendList[trendListIndex + 1] - trendList[trendListIndex]) > 0) ||
+                   (Vector2.Dot(allPoint[pointIndex].position - entrAngleTF.position, trendList[trendListIndex + 1] - trendList[trendListIndex]) > 0 &&
+                   Vector2.Dot(trendList[trendListIndex + 2] - trendList[trendListIndex - 1], trendList[trendListIndex + 1] - trendList[trendListIndex]) < 0))
+                    outAngleLineTF = allPoint[pointIndex];
+            }
+
+            //在角度范围内
+            if (angle < DrawTemplate.Singleton.trendAngle)
+            {
+                safePoint.Add(allPoint[pointIndex].position);
+            }
+
+            //没在角度范围内
+            else
+            {
+                //如果超出极限范围
+                if (angle > DrawTemplate.Singleton.trendAngleLimit)
+                    return false;
+
+                trendListIndex++;//转入下一个角度范围检测
+                outAngleTF = allPoint[pointIndex];//拿到超出边界的物体
+                //找出最大边界点到当前超出范围点之间的所有点
+                int outAngleLineTFIndex = allPoint.FindIndex(t => t == outAngleLineTF);
+                List<Transform> enterOutTFList = allPoint.GetRange(outAngleLineTFIndex, pointIndex - outAngleLineTFIndex);
+
+                //Transform newSatrtPoint = enterOutTFList.Find(t =>
+                //{
+                //    Transform newSatrt = null;
+                //    float minAngle = DrawTemplate.Singleton.trendAngle;
+                //    //求最大边界角度和当前物体的角度
+                //    float angleTemp = Vector2.Angle(t.position - entrAngleTF.position, outAngleLineTF.position - entrAngleTF.position);
+                //    if (angleTemp - DrawTemplate.Singleton.trendAngle < minAngle)
+                //    {
+                //        minAngle = angleTemp;
+                //        newSatrt = t;
+                //    }
+                //    return newSatrt;
+                //});
+                //求离角平分线最近的物体
+                entrAngleTF = enterOutTFList.ToArray().GetMin(t =>
+                    Vector2.Angle(t.position - entrAngleTF.position, outAngleLineTF.position - entrAngleTF.position));
+                pointIndex = allPoint.FindIndex(t => t == entrAngleTF);
+            }
+        }
+        return true;
+    }
+
     /// 2、【计算点是否在夹角范围内，计算识别率】
     /// 计算模板夹角上下最高和最低相交点，求2点之间的距离
     ///                 计算所有的夹角线的相交点，然后算出最高点和最低点
@@ -157,8 +231,6 @@ public class MouseGesturesPlan_E : MonoBehaviour
     /// 然后再逆向判断每一个点  ==
     /// 逆向判断时如果在范围内，则从Dic中剔除  ==
     /// 将角度进行累加，计算整体识别率
-    /// </summary>
-    /// <returns></returns>
     private void JudgePointsIncludedAngleLine()
     {
         float tempLateAngle = DrawTemplate.Singleton.angle;

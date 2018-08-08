@@ -14,12 +14,14 @@ public class DrawTemplate : SingletonBehaviour<DrawTemplate>
     public List<Transform> allPoint;
     private List<AngleLine> angleLines;
     private List<Vector2> crossingPoint;
+    public List<Vector2> trendList;
     private LineRenderer lineRenderer;
     private BezierGenerate bezier;
     public Dictionary<int, AngleLine[]> angleLineDic;
     public float length = 400;
     public float angle = 10;
-    public float angleLimit = 30;
+    public float trendAngle = 45;
+    public float trendAngleLimit = 60;
     public Material material;
     private float width = 3;
     private Vector2 highest;
@@ -35,6 +37,7 @@ public class DrawTemplate : SingletonBehaviour<DrawTemplate>
         angleLines = new List<AngleLine>();
         crossingPoint = new List<Vector2>();
         angleLineDic = new Dictionary<int, AngleLine[]>();
+        trendList = new List<Vector2>();
         lineRenderer = GetComponent<LineRenderer>();
         bezier = GetComponent<BezierGenerate>();
         Init();
@@ -89,6 +92,9 @@ public class DrawTemplate : SingletonBehaviour<DrawTemplate>
             Vector3 start = allPoint[i].position + angleOffset.normalized * length;
             angleOffset = Quaternion.Euler(new Vector3(0, 0, -angle)) * dir;
             Vector3 end = allPoint[i].position + angleOffset.normalized * length;
+
+            if (trendList.Count < allPoint.Count && !trendList.Contains(dir))
+                trendList.Add(dir);
 
             angleLines.Add(new AngleLine(allPoint[i].position, start));
             angleLines.Add(new AngleLine(allPoint[i].position, end));
@@ -178,6 +184,15 @@ public class DrawTemplate : SingletonBehaviour<DrawTemplate>
         isDrawed = true;
     }
 
+    /// <summary>
+    /// 判断一个点是否在线段内
+    /// </summary>
+    /// <param name="L1Start"></param>
+    /// <param name="L1End"></param>
+    /// <param name="L2Start"></param>
+    /// <param name="L2End"></param>
+    /// <param name="point"></param>
+    /// <returns></returns>
     private bool WhetherPointIsOnTheLineSegment(Vector2 L1Start, Vector2 L1End, Vector2 L2Start, Vector2 L2End, Vector2 point)
     {
         bool isInsideL1 =
@@ -193,6 +208,16 @@ public class DrawTemplate : SingletonBehaviour<DrawTemplate>
 
             (point.x >= L2Start.x && point.x <= L2End.x && point.y >= L2End.y && point.y <= L2Start.y) ||
             (point.x >= L2End.x && point.x <= L2Start.x && point.y >= L2Start.y && point.y <= L2End.y);
+
+        #region 有误差存在
+
+        //bool isInsideL1 = Vector2.Distance(point, L1Start) + Vector2.Distance(point, L1End) - Vector2.Distance(L1Start, L1End) < 0.01f;
+        //bool isInsideL2 = Vector2.Distance(point, L2Start) + Vector2.Distance(point, L2End) - Vector2.Distance(L2Start, L2End) < 0.01f;
+
+        //bool isInsideL1 = Vector2.SqrMagnitude(point - L1Start) + Vector2.SqrMagnitude(point - L1End) == Vector2.SqrMagnitude(L1Start - L1End);
+        //bool isInsideL2 = Vector2.SqrMagnitude(point - L2Start) + Vector2.SqrMagnitude(point - L2End) == Vector2.SqrMagnitude(L2Start - L2End);
+
+        #endregion 有误差存在
 
         return isInsideL1 && isInsideL2;
     }
