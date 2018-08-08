@@ -5,22 +5,27 @@ using UnityEngine;
 using Common;
 
 //[RequireComponent(typeof(BezierGenerate))]
-public class DrawTemplate : MonoBehaviour
+public class DrawTemplate : SingletonBehaviour<DrawTemplate>
 {
-    private bool isDraw;
+    private bool isDrawed;
     private Transform pointsPanel;
     public Transform crossPoint;
     public Transform crossPointPanel;
-    private List<Transform> allPoint;
+    public List<Transform> allPoint;
     private List<AngleLine> angleLines;
     private List<Vector2> crossingPoint;
     private LineRenderer lineRenderer;
     private BezierGenerate bezier;
+    public Dictionary<int, AngleLine[]> angleLineDic;
     public float length = 400;
     public float angle = 10;
     public float angleLimit = 30;
     public Material material;
     private float width = 3;
+    private Vector2 highest;
+    private Vector2 lowest;
+    public float templateHight;
+    private int dicIndex;
 
     // Use this for initialization
     private void Start()
@@ -29,13 +34,15 @@ public class DrawTemplate : MonoBehaviour
         allPoint = new List<Transform>();
         angleLines = new List<AngleLine>();
         crossingPoint = new List<Vector2>();
+        angleLineDic = new Dictionary<int, AngleLine[]>();
         lineRenderer = GetComponent<LineRenderer>();
         bezier = GetComponent<BezierGenerate>();
         Init();
     }
 
-    private void Init()
+    public new void Init()
     {
+        base.Init();
         allPoint.AddRange(pointsPanel.GetComponentsInChildren<Transform>());
         allPoint.Remove(pointsPanel);
         foreach (var item in allPoint)
@@ -57,6 +64,8 @@ public class DrawTemplate : MonoBehaviour
     private void DrawAngleLine()
     {
         angleLines.Clear();
+        angleLineDic.Clear();
+        dicIndex = 0;
         lineRenderer.positionCount = allPoint.Count;
         lineRenderer.SetPositions(allPoint.ToArray().Select(t => t.position));
 
@@ -83,6 +92,8 @@ public class DrawTemplate : MonoBehaviour
 
             angleLines.Add(new AngleLine(allPoint[i].position, start));
             angleLines.Add(new AngleLine(allPoint[i].position, end));
+            angleLineDic.Add(dicIndex, new AngleLine[] { new AngleLine(allPoint[i].position, start), new AngleLine(allPoint[i].position, end) });
+            dicIndex++;
 
             angleLine.SetPosition(0, start);
             angleLine.SetPosition(1, allPoint[i].position);
@@ -105,6 +116,8 @@ public class DrawTemplate : MonoBehaviour
 
                 angleLines.Add(new AngleLine(allPoint[i].position, start));
                 angleLines.Add(new AngleLine(allPoint[i].position, end));
+                angleLineDic.Add(dicIndex, new AngleLine[] { new AngleLine(allPoint[i].position, start), new AngleLine(allPoint[i].position, end) });
+                dicIndex++;
 
                 angleLine.SetPosition(0, start);
                 angleLine.SetPosition(1, allPoint[i].position);
@@ -115,25 +128,32 @@ public class DrawTemplate : MonoBehaviour
                 angleLine.positionCount = 7;
                 angleLine.SetPosition(3, allPoint[i].position);
 
-                Vector3 dirNext = allPoint[i - 1].position - allPoint[i].position;
-                Vector3 angleOffsetNext = Quaternion.Euler(new Vector3(0, 0, angle)) * dirNext;
-                Vector3 startNext = allPoint[i].position + angleOffsetNext.normalized * length;
-                angleOffsetNext = Quaternion.Euler(new Vector3(0, 0, -angle)) * dirNext;
-                Vector3 endNext = allPoint[i].position + angleOffsetNext.normalized * length;
+                Vector3 dir = allPoint[i - 1].position - allPoint[i].position;
+                Vector3 angleOffset = Quaternion.Euler(new Vector3(0, 0, angle)) * dir;
+                Vector3 start = allPoint[i].position + angleOffset.normalized * length;
+                angleOffset = Quaternion.Euler(new Vector3(0, 0, -angle)) * dir;
+                Vector3 end = allPoint[i].position + angleOffset.normalized * length;
 
-                angleLines.Add(new AngleLine(allPoint[i].position, startNext));
-                angleLines.Add(new AngleLine(allPoint[i].position, endNext));
+                angleLines.Add(new AngleLine(allPoint[i].position, start));
+                angleLines.Add(new AngleLine(allPoint[i].position, end));
+                angleLineDic.Add(dicIndex, new AngleLine[] { new AngleLine(allPoint[i].position, start), new AngleLine(allPoint[i].position, end) });
+                dicIndex++;
 
-                angleLine.SetPosition(4, startNext);
+                angleLine.SetPosition(4, start);
                 angleLine.SetPosition(5, allPoint[i].position);
-                angleLine.SetPosition(6, endNext);
+                angleLine.SetPosition(6, end);
             }
         }
     }
 
     private void DrawAngleLineCoordinates()
     {
-        if (isDraw == true) return;
+        crossingPoint.Clear();
+        for (int i = 0; i < crossPointPanel.childCount; i++)
+        {
+            if (crossPointPanel.GetChild(i).name != "CrossPoint")
+                Destroy(crossPointPanel.GetChild(i).gameObject);
+        }
         foreach (var item in angleLines)
         {
             foreach (var inItem in angleLines)
@@ -141,7 +161,7 @@ public class DrawTemplate : MonoBehaviour
                 if (item != inItem)
                 {
                     Vector2 crossPoint = CalculateIntersectionCoordinates(item.start, item.end, inItem.start, inItem.end);
-                    if (!crossingPoint.Contains(crossPoint))
+                    if (!crossingPoint.Contains(crossPoint) && WhetherPointIsOnTheLineSegment(item.start, item.end, inItem.start, inItem.end, crossPoint))
                     {
                         crossingPoint.Add(crossPoint);
                     }
@@ -152,21 +172,51 @@ public class DrawTemplate : MonoBehaviour
         {
             Instantiate(crossPoint, item, Quaternion.identity, crossPointPanel);
         }
-        isDraw = true;
+        Vector2 highest = crossingPoint.ToArray().GetMax(t => t.y);
+        Vector2 lowest = crossingPoint.ToArray().GetMin(t => t.y);
+        templateHight = Mathf.Abs(highest.y - lowest.y);
+        isDrawed = true;
+    }
+
+    private bool WhetherPointIsOnTheLineSegment(Vector2 L1Start, Vector2 L1End, Vector2 L2Start, Vector2 L2End, Vector2 point)
+    {
+        bool isInsideL1 =
+            (point.x >= L1Start.x && point.x <= L1End.x && point.y >= L1Start.y && point.y <= L1End.y) ||
+            (point.x >= L1End.x && point.x <= L1Start.x && point.y >= L1End.y && point.y <= L1Start.y) ||
+
+             (point.x >= L1Start.x && point.x <= L1End.x && point.y >= L1End.y && point.y <= L1Start.y) ||
+              (point.x >= L1End.x && point.x <= L1Start.x && point.y >= L1Start.y && point.y <= L1End.y);
+
+        bool isInsideL2 =
+            (point.x >= L2Start.x && point.x <= L2End.x && point.y >= L2Start.y && point.y <= L2End.y) ||
+            (point.x >= L2End.x && point.x <= L2Start.x && point.y >= L2End.y && point.y <= L2Start.y) ||
+
+            (point.x >= L2Start.x && point.x <= L2End.x && point.y >= L2End.y && point.y <= L2Start.y) ||
+            (point.x >= L2End.x && point.x <= L2Start.x && point.y >= L2Start.y && point.y <= L2End.y);
+
+        return isInsideL1 && isInsideL2;
     }
 
     /// <summary>
     /// 计算交点坐标
     /// </summary>
-    private Vector2 CalculateIntersectionCoordinates(Vector2 P1, Vector2 P2, Vector2 P3, Vector2 P4)
+    /// <param name="line1Start"></param>
+    /// <param name="line1End"></param>
+    /// <param name="line2Start"></param>
+    /// <param name="line2End"></param>
+    /// <returns></returns>
+    private Vector2 CalculateIntersectionCoordinates(Vector2 line1Start, Vector2 line1End, Vector2 line2Start, Vector2 line2End)
     {
         Vector2 result = new Vector2();
         float left, right;
-        left = (P2.y - P1.y) * (P4.x - P3.x) - (P4.y - P3.y) * (P2.x - P1.x);
-        right = (P3.y - P1.y) * (P2.x - P1.x) * (P4.x - P3.x) + (P2.y - P1.y) * (P4.x - P3.x) * P1.x - (P4.y - P3.y) * (P2.x - P1.x) * P3.x;
+        left = (line1End.y - line1Start.y) * (line2End.x - line2Start.x) - (line2End.y - line2Start.y) * (line1End.x - line1Start.x);
+        right = (line2Start.y - line1Start.y) * (line1End.x - line1Start.x) * (line2End.x - line2Start.x) +
+            (line1End.y - line1Start.y) * (line2End.x - line2Start.x) * line1Start.x - (line2End.y - line2Start.y) * (line1End.x - line1Start.x) * line2Start.x;
         result.x = (int)(right / left);
-        left = (P2.x - P1.x) * (P4.y - P3.y) - (P4.x - P3.x) * (P2.y - P1.y);
-        right = (P3.x - P1.x) * (P2.y - P1.y) * (P4.y - P3.y) + P1.y * (P2.x - P1.x) * (P4.y - P3.y) - P3.y * (P4.x - P3.x) * (P2.y - P1.y);
+
+        left = (line1End.x - line1Start.x) * (line2End.y - line2Start.y) - (line2End.x - line2Start.x) * (line1End.y - line1Start.y);
+        right = (line2Start.x - line1Start.x) * (line1End.y - line1Start.y) * (line2End.y - line2Start.y) +
+            line1Start.y * (line1End.x - line1Start.x) * (line2End.y - line2Start.y) - line2Start.y * (line2End.x - line2Start.x) * (line1End.y - line1Start.y);
         result.y = (int)(right / left);
         return result;
     }

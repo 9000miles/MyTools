@@ -1,15 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-/*
-c# 扩展方法
-    定义：能够向现有类添加方法，而无需修改原始类或创建新的派生类。
-    要素：
-    1.扩展方法必须在非泛型的静态类中。
-    2.第一个参数使用this关键字指定被扩展类型。
-    3.建议在扩展方法所在类上，添加命名空间。
-*/
-
 namespace Common
 {
     ///<summary>
