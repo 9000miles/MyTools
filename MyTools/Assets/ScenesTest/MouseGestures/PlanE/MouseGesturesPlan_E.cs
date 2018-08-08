@@ -144,6 +144,7 @@ public class MouseGesturesPlan_E : MonoBehaviour
     private bool JudgeTrend()
     {
         List<Vector2> trendList = DrawTemplate.Singleton.trendList;
+        List<Transform> templateAllPoint = DrawTemplate.Singleton.allPoint;
         int trendListIndex = 0;
         Transform entrAngleTF;
         Transform outAngleTF;
@@ -161,7 +162,9 @@ public class MouseGesturesPlan_E : MonoBehaviour
             entrAngleTF = allPoint[0];
             outAngleLineTF = entrAngleTF;
             Vector2 dir = allPoint[pointIndex + 1].position - entrAngleTF.position;
+            //           90度，超出了预期值，可能会因为鼠标微小的滑动而产生错误结果。需要避免
             float angle = Vector2.Angle(dir, trendList[trendListIndex]);//求每个点和当前模板走向的角度
+            //angle = Vector2.Angle(dir, templateAllPoint[pointIndex + 1].position - templateAllPoint[pointIndex].position);
             if (maxAngle < angle)//求最大角度，用于确定走向最大反向边界角度
             {
                 maxAngle = angle;
@@ -172,10 +175,10 @@ public class MouseGesturesPlan_E : MonoBehaviour
 
                 //外边方向：A（异侧）: <0         <0
                 //[走向左侧]  B（同侧）: >0         <0    True
-                if ((Vector2.Dot(allPoint[pointIndex].position - entrAngleTF.position, trendList[trendListIndex + 1] - trendList[trendListIndex]) < 0 &&
-                   Vector2.Dot(trendList[trendListIndex + 2] - trendList[trendListIndex - 1], trendList[trendListIndex + 1] - trendList[trendListIndex]) > 0) ||
-                   (Vector2.Dot(allPoint[pointIndex].position - entrAngleTF.position, trendList[trendListIndex + 1] - trendList[trendListIndex]) > 0 &&
-                   Vector2.Dot(trendList[trendListIndex + 2] - trendList[trendListIndex - 1], trendList[trendListIndex + 1] - trendList[trendListIndex]) < 0))
+                if ((Vector2.Dot(allPoint[pointIndex].position - entrAngleTF.position, trendList[trendListIndex]) < 0 &&
+                   Vector2.Dot(trendList[trendListIndex + 1], trendList[trendListIndex]) > 0) ||
+                   (Vector2.Dot(allPoint[pointIndex].position - entrAngleTF.position, trendList[trendListIndex]) > 0 &&
+                   Vector2.Dot(trendList[trendListIndex + 1], trendList[trendListIndex]) < 0))
                     outAngleLineTF = allPoint[pointIndex];
             }
 
@@ -189,8 +192,8 @@ public class MouseGesturesPlan_E : MonoBehaviour
             else
             {
                 //如果超出极限范围
-                if (angle > DrawTemplate.Singleton.trendAngleLimit)
-                    return false;
+                //if (angle > DrawTemplate.Singleton.trendAngleLimit)
+                //    return false;
 
                 trendListIndex++;//转入下一个角度范围检测
                 outAngleTF = allPoint[pointIndex];//拿到超出边界的物体
