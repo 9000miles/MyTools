@@ -63,10 +63,10 @@ public class MouseGesturesPlan_E : MonoBehaviour
             MoveOffsetDistance();
             FitTemplateProportions();
             await new WaitForUpdate();
-            JudgeTrend();
+            //JudgeTrend();
             await new WaitForUpdate();
-            JudgePointsIncludedAngleLine();
-            CalculateRecongnitionRate();
+            //JudgePointsIncludedAngleLine();
+            //CalculateRecongnitionRate();
         }
     }
 
@@ -74,6 +74,8 @@ public class MouseGesturesPlan_E : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
         {
+            JudgeTrend();
+            JudgePointsIncludedAngleLine();
             for (int i = 0; i < allPoint.Count; i++)
             {
                 Destroy(allPoint[i].gameObject);
@@ -146,7 +148,7 @@ public class MouseGesturesPlan_E : MonoBehaviour
         List<Vector2> trendList = DrawTemplate.Singleton.trendList;
         List<Transform> templateAllPoint = DrawTemplate.Singleton.allPoint;
         int trendListIndex = 0;
-        Transform entrAngleTF;
+        Transform enterAngleTF;
         Transform outAngleTF;
         Transform outAngleLineTF = null;
         //最大角度，偏移检测角度
@@ -157,39 +159,35 @@ public class MouseGesturesPlan_E : MonoBehaviour
         for (int pointIndex = 0; pointIndex < allPoint.Count - 1; pointIndex++)
         {
             //用于快速判断走向是否和模板路径的走向一致
-            if (trendListIndex >= trendList.Count) return false;
+            if (trendListIndex + 1 >= trendList.Count) return false;
 
-            entrAngleTF = allPoint[0];
-            outAngleLineTF = entrAngleTF;
-            Vector2 dir = allPoint[pointIndex + 1].position - entrAngleTF.position;
+            enterAngleTF = allPoint[0];
+            outAngleLineTF = enterAngleTF;
+            //起始的几个点，2点相距较小，可以跳过，后面的不能跳过
+            if (Vector2.Distance(allPoint[pointIndex + 1].position, enterAngleTF.position) < DrawTemplate.Singleton.betweenMinDistance) continue;
+
+            Vector2 dir = allPoint[pointIndex + 1].position - enterAngleTF.position;
             //           90度，超出了预期值，可能会因为鼠标微小的滑动而产生错误结果。需要避免
             float angle = Vector2.Angle(dir, trendList[trendListIndex]);//求每个点和当前模板走向的角度
-            //angle = Vector2.Angle(dir, templateAllPoint[pointIndex + 1].position - templateAllPoint[pointIndex].position);
-            if (maxAngle < angle)//求最大角度，用于确定走向最大反向边界角度
+
+            //需要判断下一个的方向是否在正方向，当前点的方向和模板的外边方向一致的话
+            //                                    本身      模板
+            //外边方向：A（异侧）: <0         >0     True
+            //[走向右侧]  B（同侧）: >0         >0
+
+            //外边方向：A（异侧）: <0         <0
+            //[走向左侧]  B（同侧）: >0         <0    True
+            //方向有问题，不能判断同侧或者异侧
+            float pointToEnterDot = Vector2.Dot(allPoint[pointIndex].position - enterAngleTF.position, trendList[trendListIndex]);
+            float templateTrendDot = Vector2.Dot(trendList[trendListIndex + 1], trendList[trendListIndex]);
+            if (maxAngle < angle && (pointToEnterDot <= 0 && templateTrendDot >= 0 || pointToEnterDot >= 0 && templateTrendDot <= 0))//求最大角度，用于确定走向最大反向边界角度
             {
                 maxAngle = angle;
-                //需要判断下一个的方向是否在正方向，当前点的方向和模板的外边方向一致的话
-                //                                    本身      模板
-                //外边方向：A（异侧）: <0         >0     True
-                //[走向右侧]  B（同侧）: >0         >0
-
-                //外边方向：A（异侧）: <0         <0
-                //[走向左侧]  B（同侧）: >0         <0    True
-                if ((Vector2.Dot(allPoint[pointIndex].position - entrAngleTF.position, trendList[trendListIndex]) < 0 &&
-                   Vector2.Dot(trendList[trendListIndex + 1], trendList[trendListIndex]) > 0) ||
-                   (Vector2.Dot(allPoint[pointIndex].position - entrAngleTF.position, trendList[trendListIndex]) > 0 &&
-                   Vector2.Dot(trendList[trendListIndex + 1], trendList[trendListIndex]) < 0))
-                    outAngleLineTF = allPoint[pointIndex];
-            }
-
-            //在角度范围内
-            if (angle < DrawTemplate.Singleton.trendAngle)
-            {
-                safePoint.Add(allPoint[pointIndex].position);
+                outAngleLineTF = allPoint[pointIndex];
             }
 
             //没在角度范围内
-            else
+            if (angle > DrawTemplate.Singleton.trendAngle)
             {
                 //如果超出极限范围
                 //if (angle > DrawTemplate.Singleton.trendAngleLimit)
@@ -200,24 +198,10 @@ public class MouseGesturesPlan_E : MonoBehaviour
                 //找出最大边界点到当前超出范围点之间的所有点
                 int outAngleLineTFIndex = allPoint.FindIndex(t => t == outAngleLineTF);
                 List<Transform> enterOutTFList = allPoint.GetRange(outAngleLineTFIndex, pointIndex - outAngleLineTFIndex);
-
-                //Transform newSatrtPoint = enterOutTFList.Find(t =>
-                //{
-                //    Transform newSatrt = null;
-                //    float minAngle = DrawTemplate.Singleton.trendAngle;
-                //    //求最大边界角度和当前物体的角度
-                //    float angleTemp = Vector2.Angle(t.position - entrAngleTF.position, outAngleLineTF.position - entrAngleTF.position);
-                //    if (angleTemp - DrawTemplate.Singleton.trendAngle < minAngle)
-                //    {
-                //        minAngle = angleTemp;
-                //        newSatrt = t;
-                //    }
-                //    return newSatrt;
-                //});
                 //求离角平分线最近的物体
-                entrAngleTF = enterOutTFList.ToArray().GetMin(t =>
-                    Vector2.Angle(t.position - entrAngleTF.position, outAngleLineTF.position - entrAngleTF.position));
-                pointIndex = allPoint.FindIndex(t => t == entrAngleTF);
+                enterAngleTF = enterOutTFList.ToArray().GetMin(t =>
+                    Vector2.Angle(t.position - enterAngleTF.position, outAngleLineTF.position - enterAngleTF.position));
+                pointIndex = allPoint.FindIndex(t => t == enterAngleTF);
             }
         }
         return true;

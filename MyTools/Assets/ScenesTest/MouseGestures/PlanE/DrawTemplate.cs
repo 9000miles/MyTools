@@ -22,6 +22,7 @@ public class DrawTemplate : SingletonBehaviour<DrawTemplate>
     public float angle = 10;
     public float trendAngle = 45;
     public float trendAngleLimit = 60;
+    public float betweenMinDistance = 30;
     public Material material;
     private float width = 3;
     private Vector2 highest;
