@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 namespace YouLe
 {
     ///  <summary>
@@ -14,7 +16,9 @@ namespace YouLe
         public Transform myTransform;
         public RectTransform rect;
         private bool isIn;
+        public Image image;
         private Tweener tweener;
+
         private void Start()
 
         {
@@ -28,10 +32,16 @@ namespace YouLe
             tweener.SetAutoKill(false);
             tweener.Pause();
         }
+
         private void Update()
         {
             //transform.localPosition = myVector;
+            if (Input.GetMouseButtonDown(0))
+            {
+                image.transform.DOPunchScale(new Vector3(0.2f, 0.2f, 0.2f), .1f);
+            }
         }
+
         public void Move()
         {
             if (isIn == false)

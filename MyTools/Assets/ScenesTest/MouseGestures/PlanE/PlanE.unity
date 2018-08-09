@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -549,10 +549,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   crossPoint: {fileID: 1572832952}
   crossPointPanel: {fileID: 35778853}
+  allPoint: []
+  trendList: []
   length: 1000
   angle: 15
-  angleLimit: 30
+  trendAngle: 45
+  trendAngleLimit: 60
+  betweenMinDistance: 30
   material: {fileID: 2100000, guid: aedd2c0f13101bd4a922e5f3aad28167, type: 2}
+  templateHight: 0
 --- !u!1 &902958786
 GameObject:
   m_ObjectHideFlags: 0
