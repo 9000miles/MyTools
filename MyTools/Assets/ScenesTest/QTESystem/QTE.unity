@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -172,7 +172,7 @@ MonoBehaviour:
     m_OnCameraLive:
       m_PersistentCalls:
         m_Calls: []
-      m_TypeName: Cinemachine.CinemachineBrain+VcamEvent, Cinemachine, Version=0.0.0.0,
+      m_TypeName: Cinemachine.CinemachineBrain+VcamActivatedEvent, Cinemachine, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1666860989}
@@ -244,7 +244,7 @@ MonoBehaviour:
     m_OnCameraLive:
       m_PersistentCalls:
         m_Calls: []
-      m_TypeName: Cinemachine.CinemachineBrain+VcamEvent, Cinemachine, Version=0.0.0.0,
+      m_TypeName: Cinemachine.CinemachineBrain+VcamActivatedEvent, Cinemachine, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1495322850}
@@ -311,7 +311,7 @@ MonoBehaviour:
     m_OnCameraLive:
       m_PersistentCalls:
         m_Calls: []
-      m_TypeName: Cinemachine.CinemachineBrain+VcamEvent, Cinemachine, Version=0.0.0.0,
+      m_TypeName: Cinemachine.CinemachineBrain+VcamActivatedEvent, Cinemachine, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
   m_LegacyBlendHint: 0
   m_YAxis:
@@ -526,13 +526,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 1
+    isActive: 0
     ID: 0
-    duration: 20
+    duration: 10
     startTime: 0
     excuteTime: 0
-    description: "\u5DE6\u952E\u5FEB\u901F\u5355\u51FB2\u6B21"
-    type: 1
+    description: 
+    type: 0
     quickClick:
       clickCount: 2
       IntervalTime: 0.5
@@ -544,7 +544,7 @@ MonoBehaviour:
       angleLimit: 30
       augularOffset: 30
       mouseButton: 0
-      gesturesType: 0
+      gesturesType: 15
     keyCombination:
       keyList: 
     UILocalPosition: {x: -560, y: 475}
@@ -865,26 +865,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 1
+    isActive: 0
     ID: 0
-    duration: 20
+    duration: 10
     startTime: 0
     excuteTime: 0
-    description: "\u53F3\u952E\u70B9\u51FB\u3010\u9F20\u6807\u624B\u52BF\u3011\u4E2D\u7684\u7EFF\u8272\u7269\u4F53"
-    type: 2
+    description: 
+    type: 0
     quickClick:
-      clickCount: 0
-      IntervalTime: 0
+      clickCount: 2
+      IntervalTime: 0.5
       mouseButton: 0
     preciseClick:
-      targetList:
-      - {fileID: 1437961729}
-      mouseButton: 1
+      targetList: []
+      mouseButton: 0
     mouseGestures:
       angleLimit: 30
       augularOffset: 30
       mouseButton: 0
-      gesturesType: 0
+      gesturesType: 15
     keyCombination:
       keyList: 
     UILocalPosition: {x: -560, y: 475}
@@ -1020,16 +1019,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 1
+    isActive: 0
     ID: 0
-    duration: 20
+    duration: 10
     startTime: 0
     excuteTime: 0
-    description: "\u8BF7\u6309E\u3001H\u952E"
-    type: 4
+    description: 
+    type: 0
     quickClick:
-      clickCount: 0
-      IntervalTime: 0
+      clickCount: 2
+      IntervalTime: 0.5
       mouseButton: 0
     preciseClick:
       targetList: []
@@ -1038,9 +1037,9 @@ MonoBehaviour:
       angleLimit: 30
       augularOffset: 30
       mouseButton: 0
-      gesturesType: 0
+      gesturesType: 15
     keyCombination:
-      keyList: 6500000068000000
+      keyList: 
     UILocalPosition: {x: -560, y: 475}
     result: 0
     errorType: 0
@@ -1128,7 +1127,7 @@ MonoBehaviour:
     m_OnCameraLive:
       m_PersistentCalls:
         m_Calls: []
-      m_TypeName: Cinemachine.CinemachineBrain+VcamEvent, Cinemachine, Version=0.0.0.0,
+      m_TypeName: Cinemachine.CinemachineBrain+VcamActivatedEvent, Cinemachine, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 944812820}
@@ -1388,17 +1387,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 1
+    isActive: 0
     ID: 0
-    duration: 20
+    duration: 10
     startTime: 0
     excuteTime: 0
-    description: "\u4E2D\u952E\u5FEB\u901F\u5355\u51FB2\u6B21"
-    type: 1
+    description: 
+    type: 0
     quickClick:
       clickCount: 2
-      IntervalTime: 0
-      mouseButton: 2
+      IntervalTime: 0.5
+      mouseButton: 0
     preciseClick:
       targetList: []
       mouseButton: 0
@@ -1406,7 +1405,7 @@ MonoBehaviour:
       angleLimit: 30
       augularOffset: 30
       mouseButton: 0
-      gesturesType: 0
+      gesturesType: 15
     keyCombination:
       keyList: 
     UILocalPosition: {x: -560, y: 475}
@@ -1451,6 +1450,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1034330248}
   - component: {fileID: 1034330247}
+  - component: {fileID: 1034330249}
   m_Layer: 0
   m_Name: QTETest
   m_TagString: Untagged
@@ -1483,6 +1483,114 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1034330249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1034330246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d1800fbfc988564eadacb20dc1a1a6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTrue: 0
+  infoList:
+    isActive: 0
+    ID: 0
+    duration: 10
+    startTime: 0
+    excuteTime: 0
+    description: 
+    type: 1
+    quickClick:
+      clickCount: 2
+      IntervalTime: 0.5
+      mouseButton: 0
+    preciseClick:
+      targetList: []
+      mouseButton: 0
+    mouseGestures:
+      angleLimit: 30
+      augularOffset: 30
+      mouseButton: 0
+      gesturesType: 15
+    keyCombination:
+      keyList: 
+    UILocalPosition: {x: -560, y: 475}
+    result: 0
+    errorType: 0
+    animation: {fileID: 0}
+    cinemachine: {fileID: 0}
+  owerTF: {fileID: 0}
+  currentQTEInfo:
+    isActive: 0
+    ID: 0
+    duration: 10
+    startTime: 0
+    excuteTime: 0
+    description: 
+    type: 0
+    quickClick:
+      clickCount: 2
+      IntervalTime: 0.5
+      mouseButton: 0
+    preciseClick:
+      targetList: []
+      mouseButton: 0
+    mouseGestures:
+      angleLimit: 30
+      augularOffset: 30
+      mouseButton: 0
+      gesturesType: 15
+    keyCombination:
+      keyList: 
+    UILocalPosition: {x: -560, y: 475}
+    result: 0
+    errorType: 0
+    animation: {fileID: 0}
+    cinemachine: {fileID: 0}
+--- !u!1 &1079202628
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1079202630}
+  - component: {fileID: 1079202629}
+  m_Layer: 0
+  m_Name: Displayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1079202629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1079202628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 848d0fec43087504a95bba720c3a9820, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+--- !u!4 &1079202630
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1079202628}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.989424, y: 6.5239763, z: 15.372163}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1132809016
 GameObject:
@@ -1646,16 +1754,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 1
+    isActive: 0
     ID: 0
-    duration: 20
+    duration: 10
     startTime: 0
     excuteTime: 0
-    description: "\u53F3\u952E\u6309\u4F4F\u5DE6\u4E0B\u6ED1"
-    type: 3
+    description: 
+    type: 0
     quickClick:
-      clickCount: 0
-      IntervalTime: 0
+      clickCount: 2
+      IntervalTime: 0.5
       mouseButton: 0
     preciseClick:
       targetList: []
@@ -1663,8 +1771,8 @@ MonoBehaviour:
     mouseGestures:
       angleLimit: 30
       augularOffset: 30
-      mouseButton: 1
-      gesturesType: 2
+      mouseButton: 0
+      gesturesType: 15
     keyCombination:
       keyList: 
     UILocalPosition: {x: -560, y: 475}
@@ -1819,42 +1927,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 1
+    isActive: 0
     ID: 0
     duration: 10
-    startTime: 0
-    excuteTime: 0
-    description: "\u8BF7\u6309B\u952E"
-    type: 4
-    quickClick:
-      clickCount: 0
-      IntervalTime: 0
-      mouseButton: 0
-    preciseClick:
-      targetList: []
-      mouseButton: 0
-    mouseGestures:
-      angleLimit: 30
-      augularOffset: 30
-      mouseButton: 0
-      gesturesType: 0
-    keyCombination:
-      keyList: 62000000
-    UILocalPosition: {x: -560, y: 475}
-    result: 0
-    errorType: 0
-    animation: {fileID: 0}
-    cinemachine: {fileID: 0}
-  - isActive: 0
-    ID: 0
-    duration: 0
     startTime: 0
     excuteTime: 0
     description: 
     type: 0
     quickClick:
-      clickCount: 0
-      IntervalTime: 0
+      clickCount: 2
+      IntervalTime: 0.5
       mouseButton: 0
     preciseClick:
       targetList: []
@@ -1863,7 +1945,7 @@ MonoBehaviour:
       angleLimit: 30
       augularOffset: 30
       mouseButton: 0
-      gesturesType: 0
+      gesturesType: 15
     keyCombination:
       keyList: 
     UILocalPosition: {x: -560, y: 475}
@@ -2278,26 +2360,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 1
+    isActive: 0
     ID: 0
-    duration: 20
+    duration: 10
     startTime: 0
     excuteTime: 0
-    description: "\u5DE6\u952E\u70B9\u51FB\u3010\u6309\u952E\u7EC4\u5408\u3011\u4E2D\u7684\u9EC4\u8272\u7269\u4F53"
-    type: 2
+    description: 
+    type: 0
     quickClick:
-      clickCount: 0
-      IntervalTime: 0
+      clickCount: 2
+      IntervalTime: 0.5
       mouseButton: 0
     preciseClick:
-      targetList:
-      - {fileID: 1956787180}
+      targetList: []
       mouseButton: 0
     mouseGestures:
       angleLimit: 30
       augularOffset: 30
       mouseButton: 0
-      gesturesType: 0
+      gesturesType: 15
     keyCombination:
       keyList: 
     UILocalPosition: {x: -560, y: 475}
@@ -2432,26 +2513,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 1
+    isActive: 0
     ID: 0
-    duration: 20
+    duration: 10
     startTime: 0
     excuteTime: 0
-    description: "\u5DE6\u952E\u6309\u4F4F\u5DE6\u6ED1"
-    type: 3
+    description: 
+    type: 0
     quickClick:
-      clickCount: 0
-      IntervalTime: 0
+      clickCount: 2
+      IntervalTime: 0.5
       mouseButton: 0
     preciseClick:
-      targetList:
-      - {fileID: 0}
+      targetList: []
       mouseButton: 0
     mouseGestures:
       angleLimit: 30
       augularOffset: 30
       mouseButton: 0
-      gesturesType: 0
+      gesturesType: 15
     keyCombination:
       keyList: 
     UILocalPosition: {x: -560, y: 475}
@@ -2729,16 +2809,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 1
+    isActive: 0
     ID: 0
-    duration: 20
+    duration: 10
     startTime: 0
     excuteTime: 0
-    description: "\u5DE6\u952E\u6309\u4F4F\u53F3\u4E0A\u6ED1"
-    type: 3
+    description: 
+    type: 0
     quickClick:
-      clickCount: 0
-      IntervalTime: 0
+      clickCount: 2
+      IntervalTime: 0.5
       mouseButton: 0
     preciseClick:
       targetList: []
@@ -2747,7 +2827,7 @@ MonoBehaviour:
       angleLimit: 30
       augularOffset: 30
       mouseButton: 0
-      gesturesType: 4
+      gesturesType: 15
     keyCombination:
       keyList: 
     UILocalPosition: {x: -560, y: 475}
@@ -2883,16 +2963,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 0
+    isActive: 0
     ID: 0
-    duration: 20
+    duration: 10
     startTime: 0
     excuteTime: 0
     description: 
     type: 0
     quickClick:
-      clickCount: 0
-      IntervalTime: 0
+      clickCount: 2
+      IntervalTime: 0.5
       mouseButton: 0
     preciseClick:
       targetList: []
@@ -2901,7 +2981,7 @@ MonoBehaviour:
       angleLimit: 30
       augularOffset: 30
       mouseButton: 0
-      gesturesType: 0
+      gesturesType: 15
     keyCombination:
       keyList: 
     UILocalPosition: {x: -560, y: 475}
@@ -3102,7 +3182,7 @@ MonoBehaviour:
     m_OnCameraLive:
       m_PersistentCalls:
         m_Calls: []
-      m_TypeName: Cinemachine.CinemachineBrain+VcamEvent, Cinemachine, Version=0.0.0.0,
+      m_TypeName: Cinemachine.CinemachineBrain+VcamActivatedEvent, Cinemachine, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1417422148}
@@ -3220,42 +3300,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 1
+    isActive: 0
     ID: 0
-    duration: 20
-    startTime: 0
-    excuteTime: 0
-    description: "\u8BF7\u6309Y\u952E"
-    type: 4
-    quickClick:
-      clickCount: 0
-      IntervalTime: 0
-      mouseButton: 0
-    preciseClick:
-      targetList: []
-      mouseButton: 0
-    mouseGestures:
-      angleLimit: 30
-      augularOffset: 30
-      mouseButton: 0
-      gesturesType: 0
-    keyCombination:
-      keyList: 79000000
-    UILocalPosition: {x: -560, y: 475}
-    result: 0
-    errorType: 0
-    animation: {fileID: 0}
-    cinemachine: {fileID: 0}
-  - isActive: 0
-    ID: 0
-    duration: 0
+    duration: 10
     startTime: 0
     excuteTime: 0
     description: 
     type: 0
     quickClick:
-      clickCount: 0
-      IntervalTime: 0
+      clickCount: 2
+      IntervalTime: 0.5
       mouseButton: 0
     preciseClick:
       targetList: []
@@ -3264,33 +3318,7 @@ MonoBehaviour:
       angleLimit: 30
       augularOffset: 30
       mouseButton: 0
-      gesturesType: 0
-    keyCombination:
-      keyList: 
-    UILocalPosition: {x: -560, y: 475}
-    result: 0
-    errorType: 0
-    animation: {fileID: 0}
-    cinemachine: {fileID: 0}
-  - isActive: 0
-    ID: 0
-    duration: 0
-    startTime: 0
-    excuteTime: 0
-    description: 
-    type: 0
-    quickClick:
-      clickCount: 0
-      IntervalTime: 0
-      mouseButton: 0
-    preciseClick:
-      targetList: []
-      mouseButton: 0
-    mouseGestures:
-      angleLimit: 30
-      augularOffset: 30
-      mouseButton: 0
-      gesturesType: 0
+      gesturesType: 15
     keyCombination:
       keyList: 
     UILocalPosition: {x: -560, y: 475}
@@ -3569,17 +3597,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   infoList:
-  - isActive: 1
+    isActive: 0
     ID: 0
-    duration: 20
+    duration: 10
     startTime: 0
     excuteTime: 0
-    description: "\u53F3\u952E\u5FEB\u901F\u5355\u51FB3\u6B21"
-    type: 1
+    description: 
+    type: 0
     quickClick:
-      clickCount: 3
+      clickCount: 2
       IntervalTime: 0.5
-      mouseButton: 1
+      mouseButton: 0
     preciseClick:
       targetList: []
       mouseButton: 0
@@ -3587,7 +3615,7 @@ MonoBehaviour:
       angleLimit: 30
       augularOffset: 30
       mouseButton: 0
-      gesturesType: 0
+      gesturesType: 15
     keyCombination:
       keyList: 
     UILocalPosition: {x: -560, y: 475}

@@ -14,6 +14,7 @@ public class QTEInfo
     public float excuteTime;
     public string description = "";
     public QTEType type = QTEType.None;
+    [HideInInspector]
     public QuickClickInfo quickClick = null;
     public PreciseClickInfo preciseClick = null;
     public MouseGesturesInfo mouseGestures = null;

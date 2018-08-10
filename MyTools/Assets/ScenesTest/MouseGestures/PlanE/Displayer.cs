@@ -9,8 +9,8 @@ public enum TestType
     B
 }
 
-[Serializable]
-public class Displayer
+//[Serializable]
+public class Displayer : MonoBehaviour
 {
     public TestType type;
 

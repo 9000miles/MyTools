@@ -61,18 +61,6 @@ public class QTEManager : SingletonBehaviour<QTEManager>
         conditionList.AddRange(conditions.FindAll(t => !conditionList.Contains(t)));
     }
 
-    public void AddQTE(QTEConditionBase condition, QTEInfo info)
-    {
-        if (!conditionList.Contains(condition))
-            conditionList.Add(condition);
-        else
-        {
-            List<QTEInfo> list = conditionList.Find(t => t == condition).infoList;
-            if (!list.Contains(info))
-                list.Add(info);
-        }
-    }
-
     public void RemoveQTECondition(QTEConditionBase condition)
     {
         if (conditionList.Contains(condition))
@@ -83,20 +71,6 @@ public class QTEManager : SingletonBehaviour<QTEManager>
     {
         if (conditionList.Contains(condition))
         {
-            List<QTEInfo> infoList = conditionList.Find(t => t == condition).infoList;
-            if (infoList.Contains(info))
-            {
-                infoList.Remove(info);
-            }
-        }
-    }
-
-    private void AutoActiveNextQTE(QTEConditionBase condition)
-    {
-        List<QTEInfo> infoList = conditionList.Find(t => t == condition).infoList;
-        if (infoList.Count > 0)
-        {
-            infoList[0].isActive = true;
         }
     }
 
@@ -118,16 +92,6 @@ public class QTEManager : SingletonBehaviour<QTEManager>
         }
         if (currentCondition != null && currentCondition.isTrue == false)
             panel.gameObject.SetActive(false);
-    }
-
-    public QTEInfo GetQTE(QTEConditionBase condition, string description)
-    {
-        return conditionList.Find(t => t == condition).infoList.Find(t => t.description == description);
-    }
-
-    public QTEInfo GetQTE(QTEConditionBase condition, int id)
-    {
-        return conditionList.Find(t => t == condition).infoList.Find(t => t.ID == id);
     }
 
     public QTEInfo GetCurrentQTE()

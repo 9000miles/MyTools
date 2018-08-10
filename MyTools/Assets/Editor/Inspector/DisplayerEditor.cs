@@ -7,14 +7,15 @@ using UnityEngine;
 public class DisplayerEditor : Editor
 {
     private Displayer obj;
-    //private void Awake()
-    //{
-    //    obj = target as Displayer;
-    //    if (obj.instanceA == null)
-    //        obj.instanceA = new A();
-    //    if (obj.instanceB == null)
-    //        obj.instanceB = new B();
-    //}
+
+    private void Awake()
+    {
+        obj = target as Displayer;
+        if (obj.instanceA == null)
+            obj.instanceA = new A();
+        if (obj.instanceB == null)
+            obj.instanceB = new B();
+    }
 
     public override void OnInspectorGUI()
     {
@@ -25,10 +26,10 @@ public class DisplayerEditor : Editor
             EditorGUILayout.LabelField("A对象");
             obj.instanceA.a = EditorGUILayout.TagField(obj.instanceA.a);
         }
-        else
-        {
-            EditorGUILayout.LabelField("B对象");
-            obj.instanceB.b = EditorGUILayout.TextField(obj.instanceB.b);
-        }
+        //else
+        //{
+        //    EditorGUILayout.LabelField("B对象");
+        //    obj.instanceB.b = EditorGUILayout.TextField(obj.instanceB.b);
+        //}
     }
 }
