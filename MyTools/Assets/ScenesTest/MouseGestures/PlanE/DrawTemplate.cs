@@ -18,17 +18,17 @@ public class DrawTemplate : SingletonBehaviour<DrawTemplate>
     private LineRenderer lineRenderer;
     private BezierGenerate bezier;
     public Dictionary<int, AngleLine[]> angleLineDic;
-    public float length = 400;
-    public float angle = 10;
-    public float trendAngle = 45;
-    public float trendAngleLimit = 60;
-    public float betweenMinDistance = 30;
+    public float length = 1000;
+    public float angle = 15;
+    public float trendAngleLimit = 50;
+    public float betweenMinDistance = 20;
     public Material material;
     private float width = 3;
     private Vector2 highest;
     private Vector2 lowest;
     public float templateHight;
     private int dicIndex;
+    public int outOfAngleCount = 3;
 
     // Use this for initialization
     private void Start()
@@ -69,6 +69,7 @@ public class DrawTemplate : SingletonBehaviour<DrawTemplate>
     {
         angleLines.Clear();
         angleLineDic.Clear();
+        trendList.Clear();
         dicIndex = 0;
         lineRenderer.positionCount = allPoint.Count;
         lineRenderer.SetPositions(allPoint.ToArray().Select(t => t.position));
@@ -94,8 +95,8 @@ public class DrawTemplate : SingletonBehaviour<DrawTemplate>
             angleOffset = Quaternion.Euler(new Vector3(0, 0, -angle)) * dir;
             Vector3 end = allPoint[i].position + angleOffset.normalized * length;
 
-            if (trendList.Count < allPoint.Count && !trendList.Contains(dir))
-                trendList.Add(dir);
+            //if (trendList.Count < allPoint.Count && !trendList.Contains(dir))
+            trendList.Add(dir);
 
             angleLines.Add(new AngleLine(allPoint[i].position, start));
             angleLines.Add(new AngleLine(allPoint[i].position, end));

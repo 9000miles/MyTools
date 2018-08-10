@@ -209,6 +209,23 @@ namespace Common
         }
 
         /// <summary>
+        /// 获取质心位置
+        /// </summary>
+        /// <param name="points"></param>
+        /// <returns></returns>
+        public static Vector3 GetCenterOfGravity(this Vector3[] points)
+        {
+            if (points == null || points.Length <= 0) return Vector3.zero;
+            float minX = points.GetMin(t => t.x).x;
+            float maxX = points.GetMax(t => t.x).x;
+            float minY = points.GetMin(t => t.y).y;
+            float maxY = points.GetMax(t => t.y).y;
+            float minZ = points.GetMin(t => t.z).z;
+            float maxZ = points.GetMax(t => t.z).z;
+            return new Vector3((minX + maxX) / 2, (minY + maxY) / 2, (minZ + maxZ) / 2);
+        }
+
+        /// <summary>
         /// 将字符串转换成Vector3，输出该Vector3字符串
         /// </summary>
         /// <param name="currentTF"></param>
@@ -223,6 +240,86 @@ namespace Common
             string position = match.Value.Replace("(", "").Replace(")", "");
             string[] pos = position.Split(',');
             return new Vector3(float.Parse(pos[0]), float.Parse(pos[1]), float.Parse(pos[2]));
+        }
+
+        /// <summary>
+        /// 判断一个点是否在线段内
+        /// </summary>
+        /// <param name="L1Start"></param>
+        /// <param name="L1End"></param>
+        /// <param name="L2Start"></param>
+        /// <param name="L2End"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        private static bool WhetherPointIsOnTheLineSegment(Vector2 L1Start, Vector2 L1End, Vector2 L2Start, Vector2 L2End, Vector2 point)
+        {
+            bool isInsideL1 =
+                (point.x >= L1Start.x && point.x <= L1End.x && point.y >= L1Start.y && point.y <= L1End.y) ||
+                (point.x >= L1End.x && point.x <= L1Start.x && point.y >= L1End.y && point.y <= L1Start.y) ||
+
+                 (point.x >= L1Start.x && point.x <= L1End.x && point.y >= L1End.y && point.y <= L1Start.y) ||
+                  (point.x >= L1End.x && point.x <= L1Start.x && point.y >= L1Start.y && point.y <= L1End.y);
+
+            bool isInsideL2 =
+                (point.x >= L2Start.x && point.x <= L2End.x && point.y >= L2Start.y && point.y <= L2End.y) ||
+                (point.x >= L2End.x && point.x <= L2Start.x && point.y >= L2End.y && point.y <= L2Start.y) ||
+
+                (point.x >= L2Start.x && point.x <= L2End.x && point.y >= L2End.y && point.y <= L2Start.y) ||
+                (point.x >= L2End.x && point.x <= L2Start.x && point.y >= L2Start.y && point.y <= L2End.y);
+
+            return isInsideL1 && isInsideL2;
+        }
+
+        /// <summary>
+        /// 判断一个点是否在线段内
+        /// </summary>
+        /// <param name="L1Start"></param>
+        /// <param name="L1End"></param>
+        /// <param name="L2Start"></param>
+        /// <param name="L2End"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        private static bool WhetherPointIsOnTheLineSegment(Vector3 L1Start, Vector3 L1End, Vector3 L2Start, Vector3 L2End, Vector3 point)
+        {
+            bool isInsideL1 =
+                (point.x >= L1Start.x && point.x <= L1End.x && point.y >= L1Start.y && point.y <= L1End.y && point.z >= L1Start.z && point.z <= L1End.z) ||
+                (point.x >= L1End.x && point.x <= L1Start.x && point.y >= L1End.y && point.y <= L1Start.y && point.z >= L1End.z && point.z <= L1Start.z) ||
+
+                 (point.x >= L1Start.x && point.x <= L1End.x && point.y >= L1End.y && point.y <= L1Start.y && point.z >= L1End.z && point.z <= L1Start.z) ||
+                  (point.x >= L1End.x && point.x <= L1Start.x && point.y >= L1Start.y && point.y <= L1End.y && point.z >= L1Start.z && point.z <= L1End.z);
+
+            bool isInsideL2 =
+                (point.x >= L2Start.x && point.x <= L2End.x && point.y >= L2Start.y && point.y <= L2End.y && point.z >= L2Start.z && point.z <= L2End.z) ||
+                (point.x >= L2End.x && point.x <= L2Start.x && point.y >= L2End.y && point.y <= L2Start.y && point.z >= L2End.z && point.z <= L2Start.z) ||
+
+                (point.x >= L2Start.x && point.x <= L2End.x && point.y >= L2End.y && point.y <= L2Start.y && point.z >= L2End.z && point.z <= L2Start.z) ||
+                (point.x >= L2End.x && point.x <= L2Start.x && point.y >= L2Start.y && point.y <= L2End.y && point.z >= L2Start.z && point.z <= L2End.z);
+
+            return isInsideL1 && isInsideL2;
+        }
+
+        /// <summary>
+        /// 计算交点坐标
+        /// </summary>
+        /// <param name="line1Start"></param>
+        /// <param name="line1End"></param>
+        /// <param name="line2Start"></param>
+        /// <param name="line2End"></param>
+        /// <returns></returns>
+        private static Vector2 CalculateIntersectionCoordinates(Vector2 line1Start, Vector2 line1End, Vector2 line2Start, Vector2 line2End)
+        {
+            Vector2 result = new Vector2();
+            float left, right;
+            left = (line1End.y - line1Start.y) * (line2End.x - line2Start.x) - (line2End.y - line2Start.y) * (line1End.x - line1Start.x);
+            right = (line2Start.y - line1Start.y) * (line1End.x - line1Start.x) * (line2End.x - line2Start.x) +
+                (line1End.y - line1Start.y) * (line2End.x - line2Start.x) * line1Start.x - (line2End.y - line2Start.y) * (line1End.x - line1Start.x) * line2Start.x;
+            result.x = (int)(right / left);
+
+            left = (line1End.x - line1Start.x) * (line2End.y - line2Start.y) - (line2End.x - line2Start.x) * (line1End.y - line1Start.y);
+            right = (line2Start.x - line1Start.x) * (line1End.y - line1Start.y) * (line2End.y - line2Start.y) +
+                line1Start.y * (line1End.x - line1Start.x) * (line2End.y - line2Start.y) - line2Start.y * (line2End.x - line2Start.x) * (line1End.y - line1Start.y);
+            result.y = (int)(right / left);
+            return result;
         }
 
         /// <summary>
