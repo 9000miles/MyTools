@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Sirenix.OdinInspector;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class OdinInspectorTest : MonoBehaviour
@@ -7,8 +8,9 @@ public class OdinInspectorTest : MonoBehaviour
     public List<Enemy> enemies = new List<Enemy>();
     public bool isShow;
 
+    [ShowIf("isShow")]
     public string nameMy;
-
+    [MinValue(30)]
     public int age = 30;
 
     // Use this for initialization
