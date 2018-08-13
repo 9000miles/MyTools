@@ -3,48 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using Common;
 
-public class QTEConditionBase : SingletonBehaviour<QTEConditionBase>
+public abstract class QTEConditionBase : SingletonBehaviour<QTEConditionBase>
 {
     public bool isTrue;
     private bool isStartTimeHasSet;
-    public QTEInfo infoList;
+    public QTEInfo info;
     [HideInInspector]
     public Transform owerTF;
     [HideInInspector]
     public QTEInfo currentQTEInfo;
 
-    public QTEConditionBase()
-    {
-        infoList = new QTEInfo();
-    }
-
     private void Start()
     {
-        Init();
-    }
-
-    public override void Init()
-    {
-        base.Init();
         owerTF = transform;
-        //infoList = new List<QTEInfo>();
     }
 
-    protected virtual bool Check()
-    {
-        bool isActiveCondition = true;
-        return isActiveCondition;
-    }
+    protected abstract bool Check();
 
     public void CheckIsTrue()
     {
         isTrue = Check();
         if (isTrue)
         {
-            QTEInfo info = null;
-            //if (info == null)
-            //    Debug.LogError("NO QTE is Activated");
-            if (info != null)
+            if (info.isAutomaticActive)
+            {
+                info.isActive = true;
+            }
+            if (info != null && info.isActive)
             {
                 if (isStartTimeHasSet == false)
                 {
@@ -53,10 +38,17 @@ public class QTEConditionBase : SingletonBehaviour<QTEConditionBase>
                 }
                 currentQTEInfo = info;
             }
+            QTETipPanel.Singleton.ShowEnterQTEButton(!info.isAutomaticActive);
         }
         else
         {
+            if (info != QTEManager.Singleton.GetCurrentQTE()) return;
             isStartTimeHasSet = false;
+            QTETipPanel.Singleton.ShowEnterQTEButton(false);
+            QTETipPanel.Singleton.ShowSingleKeyContinue(false);
+            QTETipPanel.Singleton.ShowSingleKeyRhythm(false);
+            QTETipPanel.Singleton.ShowDoubleKeyRepeat(false);
+            QTETipPanel.Singleton.ShowLinearClick(false);
         }
     }
 }

@@ -48,14 +48,7 @@ public class QTEPreciseClick : QTEOperationBase
                 info.errorType = QTEErrorType.OperatingError;
             }
         }
-        //if ((int)QTEManager.Singleton.keyCode >= 323 &&
-        //    (int)QTEManager.Singleton.keyCode <= 329 &&
-        //    (int)QTEManager.Singleton.keyCode != (int)info.preciseClick.mouseButton + 323)//按键操作错误
-        //if ((int)QTEManager.Singleton.keyCode != (int)info.preciseClick.mouseButton + 323 && QTEManager.Singleton.eventType == EventType.MouseDown)
-        //{
-        //    info.result = QTEResult.Failure;
-        //    info.errorType = QTEErrorType.OperatingError;
-        //}
+
         if (targetList.Count <= 0)
         {
             info.excuteTime = Time.time - info.startTime;

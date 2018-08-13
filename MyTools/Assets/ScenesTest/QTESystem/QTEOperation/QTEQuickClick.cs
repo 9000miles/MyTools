@@ -36,12 +36,7 @@ public class QTEQuickClick : QTEOperationBase
     public override void ExcuteAndCheck(QTEInfo info)
     {
         base.ExcuteAndCheck(info);
-        if (clickCount > 0 && Time.time > lastClickTime + info.quickClick.IntervalTime)
-        {
-            info.excuteTime = Time.time - info.startTime;
-            info.result = QTEResult.Failure;
-            info.errorType = QTEErrorType.OperatingError;
-        }
+        QTETipPanel.Singleton.ShowScrollBar(true, info.quickClick.speed);
         switch (info.quickClick.mouseButton)
         {
             case QTEMouseButton.LeftButton:
@@ -50,6 +45,8 @@ public class QTEQuickClick : QTEOperationBase
                     lastClickTime = Time.time;
                     clickCount++;
                     leftClickCount++;
+                    info.excuteTime = Time.time - info.startTime;
+                    info.result = QTETipPanel.Singleton.ShowScrollBar(false);
                 }
                 break;
 
@@ -59,6 +56,8 @@ public class QTEQuickClick : QTEOperationBase
                     lastClickTime = Time.time;
                     clickCount++;
                     rightClickCount++;
+                    info.excuteTime = Time.time - info.startTime;
+                    info.result = QTETipPanel.Singleton.ShowScrollBar(false);
                 }
                 break;
 
@@ -68,15 +67,17 @@ public class QTEQuickClick : QTEOperationBase
                     lastClickTime = Time.time;
                     clickCount++;
                     middleClickCount++;
+                    info.excuteTime = Time.time - info.startTime;
+                    info.result = QTETipPanel.Singleton.ShowScrollBar(false);
                 }
                 break;
         }
-        //Debug.Log(info.quickClick.mouseButton + "单击次数：  " + clickCount);
-        if (clickCount == info.quickClick.clickCount)
-        {
-            info.excuteTime = Time.time - info.startTime;
-            info.result = QTEResult.Succed;
-            info.errorType = QTEErrorType.None;
-        }
+
+        //if (clickCount >= info.quickClick.clickCount)
+        //{
+        //    info.excuteTime = Time.time - info.startTime;
+        //    info.result = QTEResult.Succed;
+        //    info.errorType = QTEErrorType.None;
+        //}
     }
 }

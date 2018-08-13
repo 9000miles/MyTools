@@ -26,7 +26,7 @@ public class QTETest : MonoBehaviour
         info2.mouseGestures.mouseButton = QTEMouseButton.LeftButton;
 
         info3 = new QTEInfo();
-        info3.description = "快速点击物体";
+        info3.description = "快速点击QTEManager物体";
         info3.type = QTEType.PreciseClick;
         info3.preciseClick.targetList = goList;
         info3.preciseClick.mouseButton = QTEMouseButton.LeftButton;

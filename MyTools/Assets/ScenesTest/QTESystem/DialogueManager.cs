@@ -4,6 +4,7 @@ using UnityEngine;
 using PixelCrushers.DialogueSystem;
 using Common;
 using UnityEngine.Playables;
+using System;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -15,7 +16,9 @@ public class DialogueManager : MonoBehaviour
     private void Start()
     {
         dialogueController = GetComponent<DialogueSystemController>();
-        GetDialogueData();
+        //GetDialogueData();
+        Variable qteResult = dialogueController.initialDatabase.variables.Find(t => t.Name == "QTEResult");
+        qteResult.InitialBoolValue = false;
     }
 
     private void GetDialogueData()
@@ -43,7 +46,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (currentEntry == null) return;
         string sequeceStr = currentEntry.Sequence;
-        string timelineSequece = sequeceStr.Split(';').Find(t => t.StartsWith("PlayTimeline"));//PlayTimeline(QTETimelineTest);
+        string timelineSequece = Array.Find(sequeceStr.Split(';'), t => t.StartsWith("PlayTimeline"));//PlayTimeline(QTETimelineTest);
         if (timelineSequece == "") return;
         string timelineName = timelineSequece.Substring(timelineSequece.IndexOf('(') + 1).Replace(")", "");
         PlayableDirector director = GameObject.Find(timelineName).GetComponent<PlayableDirector>();

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using Common;
+using System;
 
 public class QTETimeLinePlayable : PlayableBehaviour
 {
@@ -31,6 +32,7 @@ public class QTETimeLinePlayable : PlayableBehaviour
     public override void OnBehaviourPause(Playable playable, FrameData info)
     {
         base.OnBehaviourPause(playable, info);
+        Debug.Log(qteInfo.result);
     }
 
     public override void PrepareFrame(Playable playable, FrameData info)
@@ -59,7 +61,7 @@ public class QTETimeLinePlayable : PlayableBehaviour
     private void PlayTimeLine()
     {
         string sequeceStr = currentEntry.Sequence;
-        string timelineSequece = sequeceStr.Split(';').Find(t => t.StartsWith("PlayTimeline"));//PlayTimeline(QTETimelineTest);
+        string timelineSequece = Array.Find(sequeceStr.Split(';'), t => t.StartsWith("PlayTimeline"));//PlayTimeline(QTETimelineTest);
         if (timelineSequece == "") return;
         string timelineName = timelineSequece.Substring(timelineSequece.IndexOf('(') + 1).Replace(")", "");
         PlayableDirector director = GameObject.Find(timelineName).GetComponent<PlayableDirector>();

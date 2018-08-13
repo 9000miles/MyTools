@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Common;
 using System.Threading.Tasks;
+using Common;
 
 //[RequireComponent(typeof(QTEOperationResult))]
 //[RequireComponent(typeof(QTEOperationBase))]
@@ -14,13 +14,11 @@ public class QTEManager : SingletonBehaviour<QTEManager>
     [HideInInspector]
     public bool isManualQTE;
     private bool isStartTimeHasSet;
-    public Transform panel;
     public Text qteText;
+    public Transform panel;
     [HideInInspector]
     public KeyCode keyCode;
-    [HideInInspector]
-    public EventType eventType;
-    public Event QTEInputEvent;
+    public Event keyCodeEvent;
     private List<QTEConditionBase> conditionList;
     private QTEConditionBase currentCondition;
     private QTEConditionBase lastCondition;
@@ -43,11 +41,17 @@ public class QTEManager : SingletonBehaviour<QTEManager>
             ManualExcuteQTE(currentQTE, endCallAction);
     }
 
-    public override void Init()
+    public void Init()
     {
         conditionList = new List<QTEConditionBase>();
         QTEConditionBase[] conditions = FindObjectsOfType<QTEConditionBase>();
         AddQTE(conditions);
+    }
+
+    public void ActiveQTE()
+    {
+        currentCondition.info.isActive = true;
+        keyCode = KeyCode.None;
     }
 
     public void AddQTE(QTEConditionBase condition)
@@ -61,17 +65,15 @@ public class QTEManager : SingletonBehaviour<QTEManager>
         conditionList.AddRange(conditions.FindAll(t => !conditionList.Contains(t)));
     }
 
+    public void AddQTE(QTEConditionBase condition, QTEInfo info)
+    {
+        condition.info = info;
+    }
+
     public void RemoveQTECondition(QTEConditionBase condition)
     {
         if (conditionList.Contains(condition))
             conditionList.Remove(condition);
-    }
-
-    public void RemoveQTE(QTEConditionBase condition, QTEInfo info)
-    {
-        if (conditionList.Contains(condition))
-        {
-        }
     }
 
     public void ClearQTE()
@@ -86,6 +88,7 @@ public class QTEManager : SingletonBehaviour<QTEManager>
             item.CheckIsTrue();
             if (item.isTrue)
             {
+                currentCondition = item;
                 if (item.currentQTEInfo != null && item.currentQTEInfo.isActive == true)
                     ExcuteQTE(item, item.currentQTEInfo);
             }
@@ -122,6 +125,11 @@ public class QTEManager : SingletonBehaviour<QTEManager>
     public void ExcuteQTE(QTEConditionBase condition, QTEInfo info, Action<QTEInfo> endCall = null)
     {
         if (info == null) return;
+        if (info.type == QTEType.None)
+        {
+            Debug.LogError("请设置" + condition.owerTF.name + "物体身上的 QTEInfo 信息");
+            return;
+        }
         currentCondition = condition;
         currentQTE = info;
         ShowQTEPanel(info);
@@ -159,7 +167,6 @@ public class QTEManager : SingletonBehaviour<QTEManager>
         panel.localPosition = info.UILocalPosition;
         qteText.text = info.description;
         panel.gameObject.SetActive(true);
-        //info.isActive = true;
     }
 
     /// <summary>
@@ -189,25 +196,18 @@ public class QTEManager : SingletonBehaviour<QTEManager>
         isManualQTE = false;
         lastCondition = currentCondition;
         lastQTE = currentQTE;
-        RemoveQTE(currentCondition, info);
-        if (isManual)
-            info.ResetQTEInfo(true);
-        else
-            info.ResetQTEInfo(false);
-
-        currentQTE = null;
+        info.ResetQTEInfo(true);
         QTEOperator.ResetData();
     }
 
     private void OnGUI()
     {
-        QTEInputEvent = Event.current;
-        if (QTEInputEvent != null && QTEInputEvent.type == EventType.KeyDown &&
-            QTEInputEvent.isKey && QTEInputEvent.keyCode != KeyCode.None &&
-            ((int)QTEInputEvent.keyCode < 323 || (int)QTEInputEvent.keyCode > 329))
+        keyCodeEvent = Event.current;
+        if (keyCodeEvent != null && keyCodeEvent.type == EventType.KeyDown &&
+            keyCodeEvent.isKey && keyCodeEvent.keyCode != KeyCode.None &&
+            ((int)keyCodeEvent.keyCode < 323 || (int)keyCodeEvent.keyCode > 329))
         {
-            keyCode = QTEInputEvent.keyCode;
-            eventType = QTEInputEvent.type;
+            keyCode = keyCodeEvent.keyCode;
         }
     }
 }

@@ -41,10 +41,10 @@ public class QTEMonoBehaivor : Editor
     private void Awake()
     {
         conditionBase = target as QTECollisionTrigger;
-        if (conditionBase.infoList.quickClick == null)
-        {
-            conditionBase.infoList.quickClick = new QuickClickInfo();
-        }
+        //if (conditionBase.infoList.quickClick == null)
+        //{
+        //    conditionBase.infoList.quickClick = new QuickClickInfo();
+        //}
     }
 
     private void OnEnable()
@@ -62,37 +62,37 @@ public class QTEMonoBehaivor : Editor
     {
         base.OnInspectorGUI();
         serializedObject.Update();
-        switch (conditionBase.infoList.type)
-        {
-            case QTEType.None:
-                break;
-            case QTEType.QuickClick:
-                isOpen = EditorGUILayout.Foldout(isOpen, "QuickClick");
-                if (isOpen)
-                {
-                    EditorGUILayout.BeginVertical("box");
-                    conditionBase.infoList.quickClick.clickCount = EditorGUILayout.IntField("clickCount", conditionBase.infoList.quickClick.clickCount);
-                    conditionBase.infoList.quickClick.IntervalTime = EditorGUILayout.FloatField("IntervalTime", conditionBase.infoList.quickClick.IntervalTime);
-                    conditionBase.infoList.quickClick.mouseButton = (QTEMouseButton)EditorGUILayout.EnumPopup("mouseButton", conditionBase.infoList.quickClick.mouseButton);
-                    EditorGUILayout.EndVertical();
-                }
-                break;
-            case QTEType.PreciseClick:
-                break;
-            case QTEType.MouseGestures:
-                //EditorGUILayout.PropertyField(angleLimit);
-                //EditorGUILayout.PropertyField(augularOffset);
-                //EditorGUILayout.PropertyField(mouseButton);
-                //EditorGUILayout.PropertyField(gesturesType);
-                //EditorGUILayout.PropertyField(result);
-                break;
-            case QTEType.KeyCombination:
-                break;
-            case QTEType.Others:
-                break;
-            default:
-                break;
-        }
-        serializedObject.ApplyModifiedProperties();
+        //switch (conditionBase.infoList.type)
+        //{
+        //    case QTEType.None:
+        //        break;
+        //    case QTEType.QuickClick:
+        //        isOpen = EditorGUILayout.Foldout(isOpen, "QuickClick");
+        //        if (isOpen)
+        //        {
+        //            EditorGUILayout.BeginVertical("box");
+        //            conditionBase.infoList.quickClick.clickCount = EditorGUILayout.IntField("clickCount", conditionBase.infoList.quickClick.clickCount);
+        //            conditionBase.infoList.quickClick.IntervalTime = EditorGUILayout.FloatField("IntervalTime", conditionBase.infoList.quickClick.IntervalTime);
+        //            conditionBase.infoList.quickClick.mouseButton = (QTEMouseButton)EditorGUILayout.EnumPopup("mouseButton", conditionBase.infoList.quickClick.mouseButton);
+        //            EditorGUILayout.EndVertical();
+        //        }
+        //        break;
+        //    case QTEType.PreciseClick:
+        //        break;
+        //    case QTEType.MouseGestures:
+        //        //EditorGUILayout.PropertyField(angleLimit);
+        //        //EditorGUILayout.PropertyField(augularOffset);
+        //        //EditorGUILayout.PropertyField(mouseButton);
+        //        //EditorGUILayout.PropertyField(gesturesType);
+        //        //EditorGUILayout.PropertyField(result);
+        //        break;
+        //    case QTEType.KeyCombination:
+        //        break;
+        //    case QTEType.Others:
+        //        break;
+        //    default:
+        //        break;
+        //}
+        //serializedObject.ApplyModifiedProperties();
     }
 }

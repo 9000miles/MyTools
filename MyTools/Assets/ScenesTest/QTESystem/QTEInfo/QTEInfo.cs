@@ -3,49 +3,72 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Cinemachine;
+using Sirenix.OdinInspector;
 
 [Serializable]
 public class QTEInfo
 {
+    public bool isAutomaticActive;
+    //[HideInInspector]
     public bool isActive;
     public int ID;
-    public float duration = 10;
-    public float startTime;
-    public float excuteTime;
-    public string description = "";
-    public QTEType type = QTEType.None;
+    public float duration;
     [HideInInspector]
-    public QuickClickInfo quickClick = null;
-    public PreciseClickInfo preciseClick = null;
-    public MouseGesturesInfo mouseGestures = null;
-    public KeyCombinationInfo keyCombination = null;
+    public float startTime;
+    [HideInInspector]
+    public float excuteTime;
+    public string description;
+    public QTEType type;
+    public QuickClickInfo quickClick;
+    public PreciseClickInfo preciseClick;
+    public MouseGesturesInfo mouseGestures;
+    public KeyCombinationInfo keyCombination;
 
-    public Vector2 UILocalPosition = new Vector2(-560, 475);
+    [HideInInspector]
+    public Vector2 UILocalPosition;
+    [HideInInspector]
     public QTEResult result;
+    [HideInInspector]
     public QTEErrorType errorType;
+    [HideInInspector]
     public Animation animation;
+    [HideInInspector]
     public CinemachineVirtualCameraBase cinemachine;
 
     public QTEInfo()
     {
+        duration = 10;
+        description = "QTE is Null";
+        type = QTEType.None;
+        UILocalPosition = new Vector2(-560, 475);
         quickClick = new QuickClickInfo();
         preciseClick = new PreciseClickInfo();
         mouseGestures = new MouseGesturesInfo();
         keyCombination = new KeyCombinationInfo();
     }
 
-    public void ResetQTEInfo(bool isReuse)
+    /// <summary>
+    /// 重置QTE
+    /// </summary>
+    /// <param name="isReuse">是否重复使用</param>
+    /// <param name="intervalTime">再次启动的间隔时间</param>
+    public async void ResetQTEInfo(bool isReuse = true, float intervalTime = 2f)
     {
         if (isReuse)
         {
+            this.isAutomaticActive = false;//是否需要间隔一定时间之后再启动
+            this.isActive = false;
             this.startTime = 0;
             this.result = QTEResult.None;
             this.errorType = QTEErrorType.None;
+            //await new WaitForSeconds(intervalTime);
+            //this.isActive = true;
         }
         else
         {
+            this.isAutomaticActive = false;
             this.ID = 0;
-            this.description = "";
+            this.description = "QTE is Null";
             this.startTime = 0;
             this.duration = 0;
             this.isActive = false;
@@ -62,8 +85,10 @@ public class QTEInfo
 [Serializable]
 public class QuickClickInfo
 {
-    public int clickCount = 2;
-    public float IntervalTime = 0.5f;
+    public int clickCount = 5;
+    public float speed = 150;
+    //public float TimeLimit = 2;
+    //public float IntervalTime = 0.5f;
     public QTEMouseButton mouseButton = QTEMouseButton.LeftButton;
 }
 
@@ -71,7 +96,7 @@ public class QuickClickInfo
 public class PreciseClickInfo
 {
     //public Vector2 clickScreenPosition;
-    public List<GameObject> targetList = null;
+    public List<GameObject> targetList = new List<GameObject>();
     public QTEMouseButton mouseButton = QTEMouseButton.LeftButton;
 }
 
@@ -89,7 +114,36 @@ public class MouseGesturesInfo
 [Serializable]
 public class KeyCombinationInfo
 {
+    [MinValue(10)]
+    public int keyCount = 10;
+    [Tooltip("误差范围百分比%")]
+    public float errorRange = 25;
+    public KeyCombinationType combinationType;
     public List<QTEKeyCode> keyList = new List<QTEKeyCode>();
+
+    public enum KeyCombinationType
+    {
+        /// <summary>
+        /// 单键连续式
+        /// </summary>
+        SingleKeyContinue,//OK
+        /// <summary>
+        /// 单键节奏式
+        /// </summary>
+        SingleKeyRhythm,//OK
+        /// <summary>
+        /// 双键反复式
+        /// </summary>
+        DoubleKeyRepeat,
+        /// <summary>
+        /// 线性点击式
+        /// </summary>
+        LinearClick,//与单键连续式相同
+        /// <summary>
+        /// 线性方向式
+        /// </summary>
+        LinearDirection,
+    }
 }
 
 /// <summary>
@@ -106,6 +160,10 @@ public enum QTEKeyCode
     Q = 113,
     R = 114,
     Y = 121,
+    Up = 273,
+    Down = 274,
+    Right = 275,
+    Left = 276,
 }
 
 public enum QTEBehaviorType
@@ -181,5 +239,6 @@ public enum QTEResult
 {
     None = 0,
     Failure = 1,
-    Succed = 2,
+    SubOptimal = 2,
+    Succed = 3,
 }

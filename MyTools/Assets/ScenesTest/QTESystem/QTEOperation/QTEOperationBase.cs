@@ -1,13 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Common;
-using UnityEngine.Experimental.UIElements;
 
-public abstract class QTEOperationBase/* : SingletonTemplate<QTEOperationBase>*/
+public abstract class QTEOperationBase
 {
     protected bool isInTime;
-    //public MouseGestures mouseGestures;
 
     public QTEOperationBase()
     {
@@ -35,6 +32,12 @@ public abstract class QTEOperationBase/* : SingletonTemplate<QTEOperationBase>*/
             info.result = QTEResult.Failure;
             info.errorType = QTEErrorType.OverTime;
             isInTime = false;
+            QTETipPanel.Singleton.ShowSingleKeyContinue(false);
+            QTETipPanel.Singleton.ShowSingleKeyRhythm(false);
+            QTETipPanel.Singleton.ShowDoubleKeyRepeat(false);
+            QTETipPanel.Singleton.ShowLinearDirection(false);
+            QTETipPanel.Singleton.ShowLinearClick(false);
+            QTETipPanel.Singleton.ShowScrollBar(false);
         }
     }
 }

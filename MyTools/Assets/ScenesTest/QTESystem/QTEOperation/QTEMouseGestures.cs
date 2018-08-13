@@ -7,7 +7,6 @@ public class QTEMouseGestures : QTEOperationBase
     private float angle;
     private Vector2 downPos;
     private Vector2 upPos;
-    private List<Vector2> posList;
     private static QTEMouseGestures singleton = null;
     public static QTEMouseGestures Singleton
     {
@@ -23,22 +22,11 @@ public class QTEMouseGestures : QTEOperationBase
     {
     }
 
-    /// <summary>
-    /// 记录鼠标移动过程中的位置数据，然后，将这些位置数据归一化
-    /// 再和标准数据进行对比，可使用平面投影，求位置是否在规定的区域内
-    /// 计算根据识别率，判断该手势是否正确
-    ///
-    /// 怎么构建数据模型
-    /// 怎么进行数据对比
-    /// 还需要判断出入点的先后顺序
-    ///
-    /// </summary>
-    /// <param name="info"></param>
     public override void ExcuteAndCheck(QTEInfo info)
     {
         base.ExcuteAndCheck(info);
         MouseGesturesType gesturesType = HandGestureRecognition(info);
-        if (gesturesType == info.mouseGestures.gesturesType)
+        if (gesturesType == info.mouseGestures.gesturesType && gesturesType != MouseGesturesType.None)
         {
             info.excuteTime = Time.time - info.startTime;
             info.result = QTEResult.Succed;
@@ -131,6 +119,5 @@ public class QTEMouseGestures : QTEOperationBase
 
     public override void ResetData()
     {
-        posList = null;
     }
 }
