@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Cinemachine;
-using Sirenix.OdinInspector;
 
 [Serializable]
 public class QTEInfo
@@ -95,26 +94,35 @@ public class QuickClickInfo
 [Serializable]
 public class PreciseClickInfo
 {
-    //public Vector2 clickScreenPosition;
+    public PreciseClickType preciseClickType;
+    public float percentage = 1f;
+    public float rotateDelta = 10;
     public List<GameObject> targetList = new List<GameObject>();
     public QTEMouseButton mouseButton = QTEMouseButton.LeftButton;
+
+    public enum PreciseClickType
+    {
+        PowerGauge,
+        FocusPoint,
+    }
 }
 
 [Serializable]
 public class MouseGesturesInfo
 {
+    public MouseGesturesType gesturesType = MouseGesturesType.None;
     //[Range(50, 100)]
     //public float recognitionRate = 90;
+    public bool isShowCountdown;
     public float angleLimit = 30;
-    public float augularOffset = 30;//角度偏移误差
+    public float length = 30;
+    //public float augularOffset = 30;//角度偏移误差
     public QTEMouseButton mouseButton = QTEMouseButton.LeftButton;
-    public MouseGesturesType gesturesType = MouseGesturesType.None;
 }
 
 [Serializable]
 public class KeyCombinationInfo
 {
-    [MinValue(10)]
     public int keyCount = 10;
     [Tooltip("误差范围百分比%")]
     public float errorRange = 25;
