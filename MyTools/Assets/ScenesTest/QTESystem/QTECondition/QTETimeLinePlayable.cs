@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Playables;
 using Common;
 using System;
+using UnityEngine.Timeline;
 
 public class QTETimeLinePlayable : PlayableBehaviour
 {
@@ -15,12 +16,22 @@ public class QTETimeLinePlayable : PlayableBehaviour
     private DialogueDatabase database;
     private Conversation conversation;
     private DialogueEntry currentEntry;
+    public QTETimeLineAsset timeLineAsset;
 
     public override void OnGraphStart(Playable playable)
     {
         base.OnGraphStart(playable);
         qteManager = GameObject.FindObjectOfType<QTEManager>();
         dialogueController = GameObject.FindObjectOfType<DialogueSystemController>();
+        PlayableTrack playableTrack = playableDirector.playableAsset.outputs as PlayableTrack;
+        IEnumerable<TimelineClip> timelineClips = playableTrack.GetClips();
+        foreach (var item in timelineClips)
+        {
+            if (item.GetType() is QTETimeLineAsset)
+            {
+                //item.duration =
+            }
+        }
     }
 
     public override void OnBehaviourPlay(Playable playable, FrameData info)
@@ -32,7 +43,7 @@ public class QTETimeLinePlayable : PlayableBehaviour
     public override void OnBehaviourPause(Playable playable, FrameData info)
     {
         base.OnBehaviourPause(playable, info);
-        Debug.Log(qteInfo.result);
+        //Debug.Log(qteInfo.result);
     }
 
     public override void PrepareFrame(Playable playable, FrameData info)

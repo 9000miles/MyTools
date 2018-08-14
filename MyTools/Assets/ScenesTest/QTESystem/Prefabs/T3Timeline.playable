@@ -14,6 +14,7 @@ MonoBehaviour:
   m_NextId: 0
   m_Tracks:
   - {fileID: 114994236203389090}
+  - {fileID: 114507043908634390}
   m_FixedDuration: 0
   m_EditorSettings:
     m_Framerate: 60
@@ -207,6 +208,140 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_GenerateMotionCurves: 1
   m_Events: []
+--- !u!114 &114507043908634390
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1778877366, guid: 6a10b2909283487f913b00d94cd3faf5, type: 3}
+  m_Name: Playable Track
+  m_EditorClassIdentifier: 
+  m_Locked: 0
+  m_Muted: 0
+  m_CustomPlayableFullTypename: 
+  m_AnimClip: {fileID: 0}
+  m_Parent: {fileID: 11400000}
+  m_Children: []
+  m_Clips:
+  - m_Start: 2.3
+    m_ClipIn: 0
+    m_Asset: {fileID: 114912286848033166}
+    m_Duration: 6.083333333333333
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 114507043908634390}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: QTETimeLineAsset
+    m_Version: 1
+  m_Version: 1
+--- !u!114 &114912286848033166
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86bfaa1e0098e834595690a9b68867e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  info:
+    isAutomaticActive: 0
+    isActive: 0
+    ID: 0
+    duration: 10
+    startTime: 242.96986
+    excuteTime: 0
+    description: QTE is Null
+    type: 3
+    quickClick:
+      clickCount: 5
+      speed: 150
+      mouseButton: 0
+    preciseClick:
+      preciseClickType: 0
+      percentage: 1
+      rotateDelta: 10
+      targetList: []
+      mouseButton: 0
+    mouseGestures:
+      gesturesType: 15
+      isShowCountdown: 0
+      angleLimit: 30
+      length: 30
+      mouseButton: 0
+    keyCombination:
+      keyCount: 10
+      errorRange: 25
+      combinationType: 0
+      keyList: 
+    UILocalPosition: {x: -560, y: 475}
+    result: 0
+    errorType: 0
+    animation: {fileID: 0}
+    cinemachine: {fileID: 0}
 --- !u!114 &114994236203389090
 MonoBehaviour:
   m_ObjectHideFlags: 1

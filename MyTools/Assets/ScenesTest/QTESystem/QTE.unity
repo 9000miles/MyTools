@@ -133,7 +133,7 @@ Prefab:
     - target: {fileID: 320996536713756798, guid: c86dcb22a047f4344a79f04d25b6c52a,
         type: 2}
       propertyPath: m_SceneBindings.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4107790337702284, guid: c86dcb22a047f4344a79f04d25b6c52a, type: 2}
       propertyPath: m_LocalPosition.x
@@ -228,6 +228,12 @@ Prefab:
       propertyPath: m_SceneBindings.Array.data[1].value
       value: 
       objectReference: {fileID: 666415020}
+    - target: {fileID: 320996536713756798, guid: c86dcb22a047f4344a79f04d25b6c52a,
+        type: 2}
+      propertyPath: m_SceneBindings.Array.data[2].key
+      value: 
+      objectReference: {fileID: 114507043908634390, guid: 8cfafcd89cbef1a4d801dd1c9383c8ef,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c86dcb22a047f4344a79f04d25b6c52a, type: 2}
   m_IsPrefabParent: 0
@@ -3439,15 +3445,86 @@ Transform:
 --- !u!114 &1154775383
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114291119995852028, guid: 2969c9ef123182649ad0f5538fa2dd4e,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1154775381}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: bd5ca5a2d7dc49b4e8b4963e5ccc049e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTrue: 0
+  info:
+    isAutomaticActive: 0
+    isActive: 0
+    ID: 0
+    duration: 10
+    startTime: 0
+    excuteTime: 0
+    description: QTE is Null
+    type: 4
+    quickClick:
+      clickCount: 5
+      speed: 150
+      mouseButton: 0
+    preciseClick:
+      preciseClickType: 0
+      percentage: 1
+      rotateDelta: 10
+      targetList: []
+      mouseButton: 0
+    mouseGestures:
+      gesturesType: 15
+      isShowCountdown: 0
+      angleLimit: 30
+      length: 30
+      mouseButton: 0
+    keyCombination:
+      keyCount: 10
+      errorRange: 25
+      combinationType: 4
+      keyList: 
+    UILocalPosition: {x: -560, y: 475}
+    result: 0
+    errorType: 0
+    animation: {fileID: 0}
+    cinemachine: {fileID: 0}
+  owerTF: {fileID: 0}
+  currentQTEInfo:
+    isAutomaticActive: 0
+    isActive: 0
+    ID: 0
+    duration: 10
+    startTime: 0
+    excuteTime: 0
+    description: QTE is Null
+    type: 0
+    quickClick:
+      clickCount: 5
+      speed: 150
+      mouseButton: 0
+    preciseClick:
+      preciseClickType: 0
+      percentage: 1
+      rotateDelta: 10
+      targetList: []
+      mouseButton: 0
+    mouseGestures:
+      gesturesType: 15
+      isShowCountdown: 0
+      angleLimit: 30
+      length: 30
+      mouseButton: 0
+    keyCombination:
+      keyCount: 10
+      errorRange: 25
+      combinationType: 0
+      keyList: 
+    UILocalPosition: {x: -560, y: 475}
+    result: 0
+    errorType: 0
+    animation: {fileID: 0}
+    cinemachine: {fileID: 0}
 --- !u!54 &1154775384
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4291,6 +4368,7 @@ GameObject:
   - component: {fileID: 1483140355}
   - component: {fileID: 1483140354}
   - component: {fileID: 1483140353}
+  - component: {fileID: 1483140358}
   m_Layer: 0
   m_Name: QTE_SingleKeyRhythm
   m_TagString: Untagged
@@ -4397,6 +4475,89 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1483140351}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1483140358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1483140351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd5ca5a2d7dc49b4e8b4963e5ccc049e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTrue: 0
+  info:
+    isAutomaticActive: 0
+    isActive: 0
+    ID: 0
+    duration: 10
+    startTime: 0
+    excuteTime: 0
+    description: QTE is Null
+    type: 4
+    quickClick:
+      clickCount: 5
+      speed: 150
+      mouseButton: 0
+    preciseClick:
+      preciseClickType: 0
+      percentage: 1
+      rotateDelta: 10
+      targetList: []
+      mouseButton: 0
+    mouseGestures:
+      gesturesType: 15
+      isShowCountdown: 0
+      angleLimit: 30
+      length: 30
+      mouseButton: 0
+    keyCombination:
+      keyCount: 10
+      errorRange: 25
+      combinationType: 0
+      keyList: 
+    UILocalPosition: {x: -560, y: 475}
+    result: 0
+    errorType: 0
+    animation: {fileID: 0}
+    cinemachine: {fileID: 0}
+  owerTF: {fileID: 0}
+  currentQTEInfo:
+    isAutomaticActive: 0
+    isActive: 0
+    ID: 0
+    duration: 10
+    startTime: 0
+    excuteTime: 0
+    description: QTE is Null
+    type: 0
+    quickClick:
+      clickCount: 5
+      speed: 150
+      mouseButton: 0
+    preciseClick:
+      preciseClickType: 0
+      percentage: 1
+      rotateDelta: 10
+      targetList: []
+      mouseButton: 0
+    mouseGestures:
+      gesturesType: 15
+      isShowCountdown: 0
+      angleLimit: 30
+      length: 30
+      mouseButton: 0
+    keyCombination:
+      keyCount: 10
+      errorRange: 25
+      combinationType: 0
+      keyList: 
+    UILocalPosition: {x: -560, y: 475}
+    result: 0
+    errorType: 0
+    animation: {fileID: 0}
+    cinemachine: {fileID: 0}
 --- !u!1 &1522897532
 GameObject:
   m_ObjectHideFlags: 0
@@ -4784,15 +4945,18 @@ GameObject:
 --- !u!114 &1652128375
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114237006324254844, guid: b650bff33cd2bc34abf82460b31412bb,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1652128374}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: a19ce1f3f8d243d44b957f480fe90a9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isManualQTE: 1
+  qteText: {fileID: 0}
+  panel: {fileID: 0}
+  keyCode: 0
 --- !u!4 &1652128376
 Transform:
   m_ObjectHideFlags: 0

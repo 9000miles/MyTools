@@ -5,6 +5,7 @@ using Common;
 
 public abstract class QTEConditionBase : SingletonBehaviour<QTEConditionBase>
 {
+    [HideInInspector]
     public bool isTrue;
     private bool isStartTimeHasSet;
     public QTEInfo info;

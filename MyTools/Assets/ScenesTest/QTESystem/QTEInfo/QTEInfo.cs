@@ -10,6 +10,7 @@ public class QTEInfo
     public bool isAutomaticActive;
     //[HideInInspector]
     public bool isActive;
+    [HideInInspector]
     public int ID;
     public float duration;
     [HideInInspector]
@@ -18,9 +19,13 @@ public class QTEInfo
     public float excuteTime;
     public string description;
     public QTEType type;
+    //[HideInInspector]
     public QuickClickInfo quickClick;
+    //[HideInInspector]
     public PreciseClickInfo preciseClick;
+    //[HideInInspector]
     public MouseGesturesInfo mouseGestures;
+    //[HideInInspector]
     public KeyCombinationInfo keyCombination;
 
     [HideInInspector]
@@ -97,6 +102,7 @@ public class PreciseClickInfo
     public PreciseClickType preciseClickType;
     public float percentage = 1f;
     public float rotateDelta = 10;
+    //[SerializeField]
     public List<GameObject> targetList = new List<GameObject>();
     public QTEMouseButton mouseButton = QTEMouseButton.LeftButton;
 

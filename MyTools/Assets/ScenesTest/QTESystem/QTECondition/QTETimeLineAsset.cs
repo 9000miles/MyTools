@@ -12,6 +12,7 @@ public class QTETimeLineAsset : PlayableAsset
         QTETimeLinePlayable qtePlayable = new QTETimeLinePlayable();
         qtePlayable.playableDirector = owner.GetComponent<PlayableDirector>();
         qtePlayable.qteInfo = info;
+        qtePlayable.timeLineAsset = this;
         return ScriptPlayable<QTETimeLinePlayable>.Create(graph, qtePlayable);
     }
 }
