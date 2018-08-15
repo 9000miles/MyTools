@@ -77,12 +77,12 @@ namespace MarsPC
 
         private void PlayTimeLine()
         {
-            string sequeceStr = currentEntry.Sequence;
-            string timelineSequece = sequeceStr.Split(';').Find(t => t.StartsWith("PlayTimeline"));//PlayTimeline(QTETimelineTest);
-            if (timelineSequece == "") return;
-            string timelineName = timelineSequece.Substring(timelineSequece.IndexOf('(') + 1).Replace(")", "");
-            PlayableDirector director = GameObject.Find(timelineName).GetComponent<PlayableDirector>();
-            director.Play();
+            //string sequeceStr = currentEntry.Sequence;
+            //string timelineSequece = sequeceStr.Split(';').Find(t => t.StartsWith("PlayTimeline"));//PlayTimeline(QTETimelineTest);
+            //if (timelineSequece == "") return;
+            //string timelineName = timelineSequece.Substring(timelineSequece.IndexOf('(') + 1).Replace(")", "");
+            //PlayableDirector director = GameObject.Find(timelineName).GetComponent<PlayableDirector>();
+            //director.Play();
         }
 
         private void GetDialogueData()

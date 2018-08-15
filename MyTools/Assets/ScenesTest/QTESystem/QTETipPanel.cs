@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using MarsPC;
+using Common;
 
 namespace MarsPC
 {
