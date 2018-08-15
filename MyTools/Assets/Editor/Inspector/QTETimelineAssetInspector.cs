@@ -1,14 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
+using UnityEditor;
 
 namespace MarsPC
 {
-    [CustomEditor(typeof(QTECollisionTrigger))]
-    public class QTECoillisionTriggerInspector : Editor
+    [CustomEditor(typeof(QTETimeLineAsset))]
+    public class QTETimelineAssetInspector : Editor
     {
-        private QTECollisionTrigger qteTrigger;
+        private QTETimeLineAsset qteAsset;
         private SerializedProperty singleKeyContinue;
         private SerializedProperty singleKeyPhythm;
         private SerializedProperty doubleKeyRepeat;
@@ -21,7 +21,7 @@ namespace MarsPC
 
         private void Awake()
         {
-            qteTrigger = target as QTECollisionTrigger;
+            qteAsset = target as QTETimeLineAsset;
         }
 
         private void OnEnable()
@@ -40,13 +40,13 @@ namespace MarsPC
         public override void OnInspectorGUI()
         {
             serializedObject.Update();
-            qteTrigger.info.isAutomaticActive = EditorGUILayout.Toggle("Is Automatic Active", qteTrigger.info.isAutomaticActive);
-            qteTrigger.info.ID = EditorGUILayout.IntField("ID", qteTrigger.info.ID);
-            qteTrigger.info.duration = EditorGUILayout.FloatField("Duration", qteTrigger.info.duration);
-            qteTrigger.info.description = EditorGUILayout.TextField("Description", qteTrigger.info.description);
+            qteAsset.info.isAutomaticActive = EditorGUILayout.Toggle("Is Automatic Active", qteAsset.info.isAutomaticActive);
+            qteAsset.info.ID = EditorGUILayout.IntField("ID", qteAsset.info.ID);
+            qteAsset.info.duration = EditorGUILayout.FloatField("Duration", qteAsset.info.duration);
+            qteAsset.info.description = EditorGUILayout.TextField("Description", qteAsset.info.description);
 
-            qteTrigger.info.type = (EQTEType)EditorGUILayout.EnumPopup("Type", qteTrigger.info.type);
-            switch (qteTrigger.info.type)
+            qteAsset.info.type = (EQTEType)EditorGUILayout.EnumPopup("Type", qteAsset.info.type);
+            switch (qteAsset.info.type)
             {
                 case EQTEType.None:
                     break;

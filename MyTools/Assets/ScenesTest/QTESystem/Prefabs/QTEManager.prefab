@@ -51,7 +51,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7daaa5fad05ab4469180d9812bcaf8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isManualQTE: 1
   qteText: {fileID: 0}
   panel: {fileID: 0}
   keyCode: 0

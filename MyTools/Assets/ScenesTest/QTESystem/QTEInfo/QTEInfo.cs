@@ -4,255 +4,255 @@ using UnityEngine;
 using System;
 using Cinemachine;
 
-[Serializable]
-public class QTEInfo
+namespace MarsPC
 {
-    public bool isAutomaticActive;
-    //[HideInInspector]
-    public bool isActive;
-    [HideInInspector]
-    public int ID;
-    public float duration;
-    [HideInInspector]
-    public float startTime;
-    [HideInInspector]
-    public float excuteTime;
-    public string description;
-    public QTEType type;
-    //[HideInInspector]
-    public QuickClickInfo quickClick;
-    //[HideInInspector]
-    public PreciseClickInfo preciseClick;
-    //[HideInInspector]
-    public MouseGesturesInfo mouseGestures;
-    //[HideInInspector]
-    public KeyCombinationInfo keyCombination;
-
-    [HideInInspector]
-    public Vector2 UILocalPosition;
-    [HideInInspector]
-    public QTEResult result;
-    [HideInInspector]
-    public QTEErrorType errorType;
-    [HideInInspector]
-    public Animation animation;
-    [HideInInspector]
-    public CinemachineVirtualCameraBase cinemachine;
-
-    public QTEInfo()
+    [Serializable]
+    public class QTEInfo
     {
-        duration = 10;
-        description = "QTE is Null";
-        type = QTEType.None;
-        UILocalPosition = new Vector2(-560, 475);
-        quickClick = new QuickClickInfo();
-        preciseClick = new PreciseClickInfo();
-        mouseGestures = new MouseGesturesInfo();
-        keyCombination = new KeyCombinationInfo();
-    }
+        public bool isAutomaticActive;
+        public bool isActive;
+        public int ID;
+        public float duration;
+        [HideInInspector]
+        public float startTime;
+        [HideInInspector]
+        public float excuteTime;
+        public string description;
+        public EQTEType type;
 
-    /// <summary>
-    /// 重置QTE
-    /// </summary>
-    /// <param name="isReuse">是否重复使用</param>
-    /// <param name="intervalTime">再次启动的间隔时间</param>
-    public async void ResetQTEInfo(bool isReuse = true, float intervalTime = 2f)
-    {
-        if (isReuse)
+        public SingleKeyContinue singleKeyContinue;
+        public SingleKeyPhythm singleKeyPhythm;
+        public DoubleKeyRepeat doubleKeyRepeat;
+        public LinearClick linearClick;
+        public LinearDirection linearDirection;
+        public ScrollBarClick scrollBarClick;
+        public PowerGauge powerGauge;
+        public MouseGestures mouseGestures;
+        public FocusPoint focusPoint;
+
+        [HideInInspector]
+        public Vector2 UILocalPosition;
+        [HideInInspector]
+        public EQTEResult result;
+        [HideInInspector]
+        public EQTEErrorType errorType;
+
+        public QTEInfo()
         {
-            this.isAutomaticActive = false;//是否需要间隔一定时间之后再启动
-            this.isActive = false;
-            this.startTime = 0;
-            this.result = QTEResult.None;
-            this.errorType = QTEErrorType.None;
-            //await new WaitForSeconds(intervalTime);
-            //this.isActive = true;
+            duration = 10;
+            description = "QTE is Null";
+            type = EQTEType.None;
+            UILocalPosition = new Vector2(-560, 475);
+            singleKeyContinue = new SingleKeyContinue();
+            singleKeyPhythm = new SingleKeyPhythm();
+            doubleKeyRepeat = new DoubleKeyRepeat();
+            linearClick = new LinearClick();
+            linearDirection = new LinearDirection();
+            scrollBarClick = new ScrollBarClick();
+            powerGauge = new PowerGauge();
+            mouseGestures = new MouseGestures();
+            focusPoint = new FocusPoint();
         }
-        else
+
+        /// <summary>
+        /// 重置QTE
+        /// </summary>
+        /// <param name="isReuse">是否重复使用</param>
+        /// <param name="intervalTime">再次启动的间隔时间</param>
+        public /*async*/ void ResetQTEInfo(bool isReuse = true, float intervalTime = 2f)
         {
-            this.isAutomaticActive = false;
-            this.ID = 0;
-            this.description = "QTE is Null";
-            this.startTime = 0;
-            this.duration = 0;
-            this.isActive = false;
-            this.UILocalPosition = Vector2.zero;
-            this.type = QTEType.None;
-            this.result = QTEResult.None;
-            this.errorType = QTEErrorType.None;
-            this.animation = null;
-            this.cinemachine = null;
+            if (isReuse)
+            {
+                this.isAutomaticActive = false;//是否需要间隔一定时间之后再启动
+                this.isActive = false;
+                this.startTime = 0;
+                this.result = EQTEResult.None;
+                this.errorType = EQTEErrorType.None;
+                //await new WaitForSeconds(intervalTime);
+                //this.isActive = true;
+            }
+            else
+            {
+                this.isAutomaticActive = false;
+                this.ID = 0;
+                this.description = "QTE is Null";
+                this.startTime = 0;
+                this.duration = 0;
+                this.isActive = false;
+                this.UILocalPosition = Vector2.zero;
+                this.type = EQTEType.None;
+                this.result = EQTEResult.None;
+                this.errorType = EQTEErrorType.None;
+            }
         }
     }
-}
 
-[Serializable]
-public class QuickClickInfo
-{
-    public int clickCount = 5;
-    public float speed = 150;
-    //public float TimeLimit = 2;
-    //public float IntervalTime = 0.5f;
-    public QTEMouseButton mouseButton = QTEMouseButton.LeftButton;
-}
-
-[Serializable]
-public class PreciseClickInfo
-{
-    public PreciseClickType preciseClickType;
-    public float percentage = 1f;
-    public float rotateDelta = 10;
-    //[SerializeField]
-    public List<GameObject> targetList = new List<GameObject>();
-    public QTEMouseButton mouseButton = QTEMouseButton.LeftButton;
-
-    public enum PreciseClickType
-    {
-        PowerGauge,
-        FocusPoint,
-    }
-}
-
-[Serializable]
-public class MouseGesturesInfo
-{
-    public MouseGesturesType gesturesType = MouseGesturesType.None;
-    //[Range(50, 100)]
-    //public float recognitionRate = 90;
-    public bool isShowCountdown;
-    public float angleLimit = 30;
-    public float length = 30;
-    //public float augularOffset = 30;//角度偏移误差
-    public QTEMouseButton mouseButton = QTEMouseButton.LeftButton;
-}
-
-[Serializable]
-public class KeyCombinationInfo
-{
-    public int keyCount = 10;
-    [Tooltip("误差范围百分比%")]
-    public float errorRange = 25;
-    public KeyCombinationType combinationType;
-    public List<QTEKeyCode> keyList = new List<QTEKeyCode>();
-
-    public enum KeyCombinationType
-    {
-        /// <summary>
-        /// 单键连续式
-        /// </summary>
-        SingleKeyContinue,//OK
-        /// <summary>
-        /// 单键节奏式
-        /// </summary>
-        SingleKeyRhythm,//OK
-        /// <summary>
-        /// 双键反复式
-        /// </summary>
-        DoubleKeyRepeat,
-        /// <summary>
-        /// 线性点击式
-        /// </summary>
-        LinearClick,//与单键连续式相同
-        /// <summary>
-        /// 线性方向式
-        /// </summary>
-        LinearDirection,
-    }
-}
-
-/// <summary>
-/// QTE按键种类
-/// </summary>
-public enum QTEKeyCode
-{
-    Space = 32,
-    A = 97,
-    B = 98,
-    E = 101,
-    H = 104,
-    P = 112,
-    Q = 113,
-    R = 114,
-    Y = 121,
-    Up = 273,
-    Down = 274,
-    Right = 275,
-    Left = 276,
-}
-
-public enum QTEBehaviorType
-{
-    PlayAnimation,
-    ChangeCamera,
-}
-
-public enum QTEErrorType
-{
-    None = 0,
-    OverTime = 1,
-    OperatingError = 2,
-}
-
-/// <summary>
-/// QTE类型
-/// </summary>
-public enum QTEType
-{
-    None = 0,
     /// <summary>
-    /// 快速点击
+    /// 单键连续式
     /// </summary>
-    QuickClick = 1,
+    [Serializable]
+    public class SingleKeyContinue
+    {
+        //public int keyCount = 10;
+        public List<EQTEKeyCode> keyList = new List<EQTEKeyCode>();
+    }
+
     /// <summary>
-    /// 精准点击
+    /// 单键节奏式
     /// </summary>
-    PreciseClick = 2,
+    [Serializable]
+    public class SingleKeyPhythm
+    {
+        public float errorRange = 25;
+        public List<EQTEKeyCode> keyList = new List<EQTEKeyCode>();
+    }
+
+    /// <summary>
+    /// 双键反复式
+    /// </summary>
+    [Serializable]
+    public class DoubleKeyRepeat
+    {
+        public int keyCount = 10;
+        public float errorRange = 25;
+        public List<EQTEKeyCode> keyList = new List<EQTEKeyCode>();
+    }
+
+    /// <summary>
+    /// 线性点击式
+    /// </summary>
+    [Serializable]
+    public class LinearClick
+    {
+        public List<EQTEKeyCode> keyList = new List<EQTEKeyCode>();
+    }
+
+    /// <summary>
+    /// 线性方向式
+    /// </summary>
+    [Serializable]
+    public class LinearDirection
+    {
+        public List<EQTEKeyCode> keyList = new List<EQTEKeyCode>();
+    }
+
+    /// <summary>
+    /// 滚动条式
+    /// </summary>
+    [Serializable]
+    public class ScrollBarClick
+    {
+        public float speed = 150;
+        public EQTEMouseButton mouseButton = EQTEMouseButton.LeftButton;
+    }
+
+    /// <summary>
+    /// 蓄力式
+    /// </summary>
+    [Serializable]
+    public class PowerGauge
+    {
+        public bool isKeyboard = true;
+        public float rotateDelta = 10;
+        public List<EQTEKeyCode> keyList = new List<EQTEKeyCode>();
+        public List<GameObject> targetList = new List<GameObject>();
+        public EQTEMouseButton mouseButton = EQTEMouseButton.LeftButton;
+    }
+
     /// <summary>
     /// 鼠标手势
     /// </summary>
-    MouseGestures = 3,
+    [Serializable]
+    public class MouseGestures
+    {
+        public EMouseGesturesType gesturesType = EMouseGesturesType.None;
+        public bool isShowCountdown;
+        public float angleLimit = 30;
+        public float length = 30;
+        public EQTEMouseButton mouseButton = EQTEMouseButton.LeftButton;
+    }
+
     /// <summary>
-    /// 按键组合
+    /// 焦点指向式
     /// </summary>
-    KeyCombination = 4,
+    [Serializable]
+    public class FocusPoint
+    {
+        public bool isUIObject = true;
+        public float percentage = 1f;
+        public List<GameObject> targetList = new List<GameObject>();
+        public EQTEMouseButton mouseButton = EQTEMouseButton.LeftButton;
+    }
+
     /// <summary>
-    /// 其它
+    /// QTE按键种类
     /// </summary>
-    Others = 999,
-}
+    public enum EQTEKeyCode
+    {
+        Space = 32,
+        A = 97,
+        B = 98,
+        E = 101,
+        H = 104,
+        P = 112,
+        Q = 113,
+        R = 114,
+        Y = 121,
+        Up = 273,
+        Down = 274,
+        Right = 275,
+        Left = 276,
+    }
 
-public enum MouseGesturesType
-{
-    LeftSlide,//←
-    LeftUpSlide,//↖
-    LeftDownSlide,//↙
-    RightSlide,//→
-    RightUpSilde,//↗
-    RightDownSlide,//↘
-    UpSlide,//↑
-    DownSlide,//↓
-    CheckMark,
-    Capital_C,
-    Capital_Z,
-    Capital_U,
-    Capital_O,
-    Capital_S,
-    Capital_L,
-    None,
-}
+    public enum EQTEErrorType
+    {
+        None = 0,
+        OverTime = 1,
+        OperatingError = 2,
+    }
 
-public enum QTEMouseButton
-{
-    //None,
-    LeftButton = 0,
-    RightButtton = 1,
-    MiddleButton = 2,
-}
+    /// <summary>
+    /// QTE类型
+    /// </summary>
+    public enum EQTEType
+    {
+        None = 0,
+        SingleKeyContinue,
+        SingleKeyPhythm,
+        DoubleKeyRepeat,
+        LinearClick,
+        LinearDirection,
+        ScrollBarClick,
+        PowerGauge,
+        MouseGestures,
+        FocusPoint,
+    }
 
-public enum QTEResult
-{
-    None = 0,
-    Failure = 1,
-    SubOptimal = 2,
-    Succed = 3,
+    public enum EMouseGesturesType
+    {
+        LeftSlide,//←
+        LeftUpSlide,//↖
+        LeftDownSlide,//↙
+        RightSlide,//→
+        RightUpSilde,//↗
+        RightDownSlide,//↘
+        UpSlide,//↑
+        DownSlide,//↓
+        None,
+    }
+
+    public enum EQTEMouseButton
+    {
+        LeftButton = 0,
+        RightButtton = 1,
+        MiddleButton = 2,
+    }
+
+    public enum EQTEResult
+    {
+        None = 0,
+        Failure = 1,
+        SubOptimal = 2,
+        Succed = 3,
+    }
 }

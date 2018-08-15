@@ -2,30 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class QTECollisionTrigger : QTEConditionBase
+namespace MarsPC
 {
-    private bool isCollisionTarget;
-
-    protected override bool Check()
+    public class QTECollisionTrigger : QTEConditionBase
     {
-        return isCollisionTarget;
-    }
+        private bool isCollisionTarget;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Player")
-            isCollisionTarget = true;
-    }
+        protected override bool Check()
+        {
+            return isCollisionTarget;
+        }
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.tag == "Player")
-            isCollisionTarget = true;
-    }
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.tag == "Player")
+                isCollisionTarget = true;
+        }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Player")
-            isCollisionTarget = false;
+        private void OnTriggerStay(Collider other)
+        {
+            if (other.tag == "Player")
+                isCollisionTarget = true;
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.tag == "Player")
+                isCollisionTarget = false;
+        }
     }
 }

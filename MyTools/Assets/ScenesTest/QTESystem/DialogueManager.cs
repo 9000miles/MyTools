@@ -4,52 +4,52 @@ using UnityEngine;
 using PixelCrushers.DialogueSystem;
 using Common;
 using UnityEngine.Playables;
-using System;
 
-public class DialogueManager : MonoBehaviour
+namespace MarsPC
 {
-    private DialogueSystemController dialogueController;
-    private DialogueDatabase database;
-    private Conversation conversation;
-    private DialogueEntry currentEntry;
-
-    private void Start()
+    public class DialogueManager : MonoBehaviour
     {
-        dialogueController = GetComponent<DialogueSystemController>();
-        //GetDialogueData();
-        Variable qteResult = dialogueController.initialDatabase.variables.Find(t => t.Name == "QTEResult");
-        qteResult.InitialBoolValue = false;
-    }
+        private DialogueSystemController dialogueController;
+        private DialogueDatabase database;
+        private Conversation conversation;
+        private DialogueEntry currentEntry;
 
-    private void GetDialogueData()
-    {
-        Transform conversantTF = dialogueController.CurrentConversant;
-        if (conversantTF == null) return;
-        ConversationTrigger trigger = conversantTF.GetComponent<ConversationTrigger>();
-        database = dialogueController.initialDatabase;
-        conversation = database.GetConversation(trigger.conversation);
-        foreach (var item in conversation.dialogueEntries)
+        private void Start()
         {
-            item.onExecute.AddListener(() =>
-            {
-                currentEntry = database.GetDialogueEntry(conversation.id, item.id);
-            });
+            dialogueController = GetComponent<DialogueSystemController>();
+            GetDialogueData();
         }
-    }
 
-    private void Update()
-    {
-        //PlayTimeLine();
-    }
+        private void GetDialogueData()
+        {
+            Transform conversantTF = dialogueController.CurrentConversant;
+            if (conversantTF == null) return;
+            ConversationTrigger trigger = conversantTF.GetComponent<ConversationTrigger>();
+            database = dialogueController.initialDatabase;
+            conversation = database.GetConversation(trigger.conversation);
+            foreach (var item in conversation.dialogueEntries)
+            {
+                item.onExecute.AddListener(() =>
+                {
+                    currentEntry = database.GetDialogueEntry(conversation.id, item.id);
+                });
+            }
+        }
 
-    private void PlayTimeLine()
-    {
-        if (currentEntry == null) return;
-        string sequeceStr = currentEntry.Sequence;
-        string timelineSequece = Array.Find(sequeceStr.Split(';'), t => t.StartsWith("PlayTimeline"));//PlayTimeline(QTETimelineTest);
-        if (timelineSequece == "") return;
-        string timelineName = timelineSequece.Substring(timelineSequece.IndexOf('(') + 1).Replace(")", "");
-        PlayableDirector director = GameObject.Find(timelineName).GetComponent<PlayableDirector>();
-        director.Play();
+        private void Update()
+        {
+            //PlayTimeLine();
+        }
+
+        private void PlayTimeLine()
+        {
+            if (currentEntry == null) return;
+            string sequeceStr = currentEntry.Sequence;
+            string timelineSequece = sequeceStr.Split(';').Find(t => t.StartsWith("PlayTimeline"));//PlayTimeline(QTETimelineTest);
+            if (timelineSequece == "") return;
+            string timelineName = timelineSequece.Substring(timelineSequece.IndexOf('(') + 1).Replace(")", "");
+            PlayableDirector director = GameObject.Find(timelineName).GetComponent<PlayableDirector>();
+            director.Play();
+        }
     }
 }
