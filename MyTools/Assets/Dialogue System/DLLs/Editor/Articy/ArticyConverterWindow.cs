@@ -39,11 +39,9 @@ namespace PixelCrushers.DialogueSystem.Articy
         private bool articyVariablesFoldout = false;
         private bool articyDialoguesFoldout = false;
         private bool articyDropdownOverridesFoldout = false;
-        private bool articyEmVarsFoldout = false;
         private bool articyFlowFoldout = false;
         private Template template = null;
         private bool mustReloadData = false;
-        private string[] articyVarNameList = null;
 
         private const float ToggleWidth = 16;
 
@@ -294,7 +292,6 @@ namespace PixelCrushers.DialogueSystem.Articy
             EditorGUI.BeginDisabledGroup(string.IsNullOrEmpty(prefs.ProjectFilename) || string.IsNullOrEmpty(prefs.OutputFolder));
             if (GUILayout.Button("Convert", GUILayout.Width(100)))
             {
-                if (!prefs.OutputFolder.EndsWith("/")) prefs.OutputFolder += "/";
                 if (!FolderExists(prefs.OutputFolder))
                 {
                     EditorUtility.DisplayDialog("Invalid Output Folder", "The Output Folder is not valid. Please correct this and click Convert again.", "OK");
@@ -333,7 +330,6 @@ namespace PixelCrushers.DialogueSystem.Articy
                 DrawArticyVariables();
                 DrawArticyDialogues();
                 DrawDropdownOverrides();
-                DrawEmVars();
                 DrawHorizontalLine();
             }
         }
@@ -525,65 +521,6 @@ namespace PixelCrushers.DialogueSystem.Articy
             }
         }
 
-        private void DrawEmVars()
-        {
-            articyEmVarsFoldout = EditorGUILayout.Foldout(articyEmVarsFoldout, "Emphasis Settings");
-            if (articyEmVarsFoldout)
-            {
-                if (prefs.emVarSet == null) prefs.emVarSet = new ArticyEmVarSet();
-                if (prefs.emVarSet.emVars == null || prefs.emVarSet.emVars.Length < DialogueDatabase.NumEmphasisSettings || prefs.emVarSet.emVars[0] == null)
-                {
-                    prefs.emVarSet.InitializeEmVars();
-                }
-                StartIndentedSection();
-                for (int i = 0; i < DialogueDatabase.NumEmphasisSettings; i++)
-                {
-                    var emName = "[em" + (i + 1) + "]";
-                    var emVars = prefs.emVarSet.emVars[i];
-                    if (emVars == null) continue;
-                    emVars.color = DrawVarPopup(emName + " Color", emVars.color);
-                    emVars.bold = DrawVarPopup(emName + " Bold", emVars.bold);
-                    emVars.italic = DrawVarPopup(emName + " Italic", emVars.italic);
-                    emVars.underline = DrawVarPopup(emName + " Underline", emVars.underline);
-                }
-                EndIndentedSection();
-            }
-        }
-
-        private string DrawVarPopup(string label, string currentVar)
-        {
-            if (articyVarNameList == null) BuildArticyVarNameList();
-            var index = EditorGUILayout.Popup(label, GetVarNameListIndex(currentVar), articyVarNameList);
-            if (0 <= index && index < articyVarNameList.Length)
-            {
-                currentVar = articyVarNameList[index];
-            }
-            return currentVar;
-        }
-
-        private void BuildArticyVarNameList()
-        {
-            var list = new List<string>();
-            foreach (ArticyData.VariableSet variableSet in articyData.variableSets.Values)
-            {
-                foreach (ArticyData.Variable variable in variableSet.variables)
-                {
-                    list.Add(ArticyData.FullVariableName(variableSet, variable));
-                }
-            }
-            articyVarNameList = list.ToArray();
-        }
-
-        private int GetVarNameListIndex(string varName)
-        {
-            if (articyVarNameList == null || string.IsNullOrEmpty(varName)) return -1;
-            for (int i = 0; i < articyVarNameList.Length; i++)
-            {
-                if (string.Equals(articyVarNameList[i], varName)) return i;
-            }
-            return -1;
-        }
-
         private void MassSelectDialogues(bool value)
         {
             foreach (ArticyData.Dialogue dialogue in articyData.dialogues.Values)
@@ -652,7 +589,6 @@ namespace PixelCrushers.DialogueSystem.Articy
             {
                 EditorUtility.DisplayProgressBar("Loading articy:draft project", "Please wait...", 0);
                 articyData = ArticySchemaEditorTools.LoadArticyDataFromXmlFile(prefs.ProjectFilename, prefs.Encoding, prefs.ConvertDropdownsAsString, prefs);
-                articyVarNameList = null;
                 mustReloadData = false;
                 if (articyData != null)
                 {
@@ -677,7 +613,6 @@ namespace PixelCrushers.DialogueSystem.Articy
         {
             articyData = null;
             prefs.ConversionSettings.Clear();
-            ConverterPrefsTools.DeleteEditorPrefs();
         }
 
         /// <summary>
@@ -728,9 +663,7 @@ namespace PixelCrushers.DialogueSystem.Articy
         /// </param>
         private DialogueDatabase LoadOrCreateDatabase(string filename)
         {
-            var assetPath = prefs.OutputFolder;
-            if (!assetPath.EndsWith("/")) assetPath += "/";
-            assetPath += filename + ".asset";
+            string assetPath = string.Format("{0}/{1}.asset", prefs.OutputFolder, filename);
             DialogueDatabase database = null;
             if (prefs.Overwrite)
             {

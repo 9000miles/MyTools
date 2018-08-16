@@ -9,8 +9,6 @@ namespace PixelCrushers.DialogueSystem
     public class SequenceTriggerEditor : Editor
     {
 
-        private Rect sequenceRect;
-
         public void OnEnable()
         {
             EditorTools.SetInitialDatabaseIfNull();
@@ -27,13 +25,7 @@ namespace PixelCrushers.DialogueSystem
             {
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("waitOneFrameOnStartOrEnable"), new GUIContent("Wait 1 Frame", "Tick to wait one frame to allow other components to finish their OnStart/OnEnable"));
             }
-            serializedObject.ApplyModifiedProperties();
-            EditorGUI.BeginChangeCheck();
-            var newSequence = SequenceEditorTools.DrawLayout(new GUIContent("Sequence"), trigger.sequence, ref sequenceRect);
-            var changed = EditorGUI.EndChangeCheck();
-            serializedObject.Update();
-            if (changed) serializedObject.FindProperty("sequence").stringValue = newSequence;
-
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("sequence"), true);
             EditorGUILayout.PropertyField(serializedObject.FindProperty("speaker"), true);
             EditorGUILayout.PropertyField(serializedObject.FindProperty("listener"), true);
             EditorGUILayout.PropertyField(serializedObject.FindProperty("once"), true);

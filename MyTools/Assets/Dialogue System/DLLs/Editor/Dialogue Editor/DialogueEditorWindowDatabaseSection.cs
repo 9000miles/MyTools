@@ -99,8 +99,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         private void DrawEditorSettings()
         {
             EditorWindowTools.StartIndentedSection();
-
-            EditorGUI.BeginChangeCheck();
             var newFreq = EditorGUILayout.FloatField(new GUIContent("Auto Backup Frequency", "Seconds between auto backups. Set to zero for no auto backups."), autoBackupFrequency);
             if (newFreq != autoBackupFrequency)
             {
@@ -118,12 +116,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             showDatabaseName = EditorGUILayout.ToggleLeft(new GUIContent("Show Database Name", "Show the database name in the lower left of the editor window."), showDatabaseName);
             registerCompleteObjectUndo = EditorGUILayout.ToggleLeft(new GUIContent("Fast Undo for Large Databases", "Use Undo.RegisterCompleteObjectUndo instead of Undo.RegisterUndo. Tick if operations such as deleting a conversation become slow in very large databases."), registerCompleteObjectUndo);
             debug = EditorGUILayout.ToggleLeft(new GUIContent("Debug", "For internal debugging of the dialogue editor."), debug);
-
-            if (EditorGUI.EndChangeCheck())
-            {
-                SaveEditorSettings();
-            }
-
             EditorWindowTools.EndIndentedSection();
         }
 

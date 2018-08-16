@@ -17,9 +17,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         [SerializeField]
         private AssetFoldouts itemFoldouts = new AssetFoldouts();
 
-        [SerializeField]
-        private string itemFilter = string.Empty;
-
         private bool needToBuildLanguageListFromItems = true;
 
         private void ResetItemSection()
@@ -54,22 +51,18 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.LabelField("Quests/Items", EditorStyles.boldLabel);
                 GUILayout.FlexibleSpace();
-
-                itemFilter = EditorGUILayout.TextField(GUIContent.none, itemFilter, "ToolbarSeachTextField");
-                GUILayout.Label(string.Empty, "ToolbarSeachCancelButtonEmpty");
-
                 DrawItemMenu();
                 EditorGUILayout.EndHorizontal();
                 if (database.syncInfo.syncItems) DrawItemSyncDatabase();
-                DrawAssets<Item>("Item", database.items, itemFoldouts, itemFilter);
+                DrawAssets<Item>("Item", database.items, itemFoldouts);
             }
             else {
                 if (database.syncInfo.syncItems)
                 {
-                    DrawAssetSection<Item>("Item", database.items, itemFoldouts, DrawItemMenu, DrawItemSyncDatabase, ref itemFilter);
+                    DrawAssetSection<Item>("Item", database.items, itemFoldouts, DrawItemMenu, DrawItemSyncDatabase);
                 }
                 else {
-                    DrawAssetSection<Item>("Item", database.items, itemFoldouts, DrawItemMenu, null, ref itemFilter);
+                    DrawAssetSection<Item>("Item", database.items, itemFoldouts, DrawItemMenu, null);
                 }
             }
         }

@@ -55,7 +55,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                 menu.AddItem(new GUIContent("Update Template From Assets"), false, ConfirmUpdateTemplateFromAssets);
                 menu.AddItem(new GUIContent("Apply Template To Assets"), false, ConfirmApplyTemplateToAssets);
                 menu.AddItem(new GUIContent("Sync Assets and Template"), false, ConfirmSyncAssetsAndTemplate);
-                menu.AddItem(new GUIContent("Remove Empty Fields"), false, ConfirmRemoveEmptyFields);
                 menu.AddItem(new GUIContent("Reset"), false, ResetTemplate);
                 menu.ShowAsContext();
             }

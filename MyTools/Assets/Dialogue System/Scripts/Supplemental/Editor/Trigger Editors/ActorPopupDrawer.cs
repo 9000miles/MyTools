@@ -4,8 +4,7 @@ using System.Collections.Generic;
 
 namespace PixelCrushers.DialogueSystem
 {
-
-    [CustomPropertyDrawer(typeof(ActorPopupAttribute))]
+    //[CustomPropertyDrawer(typeof(ActorPopupAttribute))]
     public class ActorPopupDrawer : PropertyDrawer
     {
         //[TODO] v2: Share actor/item/quest picker code.
@@ -53,7 +52,5 @@ namespace PixelCrushers.DialogueSystem
 
             EditorGUI.EndProperty();
         }
-
     }
-
 }

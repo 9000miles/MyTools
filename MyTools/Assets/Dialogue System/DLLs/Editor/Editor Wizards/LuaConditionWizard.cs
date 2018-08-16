@@ -28,7 +28,6 @@ namespace PixelCrushers.DialogueSystem
             public int itemFieldIndex = 0;
             public int locationNamesIndex = 0;
             public int locationFieldIndex = 0;
-            public bool simStatusThisID = true;
             public int simStatusID = 0;
             public SimStatusType simStatusType = SimStatusType.WasDisplayed;
             public EqualityType equalityType = EqualityType.Is;
@@ -38,7 +37,6 @@ namespace PixelCrushers.DialogueSystem
             public string stringValue = string.Empty;
             public BooleanType booleanValue = BooleanType.True;
             public float floatValue = 0;
-            public float floatValue2 = 0;
         }
 
         public bool IsOpen { get { return isOpen; } }
@@ -232,16 +230,8 @@ namespace PixelCrushers.DialogueSystem
             {
 
                 // SimStatus:
-                item.simStatusThisID = EditorGUILayout.Toggle(GUIContent.none, item.simStatusThisID, GUILayout.Width(14));
-                if (item.simStatusThisID)
-                {
-                    EditorGUILayout.LabelField("thisID", GUILayout.Width(38));
-                }
-                else
-                {
-                    item.simStatusID = EditorGUILayout.IntField(item.simStatusID, GUILayout.Width(38));
-                }
-                item.equalityType = (EqualityType)EditorGUILayout.EnumPopup(item.equalityType, GUILayout.Width(56));
+                item.simStatusID = EditorGUILayout.IntField(item.simStatusID, GUILayout.Width(50));
+                item.equalityType = (EqualityType)EditorGUILayout.EnumPopup(item.equalityType, GUILayout.Width(60));
                 item.simStatusType = (SimStatusType)EditorGUILayout.EnumPopup(item.simStatusType);
             }
 
@@ -269,16 +259,7 @@ namespace PixelCrushers.DialogueSystem
                     break;
                 case FieldType.Number:
                     item.comparisonType = (ComparisonType)EditorGUILayout.EnumPopup(item.comparisonType, GUILayout.Width(96));
-                    if (item.comparisonType == ComparisonType.Between)
-                    {
-                        item.floatValue = EditorGUILayout.FloatField(item.floatValue);
-                        EditorGUILayout.LabelField("and", GUILayout.Width(28));
-                        item.floatValue2 = EditorGUILayout.FloatField(item.floatValue2);
-                    }
-                    else
-                    {
-                        item.floatValue = EditorGUILayout.FloatField(item.floatValue);
-                    }
+                    item.floatValue = EditorGUILayout.FloatField(item.floatValue);
                     break;
                 default:
                     item.equalityType = (EqualityType)EditorGUILayout.EnumPopup(item.equalityType, GUILayout.Width(60));
@@ -373,25 +354,12 @@ namespace PixelCrushers.DialogueSystem
                                                 closeParen);
                                 break;
                             case FieldType.Number:
-                                if (item.comparisonType == ComparisonType.Between)
-                                {
-                                    sb.AppendFormat("{0}{3} <= Variable[\"{1}\"] and Variable[\"{1}\"] <= {4}{5}",
-                                                    openParen,
-                                                    DialogueLua.StringToTableIndex(variableName),
-                                                    GetWizardComparisonText(item.comparisonType),
-                                                    item.floatValue,
-                                                    item.floatValue2,
-                                                    closeParen);
-                                }
-                                else
-                                {
-                                    sb.AppendFormat("{0}Variable[\"{1}\"] {2} {3}{4}",
-                                                    openParen,
-                                                    DialogueLua.StringToTableIndex(variableName),
-                                                    GetWizardComparisonText(item.comparisonType),
-                                                    item.floatValue,
-                                                    closeParen);
-                                }
+                                sb.AppendFormat("{0}Variable[\"{1}\"] {2} {3}{4}",
+                                                openParen,
+                                                DialogueLua.StringToTableIndex(variableName),
+                                                GetWizardComparisonText(item.comparisonType),
+                                                item.floatValue,
+                                                closeParen);
                                 break;
                             default:
                                 sb.AppendFormat("{0}Variable[\"{1}\"] {2} \"{3}\"{4}",
@@ -459,10 +427,9 @@ namespace PixelCrushers.DialogueSystem
                     {
 
                         // SimStatus:
-                        string simStatusID = item.simStatusThisID ? "thisID" : item.simStatusID.ToString();
                         sb.AppendFormat("{0}Dialog[{1}].SimStatus {2} \"{3}\"{4}",
                                         openParen,
-                                        simStatusID,
+                                        item.simStatusID,
                                         GetWizardEqualityText(item.equalityType),
                                         item.simStatusType,
                                         closeParen);
@@ -500,29 +467,14 @@ namespace PixelCrushers.DialogueSystem
                                     closeParen);
                     break;
                 case FieldType.Number:
-                    if (item.comparisonType == ComparisonType.Between)
-                    {
-                        sb.AppendFormat("{0}{5} <= {1}[\"{2}\"].{3} and {1}[\"{2}\"].{3} <= {6}{7}",
-                                        openParen,
-                                        tableName,
-                                        DialogueLua.StringToTableIndex(elementName),
-                                        DialogueLua.StringToTableIndex(fieldName),
-                                        GetWizardComparisonText(item.comparisonType),
-                                        item.floatValue,
-                                        item.floatValue2,
-                                        closeParen);
-                    }
-                    else
-                    {
-                        sb.AppendFormat("{0}{1}[\"{2}\"].{3} {4} {5}{6}",
-                                        openParen,
-                                        tableName,
-                                        DialogueLua.StringToTableIndex(elementName),
-                                        DialogueLua.StringToTableIndex(fieldName),
-                                        GetWizardComparisonText(item.comparisonType),
-                                        item.floatValue,
-                                        closeParen);
-                    }
+                    sb.AppendFormat("{0}{1}[\"{2}\"].{3} {4} {5}{6}",
+                                    openParen,
+                                    tableName,
+                                    DialogueLua.StringToTableIndex(elementName),
+                                    DialogueLua.StringToTableIndex(fieldName),
+                                    GetWizardComparisonText(item.comparisonType),
+                                    item.floatValue,
+                                    closeParen);
                     break;
                 default:
                     sb.AppendFormat("{0}{1}[\"{2}\"].{3} {4} \"{5}\"{6}",
@@ -761,19 +713,10 @@ namespace PixelCrushers.DialogueSystem
 
                 // SimStatus:
                 var freeWidth = position.width - (88 + 56 + equalityWidth + deleteButtonWidth + 10);
-                rect = new Rect(x, y, 14, EditorGUIUtility.singleLineHeight);
-                item.simStatusThisID = EditorGUI.Toggle(rect, GUIContent.none, item.simStatusThisID);
-                rect = new Rect(x + 14, y, 38, EditorGUIUtility.singleLineHeight);
-                if (item.simStatusThisID)
-                {
-                    EditorGUI.LabelField(rect, "thisID");
-                }
-                else
-                {
-                    item.simStatusID = EditorGUI.IntField(rect, item.simStatusID);
-                }
-                x += rect.width + 14;
-                rect = new Rect(x, y, 56, EditorGUIUtility.singleLineHeight);
+                rect = new Rect(x, y, 50, EditorGUIUtility.singleLineHeight);
+                item.simStatusID = EditorGUI.IntField(rect, item.simStatusID);
+                x += rect.width + 2;
+                rect = new Rect(x, y, equalityWidth, EditorGUIUtility.singleLineHeight);
                 item.equalityType = (EqualityType)EditorGUI.EnumPopup(rect, item.equalityType);
                 x += rect.width + 2;
                 rect = new Rect(x, y, freeWidth, EditorGUIUtility.singleLineHeight);

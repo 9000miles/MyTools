@@ -16,9 +16,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         [SerializeField]
         private AssetFoldouts locationFoldouts = new AssetFoldouts();
 
-        [SerializeField]
-        private string locationFilter = string.Empty;
-
         private void ResetLocationSection()
         {
             locationFoldouts = new AssetFoldouts();
@@ -29,10 +26,10 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         {
             if (database.syncInfo.syncLocations)
             {
-                DrawAssetSection<Location>("Location", database.locations, locationFoldouts, DrawLocationMenu, DrawLocationSyncDatabase, ref locationFilter);
+                DrawAssetSection<Location>("Location", database.locations, locationFoldouts, DrawLocationMenu, DrawLocationSyncDatabase);
             }
             else {
-                DrawAssetSection<Location>("Location", database.locations, locationFoldouts, DrawLocationMenu, ref locationFilter);
+                DrawAssetSection<Location>("Location", database.locations, locationFoldouts, DrawLocationMenu);
             }
         }
 

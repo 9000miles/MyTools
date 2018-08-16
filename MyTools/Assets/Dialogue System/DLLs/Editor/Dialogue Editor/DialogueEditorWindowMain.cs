@@ -57,7 +57,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         private const string ShowDatabaseNameKey = "PixelCrushers.DialogueSystem.DialogueEditor.ShowDatabaseName";
         private const string AutoBackupKey = "PixelCrushers.DialogueSystem.DialogueEditor.AutoBackupFrequency";
         private const string AutoBackupFolderKey = "PixelCrushers.DialogueSystem.DialogueEditor.AutoBackupFolder";
-        private const string AddNewNodesToRightKey = "PixelCrushers.DialogueSystem.DialogueEditor.AddNewNodesToRight";
 
         private const float RuntimeUpdateFrequency = 0.5f;
         private float timeSinceLastRuntimeUpdate = 0;
@@ -85,67 +84,34 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             }
             toolbar.UpdateTabNames(template.treatItemsAsQuests);
             if (database != null) ValidateConversationMenuTitleIndex();
-#if UNITY_2017_2_OR_NEWER
-            EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
-            EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+#if false && UNITY_2017_1_OR_NEWER
+            EditorApplication.playModeStateChanged -= OnPlaymodeStateChanged;
+            EditorApplication.playModeStateChanged += OnPlaymodeStateChanged;
 #else
             EditorApplication.playmodeStateChanged -= OnPlaymodeStateChanged;
             EditorApplication.playmodeStateChanged += OnPlaymodeStateChanged;
 #endif
-            LoadEditorSettings();
+            registerCompleteObjectUndo = EditorPrefs.GetBool(CompleteUndoKey, true);
+            showDatabaseName = EditorPrefs.GetBool(ShowDatabaseNameKey, true);
+            autoBackupFrequency = EditorPrefs.GetFloat(AutoBackupKey, DefaultAutoBackupFrequency);
+            timeForNextAutoBackup = Time.realtimeSinceStartup + autoBackupFrequency;
         }
 
         private void OnDisable()
         {
             if (debug) Debug.Log("<color=orange>Dialogue Editor: OnDisable</color>");
-#if UNITY_2017_2_OR_NEWER
-            EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
+#if false && UNITY_2017_1_OR_NEWER
+            EditorApplication.playModeStateChanged -= OnPlaymodeStateChanged;
 #else
             EditorApplication.playmodeStateChanged -= OnPlaymodeStateChanged;
 #endif
             TemplateTools.SaveToEditorPrefs(template);
             inspectorSelection = null;
             instance = null;
-            SaveEditorSettings();
-        }
-
-        private void LoadEditorSettings()
-        {
-            registerCompleteObjectUndo = EditorPrefs.GetBool(CompleteUndoKey, true);
-            showDatabaseName = EditorPrefs.GetBool(ShowDatabaseNameKey, true);
-            autoBackupFrequency = EditorPrefs.GetFloat(AutoBackupKey, DefaultAutoBackupFrequency);
-            timeForNextAutoBackup = Time.realtimeSinceStartup + autoBackupFrequency;
-            addNewNodesToRight = EditorPrefs.GetBool(AddNewNodesToRightKey, false);
-        }
-
-        private void SaveEditorSettings()
-        { 
             EditorPrefs.SetBool(CompleteUndoKey, registerCompleteObjectUndo);
             EditorPrefs.SetBool(ShowDatabaseNameKey, showDatabaseName);
             EditorPrefs.SetFloat(AutoBackupKey, autoBackupFrequency);
             EditorPrefs.SetString(AutoBackupFolderKey, autoBackupFolder);
-            EditorPrefs.SetBool(AddNewNodesToRightKey, addNewNodesToRight);
-        }
-
-#if UNITY_2017_2_OR_NEWER
-        private void OnPlayModeStateChanged(PlayModeStateChange obj)
-        {
-            HandlePlayModeStateChanged();
-        }
-#else
-        private void OnPlaymodeStateChanged()
-        {
-            HandlePlayModeStateChanged();
-        }
-#endif
-
-        private void HandlePlayModeStateChanged()
-        {
-            if (debug) Debug.Log("<color=cyan>Dialogue Editor: OnPlaymodeStateChanged - isPlaying=" + EditorApplication.isPlaying + "/" + EditorApplication.isPlayingOrWillChangePlaymode + "</color>");
-            toolbar.UpdateTabNames(template.treatItemsAsQuests);
-            currentConversationState = null;
-            currentRuntimeEntry = null;
-            ResetWatchSection();
         }
 
         private void OnSelectionChange()
@@ -193,6 +159,14 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             ResetVariableSection();
             ResetConversationSection();
             ResetConversationNodeEditor();
+        }
+
+        private void OnPlaymodeStateChanged()
+        {
+            if (debug) Debug.Log("<color=cyan>Dialogue Editor: OnPlaymodeStateChanged - isPlaying=" + EditorApplication.isPlaying + "/" + EditorApplication.isPlayingOrWillChangePlaymode + "</color>");
+            toolbar.UpdateTabNames(template.treatItemsAsQuests);
+            currentConversationState = null;
+            currentRuntimeEntry = null;
         }
 
         void Update()
@@ -244,12 +218,11 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         private Color proDatabaseNameColor = new Color(1, 1, 1, 0.2f);
         private Color freeDatabaseNameColor = new Color(0, 0, 0, 0.2f);
 
-        private GUIStyle _databaseNameStyle = null;
         private GUIStyle databaseNameStyle
         {
             get
             {
-                if (_databaseNameStyle == null || _databaseNameStyle.fontSize != 20)
+                if (_databaseNameStyle == null)
                 {
                     _databaseNameStyle = new GUIStyle(EditorStyles.label);
                     _databaseNameStyle.fontSize = 20;
@@ -262,13 +235,13 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                 return _databaseNameStyle;
             }
         }
+        private GUIStyle _databaseNameStyle = null;
 
-        private GUIStyle _conversationParticipantsStyle = null;
         private GUIStyle conversationParticipantsStyle
         {
             get
             {
-                if (_conversationParticipantsStyle == null || _conversationParticipantsStyle.fontSize != 20)
+                if (_conversationParticipantsStyle == null)
                 {
                     _conversationParticipantsStyle = new GUIStyle(databaseNameStyle);
                     _conversationParticipantsStyle.alignment = TextAnchor.LowerRight;
@@ -276,6 +249,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                 return _conversationParticipantsStyle;
             }
         }
+        private GUIStyle _conversationParticipantsStyle = null;
 
         private void DrawDatabaseName()
         {

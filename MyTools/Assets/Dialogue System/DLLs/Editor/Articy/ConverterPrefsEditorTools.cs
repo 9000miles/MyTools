@@ -1,6 +1,4 @@
 ﻿using UnityEditor;
-using System.Xml.Serialization;
-using System.IO;
 
 namespace PixelCrushers.DialogueSystem.Articy
 {
@@ -27,7 +25,6 @@ namespace PixelCrushers.DialogueSystem.Articy
         private const string ArticyFlowFragmentScriptKey = "PixelCrushers.DialogueSystem.ArticyFlowFragmentScript";
         private const string ArticyVoiceOverPropertyKey = "PixelCrushers.DialogueSystem.ArticyVoiceOverPropertyKey";
         private const string ArticyLocalizationXlsKey = "PixelCrushers.DialogueSystem.ArticyLocalizationXlsxKey";
-        private const string ArticyEmVarsKey = "PixelCrushers.DialogueSystem.ArticyEmVars";
 
         public static ConverterPrefs Load()
         {
@@ -47,7 +44,6 @@ namespace PixelCrushers.DialogueSystem.Articy
             converterPrefs.FlowFragmentScript = EditorPrefs.GetString(ArticyFlowFragmentScriptKey, ConverterPrefs.DefaultFlowFragmentScript);
             converterPrefs.VoiceOverProperty = EditorPrefs.GetString(ArticyVoiceOverPropertyKey, ConverterPrefs.DefaultVoiceOverProperty);
             converterPrefs.LocalizationXlsx = EditorPrefs.GetString(ArticyLocalizationXlsKey);
-            converterPrefs.emVarSet = ArticyEmVarSetFromXML(EditorPrefs.GetString(ArticyEmVarsKey));
             return converterPrefs;
         }
 
@@ -68,7 +64,6 @@ namespace PixelCrushers.DialogueSystem.Articy
             EditorPrefs.SetString(ArticyFlowFragmentScriptKey, converterPrefs.FlowFragmentScript);
             EditorPrefs.SetString(ArticyVoiceOverPropertyKey, converterPrefs.VoiceOverProperty);
             EditorPrefs.SetString(ArticyLocalizationXlsKey, converterPrefs.LocalizationXlsx);
-            EditorPrefs.SetString(ArticyEmVarsKey, ArticyEmVarSetToXML(converterPrefs.emVarSet));
         }
 
         public static void DeleteEditorPrefs()
@@ -88,26 +83,6 @@ namespace PixelCrushers.DialogueSystem.Articy
             EditorPrefs.DeleteKey(ArticyFlowFragmentScriptKey);
             EditorPrefs.DeleteKey(ArticyVoiceOverPropertyKey);
             EditorPrefs.DeleteKey(ArticyLocalizationXlsKey);
-            EditorPrefs.DeleteKey(ArticyEmVarsKey);
-        }
-
-        private static ArticyEmVarSet ArticyEmVarSetFromXML(string xml)
-        {
-            ArticyEmVarSet emVarSet = null;
-            if (!string.IsNullOrEmpty(xml))
-            {
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof(ArticyEmVarSet));
-                emVarSet = xmlSerializer.Deserialize(new StringReader(xml)) as ArticyEmVarSet;
-            }
-            return (emVarSet != null) ? emVarSet : new ArticyEmVarSet();
-        }
-
-        private static string ArticyEmVarSetToXML(ArticyEmVarSet emVarSet)
-        {
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(ArticyEmVarSet));
-            StringWriter writer = new StringWriter();
-            xmlSerializer.Serialize(writer, emVarSet);
-            return writer.ToString();
         }
 
     }

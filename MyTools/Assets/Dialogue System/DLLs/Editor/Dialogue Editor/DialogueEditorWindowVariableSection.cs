@@ -20,47 +20,15 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         [SerializeField]
         private AssetFoldouts variableFoldouts = new AssetFoldouts();
 
-        [SerializeField]
-        private string variableFilter = string.Empty;
-
         private ReorderableList variableReorderableList = null;
 
         private double lastTimeVariableNamesChecked = 0;
         private const double VariableNameCheckFrequency = 0.5f;
         private HashSet<string> conflictedVariableNames = new HashSet<string>();
-        private List<Variable> m_filteredVariableList = null;
-        private List<Variable> filteredVariableList
-        {
-            get
-            {
-                if (m_filteredVariableList == null) m_filteredVariableList = GenerateFilteredVariableList();
-                return m_filteredVariableList;
-            }
-        }
 
         private void ResetVariableSection()
         {
             variableReorderableList = null;
-        }
-
-        private void ResetFilteredVariableList()
-        {
-            m_filteredVariableList = null;
-        }
-
-        private List<Variable> GenerateFilteredVariableList()
-        {
-            var list = new List<Variable>();
-            if (database == null || string.IsNullOrEmpty(variableFilter)) return list;
-            for (int i = 0; i < database.variables.Count; i++)
-            {
-                var variable = database.variables[i];
-                if (IsAssetInFilter(variable, variableFilter))
-                {
-                    list.Add(variable);
-                }
-            }
-            return list;
         }
 
         private void DrawVariableSection()
@@ -68,16 +36,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("Variables", EditorStyles.boldLabel);
             GUILayout.FlexibleSpace();
-
-            EditorGUI.BeginChangeCheck();
-            variableFilter = EditorGUILayout.TextField(GUIContent.none, variableFilter, "ToolbarSeachTextField");
-            GUILayout.Label(string.Empty, "ToolbarSeachCancelButtonEmpty");
-            if (EditorGUI.EndChangeCheck())
-            {
-                ResetFilteredVariableList();
-                ResetVariableSection();
-            }
-
             DrawVariableMenu();
             EditorGUILayout.EndHorizontal();
             if (database.syncInfo.syncVariables) DrawVariableSyncDatabase();
@@ -182,9 +140,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         {
             if (variableReorderableList == null)
             {
-                var useFilter = !string.IsNullOrEmpty(variableFilter);
-                var listSource = useFilter ? filteredVariableList : database.variables;
-                variableReorderableList = new ReorderableList(listSource, typeof(Variable), !useFilter, false, true, true);
+                variableReorderableList = new ReorderableList(database.variables, typeof(Variable), true, false, true, true);
                 variableReorderableList.drawHeaderCallback = OnDrawVariableHeader;
                 variableReorderableList.drawElementCallback = OnDrawVariableElement;
                 variableReorderableList.onAddDropdownCallback = OnAddVariableDropdown;
@@ -223,9 +179,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             var variableName = variable.Name;
             var conflicted = conflictedVariableNames.Contains(variableName);
             if (conflicted) GUI.backgroundColor = Color.red;
-            EditorGUI.BeginChangeCheck();
             variable.Name = EditorGUI.TextField(new Rect(rect.x, rect.y, fieldWidth, EditorGUIUtility.singleLineHeight), variableName);
-            if (EditorGUI.EndChangeCheck()) ResetFilteredVariableList();
             if (conflicted) GUI.backgroundColor = originalColor;
             initialValueField.value = CustomFieldTypeService.DrawField(new Rect(rect.x + fieldWidth + 2, rect.y, fieldWidth, EditorGUIUtility.singleLineHeight), initialValueField, database);
             descriptionField.value = EditorGUI.TextField(new Rect(rect.x + 2 * (fieldWidth + 2), rect.y, fieldWidth, EditorGUIUtility.singleLineHeight), descriptionField.value);
@@ -241,7 +195,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             {
                 database.variables.Remove(variable);
                 SetDatabaseDirty("Delete Variable");
-                ResetFilteredVariableList();
             }
         }
 
@@ -282,7 +235,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             if (!variableFoldouts.properties.ContainsKey(index)) variableFoldouts.properties.Add(index, false);
             variableFoldouts.properties[index] = true;
             SetDatabaseDirty("Add New Variable");
-            ResetFilteredVariableList();
             return newVariable;
         }
 

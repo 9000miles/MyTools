@@ -19,7 +19,6 @@ namespace PixelCrushers.DialogueSystem
         //private ConversationPicker barkPicker = null;
         private QuestPicker questPicker = null;
         private LuaScriptWizard luaScriptWizard = null;
-        private Rect sequenceRect;
 
         public void OnEnable()
         {
@@ -163,11 +162,7 @@ namespace PixelCrushers.DialogueSystem
                         EditorGUILayout.PropertyField(serializedObject.FindProperty("waitOneFrameOnStartOrEnable"), new GUIContent("Wait 1 Frame", "Tick to wait one frame to allow other components to finish their OnStart/OnEnable"), true);
 
                     }
-                    //EditorGUILayout.PropertyField(serializedObject.FindProperty("sequence"), true);
-                    serializedObject.ApplyModifiedProperties();
-                    trigger.sequence = SequenceEditorTools.DrawLayout(new GUIContent("Sequence"), trigger.sequence, ref sequenceRect);
-                    serializedObject.Update();
-
+                    EditorGUILayout.PropertyField(serializedObject.FindProperty("sequence"), true);
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("sequenceSpeaker"), true);
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("sequenceListener"), true);
 

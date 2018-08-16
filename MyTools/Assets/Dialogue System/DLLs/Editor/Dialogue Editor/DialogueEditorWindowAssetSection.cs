@@ -15,32 +15,28 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
 
         private List<Field> clipboardFields = null;
 
-        private void DrawAssetSection<T>(string label, List<T> assets, AssetFoldouts foldouts, ref string filter) where T : Asset, new()
+        private void DrawAssetSection<T>(string label, List<T> assets, AssetFoldouts foldouts) where T : Asset, new()
         {
-            DrawAssetSection<T>(label, assets, foldouts, null, null, ref filter);
+            DrawAssetSection<T>(label, assets, foldouts, null, null);
         }
 
-        private void DrawAssetSection<T>(string label, List<T> assets, AssetFoldouts foldouts, Action menuDelegate, ref string filter) where T : Asset, new()
+        private void DrawAssetSection<T>(string label, List<T> assets, AssetFoldouts foldouts, Action menuDelegate) where T : Asset, new()
         {
-            DrawAssetSection<T>(label, assets, foldouts, menuDelegate, null, ref filter);
+            DrawAssetSection<T>(label, assets, foldouts, menuDelegate, null);
         }
 
-        private void DrawAssetSection<T>(string label, List<T> assets, AssetFoldouts foldouts, Action menuDelegate, Action syncDatabaseDelegate, ref string filter) where T : Asset, new()
+        private void DrawAssetSection<T>(string label, List<T> assets, AssetFoldouts foldouts, Action menuDelegate, Action syncDatabaseDelegate) where T : Asset, new()
         {
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField(label + "s", EditorStyles.boldLabel);
             GUILayout.FlexibleSpace();
-
-            filter = EditorGUILayout.TextField(GUIContent.none, filter, "ToolbarSeachTextField");
-            GUILayout.Label(string.Empty, "ToolbarSeachCancelButtonEmpty");
-
             if (menuDelegate != null) menuDelegate();
             EditorGUILayout.EndHorizontal();
             if (syncDatabaseDelegate != null) syncDatabaseDelegate();
-            DrawAssets<T>(label, assets, foldouts, filter);
+            DrawAssets<T>(label, assets, foldouts);
         }
 
-        private void DrawAssets<T>(string label, List<T> assets, AssetFoldouts foldouts, string filter) where T : Asset
+        private void DrawAssets<T>(string label, List<T> assets, AssetFoldouts foldouts) where T : Asset
         {
             EditorWindowTools.StartIndentedSection();
             showStateFieldAsQuest = false;
@@ -51,7 +47,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             for (int index = 0; index < assets.Count; index++)
             {
                 T asset = assets[index];
-                if (!IsAssetInFilter(asset, filter)) continue;
                 EditorGUILayout.BeginHorizontal();
                 if (!foldouts.properties.ContainsKey(index)) foldouts.properties.Add(index, false);
                 foldouts.properties[index] = EditorGUILayout.Foldout(foldouts.properties[index], GetAssetName(asset));
@@ -88,13 +83,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                 }
             }
             EditorWindowTools.EndIndentedSection();
-        }
-
-        private bool IsAssetInFilter(Asset asset, string filter)
-        {
-            if (asset == null || string.IsNullOrEmpty(filter)) return true;
-            var assetName = asset.Name;
-            return string.IsNullOrEmpty(assetName) ? false : (assetName.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0);
         }
 
         private string GetAssetName(Asset asset)

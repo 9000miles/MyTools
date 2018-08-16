@@ -66,10 +66,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                 }
             }
 
-            //--- For debugging zoom:
-            //EditorGUI.LabelField(new Rect(10, 60, 500, 30), "pos=" + canvasScrollPosition);
-            //EditorGUI.LabelField(new Rect(10, 90, 500, 30), "mouse=" + Event.current.mousePosition);
-
             // Restore previous scrollbar style:
             GUI.skin.verticalScrollbar = verticalScrollbar;
             GUI.skin.horizontalScrollbar = horizontalScrollbar;

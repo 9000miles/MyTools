@@ -19,14 +19,12 @@ namespace PixelCrushers.DialogueSystem
         /// <summary>
         /// Is the languages foldout open?
         /// </summary>
-        [SerializeField]
-        private bool languagesFoldout = false;
+        private static bool languagesFoldout = false;
 
         /// <summary>
         /// Is the fields foldout open?
         /// </summary>
-        [SerializeField]
-        private bool fieldsFoldout = true;
+        private static bool fieldsFoldout = true;
 
         /// <summary>
         /// Tracks which individual fields are open.
@@ -50,9 +48,7 @@ namespace PixelCrushers.DialogueSystem
 
         private static EncodingType encodingType = EncodingType.UTF8;
         private bool addFieldsAtTop = false;
-
-        private static bool showSearchBar = false;
-
+        private bool showSearchBar = false;
         private string searchString = string.Empty;
         private bool searchCaseSensitive = false;
         private int currentSearchResultIndex = 0;
@@ -61,11 +57,6 @@ namespace PixelCrushers.DialogueSystem
 
         private const string EncodingTypeEditorPrefsKey = "PixelCrushers.DialogueSystem.EncodingType";
         private const string AddFieldsAtTopPrefsKey = "PixelCrushers.DialogueSystem.LocalizedTextTable.AddAtTop";
-        private const string LanguagesFoldoutPrefsKey = "PixelCrushers.DialogueSystem.LocalizedTextTable.LanguagesFoldout";
-        private const string FieldsFoldoutPrefsKey = "PixelCrushers.DialogueSystem.LocalizedTextTable.FieldsFoldout";
-        private const string ShowSearchBarPrefsKey = "PixelCrushers.DialogueSystem.LocalizedTextTable.ShowSearchBar";
-        private const string SearchStringPrefsKey = "PixelCrushers.DialogueSystem.LocalizedTextTable.SearchString";
-        private const string SearchCaseSensitivePrefsKey = "PixelCrushers.DialogueSystem.LocalizedTextTable.SearchCaseSensitive";
 
         #endregion
 
@@ -75,19 +66,6 @@ namespace PixelCrushers.DialogueSystem
         {
             encodingType = (EncodingType)EditorPrefs.GetInt(EncodingTypeEditorPrefsKey, (int)EncodingType.UTF8);
             addFieldsAtTop = EditorPrefs.GetBool(AddFieldsAtTopPrefsKey, false);
-            languagesFoldout = EditorPrefs.GetBool(LanguagesFoldoutPrefsKey, true);
-            fieldsFoldout = EditorPrefs.GetBool(FieldsFoldoutPrefsKey, true);
-            showSearchBar = EditorPrefs.GetBool(ShowSearchBarPrefsKey, false);
-            searchCaseSensitive = EditorPrefs.GetBool(SearchCaseSensitivePrefsKey, false);
-            searchString = EditorPrefs.GetString(SearchStringPrefsKey, string.Empty);
-        }
-
-        public void OnDisable()
-        {
-            EditorPrefs.SetBool(LanguagesFoldoutPrefsKey, languagesFoldout);
-            EditorPrefs.SetBool(FieldsFoldoutPrefsKey, fieldsFoldout);
-            EditorPrefs.SetBool(SearchCaseSensitivePrefsKey, searchCaseSensitive);
-            EditorPrefs.SetString(SearchStringPrefsKey, searchString);
         }
 
         /// <summary>
@@ -138,7 +116,6 @@ namespace PixelCrushers.DialogueSystem
         private void ToggleSearchBar()
         {
             showSearchBar = !showSearchBar;
-            EditorPrefs.SetBool(ShowSearchBarPrefsKey, showSearchBar);
         }
 
         #endregion
@@ -567,7 +544,7 @@ namespace PixelCrushers.DialogueSystem
             var field = table.fields[index];
 
             var substr = searchString;
-            if (!searchCaseSensitive) substr = searchString.ToLower();
+            if (!searchCaseSensitive) searchString.ToLower();
 
             if (MatchSubstr(field.name, substr))
             {

@@ -13,28 +13,31 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
     public partial class DialogueEditorWindow
     {
 
-        public enum WatchType { Expression, Variable, Quest }
-
         [Serializable]
         public class Watch
         {
-            public WatchType type;
-
-            public string expression = string.Empty;
-            public string expressionValue = string.Empty;
-
+            public bool isVariable = false;
             public int variableIndex = -1;
+            public string expression = string.Empty;
+            public string value = string.Empty;
             public Variable variable = null;
-            public Lua.Result variableValue;
 
-            public int questIndex = -1;
-            public int questEntryNumber = 0;
-            public string[] questEntryTexts = null;
-            public QuestState questState;
+            public Watch() { }
 
-            public Watch(WatchType type)
+            public Watch(bool isVariable, string expression, string value)
             {
-                this.type = type;
+                this.isVariable = isVariable;
+                this.variableIndex = -1;
+                this.expression = expression;
+                this.value = value;
+                this.variable = null;
+            }
+
+            public void Evaluate()
+            {
+                value = string.IsNullOrEmpty(expression)
+                    ? string.Empty
+                    : Lua.Run("return " + expression).AsString;
             }
         }
 
@@ -54,25 +57,10 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         private string[] watchableVariableNames = null;
 
         [SerializeField]
-        private string[] watchableQuestNames = null;
-
-        [SerializeField]
         private string luaCommand = string.Empty;
-
-        private void ResetWatchSection()
-        {
-            if (EditorApplication.isPlaying)
-            {
-                RefreshWatchableVariableList();
-                RefreshWatchableQuestList();
-                UpdateAllWatches();
-            }
-        }
 
         private void DrawWatchSection()
         {
-            if (!EditorApplication.isPlaying) return;
-
             if (watches == null) watches = new List<Watch>();
 
             EditorGUILayout.BeginHorizontal();
@@ -96,11 +84,15 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                 menu.AddItem(new GUIContent("Add Runtime Variable"), false, AddRuntimeVariableWatch);
                 menu.AddItem(new GUIContent("Add All Runtime Variables"), false, AddAllRuntimeVariableWatches);
                 menu.AddItem(new GUIContent("Refresh Runtime Variable List"), false, RefreshWatchableVariableList);
-                menu.AddItem(new GUIContent("Add Quest"), false, AddQuestWatch);
-                menu.AddItem(new GUIContent("Add All Quests"), false, AddAllQuestWatches);
                 menu.AddItem(new GUIContent("Reset"), false, ResetWatches);
                 menu.ShowAsContext();
             }
+        }
+
+        private void RefreshWatchableVariableList()
+        {
+            watchableVariableNames = null;
+            CatalogueWatchableVariableNames();
         }
 
         private void ResetWatches()
@@ -110,12 +102,12 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
 
         private void AddWatch()
         {
-            watches.Add(new Watch(WatchType.Expression));
+            watches.Add(new Watch(false, string.Empty, string.Empty));
         }
 
         private void AddRuntimeVariableWatch()
         {
-            watches.Add(new Watch(WatchType.Variable));
+            watches.Add(new Watch(true, string.Empty, string.Empty));
             watchableVariableNames = null;
         }
 
@@ -124,34 +116,16 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             CatalogueWatchableVariableNames();
             for (int i = 0; i < watchableVariableNames.Length; i++)
             {
-                if (!watches.Exists(x => x.type == WatchType.Variable && string.Equals(GetWatchedVariableName(x.variableIndex), watchableVariableNames[i])))
+                var existing = watches.Find(x => x.isVariable && x.variableIndex == i);
+                if (existing == null)
                 {
-                    var watch = new Watch(WatchType.Variable);
-                    watches.Add(watch);
+
+                    var watch = new Watch(true, string.Empty, string.Empty);
                     watch.variableIndex = i;
-                    watch.variable = FindVariableInDatabase(i);
-                    EvaluateVariableWatch(watch);
-                }
-            }
-        }
-
-        private void AddQuestWatch()
-        {
-            watches.Add(new Watch(WatchType.Quest));
-            watchableQuestNames = null;
-        }
-
-        private void AddAllQuestWatches()
-        {
-            CatalogueWatchableQuestNames();
-            for (int i = 0; i < watchableQuestNames.Length; i++)
-            {
-                if (!watches.Exists(x => x.type == WatchType.Quest && string.Equals(GetWatchedQuestName(x.questIndex), watchableQuestNames[i])))
-                {
-                    var watch = new Watch(WatchType.Quest);
+                    watch.expression = string.Format("Variable[\"{0}\"]", watchableVariableNames[i]);
+                    watch.variable = database.variables.Find(x => string.Equals(DialogueLua.StringToTableIndex(x.Name), watchableVariableNames[i]));
+                    watch.Evaluate();
                     watches.Add(watch);
-                    watch.questIndex = i;
-                    EvaluateQuestWatch(watch);
                 }
             }
         }
@@ -162,10 +136,20 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             foreach (var watch in watches)
             {
                 EditorGUILayout.BeginHorizontal();
-                DrawWatch(watch);
+                if (watch.isVariable)
+                {
+                    DrawWatchVariableNamePopupAndEditField(watch);
+                }
+                else
+                {
+                    watch.expression = EditorGUILayout.TextField(watch.expression);
+                    EditorGUI.BeginDisabledGroup(true);
+                    EditorGUILayout.TextField(watch.value);
+                    EditorGUI.EndDisabledGroup();
+                }
                 if (GUILayout.Button(new GUIContent("Update", "Re-evaluate now."), EditorStyles.miniButton, GUILayout.Width(56)))
                 {
-                    EvaluateWatch(watch);
+                    watch.Evaluate();
                 }
                 if (GUILayout.Button(new GUIContent(" ", "Delete this watch."), "OL Minus", GUILayout.Width(27), GUILayout.Height(16)))
                 {
@@ -174,215 +158,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                 EditorGUILayout.EndHorizontal();
             }
             if (watchToDelete != null) watches.Remove(watchToDelete);
-        }
-
-        private void DrawWatch(Watch watch)
-        {
-            if (watch == null) return;
-            switch (watch.type)
-            {
-                case WatchType.Expression:
-                    DrawExpressionWatch(watch);
-                    break;
-                case WatchType.Variable:
-                    DrawVariableWatch(watch);
-                    break;
-                case WatchType.Quest:
-                    DrawQuestWatch(watch);
-                    break;
-            }
-        }
-
-        private void EvaluateWatch(Watch watch)
-        {
-            if (watch == null) return;
-            switch (watch.type)
-            {
-                case WatchType.Expression:
-                    EvaluateExpressionWatch(watch);
-                    break;
-                case WatchType.Variable:
-                    EvaluateVariableWatch(watch);
-                    break;
-                case WatchType.Quest:
-                    EvaluateQuestWatch(watch);
-                    break;
-            }
-        }
-
-        private void EvaluateExpressionWatch(Watch watch)
-        {
-            if (watch == null) return;
-            watch.expressionValue = string.IsNullOrEmpty(watch.expression) ? string.Empty : Lua.Run("return " + watch.expression).AsString;
-        }
-
-        private void DrawExpressionWatch(Watch watch)
-        {
-            if (watch == null) return;
-            EditorGUI.BeginChangeCheck();
-            watch.expression = EditorGUILayout.TextField(watch.expression);
-            if (EditorGUI.EndChangeCheck()) watch.expressionValue = string.Empty;
-            EditorGUI.BeginDisabledGroup(true);
-            EditorGUILayout.TextField(watch.expressionValue);
-            EditorGUI.EndDisabledGroup();
-        }
-
-        private void EvaluateVariableWatch(Watch watch)
-        {
-            if (watch == null) return;
-            var variableName = GetWatchedVariableName(watch.variableIndex);
-            watch.variableValue = string.IsNullOrEmpty(variableName) ? Lua.NoResult : DialogueLua.GetVariable(variableName);
-        }
-
-        private void DrawVariableWatch(Watch watch)
-        {
-            if (watch == null) return;
-            CatalogueWatchableVariableNames();
-            var needToEvaluate = false;
-            EditorGUI.BeginChangeCheck();
-            watch.variableIndex = EditorGUILayout.Popup(watch.variableIndex, watchableVariableNames);
-            if (EditorGUI.EndChangeCheck())
-            {
-                watch.variable = FindVariableInDatabase(watch.variableIndex);
-                EvaluateVariableWatch(watch);
-            }
-            var variableName = GetWatchedVariableName(watch.variableIndex);
-            if (string.IsNullOrEmpty(variableName))
-            {
-                EditorGUI.BeginDisabledGroup(true);
-                EditorGUILayout.TextField(string.Empty);
-                EditorGUI.EndDisabledGroup();
-            }
-            else if (watch.variable != null && watch.variable.Type == FieldType.Actor)
-            {
-                EditorGUI.BeginChangeCheck();
-                var actorIndex = DrawAssetPopup<Actor>(watch.variableValue.AsString, database.actors, GUIContent.none);
-                if (EditorGUI.EndChangeCheck())
-                {
-                    DialogueLua.SetVariable(variableName, Tools.StringToInt(actorIndex));
-                    needToEvaluate = true;
-                }
-            }
-            else if (watch.variable != null && watch.variable.Type == FieldType.Location)
-            {
-                EditorGUI.BeginChangeCheck();
-                var locationIndex = DrawAssetPopup<Location>(watch.variableValue.AsString, database.locations, GUIContent.none);
-                if (EditorGUI.EndChangeCheck())
-                {
-                    DialogueLua.SetVariable(variableName, Tools.StringToInt(locationIndex));
-                    needToEvaluate = true;
-                }
-            }
-            else if (watch.variableValue.IsTable)
-            {
-                EditorGUI.BeginDisabledGroup(true);
-                EditorGUILayout.TextField("(table)");
-                EditorGUI.EndDisabledGroup();
-            }
-            else if (watch.variableValue.IsBool)
-            {
-                EditorGUI.BeginChangeCheck();
-                var booleanTypeValue = (BooleanType)EditorGUILayout.EnumPopup(watch.variableValue.AsBool ? BooleanType.True : BooleanType.False);
-                if (EditorGUI.EndChangeCheck())
-                {
-                    DialogueLua.SetVariable(variableName, booleanTypeValue == BooleanType.True);
-                    needToEvaluate = true;
-                }
-            }
-            else if (watch.variableValue.IsNumber)
-            {
-                EditorGUI.BeginChangeCheck();
-                var floatValue = EditorGUILayout.FloatField(watch.variableValue.AsFloat);
-                if (EditorGUI.EndChangeCheck())
-                {
-                    DialogueLua.SetVariable(variableName, floatValue);
-                    needToEvaluate = true;
-                }
-            }
-            else
-            {
-                EditorGUI.BeginChangeCheck();
-                var stringValue = EditorGUILayout.TextField(watch.variableValue.AsString);
-                if (EditorGUI.EndChangeCheck())
-                {
-                    DialogueLua.SetVariable(variableName, stringValue);
-                    needToEvaluate = true;
-                }
-            }
-            if (needToEvaluate) EvaluateVariableWatch(watch);
-        }
-
-        public string GetWatchedVariableName(int variableIndex)
-        {
-            return (watchableVariableNames != null && 0 <= variableIndex && variableIndex < watchableVariableNames.Length) ? watchableVariableNames[variableIndex] : null;
-        }
-
-        public Variable FindVariableInDatabase(int variableIndex)
-        {
-            return (database == null) ? null : database.variables.Find(x => string.Equals(DialogueLua.StringToTableIndex(x.Name), watchableVariableNames[variableIndex]));
-        }
-
-        private void EvaluateQuestWatch(Watch watch)
-        {
-            if (watch == null) return;
-            CatalogueWatchableQuestNames();
-            var questName = GetWatchedQuestName(watch.questIndex);
-            watch.questState = string.IsNullOrEmpty(questName) ? QuestState.Unassigned
-                : (watch.questEntryNumber == 0) ? QuestLog.GetQuestState(questName)
-                : QuestLog.GetQuestEntryState(questName, watch.questEntryNumber);
-        }
-
-        private void DrawQuestWatch(Watch watch)
-        {
-            if (watch == null) return;
-            CatalogueWatchableQuestNames();
-            EditorGUI.BeginChangeCheck();
-            watch.questIndex = EditorGUILayout.Popup(watch.questIndex, watchableQuestNames);
-            if (EditorGUI.EndChangeCheck())
-            {
-                watch.questEntryTexts = (0 <= watch.questIndex && watch.questIndex < watchableQuestNames.Length) ? GetQuestEntries(GetWatchedQuestName(watch.questIndex)) : null;
-                watch.questEntryNumber = 0;
-                EvaluateQuestWatch(watch);
-            }
-            if (watch.questEntryTexts != null)
-            {
-                EditorGUI.BeginChangeCheck();
-                watch.questEntryNumber = EditorGUILayout.Popup(watch.questEntryNumber, watch.questEntryTexts);
-                if (EditorGUI.EndChangeCheck())
-                {
-                    EvaluateQuestWatch(watch);
-                }
-            }
-            if (0 <= watch.questIndex && watch.questIndex < watchableQuestNames.Length)
-            {
-                EditorGUI.BeginChangeCheck();
-                watch.questState = (QuestState)EditorGUILayout.EnumPopup(watch.questState);
-                if (EditorGUI.EndChangeCheck())
-                {
-                    var questName = GetWatchedQuestName(watch.questIndex);
-                    if (watch.questEntryNumber == 0)
-                    {
-                        QuestLog.SetQuestState(questName, watch.questState);
-                    }
-                    else
-                    {
-                        QuestLog.SetQuestEntryState(questName, watch.questEntryNumber, watch.questState);
-                    }
-                    EvaluateQuestWatch(watch);
-                    DialogueManager.SendUpdateTracker();
-                }
-            }
-            else
-            {
-                EditorGUI.BeginDisabledGroup(true);
-                EditorGUILayout.TextField(string.Empty);
-                EditorGUI.EndDisabledGroup();
-            }
-        }
-
-        public string GetWatchedQuestName(int questIndex)
-        {
-            return (watchableQuestNames != null && 0 <= questIndex && questIndex < watchableVariableNames.Length) ? watchableQuestNames[questIndex] : null;
         }
 
         private void DrawGlobalWatchControls()
@@ -400,10 +175,80 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             EditorGUILayout.EndHorizontal();
         }
 
-        private void RefreshWatchableVariableList()
+        private void DrawWatchVariableNamePopupAndEditField(Watch watch)
         {
-            watchableVariableNames = null;
+            if (watch == null) return;
             CatalogueWatchableVariableNames();
+            int newIndex = EditorGUILayout.Popup(watch.variableIndex, watchableVariableNames);
+            if (newIndex != watch.variableIndex)
+            {
+                watch.variableIndex = newIndex;
+                if (0 <= watch.variableIndex && watch.variableIndex < watchableVariableNames.Length)
+                {
+                    var variableTableIndex = DialogueLua.StringToTableIndex(watchableVariableNames[watch.variableIndex]);
+                    watch.expression = string.Format("Variable[\"{0}\"]", variableTableIndex);
+                    watch.variable = database.variables.Find(x => string.Equals(DialogueLua.StringToTableIndex(x.Name), variableTableIndex));
+                }
+                else
+                {
+                    watch.expression = string.Empty;
+                    watch.variable = null;
+                }
+                watch.Evaluate();
+            }
+            if (watch.variable == null)
+            {
+                EditorGUI.BeginDisabledGroup(true);
+                EditorGUILayout.TextField(watch.value);
+                EditorGUI.EndDisabledGroup();
+            }
+            else
+            {
+                switch (watch.variable.Type)
+                {
+                    case FieldType.Actor:
+                        var newActor = DrawAssetPopup<Actor>(watch.value, database.actors, GUIContent.none);
+                        if (newActor != watch.value)
+                        {
+                            watch.value = newActor;
+                            Lua.Run(watch.expression + " = " + newActor);
+                        }
+                        break;
+                    case FieldType.Boolean:
+                        var newBoolValue = EditorGUILayout.EnumPopup(StringToBooleanType(watch.value)).ToString();
+                        if (newBoolValue != watch.value)
+                        {
+                            watch.value = newBoolValue;
+                            Lua.Run(watch.expression + " = " + newBoolValue.ToString());
+                        }
+                        break;
+                    case FieldType.Location:
+                        var newLocation = DrawAssetPopup<Location>(watch.value, database.locations, GUIContent.none);
+                        if (newLocation != watch.value)
+                        {
+                            watch.value = newLocation;
+                            Lua.Run(watch.expression + " = " + newLocation);
+                        }
+                        break;
+                    case FieldType.Number:
+                        var oldFloatValue = Tools.StringToFloat(watch.value);
+                        var newFloatValue = EditorGUILayout.FloatField(oldFloatValue);
+                        if (newFloatValue != oldFloatValue)
+                        {
+                            watch.value = newFloatValue.ToString();
+                            Lua.Run(watch.expression + " = " + newFloatValue);
+                        }
+                        break;
+                    default:
+                        var newValue = EditorGUILayout.TextField(watch.value);
+                        if (!string.Equals(newValue, watch.value))
+                        {
+                            watch.value = newValue;
+                            Lua.Run(watch.expression + " = \"" + newValue + "\"");
+                        }
+                        break;
+                }
+            }
         }
 
         private void CatalogueWatchableVariableNames()
@@ -425,35 +270,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             }
         }
 
-        private void RefreshWatchableQuestList()
-        {
-            watchableQuestNames = null;
-            CatalogueWatchableQuestNames();
-        }
-
-        private void CatalogueWatchableQuestNames()
-        {
-            if (database == null) return;
-            if (watchableQuestNames == null || watchableQuestNames.Length == 0)
-            {
-                List<string> questNames = new List<string>(QuestLog.GetAllQuests(QuestState.Abandoned | QuestState.Active | QuestState.Failure | QuestState.Success | QuestState.Unassigned));
-                questNames.Sort();
-                watchableQuestNames = questNames.ToArray();
-            }
-        }
-
-        private string[] GetQuestEntries(string questName)
-        {
-            var count = QuestLog.GetQuestEntryCount(questName);
-            var result = new string[count + 1];
-            result[0] = "(Main State)";
-            for (int i = 1; i <= count; i++)
-            {
-                result[i] = QuestLog.GetQuestEntry(questName, i);
-            }
-            return result;
-        }
-
         private void UpdateRuntimeWatchesTab()
         {
             if (autoUpdateWatches && EditorApplication.timeSinceStartup > nextWatchUpdateTime)
@@ -466,7 +282,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         {
             foreach (var watch in watches)
             {
-                EvaluateWatch(watch);
+                watch.Evaluate();
             }
             Repaint();
             ResetWatchTime();

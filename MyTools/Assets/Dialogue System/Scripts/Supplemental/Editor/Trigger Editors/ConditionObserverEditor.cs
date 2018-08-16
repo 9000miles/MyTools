@@ -11,7 +11,6 @@ namespace PixelCrushers.DialogueSystem
         private bool actionFoldout = true;
         private LuaScriptWizard luaScriptWizard = null;
         private QuestPicker questPicker = null;
-        private Rect sequenceRect;
 
         public void OnEnable()
         {
@@ -57,9 +56,6 @@ namespace PixelCrushers.DialogueSystem
                     luaScriptWizard.RefreshWizardResources();
                 }
                 trigger.luaCode = luaScriptWizard.Draw(new GUIContent("Lua Code", "The Lua code to run when the condition is true"), trigger.luaCode);
-
-                // Sequence:
-                trigger.sequence = SequenceEditorTools.DrawLayout(new GUIContent("Sequence"), trigger.sequence, ref sequenceRect);
 
                 // Quest:
                 if (EditorTools.selectedDatabase != questPicker.database)

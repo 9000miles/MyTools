@@ -33,11 +33,8 @@ namespace PixelCrushers.DialogueSystem
 
             // Lua code / wizard:
             serializedObject.ApplyModifiedProperties();
-            EditorGUI.BeginChangeCheck();
-            var newLuaCode = luaScriptWizard.Draw(new GUIContent("Lua Code", "The Lua code to run."), trigger.luaCode);
-            var changed = EditorGUI.EndChangeCheck();
+            trigger.luaCode = luaScriptWizard.Draw(new GUIContent("Lua Code", "The Lua code to run"), trigger.luaCode);
             serializedObject.Update();
-            if (changed) serializedObject.FindProperty("luaCode").stringValue = newLuaCode;
 
             EditorGUILayout.PropertyField(serializedObject.FindProperty("once"), true);
             EditorGUILayout.PropertyField(serializedObject.FindProperty("condition"), true);

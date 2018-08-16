@@ -15,9 +15,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         [SerializeField]
         private AssetFoldouts actorFoldouts = new AssetFoldouts();
 
-        [SerializeField]
-        private string actorFilter = string.Empty;
-
         private void ResetActorSection()
         {
             actorFoldouts = new AssetFoldouts();
@@ -28,10 +25,10 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         {
             if (database.syncInfo.syncActors)
             {
-                DrawAssetSection<Actor>("Actor", database.actors, actorFoldouts, DrawActorMenu, DrawActorSyncDatabase, ref actorFilter);
+                DrawAssetSection<Actor>("Actor", database.actors, actorFoldouts, DrawActorMenu, DrawActorSyncDatabase);
             }
             else {
-                DrawAssetSection<Actor>("Actor", database.actors, actorFoldouts, DrawActorMenu, ref actorFilter);
+                DrawAssetSection<Actor>("Actor", database.actors, actorFoldouts, DrawActorMenu);
             }
         }
 

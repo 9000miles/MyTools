@@ -22,11 +22,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
 
         private DialogueEntry nodeToDrag = null;
 
-        [SerializeField]
-        private float snapToGridAmount = 0;
-
-        private bool hasStartedSnapToGrid = false;
-
         private void SetConversationDropdownIndex(int index)
         {
             conversationIndex = index;
@@ -135,12 +130,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                 menu.AddItem(new GUIContent("Show/Show Node IDs"), showNodeIDs, ToggleShowNodeIDs);
                 menu.AddItem(new GUIContent("Show/Show Primary Actors in Lower Right"), showParticipantNames, ToggleShowParticipantNames);
                 menu.AddItem(new GUIContent("Show/Search Bar"), isSearchBarOpen, ToggleDialogueTreeSearchBar);
-                menu.AddItem(new GUIContent("Grid/No Snap"), snapToGridAmount < MinorGridLineWidth, SetSnapToGrid, 0f);
-                menu.AddItem(new GUIContent("Grid/12 pixels"), Mathf.Approximately(12f, snapToGridAmount), SetSnapToGrid, 12f);
-                menu.AddItem(new GUIContent("Grid/24 pixels"), Mathf.Approximately(24f, snapToGridAmount), SetSnapToGrid, 24f);
-                menu.AddItem(new GUIContent("Grid/36 pixels"), Mathf.Approximately(36f, snapToGridAmount), SetSnapToGrid, 36f);
-                menu.AddItem(new GUIContent("Grid/48 pixels"), Mathf.Approximately(48f, snapToGridAmount), SetSnapToGrid, 48f);
-                menu.AddItem(new GUIContent("Settings/Add New Nodes To Right"), addNewNodesToRight, ToggleAddNewNodesToRight);
                 menu.AddItem(new GUIContent("Outline Mode"), false, ActivateOutlineMode);
                 AddRelationsInspectorMenuItems(menu);
                 menu.ShowAsContext();
@@ -190,11 +179,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         {
             showNodeIDs = !showNodeIDs;
             dialogueEntryNodeText.Clear();
-        }
-
-        private void ToggleAddNewNodesToRight()
-        {
-            addNewNodesToRight = !addNewNodesToRight;
         }
 
         private void DrawNodeEditorConversationPopup()
@@ -255,11 +239,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             var startEntry = currentConversation.GetFirstDialogueEntry();
             if (startEntry == null) return;
             canvasScrollPosition = new Vector2(Mathf.Max(0, startEntry.canvasRect.x - ((position.width - startEntry.canvasRect.width) / 2)), Mathf.Max(0, startEntry.canvasRect.y - 8));
-        }
-
-        private void SetSnapToGrid(object data)
-        {
-            snapToGridAmount = (data == null || data.GetType() != typeof(float)) ? 0 : (float)data;
         }
 
     }

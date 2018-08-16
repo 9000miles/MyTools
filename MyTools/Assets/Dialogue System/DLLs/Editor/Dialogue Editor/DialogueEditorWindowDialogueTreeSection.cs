@@ -3,7 +3,6 @@ using UnityEditor;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using Common;
 
 namespace PixelCrushers.DialogueSystem.DialogueEditor
 {
@@ -16,7 +15,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         private readonly string[] priorityStrings = { "Low", "Below Normal", "Normal", "Above Normal", "High" };
         private const float DialogueEntryIndent = 16;
         private const int MaxNodeTextLength = 26;
-        private Rect sequenceRect;
 
         private class DialogueNode
         {
@@ -53,10 +51,8 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         private bool entryFieldsFoldout = false;
 
         private DialogueEntry _currentEntry = null;
-
         [SerializeField]
         private int currentEntryID = -1;
-
         private DialogueEntry currentEntry
         {
             get
@@ -562,7 +558,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                 DrawLocalizedVersions(entry.fields, "{0}", true, FieldType.Localization);
 
                 // Sequence (including localized if defined):
-                entry.DefaultSequence = SequenceEditorTools.DrawLayout(new GUIContent("Sequence", "Cutscene played when speaking this entry. If set, overrides Dialogue Manager's Default Sequence. Drag audio clips to add AudioWait() commands."), entry.DefaultSequence, ref sequenceRect);
+                entry.DefaultSequence = SequenceEditorTools.DrawLayout(new GUIContent("Sequence", "Cutscene played when speaking this entry. If set, overrides Dialogue Manager's Default Sequence"), entry.DefaultSequence);
                 //---Was:
                 //EditorGUILayout.LabelField(new GUIContent("Sequence", "Cutscene played when speaking this entry. If set, overrides Dialogue Manager's Default Sequence"));
                 //entry.DefaultSequence = EditorGUILayout.TextArea(entry.DefaultSequence);
@@ -1167,18 +1163,16 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
     internal class SelectListButtonPositionClass
     {
         private bool isSelectByName = true;
-        private bool entryFoldout;
-        private string path;
         private string UIPosName = "Select List Button Group";
         private UnityEngine.Object go = null;
-        private Transform selectTranform;
         private DialogueDatabase _database;
         private Conversation _conversation;
         private DialogueEntry _entry;
         private Vector3 UIPosition;
         private Quaternion UIRotation;
         private Vector3 UIScale;
-        private TxtHelper txtHelper;
+        private GameObject ScreenCanvas;
+        private GameObject WorldCanvas;
         private GameObject selectListButtonPosition;
         private static SelectListButtonPositionClass instance;
 
@@ -1195,25 +1189,17 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         public void SetData(DialogueDatabase database, Conversation conversation, DialogueEntry entry)
         {
             selectListButtonPosition = GameObject.Find(UIPosName);
+            ScreenCanvas = GameObject.Find("ScreenCanvas");
+            WorldCanvas = GameObject.Find("WorldCanvas");
             _database = database;
             _conversation = conversation;
             _entry = entry;
-            txtHelper = new TxtHelper(Application.dataPath + "/_DataFile", "Select List Button Positon.txt");
-            path = _database.name + ">" + _conversation.id + ">" + _entry.id + ">";
-            entryFoldout = true;
         }
 
         public void SaveSelectListButtonPosition()
         {
-            //entryFoldout = EditorGUILayout.Foldout(entryFoldout, "保存选择列表UI位置信息");
-            //if (entryFoldout)
-            //{
             EditorGUILayout.Space();
             UIPosName = EditorGUILayout.TextField("选择列表UI位置物体名字：", UIPosName);
-            //go = EditorGUILayout.ObjectField(go, typeof(Transform), true) as Transform;//Unity 未启动将对象拖入进去之后再启动，会出现丢失的情况，Unity 启动之后再拖入则没有问题
-            //selectTranform = go as Transform;
-
-            //isSelectByName = EditorGUILayout.ToggleLeft("是否根据名字选择物体", isSelectByName);
 
             EditorGUILayout.BeginHorizontal();
             if (GUILayout.Button("保存选择列表UI位置"))
@@ -1226,26 +1212,24 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             }
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.Space();
-            //}
         }
 
         private void DisplayPosition()
         {
-            string[] txtLine = txtHelper.Read().Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
-            bool isExist = Array.Exists(txtLine, (t) => t.StartsWith(path));
-            if (isExist)
+            string title = SelectCanvas() ? "WorldUI.Position" : "ScreenUI.Position";
+            Field uiData = _entry.fields.Find(t => t.title.Contains(title));
+            if (uiData != null)
             {
-                int index = Array.FindIndex(txtLine, (t) => t.StartsWith(path));
                 string posStr = "";
-                UIPosition = ConverVector3(txtLine[index], out posStr);
-                selectListButtonPosition.transform.position = UIPosition;
+                UIPosition = ConverVector3(uiData.value, out posStr);
+                selectListButtonPosition.transform.localPosition = UIPosition;
 
-                string rotationStr = txtLine[index].Replace(posStr, "");
+                string rotationStr = uiData.value.Replace(posStr, "");
                 string rotStr = "";
                 UIRotation = ConvetQuaternion(rotationStr, out rotStr);
                 selectListButtonPosition.transform.rotation = UIRotation;
 
-                string scaleStr = txtLine[index].Replace(posStr + rotStr, "");
+                string scaleStr = uiData.value.Replace(posStr + rotStr, "");
                 string scaStr = "";
                 UIScale = ConverVector3(scaleStr, out scaStr);
                 selectListButtonPosition.transform.localScale = UIScale;
@@ -1255,6 +1239,22 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             else
             {
                 Debug.LogError("该 Dialogue Entry 没有位置信息");
+            }
+        }
+
+        private bool SelectCanvas()
+        {
+            DialogueEntry startEntry = _database.GetDialogueEntry(_conversation.id, 0);
+            Field isWorldCanvas = startEntry.fields.Find((t) => t.title == "isWorldCanvas");
+            if (isWorldCanvas == null || isWorldCanvas.value == "True")
+            {
+                selectListButtonPosition.transform.SetParent(WorldCanvas.transform);
+                return true;
+            }
+            else
+            {
+                selectListButtonPosition.transform.SetParent(ScreenCanvas.transform);
+                return false;
             }
         }
 
@@ -1280,53 +1280,37 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
 
         private void SavePosition(bool isSelectByName, GameObject selectListButtonPosition)
         {
-            //根据名字查找物体保存位置
             if (isSelectByName == true)
             {
                 if (selectListButtonPosition == null)
                     Debug.LogError("请填写选择列表UI位置物体名字");
                 else
-                    SaveTxtData(txtHelper, selectListButtonPosition);
+                    SaveUIData(selectListButtonPosition);
             }
-            //根据物体保存位置
-            //else
-            //{
-            //    if (selectTranform == null)
-            //        Debug.LogError("请将一个物体拖放到选择框中");
-            //    else
-            //        SaveTxtData(txtHelper, selectTranform.gameObject);
-            //}
         }
 
-        private void SaveTxtData(TxtHelper txtHelper, GameObject selectListButtonPosition)
+        private void SaveUIData(GameObject selectListButtonPosition)
         {
-            Vector3 pos = selectListButtonPosition.transform.position;
+            Vector3 pos = selectListButtonPosition.transform.localPosition;
             Quaternion rotation = selectListButtonPosition.transform.rotation;
             Vector3 scale = selectListButtonPosition.transform.localScale;
 
-            string allTxt = txtHelper.Read();
-            string[] txtLine = allTxt.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
-            bool isExist = Array.Exists(txtLine, (t) => t.StartsWith(path));
             string positionStr = "(" + pos.x + ", " + pos.y + ", " + pos.z + ")";
             string rotationStr = "(" + rotation.x + ", " + rotation.y + ", " + rotation.z + ", " + rotation.w + ")";
             string scaleStr = "(" + scale.x + ", " + scale.y + ", " + scale.z + ")";
-
-            if (isExist)
+            string title = SelectCanvas() ? "WorldUI.Position" : "ScreenUI.Position";
+            Field uiData = _entry.fields.Find(t => t.title.Contains(title));
+            if (uiData != null)
             {
-                txtHelper.EmptyTxt();
-                int index = Array.FindIndex(txtLine, (t) => t.StartsWith(path));
-                txtLine[index] = path + positionStr;
-                txtLine[index] += rotationStr;
-                txtLine[index] += scaleStr;
-                foreach (var item in txtLine)
-                {
-                    if (!string.IsNullOrEmpty(item))
-                        txtHelper.Write(item);
-                }
+                uiData.value = positionStr + rotationStr + scaleStr;
             }
             else
             {
-                txtHelper.Write(path + positionStr + rotationStr + scaleStr);
+                uiData = new Field();
+                uiData.title = title;
+                uiData.value = positionStr + rotationStr + scaleStr;
+                uiData.type = FieldType.Text;
+                _entry.fields.Add(uiData);
             }
         }
     }

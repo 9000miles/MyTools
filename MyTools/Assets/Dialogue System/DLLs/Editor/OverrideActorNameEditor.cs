@@ -38,12 +38,7 @@ namespace PixelCrushers.DialogueSystem
             {
                 var overrideActorName = t as OverrideActorName;
                 if (overrideActorName == null) continue;
-                Undo.RecordObject(overrideActorName, "Unique ID");
                 overrideActorName.internalName = DialogueLua.StringToTableIndex(OverrideActorName.GetActorName(overrideActorName.transform) + "_" + overrideActorName.GetInstanceID());
-                EditorUtility.SetDirty(overrideActorName);
-#if !(UNITY_4_6 || UNITY_4_7 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2)
-                UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(overrideActorName.gameObject.scene);
-#endif
             }
             serializedObject.Update();
         }

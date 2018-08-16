@@ -18,7 +18,7 @@ namespace PixelCrushers.DialogueSystem {
 
 		public enum EqualityType { Is, IsNot }
 
-		public enum ComparisonType { Is, IsNot, Less, Greater, LessEqual, GreaterEqual, Between }
+		public enum ComparisonType { Is, IsNot, Less, Greater, LessEqual, GreaterEqual }
 
 		public enum LogicalOperatorType { All, Any }
 

@@ -38,15 +38,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             }
         }
 
-        private void ConfirmRemoveEmptyFields()
-        {
-            if (EditorUtility.DisplayDialog("Remove empty fields?", "This will remove fields whose titles are blank from the template and all assets. You cannot undo this action.", "Remove", "Cancel"))
-            {
-                RemoveEmptyFields();
-                Debug.Log(string.Format("{0}: Removed empty fields from the template and assets in the dialogue database.", DialogueDebug.Prefix));
-            }
-        }
-
         private void SyncAssetsAndTemplate()
         {
             NormalizeActors();
@@ -201,44 +192,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             {
                 ApplyTemplate(asset.fields, templateFields);
             }
-        }
-
-        private void RemoveEmptyFields()
-        {
-            RemoveEmptyFields(template.actorFields);
-            RemoveEmptyFields(template.itemFields);
-            RemoveEmptyFields(template.questFields);
-            RemoveEmptyFields(template.locationFields);
-            RemoveEmptyFields(template.variableFields);
-            RemoveEmptyFields(template.conversationFields);
-            RemoveEmptyFields(template.dialogueEntryFields);
-            RemoveEmptyFieldsFromAssets<Actor>(database.actors);
-            RemoveEmptyFieldsFromAssets<Item>(database.items);
-            RemoveEmptyFieldsFromAssets<Location>(database.locations);
-            RemoveEmptyFieldsFromAssets<Variable>(database.variables);
-            RemoveEmptyFieldsFromAssets<Conversation>(database.conversations);
-            foreach (var conversation in database.conversations)
-            {
-                foreach (var entry in conversation.dialogueEntries)
-                {
-                    RemoveEmptyFields(entry.fields);
-                }
-            }
-        }
-
-        private void RemoveEmptyFieldsFromAssets<T>(List<T> assets) where T : Asset
-        {
-            if (assets == null) return;
-            foreach (var asset in assets)
-            {
-                RemoveEmptyFields(asset.fields);
-            }
-        }
-
-        private void RemoveEmptyFields(List<Field> fields)
-        {
-            if (fields == null) return;
-            fields.RemoveAll(x => string.IsNullOrEmpty(x.title));
         }
 
     }
