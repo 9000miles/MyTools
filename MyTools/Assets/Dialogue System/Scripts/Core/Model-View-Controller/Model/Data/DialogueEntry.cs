@@ -1,22 +1,21 @@
 using UnityEngine;
 using System.Collections.Generic;
+using MarsPC;
 
 namespace PixelCrushers.DialogueSystem
 {
-
     /// <summary>
-    /// A dialogue entry is a single line of dialogue in a Conversation, with a list of links to 
+    /// A dialogue entry is a single line of dialogue in a Conversation, with a list of links to
     /// possible responses (see Link). The dialogue entries in a conversation form a dialogue tree,
     /// where earlier entries branch out using links to point to later entries. Technically, the
     /// conversation forms a directed graph, not a true tree, because links can also loop back to
-    /// earlier entries. 
-    /// 
+    /// earlier entries.
+    ///
     /// A dialogue entry has a speaker (the "actor") and a listener (the "conversant").
     /// </summary>
     [System.Serializable]
     public class DialogueEntry
     {
-
         /// <summary>
         /// The dialogue entry ID. Links reference dialogue entries by ID.
         /// </summary>
@@ -31,9 +30,10 @@ namespace PixelCrushers.DialogueSystem
         /// The ID of the conversation that this dialogue entry belongs to.
         /// </summary>
         public int conversationID = 0;
-
+        public EQTEResult eQTEResult;
+        public int timelineNameIndex;
         /// <summary>
-        /// <c>true</c> if this is the root (first) entry in a conversation; otherwise 
+        /// <c>true</c> if this is the root (first) entry in a conversation; otherwise
         /// <c>false</c>.
         /// </summary>
         public bool isRoot = false;
@@ -44,27 +44,27 @@ namespace PixelCrushers.DialogueSystem
         public bool isGroup = false;
 
         /// <summary>
-        /// Currently unused by the dialogue system, this is the nodeColor value defined in Chat 
+        /// Currently unused by the dialogue system, this is the nodeColor value defined in Chat
         /// Mapper.
         /// </summary>
         public string nodeColor = null;
 
         /// <summary>
-        /// Currently unused by the dialogue system, this is the delay value to use in Chat 
+        /// Currently unused by the dialogue system, this is the delay value to use in Chat
         /// Mapper's conversation simulator.
         /// </summary>
         public bool delaySimStatus = false;
 
         /// <summary>
-        /// Specifies how to proceed when encountering a link whose entry's condition is false. 
-        /// Valid values are "Block" and "Passthrough". If the value is "Block", no further links 
-        /// are considered. If the value is "Passthrough", the dialogue system ignores this link 
+        /// Specifies how to proceed when encountering a link whose entry's condition is false.
+        /// Valid values are "Block" and "Passthrough". If the value is "Block", no further links
+        /// are considered. If the value is "Passthrough", the dialogue system ignores this link
         /// and continues evaluating the next link.
         /// </summary>
         public string falseConditionAction = null;
 
         /// <summary>
-        /// The priority of the link. In a dialogue entry, links are evaluated in priority order 
+        /// The priority of the link. In a dialogue entry, links are evaluated in priority order
         /// from High to Low.
         /// </summary>
         public ConditionPriority conditionPriority = ConditionPriority.Normal;
@@ -75,7 +75,7 @@ namespace PixelCrushers.DialogueSystem
         public List<Link> outgoingLinks = new List<Link>();
 
         /// <summary>
-        /// A Lua conditional expression. When evaluating links, the dialogue system will only 
+        /// A Lua conditional expression. When evaluating links, the dialogue system will only
         /// present links whose conditions are true, empty, or <c>null</c>.
         /// </summary>
         public string conditionsString = null;
@@ -87,7 +87,7 @@ namespace PixelCrushers.DialogueSystem
         public string userScript = null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public UnityEngine.Events.UnityEvent onExecute = new UnityEngine.Events.UnityEvent();
 
@@ -137,9 +137,9 @@ namespace PixelCrushers.DialogueSystem
         }
 
         /// <summary>
-        /// Gets or sets the menu text, which is the text displayed when offering a list of player 
-        /// responses. Menu text can be used to present a shortened or paraphrased version of the 
-        /// full dialogue text. If menuText is null, the dialogue system uses dialogueText when 
+        /// Gets or sets the menu text, which is the text displayed when offering a list of player
+        /// responses. Menu text can be used to present a shortened or paraphrased version of the
+        /// full dialogue text. If menuText is null, the dialogue system uses dialogueText when
         /// offering player responses.
         /// </summary>
         /// <value>
@@ -190,7 +190,7 @@ namespace PixelCrushers.DialogueSystem
         }
 
         /// <summary>
-        /// Gets or sets the dialogue text, which is the subtitle text displayed when a line is 
+        /// Gets or sets the dialogue text, which is the subtitle text displayed when a line is
         /// spoken.
         /// </summary>
         /// <value>
@@ -265,12 +265,12 @@ namespace PixelCrushers.DialogueSystem
         }
 
         /// <summary>
-        /// Gets or sets the sequence string. This is a custom field, and is used to specify 
-        /// Sequencer commands to play as the line is spoken. These sequencer commands can 
+        /// Gets or sets the sequence string. This is a custom field, and is used to specify
+        /// Sequencer commands to play as the line is spoken. These sequencer commands can
         /// include animation, lip sync, audio, camera work, etc. (See @ref sequencer)
         /// </summary>
         /// <value>
-        /// The sequencer commands to play. 
+        /// The sequencer commands to play.
         /// </value>
         /// <remarks>
         /// Prior to version 1.0.6, the Dialogue System used the VideoFile field. Use the
@@ -308,8 +308,8 @@ namespace PixelCrushers.DialogueSystem
         }
 
         /// <summary>
-        /// Gets or sets the default, non-localized sequence ("Sequence"). Note that this is 
-        /// different from the DialogueManager display settings Default Sequence, which is 
+        /// Gets or sets the default, non-localized sequence ("Sequence"). Note that this is
+        /// different from the DialogueManager display settings Default Sequence, which is
         /// the sequence used whenever a dialogue entry doesn't have a sequence defined.
         /// </summary>
         /// <value>
@@ -365,12 +365,12 @@ namespace PixelCrushers.DialogueSystem
         }
 
         /// <summary>
-        /// Gets or sets the response menu sequence string. This is a custom field, and is used 
-        /// to specify Sequencer commands to play as the line is spoken. These sequencer commands 
+        /// Gets or sets the response menu sequence string. This is a custom field, and is used
+        /// to specify Sequencer commands to play as the line is spoken. These sequencer commands
         /// can include animation, lip sync, audio, camera work, etc. (See @ref sequencer)
         /// </summary>
         /// <value>
-        /// The sequencer commands to play. 
+        /// The sequencer commands to play.
         /// </value>
         public string ResponseMenuSequence
         {
@@ -379,7 +379,7 @@ namespace PixelCrushers.DialogueSystem
         }
 
         /// <summary>
-        /// Gets the current response menu sequence field: the localized field if using localization 
+        /// Gets the current response menu sequence field: the localized field if using localization
         /// and the localized field exists; otherwise the default field.
         /// </summary>
         /// <returns>
@@ -404,7 +404,7 @@ namespace PixelCrushers.DialogueSystem
         }
 
         /// <summary>
-        /// Gets or sets the default, non-localized response menu sequence ("Response Menu Sequence"). 
+        /// Gets or sets the default, non-localized response menu sequence ("Response Menu Sequence").
         /// </summary>
         /// <value>
         /// The default response menu sequence.
@@ -416,7 +416,7 @@ namespace PixelCrushers.DialogueSystem
         }
 
         /// <summary>
-        /// Gets or sets the localized response menu sequence (e.g., "Response Menu Sequence LN", 
+        /// Gets or sets the localized response menu sequence (e.g., "Response Menu Sequence LN",
         /// where LN is the current language).
         /// </summary>
         /// <value>
@@ -445,8 +445,8 @@ namespace PixelCrushers.DialogueSystem
         }
 
         /// <summary>
-        /// Gets or sets the audio files string. This field is defined in Chat Mapper but doesn't 
-        /// do anything in the Dialogue System. Instead, the Sequence field should contain 
+        /// Gets or sets the audio files string. This field is defined in Chat Mapper but doesn't
+        /// do anything in the Dialogue System. Instead, the Sequence field should contain
         /// Sequencer commands to do things like play audio.
         /// </summary>
         /// <value>
@@ -459,7 +459,7 @@ namespace PixelCrushers.DialogueSystem
         }
 
         /// <summary>
-        /// Gets or sets the animation files string. This field is defined in Chat Mapper, and 
+        /// Gets or sets the animation files string. This field is defined in Chat Mapper, and
         /// doesn't do anything in the dialogue system. Instead, the Sequence field should contain
         /// Sequencer commands to do things like play animations.
         /// </summary>
@@ -473,7 +473,7 @@ namespace PixelCrushers.DialogueSystem
         }
 
         /// <summary>
-        /// Gets or sets the lipsync files string. This field is defined in Chat Mapper, and 
+        /// Gets or sets the lipsync files string. This field is defined in Chat Mapper, and
         /// doesn't do anything in the Dialogue System. Instead, the videoFile field should contain
         /// Sequencer commands to do things like play lip sync animation and audio.
         /// </summary>
@@ -567,7 +567,5 @@ namespace PixelCrushers.DialogueSystem
             }
             return links;
         }
-
     }
-
 }

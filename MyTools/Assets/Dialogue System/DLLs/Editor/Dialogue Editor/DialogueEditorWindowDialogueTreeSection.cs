@@ -3,6 +3,7 @@ using UnityEditor;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using MarsPC;
 
 namespace PixelCrushers.DialogueSystem.DialogueEditor
 {
@@ -638,9 +639,51 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
 
             bool changed = EditorGUI.EndChangeCheck();
             if (changed) SetDatabaseDirty("Dialogue Entry Fields Changed");
+            SetTimelineByQTEResult(entry);
             SelectListButtonPositionClass.Instance.SetData(database, currentConversation, currentEntry);
             SelectListButtonPositionClass.Instance.SaveSelectListButtonPosition();
             return changed;
+        }
+
+        private void SetTimelineByQTEResult(DialogueEntry entry)
+        {
+            entry.eQTEResult = (EQTEResult)EditorGUILayout.EnumPopup("QTEResult", entry.eQTEResult);
+
+            //List<string> timelineList = new List<string>();
+            //timelineList.Add("None");
+            //GameObject timelineGO = GameObject.Find("Timeline");
+            //if (timelineGO != null)
+            //{
+            //    Transform[] timelineTFs = timelineGO.GetComponentsInChildren<Transform>();
+            //    foreach (var item in timelineTFs)
+            //    {
+            //        if (item.name != timelineGO.name)
+            //        {
+            //            timelineList.Add(item.name);
+            //        }
+            //    }
+
+            //    entry.timelineNameIndex = EditorGUILayout.Popup("Timeline", entry.timelineNameIndex, timelineList.ToArray());
+            //    //if (entry.timelineNameIndex != 0)
+            //    //{
+            //    //    string[] sequenceStrs = entry.Sequence.Split(';');
+            //    //    int index = Array.FindIndex(sequenceStrs, t => t.Contains(timelineList[entry.timelineNameIndex]));
+            //    //    if (index >= 0)
+            //    //    {
+            //    //        sequenceStrs[index] = "Timeline(play," + timelineList[entry.timelineNameIndex] + ");";
+            //    //        string sequenceStr = "";
+            //    //        foreach (var item in sequenceStrs)
+            //    //        {
+            //    //            sequenceStr += item;
+            //    //        }
+            //    //        entry.Sequence = sequenceStr;
+            //    //    }
+            //    //    else
+            //    //    {
+            //    //        entry.Sequence += "Timeline(play," + timelineList[entry.timelineNameIndex] + ");";
+            //    //    }
+            //    //}
+            //}
         }
 
         private static List<string> dialogueEntryBuiltInFieldTitles = new List<string>(new string[] { "Title", "Description", "Actor", "Conversant", "Dialogue Text" });

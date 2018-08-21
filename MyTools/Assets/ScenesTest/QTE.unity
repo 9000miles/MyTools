@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -715,8 +715,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 202886369}
-  - component: {fileID: 202886368}
   - component: {fileID: 202886367}
+  - component: {fileID: 202886368}
   m_Layer: 0
   m_Name: Dialogue Manager
   m_TagString: Untagged
@@ -740,16 +740,15 @@ MonoBehaviour:
 --- !u!114 &202886368
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114946632732036524, guid: f67e510afa54a0a45b5de9514dc407a2,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 202886366}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1229025713, guid: b5a7519e94754fb4a8ea0c272031db78, type: 3}
+  m_Script: {fileID: 11500000, guid: 002f6d6ac2dbbe44994b3cebba65bc22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialDatabase: {fileID: 11400000, guid: 571c58132d54f07469961279f5ccb69d, type: 2}
+  initialDatabase: {fileID: 11400000, guid: e5c6010f5f3e39d42a05eade0e328b88, type: 2}
   displaySettings:
     conversationOverrideSettings:
       useOverrides: 0
@@ -782,7 +781,7 @@ MonoBehaviour:
       subtitleCharsPerSecond: 30
       minSubtitleSeconds: 2
       continueButton: 0
-      richTextEmphases: 1
+      richTextEmphases: 0
       informSequenceStartAndEnd: 0
     cameraSettings:
       sequencerCamera: {fileID: 0}
@@ -829,14 +828,12 @@ MonoBehaviour:
     saveDialogueEntrySimStatusWithField: 
     asyncGameObjectBatchSize: 1000
     asyncDialogueEntryBatchSize: 100
-    initializeNewVariables: 1
   allowSimultaneousConversations: 0
   includeSimStatus: 0
-  preloadResources: 1
+  preloadResources: 0
   instantiateDatabase: 0
   dontDestroyOnLoad: 1
   allowOnlyOneInstance: 1
-  dialogueTimeMode: 0
   debugLevel: 2
 --- !u!4 &202886369
 Transform:
