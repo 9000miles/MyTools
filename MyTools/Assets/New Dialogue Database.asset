@@ -215,7 +215,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: EQTEResult
-        value: 1
+        value: -1
         type: 6
         typeString: CustomFieldType_Item
       conversationID: 1
@@ -294,11 +294,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: EQTEResult
-        value: 2
-        type: 6
-        typeString: CustomFieldType_Item
-      - title: jooiiiifeeeeeeeeeee
-        value: 1
+        value: -1
         type: 6
         typeString: CustomFieldType_Item
       conversationID: 1
