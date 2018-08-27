@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using MarsPC;
+using Common;
 
 namespace PixelCrushers.DialogueSystem.DialogueEditor
 {
@@ -642,6 +643,19 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             SetTimelineByQTEResult(entry);
             SelectListButtonPositionClass.Instance.SetData(database, currentConversation, currentEntry);
             SelectListButtonPositionClass.Instance.SaveSelectListButtonPosition();
+
+            if (GUILayout.Button("Item"))
+            {
+                List<Link> links = currentEntry.outgoingLinks;
+                DialogueEntry[] entries = links.ToArray().Select(t => database.GetDialogueEntry(t));
+                EQTEResult result = EQTEResult.Failure;
+                for (int i = 0; i < entries.Length; i++)
+                {
+                    Field qteResultField = entries[i].fields.Find(t => t.title == "EQTEResult" && t.type == FieldType.Item && t.value == ((int)result).ToString());
+                    Debug.Log(qteResultField.value);
+                }
+            }
+
             return changed;
         }
 

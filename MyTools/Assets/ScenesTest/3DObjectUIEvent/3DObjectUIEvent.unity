@@ -257,6 +257,8 @@ GameObject:
   - component: {fileID: 377103506}
   - component: {fileID: 377103505}
   - component: {fileID: 377103504}
+  - component: {fileID: 377103509}
+  - component: {fileID: 377103508}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -332,6 +334,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &377103508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 377103503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7daaa5fad05ab4469180d9812bcaf8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  qteText: {fileID: 0}
+  panel: {fileID: 0}
+  keyCode: 0
+--- !u!95 &377103509
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 377103503}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cd0fa50832c64a54d858827572c99dcf, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &741674647
 GameObject:
   m_ObjectHideFlags: 0
@@ -598,6 +632,8 @@ GameObject:
   - component: {fileID: 1744186275}
   - component: {fileID: 1744186274}
   - component: {fileID: 1744186273}
+  - component: {fileID: 1744186279}
+  - component: {fileID: 1744186278}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -683,6 +719,40 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1744186278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1744186272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 898bc8d3a77f74e0b8cd466413a4b20d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateSpeed: 7
+  blendSpeed: 10
+  maxAngle: 90
+  moveSpeed: 1.5
+  rootMotionWeight: 0
+--- !u!95 &1744186279
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1744186272}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a3b2662b56ec9481e9e0327a30d7c02d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1970189433
 GameObject:
   m_ObjectHideFlags: 0
