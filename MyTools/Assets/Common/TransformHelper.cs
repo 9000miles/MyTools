@@ -291,14 +291,14 @@ namespace Common
         }
 
         /// <summary>
-        /// 提取2点之间指定个数的点，平均分布
+        /// 等距排列
         /// </summary>
         /// <param name="from"></param>
         /// <param name="to"></param>
         /// <param name="pointObject"></param>
         /// <param name="pointCount">包含起点终点的点数</param>
         /// <returns></returns>
-        public static Vector3[] MiddlePointAverageDistribution(Vector3 from, Vector3 to, int pointCount)
+        public static Vector3[] IsometricArranged(Vector3 from, Vector3 to, int pointCount)
         {
             float spacingRatio = 0;
             List<Vector3> list = new List<Vector3>();
@@ -315,14 +315,13 @@ namespace Common
         }
 
         /// <summary>
-        /// 提取2点之间指定个数的点，平均分布
+        /// 定距排列，适用于直线段和折线段
         /// </summary>
         /// <param name="from"></param>
         /// <param name="to"></param>
-        /// <param name="pointObject"></param>
-        /// <param name="pointCount">包含起点终点的点数</param>
+        /// <param name="distance"></param>
         /// <returns></returns>
-        public static Vector3[] MiddlePointAverageDistribution(Vector3[] points, int pointCount)
+        public static Vector3[] IsometricArranged(Vector3[] points, int pointCount)
         {
             List<Vector3> list = new List<Vector3>();
             if (pointCount > 0 && points.Length >= 2)
@@ -341,7 +340,7 @@ namespace Common
                         newPoints[i] = newPoint;
                     }
                 }
-                list.AddRange(MiddlePointAverageDistribution(newPoints[0], newPoints[newPoints.Length - 1], pointCount));
+                list.AddRange(IsometricArranged(newPoints[0], newPoints[newPoints.Length - 1], pointCount));
             }
             return list.ToArray();
         }
