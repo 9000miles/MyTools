@@ -652,7 +652,8 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                 for (int i = 0; i < entries.Length; i++)
                 {
                     Field qteResultField = entries[i].fields.Find(t => t.title == "EQTEResult" && t.type == FieldType.Item && t.value == ((int)result).ToString());
-                    Debug.Log(qteResultField.value);
+                    if (qteResultField != null)
+                        Debug.Log(qteResultField.value);
                 }
             }
 
