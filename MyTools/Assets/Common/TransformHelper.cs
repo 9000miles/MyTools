@@ -291,7 +291,94 @@ namespace Common
         }
 
         /// <summary>
-        /// 等距排列
+        /// 判断一个点是否在线段内
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public static bool WhetherPointIsOnTheLineSegment(Vector3 start, Vector3 end, Vector3 point)
+        {
+            bool isInside =
+                (point.x >= start.x && point.x <= end.x && point.y >= start.y && point.y <= end.y && point.z >= start.z && point.z <= end.z) ||
+                (point.x >= end.x && point.x <= start.x && point.y >= end.y && point.y <= start.y && point.z >= end.z && point.z <= start.z) ||
+
+                (point.x >= start.x && point.x <= end.x && point.y >= end.y && point.y <= start.y && point.z >= end.z && point.z <= start.z) ||
+                (point.x >= end.x && point.x <= start.x && point.y >= start.y && point.y <= end.y && point.z >= start.z && point.z <= end.z);
+            return isInside;
+        }
+
+        /// <summary>
+        /// 判断一个点是否在线段内
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public static bool WhetherPointIsOnTheLineSegment(Vector2 start, Vector2 end, Vector2 point)
+        {
+            bool isInside =
+                (point.x >= start.x && point.x <= end.x && point.y >= start.y && point.y <= end.y) ||
+                (point.x >= end.x && point.x <= start.x && point.y >= end.y && point.y <= start.y) ||
+
+                (point.x >= start.x && point.x <= end.x && point.y >= end.y && point.y <= start.y) ||
+                (point.x >= end.x && point.x <= start.x && point.y >= start.y && point.y <= end.y);
+            return isInside;
+        }
+
+        /// <summary>
+        /// 判断一个点是否同时在2条线段内
+        /// </summary>
+        /// <param name="L1Start"></param>
+        /// <param name="L1End"></param>
+        /// <param name="L2Start"></param>
+        /// <param name="L2End"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public static bool WhetherPointIsOnTheLineSegment(Vector2 L1Start, Vector2 L1End, Vector2 L2Start, Vector2 L2End, Vector2 point)
+        {
+            bool isInsideL1 = WhetherPointIsOnTheLineSegment(L1Start, L1End, point);
+            bool isInsideL2 = WhetherPointIsOnTheLineSegment(L2Start, L2End, point);
+
+            #region 有误差存在
+
+            //bool isInsideL1 = Vector2.Distance(point, L1Start) + Vector2.Distance(point, L1End) - Vector2.Distance(L1Start, L1End) < 0.01f;
+            //bool isInsideL2 = Vector2.Distance(point, L2Start) + Vector2.Distance(point, L2End) - Vector2.Distance(L2Start, L2End) < 0.01f;
+
+            //bool isInsideL1 = Vector2.SqrMagnitude(point - L1Start) + Vector2.SqrMagnitude(point - L1End) == Vector2.SqrMagnitude(L1Start - L1End);
+            //bool isInsideL2 = Vector2.SqrMagnitude(point - L2Start) + Vector2.SqrMagnitude(point - L2End) == Vector2.SqrMagnitude(L2Start - L2End);
+
+            #endregion 有误差存在
+
+            return isInsideL1 && isInsideL2;
+        }
+
+        /// <summary>
+        /// 计算交点坐标
+        /// </summary>
+        /// <param name="line1Start"></param>
+        /// <param name="line1End"></param>
+        /// <param name="line2Start"></param>
+        /// <param name="line2End"></param>
+        /// <returns></returns>
+        public static Vector2 CalculateIntersectionCoordinates(Vector2 line1Start, Vector2 line1End, Vector2 line2Start, Vector2 line2End)
+        {
+            Vector2 result = new Vector2();
+            float left, right;
+            left = (line1End.y - line1Start.y) * (line2End.x - line2Start.x) - (line2End.y - line2Start.y) * (line1End.x - line1Start.x);
+            right = (line2Start.y - line1Start.y) * (line1End.x - line1Start.x) * (line2End.x - line2Start.x) +
+                (line1End.y - line1Start.y) * (line2End.x - line2Start.x) * line1Start.x - (line2End.y - line2Start.y) * (line1End.x - line1Start.x) * line2Start.x;
+            result.x = (int)(right / left);
+
+            left = (line1End.x - line1Start.x) * (line2End.y - line2Start.y) - (line2End.x - line2Start.x) * (line1End.y - line1Start.y);
+            right = (line2Start.x - line1Start.x) * (line1End.y - line1Start.y) * (line2End.y - line2Start.y) +
+                line1Start.y * (line1End.x - line1Start.x) * (line2End.y - line2Start.y) - line2Start.y * (line2End.x - line2Start.x) * (line1End.y - line1Start.y);
+            result.y = (int)(right / left);
+            return result;
+        }
+
+        /// <summary>
+        /// 等距平分排列
         /// </summary>
         /// <param name="from"></param>
         /// <param name="to"></param>
@@ -315,7 +402,7 @@ namespace Common
         }
 
         /// <summary>
-        /// 定距排列，适用于直线段和折线段
+        /// 等距平分排列，适用于直线段和折线段
         /// </summary>
         /// <param name="from"></param>
         /// <param name="to"></param>
@@ -323,9 +410,11 @@ namespace Common
         /// <returns></returns>
         public static Vector3[] IsometricArranged(Vector3[] points, int pointCount)
         {
-            List<Vector3> list = new List<Vector3>();
+            //List<Vector3> linePointList = new List<Vector3>();//直线段定距平分后的集合
+            List<Vector3> resultList = new List<Vector3>();//最后结果点集合
             if (pointCount > 0 && points.Length >= 2)
             {
+                //线段拉直后所有点的位置
                 Vector3[] newPoints = new Vector3[points.Length];
                 if (points.Length >= 3)
                 {
@@ -340,9 +429,27 @@ namespace Common
                         newPoints[i] = newPoint;
                     }
                 }
-                list.AddRange(IsometricArranged(newPoints[0], newPoints[newPoints.Length - 1], pointCount));
+                //计算整条直线的定距平分点
+                Vector3[] linePoints = IsometricArranged(newPoints[0], newPoints[newPoints.Length - 1], pointCount);//直线段定距平分后的点
+                //linePointList.AddRange(IsometricArranged(newPoints[0], newPoints[newPoints.Length - 1], pointCount));
+
+                //复原到折线段上
+                for (int i = 0; i < linePoints.Length; i++)
+                {
+                    for (int j = 0; j < newPoints.Length - 1; j++)
+                    {
+                        bool isIn = WhetherPointIsOnTheLineSegment(newPoints[j], newPoints[j + 1], linePoints[i]);
+                        if (isIn == true)
+                        {
+                            float dis = Vector3.Distance(linePoints[i], newPoints[j]);
+                            Vector3 resultPoint = points[j] + (points[j + 1] - points[j]).normalized * dis;
+                            resultList.Add(resultPoint);
+                            break;
+                        }
+                    }
+                }
             }
-            return list.ToArray();
+            return resultList.ToArray();
         }
 
         /// <summary>
@@ -354,7 +461,15 @@ namespace Common
         /// <returns></returns>
         public static Vector3[] DistanceArranged(Vector3 from, Vector3 to, float distance)
         {
-            return null;
+            //线段拉直后所有点的位置
+            float totalLength = Vector3.Distance(from, to);
+            Vector3[] newPoints = new Vector3[(int)(totalLength / distance) + 1];
+            Vector3 dir = (to - from).normalized;
+            for (int i = 0; i < newPoints.Length; i++)
+            {
+                newPoints[i] = from + dir * distance * i;
+            }
+            return newPoints;
         }
 
         /// <summary>
@@ -365,7 +480,41 @@ namespace Common
         /// <returns></returns>
         public static Vector3[] DistanceArranged(Vector3[] points, float distance)
         {
-            return null;
+            //线段拉直后所有点的位置
+            List<Vector3> resultList = new List<Vector3>();//最后结果点集合
+            Vector3[] newPoints = new Vector3[points.Length];
+            if (points.Length >= 3)
+            {
+                Vector3 dir = (points[1] - points[0]).normalized;
+                Debug.DrawLine(points[1], points[0]);
+                newPoints[0] = points[0];
+                newPoints[1] = points[1];
+                for (int i = 2; i < points.Length; i++)
+                {
+                    float dis = Vector3.Distance(points[i - 1], points[i]);
+                    Vector3 newPoint = newPoints[i - 1] + dir * dis;
+                    newPoints[i] = newPoint;
+                }
+            }
+
+            Vector3[] linePoints = DistanceArranged(newPoints[0], newPoints[newPoints.Length - 1], distance);
+
+            //复原到折线段上
+            for (int i = 0; i < linePoints.Length; i++)
+            {
+                for (int j = 0; j < newPoints.Length - 1; j++)
+                {
+                    bool isIn = WhetherPointIsOnTheLineSegment(newPoints[j], newPoints[j + 1], linePoints[i]);
+                    if (isIn == true)
+                    {
+                        float dis = Vector3.Distance(linePoints[i], newPoints[j]);
+                        Vector3 resultPoint = points[j] + (points[j + 1] - points[j]).normalized * dis;
+                        resultList.Add(resultPoint);
+                        break;
+                    }
+                }
+            }
+            return resultList.ToArray();
         }
     }
 }
