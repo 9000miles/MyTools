@@ -315,6 +315,21 @@ namespace Common
         /// <param name="end"></param>
         /// <param name="point"></param>
         /// <returns></returns>
+        public static bool IsPointInLineSegment(Vector3 start, Vector3 end, Vector3 point)
+        {
+            float startDot = Vector3.Dot(end - start, point - start);
+            float endDot = Vector3.Dot(start - end, point - end);
+            float angle = Vector3.Angle(end - start, point - start);
+            return startDot >= 0 && endDot >= 0 && angle == 0;
+        }
+
+        /// <summary>
+        /// 判断一个点是否在线段内
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
         public static bool WhetherPointIsOnTheLineSegment(Vector2 start, Vector2 end, Vector2 point)
         {
             bool isInside =
@@ -368,12 +383,32 @@ namespace Common
             left = (line1End.y - line1Start.y) * (line2End.x - line2Start.x) - (line2End.y - line2Start.y) * (line1End.x - line1Start.x);
             right = (line2Start.y - line1Start.y) * (line1End.x - line1Start.x) * (line2End.x - line2Start.x) +
                 (line1End.y - line1Start.y) * (line2End.x - line2Start.x) * line1Start.x - (line2End.y - line2Start.y) * (line1End.x - line1Start.x) * line2Start.x;
-            result.x = (int)(right / left);
+            result.x = right / left;
 
             left = (line1End.x - line1Start.x) * (line2End.y - line2Start.y) - (line2End.x - line2Start.x) * (line1End.y - line1Start.y);
             right = (line2Start.x - line1Start.x) * (line1End.y - line1Start.y) * (line2End.y - line2Start.y) +
                 line1Start.y * (line1End.x - line1Start.x) * (line2End.y - line2Start.y) - line2Start.y * (line2End.x - line2Start.x) * (line1End.y - line1Start.y);
-            result.y = (int)(right / left);
+            result.y = right / left;
+            return result;
+        }
+
+        /// <summary>
+        /// 计算交点坐标
+        /// </summary>
+        /// <param name="line1Start"></param>
+        /// <param name="line1End"></param>
+        /// <param name="line2Start"></param>
+        /// <param name="line2End"></param>
+        /// <returns></returns>
+        public static Vector2 CalculateIntersectionCoordinates(Vector3 line1Start, Vector3 line1End, Vector3 line2Start, Vector3 line2End)
+        {
+            Vector3 result = new Vector3();
+            //Vector2 right = CalculateIntersectionCoordinates();
+            //Vector2 front = CalculateIntersectionCoordinates();
+            //Vector2 up = CalculateIntersectionCoordinates();
+            //result.x = up.x;
+            //result.y = right.y;
+            //result.z = front.x;
             return result;
         }
 

@@ -1,9 +1,18 @@
-﻿using System.Collections;
+﻿using Common;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ListTest : MonoBehaviour
 {
+    public bool isIn;
+    public float dot;
+    public Transform tfA;
+    public Transform tfB;
+    public Transform tfC;
+    public Transform tfD;
+    public Transform tfP;
+
     public void Start()
     {
         //List<int> list = new List<int>(5);
@@ -13,9 +22,17 @@ public class ListTest : MonoBehaviour
         //}
         //Person[] people = new Person[] { new Person(), new Person(), new Person() };
 
-        Person person = new Person();
-        person[2] = "jof";
-        person["ofo"] = "oojowej";
+        //Person person = new Person();
+        //person[2] = "jof";
+        //person["ofo"] = "oojowej";
+    }
+
+    private void Update()
+    {
+        isIn = TransformHelper.IsPointInLineSegment(tfA.position, tfB.position, tfP.position);
+        Vector2 l1s = tfA.position;
+        Vector2 point = TransformHelper.CalculateIntersectionCoordinates(tfA.position, tfB.position, tfC.position, tfD.position);
+        tfP.position = point;
     }
 }
 

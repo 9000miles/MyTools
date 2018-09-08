@@ -215,7 +215,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: EQTEResult
-        value: -1
+        value: 2
         type: 6
         typeString: CustomFieldType_Item
       conversationID: 1
@@ -243,7 +243,7 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       canvasRect:
         serializedVersion: 2
-        x: 30
+        x: 29
         y: 20
         width: 160
         height: 30
@@ -294,7 +294,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: EQTEResult
-        value: -1
+        value: 2
         type: 6
         typeString: CustomFieldType_Item
       conversationID: 1
@@ -323,7 +323,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 164
-        y: 72
+        y: 70
         width: 160
         height: 30
     - id: 2
