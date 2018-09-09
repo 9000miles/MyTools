@@ -315,12 +315,12 @@ namespace Common
         /// <param name="end"></param>
         /// <param name="point"></param>
         /// <returns></returns>
-        public static bool IsPointInLineSegment(Vector3 start, Vector3 end, Vector3 point)
+        public static bool IsPointInLineSegment(this Vector3 point, Vector3 start, Vector3 end)
         {
             float startDot = Vector3.Dot(end - start, point - start);
             float endDot = Vector3.Dot(start - end, point - end);
-            float angle = Vector3.Angle(end - start, point - start);
-            return startDot >= 0 && endDot >= 0 && angle == 0;
+            float mag = Vector3.Cross(end - start, point - start).magnitude;
+            return startDot >= 0 && endDot >= 0 && mag == 0;
         }
 
         /// <summary>
@@ -383,12 +383,14 @@ namespace Common
             left = (line1End.y - line1Start.y) * (line2End.x - line2Start.x) - (line2End.y - line2Start.y) * (line1End.x - line1Start.x);
             right = (line2Start.y - line1Start.y) * (line1End.x - line1Start.x) * (line2End.x - line2Start.x) +
                 (line1End.y - line1Start.y) * (line2End.x - line2Start.x) * line1Start.x - (line2End.y - line2Start.y) * (line1End.x - line1Start.x) * line2Start.x;
-            result.x = right / left;
+            float x = right / left;
+            result.x = Single.IsNaN(x) ? line1Start.x : x;
 
             left = (line1End.x - line1Start.x) * (line2End.y - line2Start.y) - (line2End.x - line2Start.x) * (line1End.y - line1Start.y);
             right = (line2Start.x - line1Start.x) * (line1End.y - line1Start.y) * (line2End.y - line2Start.y) +
                 line1Start.y * (line1End.x - line1Start.x) * (line2End.y - line2Start.y) - line2Start.y * (line2End.x - line2Start.x) * (line1End.y - line1Start.y);
-            result.y = right / left;
+            float y = right / left;
+            result.y = Single.IsNaN(y) ? line1Start.y : y;
             return result;
         }
 
@@ -400,16 +402,63 @@ namespace Common
         /// <param name="line2Start"></param>
         /// <param name="line2End"></param>
         /// <returns></returns>
-        public static Vector2 CalculateIntersectionCoordinates(Vector3 line1Start, Vector3 line1End, Vector3 line2Start, Vector3 line2End)
+        public static bool CalculateIntersectionCoordinates(Vector3 line1Start, Vector3 line1End, Vector3 line2Start, Vector3 line2End, out Vector3 crossPoint)
         {
             Vector3 result = new Vector3();
-            //Vector2 right = CalculateIntersectionCoordinates();
-            //Vector2 front = CalculateIntersectionCoordinates();
-            //Vector2 up = CalculateIntersectionCoordinates();
-            //result.x = up.x;
-            //result.y = right.y;
-            //result.z = front.x;
-            return result;
+            if (line1Start.x == line1End.x && line2Start.x == line2End.x)
+            {
+                Vector2 l1S = new Vector2(line1Start.y, line1Start.z);
+                Vector2 l1E = new Vector2(line1End.y, line1End.z);
+                Vector2 l2S = new Vector2(line2Start.y, line2Start.z);
+                Vector2 l2E = new Vector2(line2End.y, line2End.z);
+                Vector2 pos = CalculateIntersectionCoordinates(l1S, l1E, l2S, l2E);
+                result = new Vector3(line1Start.x, pos.x, pos.y);
+                crossPoint = result;
+                return true;
+            }
+            else if (line1Start.y == line1End.y && line2Start.y == line2End.y)
+            {
+                Vector2 l1S = new Vector2(line1Start.x, line1Start.z);
+                Vector2 l1E = new Vector2(line1End.x, line1End.z);
+                Vector2 l2S = new Vector2(line2Start.x, line2Start.z);
+                Vector2 l2E = new Vector2(line2End.x, line2End.z);
+                Vector2 pos = CalculateIntersectionCoordinates(l1S, l1E, l2S, l2E);
+                result = new Vector3(pos.x, line1Start.y, pos.y);
+                crossPoint = result;
+                return true;
+            }
+            else if (line1Start.z == line1End.z && line2Start.z == line2End.z)
+            {
+                Vector2 l1S = new Vector2(line1Start.x, line1Start.y);
+                Vector2 l1E = new Vector2(line1End.x, line1End.y);
+                Vector2 l2S = new Vector2(line2Start.x, line2Start.y);
+                Vector2 l2E = new Vector2(line2End.x, line2End.y);
+                Vector2 pos = CalculateIntersectionCoordinates(l1S, l1E, l2S, l2E);
+                result = new Vector3(pos.x, pos.y, line1Start.z);
+                crossPoint = result;
+                return true;
+            }
+            else
+            {
+                //在某些情况下可能会为NaN
+                float x = ((line2Start.y - line1Start.y) * (line1End.x - line1Start.x) * (line2End.x - line2Start.x) + line1Start.x * (line1End.y - line1Start.y) * (line2End.x - line2Start.x) - line2Start.x * (line1End.x - line1Start.x) * (line2End.y - line2Start.y)) /
+                              ((line1End.y - line1Start.y) * (line2End.x - line2Start.x) - (line1End.x - line1Start.x) * (line2End.y - line2Start.y));
+                //在某些情况下可能会为NaN
+                float y = ((line1End.y - line1Start.y) * (line2End.y - line2Start.y) * (line1Start.x - line2Start.x) + line2Start.y * (line2End.x - line2Start.x) * (line1End.y - line1Start.y) - line1Start.y * (line1End.x - line1Start.x) * (line2End.y - line2Start.y)) /
+                              ((line2End.x - line2Start.x) * (line1End.y - line1Start.y) - (line1End.x - line1Start.x) * (line2End.y - line2Start.y));
+                float z = ((line2Start.x - line1Start.x) * (line1End.z - line1Start.z) * (line2End.z - line2Start.z) + line1Start.z * (line1End.x - line1Start.x) * (line2End.z - line2Start.z) - line2Start.z * (line2End.x - line2Start.x) * (line1End.z - line1Start.z)) /
+                              ((line2End.x - line2Start.x) * (line1End.z - line1Start.z) - (line1End.x - line1Start.x) * (line2End.z - line2Start.z));
+                result.x = Single.IsNaN(x) ? line1Start.x : x;
+                result.y = Single.IsNaN(y) ? line1Start.y : y;
+                result.z = Single.IsNaN(z) ? line1Start.z : -z;
+                if (result.IsPointInLineSegment(line1Start, line1End) && result.IsPointInLineSegment(line2Start, line2End))
+                {
+                    crossPoint = result;
+                    return true;
+                }
+            }
+            crossPoint = Vector3.zero;
+            return false;
         }
 
         /// <summary>
