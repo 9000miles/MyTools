@@ -600,5 +600,21 @@ namespace Common
             }
             return resultList.ToArray();
         }
+
+        /// <summary>
+        /// 绘制抛物线
+        /// </summary>
+        /// <param name="startPoint"></param>
+        /// <param name="speed"></param>
+        /// <param name="angle"></param>
+        /// <param name="totalTime"></param>
+        /// <returns></returns>
+        public static Vector3 GetPosition(Vector3 startPoint, float speed, float angle, float totalTime)
+        {
+            Vector3 point = new Vector3();
+            point.z = speed * Mathf.Cos(angle * Mathf.Deg2Rad) * totalTime + startPoint.z;
+            point.y = speed * Mathf.Sin(angle * Mathf.Deg2Rad) * totalTime - 0.5f * Mathf.Abs(Physics.gravity.y) * totalTime * totalTime + startPoint.y;
+            return point;
+        }
     }
 }
