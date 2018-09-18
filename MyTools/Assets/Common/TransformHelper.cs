@@ -297,30 +297,14 @@ namespace Common
         /// <param name="end"></param>
         /// <param name="point"></param>
         /// <returns></returns>
-        public static bool WhetherPointIsOnTheLineSegment(Vector3 start, Vector3 end, Vector3 point)
-        {
-            bool isInside =
-                (point.x >= start.x && point.x <= end.x && point.y >= start.y && point.y <= end.y && point.z >= start.z && point.z <= end.z) ||
-                (point.x >= end.x && point.x <= start.x && point.y >= end.y && point.y <= start.y && point.z >= end.z && point.z <= start.z) ||
-
-                (point.x >= start.x && point.x <= end.x && point.y >= end.y && point.y <= start.y && point.z >= end.z && point.z <= start.z) ||
-                (point.x >= end.x && point.x <= start.x && point.y >= start.y && point.y <= end.y && point.z >= start.z && point.z <= end.z);
-            return isInside;
-        }
-
-        /// <summary>
-        /// 判断一个点是否在线段内
-        /// </summary>
-        /// <param name="start"></param>
-        /// <param name="end"></param>
-        /// <param name="point"></param>
-        /// <returns></returns>
         public static bool IsPointInLineSegment(this Vector3 point, Vector3 start, Vector3 end)
         {
+            if (point == start || point == end) return true;
             float startDot = Vector3.Dot(end - start, point - start);
             float endDot = Vector3.Dot(start - end, point - end);
-            float mag = Vector3.Cross(end - start, point - start).magnitude;
-            return startDot >= 0 && endDot >= 0 && mag == 0;
+            Vector3 dirLine = (end - start).normalized;
+            Vector3 dirPoint = (point - start).normalized;
+            return startDot >= 0 && endDot >= 0 && dirLine == dirPoint;
         }
 
         /// <summary>
@@ -522,7 +506,7 @@ namespace Common
                 {
                     for (int j = 0; j < newPoints.Length - 1; j++)
                     {
-                        bool isIn = WhetherPointIsOnTheLineSegment(newPoints[j], newPoints[j + 1], linePoints[i]);
+                        bool isIn = linePoints[i].IsPointInLineSegment(newPoints[j], newPoints[j + 1]);
                         if (isIn == true)
                         {
                             float dis = Vector3.Distance(linePoints[i], newPoints[j]);
@@ -588,7 +572,7 @@ namespace Common
             {
                 for (int j = 0; j < newPoints.Length - 1; j++)
                 {
-                    bool isIn = WhetherPointIsOnTheLineSegment(newPoints[j], newPoints[j + 1], linePoints[i]);
+                    bool isIn = linePoints[i].IsPointInLineSegment (newPoints[j], newPoints[j + 1]);
                     if (isIn == true)
                     {
                         float dis = Vector3.Distance(linePoints[i], newPoints[j]);
