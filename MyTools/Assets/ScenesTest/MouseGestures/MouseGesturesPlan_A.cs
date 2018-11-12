@@ -152,33 +152,6 @@ public class MouseGesturesPlan_A : MonoBehaviour
         maxY = points.GetMax(t => t.y).y;
         minZ = points.GetMin(t => t.z).z;
         maxZ = points.GetMax(t => t.z).z;
-        //for (int i = 0; i < vect3s.Length; i++)
-        //{
-        //    if (minx > vect3s[i].x)
-        //    {
-        //        minx = vect3s[i].x;
-        //    }
-        //    if (maxx < vect3s[i].x)
-        //    {
-        //        maxx = vect3s[i].x;
-        //    }
-        //    if (miny > vect3s[i].y)
-        //    {
-        //        miny = vect3s[i].y;
-        //    }
-        //    if (maxy < vect3s[i].y)
-        //    {
-        //        maxy = vect3s[i].y;
-        //    }
-        //    if (minz > vect3s[i].z)
-        //    {
-        //        minz = vect3s[i].z;
-        //    }
-        //    if (maxz < vect3s[i].z)
-        //    {
-        //        maxz = vect3s[i].z;
-        //    }
-        //}
         return new Vector3((minX + maxX) / 2, (minY + maxY) / 2, (minZ + maxZ) / 2);
     }
 

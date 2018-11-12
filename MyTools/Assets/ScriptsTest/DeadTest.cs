@@ -7,11 +7,14 @@ public class DeadTest : MonoBehaviour
 {
     RagdollUtility ragdollUtility;
     bool ifDead;
+    Transform characterChest, characterHips;
+    Animator animator;
     // Use this for initialization
     void Start()
     {
         ragdollUtility = GetComponent<RagdollUtility>();
         ifDead = false;
+        characterHips = animator.GetBoneTransform(HumanBodyBones.Hips);
     }
     
     // Update is called once per frame
@@ -21,6 +24,7 @@ public class DeadTest : MonoBehaviour
         {
             if (ifDead == false)
             {
+                Debug.Log("characterHips            "+characterHips);
                 ragdollUtility.EnableRagdoll();
             }
             else
