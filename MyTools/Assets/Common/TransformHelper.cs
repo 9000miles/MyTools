@@ -600,5 +600,205 @@ namespace Common
             point.y = speed * Mathf.Sin(angle * Mathf.Deg2Rad) * totalTime - 0.5f * Mathf.Abs(Physics.gravity.y) * totalTime * totalTime + startPoint.y;
             return point;
         }
+
+        /// <summary>
+        /// 获取中点坐标
+        /// </summary>
+        /// <param name="pos1"></param>
+        /// <param name="pos2"></param>
+        /// <returns></returns>
+        public static Vector3 GetMidpoint(Vector3 pos1, Vector3 pos2)
+        {
+            return new Vector3((pos1.x + pos2.x) / 2f, (pos1.y + pos2.y) / 2f, (pos1.z + pos2.z) / 2f);
+        }
+
+        /// <summary>
+        /// 获取指定坐标偏移角度和距离的点
+        /// </summary>
+        /// <param name="center"></param>
+        /// <param name="innerDis"></param>
+        /// <param name="outerDis"></param>
+        /// <returns></returns>
+        public static Vector2 GetPositionInAnnulus(Vector2 center, float innerDis, float outerDis)
+        {
+            float randomAngle = UnityEngine.Random.Range(0, 360);
+            float randomDistance = UnityEngine.Random.Range(innerDis, outerDis);
+            var x = center.x + randomDistance * Mathf.Cos(randomAngle * Mathf.Deg2Rad);
+            var y = center.y + randomDistance * Mathf.Sin(randomAngle * Mathf.Deg2Rad);
+            return new Vector2(x, y);
+        }
+
+        /// <summary>
+        /// 获取指定坐标偏移角度和距离的点
+        /// </summary>
+        /// <param name="center"></param>
+        /// <param name="innerDis"></param>
+        /// <param name="outerDis"></param>
+        /// <returns></returns>
+        public static Vector3 GetPositionInAnnulus(Vector3 center, float innerDis, float outerDis)
+        {
+            float randomAngle = UnityEngine.Random.Range(0, 360);
+            float randomDistance = UnityEngine.Random.Range(innerDis, outerDis);
+            var x = center.x + randomDistance * Mathf.Cos(randomAngle * Mathf.Deg2Rad);
+            var z = center.y + randomDistance * Mathf.Sin(randomAngle * Mathf.Deg2Rad);
+            return new Vector3(x, 0, z);
+        }
+
+        /// <summary>
+        /// 获取组件，如果没有，则自动添加该组件
+        /// </summary>
+        /// <typeparam name="ComponentT"></typeparam>
+        /// <param name="mTF"></param>
+        /// <returns></returns>
+        public static ComponentT GetComponentNullAdd<ComponentT>(this Transform mTF) where ComponentT : Component
+        {
+            ComponentT temp = mTF.GetComponent<ComponentT>();
+            if (temp == null)
+            {
+                temp = mTF.gameObject.AddComponent<ComponentT>();
+            }
+            return temp;
+        }
+
+        /// <summary>
+        /// 获取子物体Transform
+        /// </summary>
+        /// <param name="mTF"></param>
+        /// <param name="isIncludeCondition">是否是包含条件></param>
+        /// <param name="condition">排除条件</param>
+        /// <returns></returns>
+        public static Transform[] GetChildrensTransform(this Transform mTF, bool isIncludeCondition = false, Predicate<Transform> condition = null)
+        {
+            Transform[] tfs = mTF.GetComponentsInChildren<Transform>();
+            List<Transform> list = new List<Transform>();
+            list = tfs.ArrayToList();
+            list.Remove(mTF);
+            if (condition != null)
+            {
+                if (isIncludeCondition)
+                {
+                    List<Transform> includeList = new List<Transform>();
+                    includeList = list.FindAll(condition);
+                    list = includeList;
+                }
+                else
+                {
+                    list.RemoveAll(condition);
+                }
+            }
+            return list.ToArray();
+        }
+
+        /// <summary>
+        /// 获取目标相对于自身的方向和角度
+        /// </summary>
+        /// <param name="myself"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public static EDirection GetTargetDirectionForMe(this Transform myself, Transform target, out float angle)
+        {
+            EDirection direction = EDirection.Forward;
+            Vector3 dir = target.position - myself.position;
+            angle = Mathf.Acos(Vector3.Dot(myself.forward.normalized, dir.normalized)) * Mathf.Rad2Deg;
+
+            float dotForward = Vector3.Dot(myself.forward, dir.normalized);//点乘判断前后：dotForward >0在前，<0在后
+            if (dotForward > 0 && angle <= 45f)
+            {
+                return EDirection.Forward;
+            }
+            else if (dotForward < 0 && angle > 135f)
+            {
+                return EDirection.Back;
+            }
+
+            float dotRight = Vector3.Dot(myself.right, dir.normalized);//点乘判断左右： dotRight>0在右，<0在左
+            if (dotRight > 0 && angle <= 135f)
+            {
+                return EDirection.Right;
+            }
+            else if (dotRight < 0 && angle > 45f)
+            {
+                return EDirection.Left;
+            }
+            return direction;
+        }
+
+        /// <summary>
+        /// 获取目标相对于自身的方向
+        /// </summary>
+        /// <param name="myself"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public static EDirection GetTargetDirectionForMe(this Transform myself, Transform target)
+        {
+            EDirection direction = EDirection.Forward;
+            Vector3 dir = target.position - myself.position;
+            float angle = Mathf.Acos(Vector3.Dot(myself.forward.normalized, dir.normalized)) * Mathf.Rad2Deg;
+
+            float dotForward = Vector3.Dot(myself.forward, dir.normalized);//点乘判断前后：dotForward >0在前，<0在后
+            if (dotForward > 0 && angle <= 45f)
+            {
+                return EDirection.Forward;
+            }
+            else if (dotForward < 0 && angle > 135f)
+            {
+                return EDirection.Back;
+            }
+
+            float dotRight = Vector3.Dot(myself.right, dir.normalized);//点乘判断左右： dotRight>0在右，<0在左
+            if (dotRight > 0 && angle <= 135f)
+            {
+                return EDirection.Right;
+            }
+            else if (dotRight < 0 && angle > 45f)
+            {
+                return EDirection.Left;
+            }
+            return direction;
+        }
+
+        /// <summary>
+        /// 获取物体相对于自身正前方的角度
+        /// </summary>
+        /// <param name="myself"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public static float GetForMeAngle(this Transform myself, Transform target)
+        {
+            Vector3 dir = target.position - myself.position;
+            return Vector3.Angle(myself.forward, dir);
+        }
+
+        [MenuItem("CONTEXT/Transform/Copy LocalPosition")]
+        private static void CopyLocalPosition(MenuCommand command)
+        {
+            Transform tf = (Transform)command.context;
+            string str = "(" + tf.localPosition.x.ToString() + ", " + tf.localPosition.y.ToString() + ", " + tf.localPosition.z.ToString() + ")";
+            EditorGUIUtility.systemCopyBuffer = str;
+        }
+
+        [MenuItem("CONTEXT/Transform/Copy LocalRotation")]
+        private static void CopyLocalRotation(MenuCommand command)
+        {
+            Transform tf = (Transform)command.context;
+            string str = "(" + tf.localRotation.x.ToString() + ", " + tf.localRotation.y.ToString() + ", " + tf.localRotation.z.ToString() + ")";
+            EditorGUIUtility.systemCopyBuffer = str;
+        }
+
+        [MenuItem("CONTEXT/Transform/Copy LocalScale")]
+        private static void CopyLocalScale(MenuCommand command)
+        {
+            Transform tf = (Transform)command.context;
+            string str = "(" + tf.localScale.x.ToString() + ", " + tf.localScale.y.ToString() + ", " + tf.localScale.z.ToString() + ")";
+            EditorGUIUtility.systemCopyBuffer = str;
+        }
+
+        public enum EDirection
+        {
+            Forward,
+            Back,
+            Left,
+            Right,
+        }
     }
 }

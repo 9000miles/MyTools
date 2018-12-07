@@ -57,6 +57,22 @@ namespace Common
         }
 
         /// <summary>
+        /// 查找满足条件的对象
+        /// </summary>
+        /// <typeparam name="T">对象类型</typeparam>
+        /// <param name="array">对象数组</param>
+        /// <param name="condition">查找条件</param>
+        /// <returns></returns>
+        public static T Find<T>(this T[] array, Func<T, bool> condition)
+        {
+            if (array == null || array.Length <= 0) return default(T);
+            for (int i = 0; i < array.Length; i++)
+                if (condition(array[i]))
+                    return array[i];
+            return default(T);
+        }
+
+        /// <summary>
         /// 查找所有满足条件的对象
         /// </summary>
         /// <typeparam name="T">对象类型</typeparam>
@@ -280,6 +296,23 @@ namespace Common
             else//中间元素就是查找的元素
                 isFinded = true;
             return isFinded;
+        }
+
+        public static List<T> ArrayToList<T>(this T[] arr)
+        {
+            List<T> list = new List<T>();
+            list.AddRange(arr);
+            return list;
+        }
+
+        public static void ForEach<T>(this T[] arr, Action<T> action)
+        {
+            Array.ForEach(arr, action);
+        }
+
+        public static U[] ConvertAll<T, U>(this T[] arr, Converter<T, U> func)
+        {
+            return Array.ConvertAll(arr, func);
         }
     }
 }
