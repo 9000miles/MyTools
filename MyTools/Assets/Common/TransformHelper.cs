@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using UnityEditor;
 using UnityEngine;
 
 namespace Common
@@ -572,7 +573,7 @@ namespace Common
             {
                 for (int j = 0; j < newPoints.Length - 1; j++)
                 {
-                    bool isIn = linePoints[i].IsPointInLineSegment (newPoints[j], newPoints[j + 1]);
+                    bool isIn = linePoints[i].IsPointInLineSegment(newPoints[j], newPoints[j + 1]);
                     if (isIn == true)
                     {
                         float dis = Vector3.Distance(linePoints[i], newPoints[j]);

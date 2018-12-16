@@ -1,1 +1,0 @@
-﻿/* This functionality was moved into LuaWizardWizard. */
