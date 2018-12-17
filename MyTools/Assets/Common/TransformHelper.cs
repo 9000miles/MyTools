@@ -770,30 +770,6 @@ namespace Common
             return Vector3.Angle(myself.forward, dir);
         }
 
-        [MenuItem("CONTEXT/Transform/Copy LocalPosition")]
-        private static void CopyLocalPosition(MenuCommand command)
-        {
-            Transform tf = (Transform)command.context;
-            string str = "(" + tf.localPosition.x.ToString() + ", " + tf.localPosition.y.ToString() + ", " + tf.localPosition.z.ToString() + ")";
-            EditorGUIUtility.systemCopyBuffer = str;
-        }
-
-        [MenuItem("CONTEXT/Transform/Copy LocalRotation")]
-        private static void CopyLocalRotation(MenuCommand command)
-        {
-            Transform tf = (Transform)command.context;
-            string str = "(" + tf.localRotation.x.ToString() + ", " + tf.localRotation.y.ToString() + ", " + tf.localRotation.z.ToString() + ")";
-            EditorGUIUtility.systemCopyBuffer = str;
-        }
-
-        [MenuItem("CONTEXT/Transform/Copy LocalScale")]
-        private static void CopyLocalScale(MenuCommand command)
-        {
-            Transform tf = (Transform)command.context;
-            string str = "(" + tf.localScale.x.ToString() + ", " + tf.localScale.y.ToString() + ", " + tf.localScale.z.ToString() + ")";
-            EditorGUIUtility.systemCopyBuffer = str;
-        }
-
         public enum EDirection
         {
             Forward,

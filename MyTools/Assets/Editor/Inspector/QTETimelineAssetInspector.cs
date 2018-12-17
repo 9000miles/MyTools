@@ -8,7 +8,7 @@
 //    [CustomEditor(typeof(QTETimeLineAsset))]
 //    public class QTETimelineAssetInspector : Editor
 //    {
-//        //private QTETimeLineAsset qteAsset;
+//        private QTETimeLineAsset qteAsset;
 //        private SerializedProperty singleKeyContinue;
 //        private SerializedProperty singleKeyPhythm;
 //        private SerializedProperty doubleKeyRepeat;
