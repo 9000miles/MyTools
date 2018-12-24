@@ -6,8 +6,7 @@ namespace Invector.vCharacterController
     [vClassHeader("Input Manager", iconName = "inputIcon")]
     public class vThirdPersonInput : vMonoBehaviour
     {
-
-        #region Variables        
+        #region Variables
 
         [vEditorToolbar("Inputs")]
         [Header("Default Input")]
@@ -34,15 +33,15 @@ namespace Invector.vCharacterController
         public GenericInput rotateCameraYInput = new GenericInput("Mouse Y", "RightAnalogVertical", "Mouse Y");
         public GenericInput cameraZoomInput = new GenericInput("Mouse ScrollWheel", "", "");
         [HideInInspector]
-        public vCamera.vThirdPersonCamera tpCamera;              // acess camera info                
+        public vCamera.vThirdPersonCamera tpCamera;              // acess camera info
         [HideInInspector]
-        public string customCameraState;                    // generic string to change the CameraState        
+        public string customCameraState;                    // generic string to change the CameraState
         [HideInInspector]
-        public string customlookAtPoint;                    // generic string to change the CameraPoint of the Fixed Point Mode        
+        public string customlookAtPoint;                    // generic string to change the CameraPoint of the Fixed Point Mode
         [HideInInspector]
-        public bool changeCameraState;                      // generic bool to change the CameraState        
+        public bool changeCameraState;                      // generic bool to change the CameraState
         [HideInInspector]
-        public bool smoothCameraState;                      // generic bool to know if the state will change with or without lerp  
+        public bool smoothCameraState;                      // generic bool to know if the state will change with or without lerp
         [HideInInspector]
         public bool keepDirection;                          // keep the current direction in case you change the cameraState
         protected Vector2 oldInput;
@@ -52,7 +51,7 @@ namespace Invector.vCharacterController
         [HideInInspector]
         public vThirdPersonController cc;                   // access the ThirdPersonController component
         [HideInInspector]
-        public vHUDController hud;                          // acess vHUDController component        
+        public vHUDController hud;                          // acess vHUDController component
         protected bool updateIK = false;
         protected bool isInit;
 
@@ -67,7 +66,7 @@ namespace Invector.vCharacterController
             }
         }
 
-        #endregion
+        #endregion Variables
 
         #region Initialize Character, Camera & HUD when LoadScene
 
@@ -85,7 +84,7 @@ namespace Invector.vCharacterController
 
             ShowCursor(showCursorOnStart);
             LockCursor(unlockCursorOnStart);
-        }       
+        }
 
         protected virtual IEnumerator CharacterInit()
         {
@@ -102,7 +101,7 @@ namespace Invector.vCharacterController
             }
         }
 
-        #endregion
+        #endregion Initialize Character, Camera & HUD when LoadScene
 
         protected virtual void LateUpdate()
         {
@@ -118,7 +117,7 @@ namespace Invector.vCharacterController
         protected virtual void FixedUpdate()
         {
             cc.ControlLocomotion();
-            cc.AirControl();                    // update air behaviour            
+            cc.AirControl();                    // update air behaviour
             updateIK = true;
         }
 
@@ -145,6 +144,7 @@ namespace Invector.vCharacterController
         }
 
         #region Generic Methods
+
         // you can use these methods with Playmaker or AdventureCreator to have better control on cutscenes and events.
 
         /// <summary>
@@ -213,9 +213,9 @@ namespace Invector.vCharacterController
             cc.strafeSpeed.walkByDefault = value;
         }
 
-        #endregion
+        #endregion Generic Methods
 
-        #region Basic Locomotion Inputs      
+        #region Basic Locomotion Inputs
 
         public virtual void MoveCharacter(Vector3 position, bool rotateToDirection = true)
         {
@@ -247,7 +247,7 @@ namespace Invector.vCharacterController
 
         protected virtual void MoveCharacter()
         {
-            // gets input from mobile           
+            // gets input from mobile
             cc.input.x = horizontalInput.GetAxis();
             cc.input.y = verticallInput.GetAxis();
             // update oldInput to compare with current Input if keepDirection is true
@@ -286,7 +286,8 @@ namespace Invector.vCharacterController
             if (rollInput.GetButtonDown())
                 cc.Roll();
         }
-        #endregion
+
+        #endregion Basic Locomotion Inputs
 
         #region Camera Methods
 
@@ -355,7 +356,7 @@ namespace Invector.vCharacterController
         {
             if (rotateToCameraWhileStrafe && cc.isStrafing && !cc.actions && !cc.lockMovement)
             {
-                // smooth align character with aim position               
+                // smooth align character with aim position
                 if (tpCamera != null && tpCamera.lockTarget)
                 {
                     cc.RotateToTarget(tpCamera.lockTarget);
@@ -368,9 +369,9 @@ namespace Invector.vCharacterController
             }
         }
 
-        #endregion
+        #endregion Camera Methods
 
-        #region HUD       
+        #region HUD
 
         public virtual void UpdateHUD()
         {
@@ -380,6 +381,6 @@ namespace Invector.vCharacterController
             hud.UpdateHUD(cc);
         }
 
-        #endregion
+        #endregion HUD
     }
 }

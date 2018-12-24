@@ -5,7 +5,7 @@ using UnityEngine;
 public class PathTest : MonoBehaviour
 {
     // Use this for initialization
-    void Start()
+    private void Start()
     {
         print(Application.dataPath);
         print(Application.persistentDataPath);
