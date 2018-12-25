@@ -1,4 +1,5 @@
 ﻿using Common;
+using MarsPC;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -41,9 +42,11 @@ public class FindObjectWindow : EditorWindow
             case 0:
                 DrawInterface("请输入需要查找物体的名字（Name）：", pageIndex);
                 break;
+
             case 1:
                 DrawInterface("请选择需要查找的标签（Tag）：", pageIndex);
                 break;
+
             case 2:
                 DrawInterface("请选择需要查找的层级（Layer）：", pageIndex);
                 break;
@@ -62,9 +65,11 @@ public class FindObjectWindow : EditorWindow
             case 0:
                 inputText = GUILayout.TextField(inputText);
                 break;
+
             case 1:
                 tagField = EditorGUILayout.TagField(tagField);
                 break;
+
             case 2:
                 layerField = EditorGUILayout.LayerField(layerField);
                 break;
@@ -88,9 +93,11 @@ public class FindObjectWindow : EditorWindow
                     if (inputText == "") return;
                     namePathList.Clear();
                     break;
+
                 case 1:
                     tagPathList.Clear();
                     break;
+
                 case 2:
                     layerPathList.Clear();
                     break;
@@ -144,10 +151,12 @@ public class FindObjectWindow : EditorWindow
                     namePathList.AddRange(matchPath);
                 }
                 break;
+
             case 1:
                 allPaths = gos.FindAll((t) => t.tag == tagField).GetSelfPaths();
                 tagPathList.AddRange(allPaths);
                 break;
+
             case 2:
                 allPaths = gos.FindAll((t) => t.layer == layerField).GetSelfPaths();
                 layerPathList.AddRange(allPaths);
@@ -188,10 +197,12 @@ public class FindObjectWindow : EditorWindow
                     namePathList.AddRange(matchPath);
                 }
                 break;
+
             case 1:
                 allPaths = goList.FindAll((t) => t.tag == tagField).GetSelfPaths();
                 tagPathList.AddRange(allPaths);
                 break;
+
             case 2:
                 allPaths = goList.FindAll((t) => t.layer == layerField).GetSelfPaths();
                 layerPathList.AddRange(allPaths);

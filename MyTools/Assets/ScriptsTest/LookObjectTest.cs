@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Common;
+using MarsPC;
 
 public class LookObjectTest : MonoBehaviour
 {
@@ -17,15 +18,15 @@ public class LookObjectTest : MonoBehaviour
 
     private void Update()
     {
-        area.localScale = new Vector3(distance * 2, distance * 2, distance * 2);
-        Transform tf = transform.GetMinDistanceObject(distance, angle, true, "Respawn", "Finish");
-        if (tf != lastTF)
-        {
-            if (tf != null)
-                tf.GetComponent<MeshRenderer>().material.color = Color.red;
-            if (lastTF != null)
-                lastTF.GetComponent<MeshRenderer>().material.color = Color.white;
-            lastTF = tf;
-        }
+        //area.localScale = new Vector3(distance * 2, distance * 2, distance * 2);
+        //Transform tf = transform.GetMinDistanceObject(distance, angle, true, "Respawn", "Finish");
+        //if (tf != lastTF)
+        //{
+        //    if (tf != null)
+        //        tf.GetComponent<MeshRenderer>().material.color = Color.red;
+        //    if (lastTF != null)
+        //        lastTF.GetComponent<MeshRenderer>().material.color = Color.white;
+        //    lastTF = tf;
+        //}
     }
 }

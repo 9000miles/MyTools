@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Common;
 using System.Threading.Tasks;
+using MarsPC;
 
 /// <summary>
 /// 在模板路径放置识别点，
