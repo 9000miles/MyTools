@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using Common;
+using MarsPC;
 
 //[RequireComponent(typeof(BezierGenerate))]
 public class DrawTemplate : SingletonBehaviour<DrawTemplate>

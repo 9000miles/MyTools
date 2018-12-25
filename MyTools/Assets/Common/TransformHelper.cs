@@ -1,17 +1,31 @@
-﻿using Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using UnityEditor;
 using UnityEngine;
 
-namespace Common
+namespace MarsPC
 {
     ///<summary>
     /// Transform组件助手类
     ///</summary>
     public static class TransformHelper
     {
+        /// <summary>A useful Epsilon</summary>
+        public const float Epsilon = 0.0001f;
+
+        public enum EDirection
+        {
+            Forward,
+            Back,
+            Left,
+            Right,
+        }
+
+        internal static Vector3 GetPosition(Vector3 newPosition, float initialSpeed, float initialAngle, float totalTime)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// 根据名字查找子物体。
         /// </summary>
@@ -21,10 +35,8 @@ namespace Common
         public static Transform FindChildByName(this Transform tf, string childName)
         {
             Transform childTF = tf.Find(childName);
-            //如果找到 则退出
             if (childTF != null)
                 return childTF;
-            //如果没有找到，递归子物体进行查找。
             for (int i = 0; i < tf.childCount; i++)
             {
                 childTF = tf.GetChild(i).FindChildByName(childName);
@@ -43,7 +55,6 @@ namespace Common
         /// <returns>根据名字查找的物体</returns>
         public static Transform FindChildByName(this Transform tf, string childName, string grandsonChild)
         {
-            //根据查找子物体
             Transform childTF = tf.Find(childName);
             if (childTF == null)
                 for (int i = 0; i < tf.childCount; i++)
@@ -51,7 +62,6 @@ namespace Common
             if (childTF == null)
                 return null;
 
-            //根据子物体，查找孙子物体
             Transform grandChildTF = childTF.Find(grandsonChild);
             if (grandChildTF != null)
                 return grandChildTF;
@@ -73,9 +83,7 @@ namespace Common
         public static void LookDirection(this Transform tf, Vector3 targetDir, float rotateSpeed)
         {
             if (targetDir == Vector3.zero) return;
-            //注视旋转到目标方向
             Quaternion dir = Quaternion.LookRotation(targetDir);
-            //插值旋转（由快到慢）
             tf.rotation = Quaternion.Lerp(tf.rotation, dir, Time.deltaTime * rotateSpeed);
         }
 
@@ -92,6 +100,89 @@ namespace Common
         }
 
         /// <summary>
+        /// 获取周边物体，在自身Direction方向，Angle角度，Distance距离内，自身到指定Tag标签的物体往投影平面投影
+        /// </summary>
+        /// <param name="currentTF"></param>
+        /// <param name="distance">距离</param>
+        /// <param name="angle">角度</param>
+        /// <param name="direction">方向</param>
+        /// <param name="plane">角度投影平面</param>
+        /// <param name="hasToSameDirection">必须同一方向</param>
+        /// <param name="tags">物体的标签</param>
+        /// <returns></returns>
+        public static Transform[] GetAroundObject(this Transform currentTF, float distance, float angle, Vector3 direction, Vector3 plane, bool hasToSameDirection = true, params string[] tags)
+        {
+            List<Transform> list = new List<Transform>();
+            for (int i = 0; i < tags.Length; i++)
+            {
+                GameObject[] allGo = GameObject.FindGameObjectsWithTag(tags[i]);
+                list.AddRange(allGo.Select(o => o.transform));
+            }
+            if (hasToSameDirection)
+            {
+                list = list.FindAll(t => Vector3.Distance(t.position, currentTF.position) <= distance &&
+                        ProjectPlaneAngle(direction, t.position - currentTF.position, plane) <= angle / 2f);
+            }
+            else
+            {
+                list = list.FindAll(t => Vector3.Distance(t.position, currentTF.position) <= distance &&
+                            (ProjectPlaneAngle(direction, t.position - currentTF.position, plane) <= angle / 2f) ||
+                            (180f - ProjectPlaneAngle(direction, t.position - currentTF.position, plane)) <= angle / 2f);
+            }
+            return list.ToArray();
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="currentTF"></param>
+        /// <param name="direction"></param>
+        /// <param name="plane"></param>
+        /// <param name="distance"></param>
+        /// <param name="angle"></param>
+        /// <param name="isRangeDistance"></param>
+        /// <param name="hasToSameDirection"></param>
+        /// <param name="tags"></param>
+        /// <returns></returns>
+        public static Transform[] GetAroundObject(this Transform currentTF, Vector3 direction, Vector3 plane, float distance, float angle, bool isRangeDistance = true, bool hasToSameDirection = true, params string[] tags)
+        {
+            List<Transform> list = new List<Transform>();
+            for (int i = 0; i < tags.Length; i++)
+            {
+                GameObject[] allGo = GameObject.FindGameObjectsWithTag(tags[i]);
+                list.AddRange(allGo.Select(o => o.transform));
+            }
+
+            if (isRangeDistance)
+            {
+                if (hasToSameDirection)
+                {
+                    list = list.FindAll(t => Vector3.Distance(t.position, currentTF.position) <= distance &&
+                            ProjectPlaneAngle(direction, t.position - currentTF.position, plane) <= angle / 2f);
+                }
+                else
+                {
+                    list = list.FindAll(t => Vector3.Distance(t.position, currentTF.position) <= distance &&
+                                (ProjectPlaneAngle(direction, t.position - currentTF.position, plane) <= angle / 2f) ||
+                                (180f - ProjectPlaneAngle(direction, t.position - currentTF.position, plane)) <= angle / 2f);
+                }
+            }
+            else
+            {
+                if (hasToSameDirection)
+                {
+                    list = list.FindAll(t => ProjectPlaneAngle(direction, t.position - currentTF.position, plane) <= angle / 2f);
+                }
+                else
+                {
+                    list = list.FindAll(t => ProjectPlaneAngle(direction, t.position - currentTF.position, plane) <= angle / 2f ||
+                                (180f - ProjectPlaneAngle(direction, t.position - currentTF.position, plane)) <= angle / 2f);
+                }
+            }
+            return list.ToArray();
+        }
+
+        /// <summary>
         /// 获取周边物体
         /// </summary>
         /// <param name="currentTF"></param>
@@ -99,21 +190,43 @@ namespace Common
         /// <param name="angle">角度</param>
         /// <param name="tags">标签</param>
         /// <returns></returns>
-        public static Transform[] GetAroundObject(this Transform currentTF, float distance, float angle, params string[] tags)
+        public static Transform[] GetAroundObject(this Transform currentTF, Vector3 direction, Vector3 plane, float distance, float angle, int layer, bool isRangeDistance = true, bool hasToSameDirection = true)
         {
+            Collider[] colliders = Physics.OverlapSphere(currentTF.position, distance);
             List<Transform> list = new List<Transform>();
-            //根据所有标签查找物体
-            for (int i = 0; i < tags.Length; i++)
+            foreach (var item in colliders)
             {
-                GameObject[] allGo = GameObject.FindGameObjectsWithTag(tags[i]);
-                list.AddRange(allGo.Select(o => o.transform));
+                if (item.gameObject.layer == layer && item.transform != currentTF)
+                    list.Add(item.transform);
             }
-            //判断物体是否在攻击范围(距离、角度)
-            list = list.FindAll(t =>
-                 Vector3.Distance(t.position, currentTF.position) <= distance &&
-                 Vector3.Angle(currentTF.forward, t.position - currentTF.position) <= angle / 2f
-            );
-            return list.ToArray();
+
+            if (isRangeDistance)
+            {
+                if (hasToSameDirection)
+                {
+                    list = list.FindAll(t => Vector3.Distance(t.position, currentTF.position) <= distance &&
+                            ProjectPlaneAngle(direction, t.position - currentTF.position, plane) <= angle / 2f);
+                }
+                else
+                {
+                    list = list.FindAll(t => Vector3.Distance(t.position, currentTF.position) <= distance &&
+                                (ProjectPlaneAngle(direction, t.position - currentTF.position, plane) <= angle / 2f) ||
+                                (180f - ProjectPlaneAngle(direction, t.position - currentTF.position, plane)) <= angle / 2f);
+                }
+            }
+            else
+            {
+                if (hasToSameDirection)
+                {
+                    list = list.FindAll(t => ProjectPlaneAngle(direction, t.position - currentTF.position, plane) <= angle / 2f);
+                }
+                else
+                {
+                    list = list.FindAll(t => ProjectPlaneAngle(direction, t.position - currentTF.position, plane) <= angle / 2f ||
+                                (180f - ProjectPlaneAngle(direction, t.position - currentTF.position, plane)) <= angle / 2f);
+                }
+            }
+            return list.ToArray().Select(t => t.transform);
         }
 
         /// <summary>
@@ -124,18 +237,68 @@ namespace Common
         /// <param name="distance">距离</param>
         /// <param name="angle">角度</param>
         /// <returns>匹配的数组</returns>
-        public static Transform[] GetAroundObject(this Transform currentTF, Transform[] arrary, float distance, float angle)
+        public static Transform[] GetAroundObject(this Transform currentTF, Vector3 direction, Transform[] arrary, float distance, float angle, Vector3 plane, bool hasToSameDirection)
         {
             if (arrary == null || arrary.Length <= 0) return null;
-            //返回指定范围内的物体(距离、角度)
-            //return arrary.FindAll(t =>
-            //     Vector3.Distance(t.position, currentTF.position) <= distance &&
-            //     Vector3.Angle(currentTF.forward, t.position - currentTF.position) <= angle / 2f
-            //);
-            return arrary.FindAll(t =>
-                 Vector3.Distance(t.position, currentTF.position) <= distance &&
-                 Vector3.Angle(currentTF.forward, Vector3.ProjectOnPlane(t.position - currentTF.position, currentTF.up)) <= angle / 2f
-            );
+            List<Transform> list = new List<Transform>();
+
+            if (hasToSameDirection)
+            {
+                list.AddRange(arrary.FindAll(t => Vector3.Distance(t.position, currentTF.position) <= distance &&
+                       ProjectPlaneAngle(direction, t.position - currentTF.position, plane) <= angle / 2f));
+            }
+            else
+            {
+                list.AddRange(arrary.FindAll(t => Vector3.Distance(t.position, currentTF.position) <= distance &&
+                            (ProjectPlaneAngle(direction, t.position - currentTF.position, plane) <= angle / 2f) ||
+                            (180f - ProjectPlaneAngle(direction, t.position - currentTF.position, plane)) <= angle / 2f));
+            }
+            return list.ToArray();
+        }
+
+        /// <summary>
+        /// 获取最近的物体，在指定范围内查找，要求被查找物体有Collider组件
+        /// </summary>
+        /// <param name="currentTF"></param>
+        /// <param name="distance">距离</param>
+        /// <param name="angle">角度</param>
+        /// <param name="isPenetrate">是否穿透墙壁</param>
+        /// <param name="layer">层级</param>
+        /// <returns></returns>
+        public static Transform GetMinDistanceObject(this Transform currentTF, Vector3 direction, float distance, float angle, bool isPenetrate, Vector3 plane, bool hasToSameDirection, int layer)
+        {
+            Collider[] colliders = Physics.OverlapSphere(currentTF.position, distance);
+            List<Collider> list = new List<Collider>();
+            foreach (var item in colliders)
+            {
+                if (item.gameObject.layer == layer && item.transform != currentTF)
+                    list.Add(item);
+            }
+            if (list.Count <= 0) return null;
+
+            Transform[] tfs = list.ToArray().Select((t) => t.GetComponent<Transform>());
+            Transform[] matchTFs = currentTF.GetAroundObject(direction, tfs, distance, angle, plane, hasToSameDirection);
+            Transform minDistanceTF = null;
+            if (isPenetrate)
+            {
+                List<Transform> getList = new List<Transform>();
+                foreach (var item in matchTFs)
+                {
+                    RaycastHit hit = new RaycastHit();
+                    bool isGet = Physics.Raycast(currentTF.position, (item.position - currentTF.position).normalized, out hit, distance);
+                    Debug.DrawLine(currentTF.position, hit.point);
+                    if (isGet == true && hit.transform == item)
+                    {
+                        getList.Add(item);
+                    }
+                }
+                minDistanceTF = getList.ToArray().GetMin((t) => Vector3.Distance(t.position, currentTF.position));
+            }
+            else
+            {
+                minDistanceTF = matchTFs.GetMin((t) => Vector3.Distance(t.position, currentTF.position));
+            }
+            return minDistanceTF;
         }
 
         /// <summary>
@@ -147,7 +310,7 @@ namespace Common
         /// <param name="isPenetrate">是否穿透墙壁</param>
         /// <param name="tags">标签</param>
         /// <returns></returns>
-        public static Transform GetMinDistanceObject(this Transform currentTF, float distance, float angle, bool isPenetrate, params string[] tags)
+        public static Transform GetMinDistanceObject(this Transform currentTF, Vector3 direction, float distance, float angle, bool isPenetrate, Vector3 plane, bool hasToSameDirection, params string[] tags)
         {
             Collider[] colliders = Physics.OverlapSphere(currentTF.position, distance);
             List<Collider> list = new List<Collider>();
@@ -159,7 +322,7 @@ namespace Common
             if (list.Count <= 0) return null;
 
             Transform[] tfs = list.ToArray().Select((t) => t.GetComponent<Transform>());
-            Transform[] matchTFs = currentTF.GetAroundObject(tfs, distance, angle);
+            Transform[] matchTFs = currentTF.GetAroundObject(direction, tfs, distance, angle, plane, hasToSameDirection);
             Transform minDistanceTF = null;
             if (isPenetrate)
             {
@@ -194,10 +357,34 @@ namespace Common
         {
             Regex regex = new Regex(@"\([\d\.\,\ \-]*\)");
             Match match = regex.Match(str);
-            posStr = match.Value;
-            string position = match.Value.Replace("(", "").Replace(")", "");
-            string[] pos = position.Split(',');
-            return new Vector3(float.Parse(pos[0]), float.Parse(pos[1]), float.Parse(pos[2]));
+            if (match.Success)
+            {
+                posStr = match.Value;
+                string position = match.Value.Replace("(", "").Replace(")", "");
+                string[] pos = position.Split(',');
+                return new Vector3(float.Parse(pos[0]), float.Parse(pos[1]), float.Parse(pos[2]));
+            }
+            posStr = string.Empty;
+            return Vector3.zero;
+        }
+
+        /// <summary>
+        /// 将字符串转换成Vector3，输出该Vector3字符串
+        /// </summary>
+        /// <param name="currentTF"></param>
+        /// <param name="str">包含该格式的字符串"*(19.34, 1.5, 4.56)*"</param>
+        /// <returns>返回Vector3值</returns>
+        public static Vector3 ConverVector3(this Transform currentTF, string str)
+        {
+            Regex regex = new Regex(@"\([\d\.\,\ \-]*\)");
+            Match match = regex.Match(str);
+            if (match.Success)
+            {
+                string position = match.Value.Replace("(", "").Replace(")", "");
+                string[] pos = position.Split(',');
+                return new Vector3(float.Parse(pos[0]), float.Parse(pos[1]), float.Parse(pos[2]));
+            }
+            return Vector3.zero;
         }
 
         /// <summary>
@@ -211,10 +398,34 @@ namespace Common
         {
             Regex regex = new Regex(@"\([\d\.\,\ \-]*\)");
             Match match = regex.Match(str);
-            rotStr = match.Value;
-            string rotation = match.Value.Replace("(", "").Replace(")", "");
-            string[] rot = rotation.Split(',');
-            return new Quaternion(float.Parse(rot[0]), float.Parse(rot[1]), float.Parse(rot[2]), float.Parse(rot[3]));
+            if (match.Success)
+            {
+                rotStr = match.Value;
+                string rotation = match.Value.Replace("(", "").Replace(")", "");
+                string[] rot = rotation.Split(',');
+                return new Quaternion(float.Parse(rot[0]), float.Parse(rot[1]), float.Parse(rot[2]), float.Parse(rot[3]));
+            }
+            rotStr = string.Empty;
+            return Quaternion.Euler(0, 0, 0);
+        }
+
+        /// <summary>
+        /// 将字符串转换成Quaternion，输出该Quaternion字符串
+        /// </summary>
+        /// <param name="currentTF"></param>
+        /// <param name="str">包含该格式的字符串"*(0, 0.1961161, 0, 0.9805807)*"</param>
+        /// <returns></returns>
+        public static Quaternion ConvetQuaternion(this Transform currentTF, string str)
+        {
+            Regex regex = new Regex(@"\([\d\.\,\ \-]*\)");
+            Match match = regex.Match(str);
+            if (match.Success)
+            {
+                string rotation = match.Value.Replace("(", "").Replace(" ", "").Replace(")", "");
+                string[] rot = rotation.Split(',');
+                return new Quaternion(float.Parse(rot[0]), float.Parse(rot[1]), float.Parse(rot[2]), float.Parse(rot[3]));
+            }
+            return new Quaternion(0, 0, 0, 0);
         }
 
         /// <summary>
@@ -431,6 +642,7 @@ namespace Common
                 //在某些情况下可能会为NaN
                 float y = ((line1End.y - line1Start.y) * (line2End.y - line2Start.y) * (line1Start.x - line2Start.x) + line2Start.y * (line2End.x - line2Start.x) * (line1End.y - line1Start.y) - line1Start.y * (line1End.x - line1Start.x) * (line2End.y - line2Start.y)) /
                               ((line2End.x - line2Start.x) * (line1End.y - line1Start.y) - (line1End.x - line1Start.x) * (line2End.y - line2Start.y));
+
                 float z = ((line2Start.x - line1Start.x) * (line1End.z - line1Start.z) * (line2End.z - line2Start.z) + line1Start.z * (line1End.x - line1Start.x) * (line2End.z - line2Start.z) - line2Start.z * (line2End.x - line2Start.x) * (line1End.z - line1Start.z)) /
                               ((line2End.x - line2Start.x) * (line1End.z - line1Start.z) - (line1End.x - line1Start.x) * (line2End.z - line2Start.z));
                 result.x = Single.IsNaN(x) ? line1Start.x : x;
@@ -479,16 +691,13 @@ namespace Common
         /// <returns></returns>
         public static Vector3[] IsometricArranged(Vector3[] points, int pointCount)
         {
-            //List<Vector3> linePointList = new List<Vector3>();//直线段定距平分后的集合
-            List<Vector3> resultList = new List<Vector3>();//最后结果点集合
+            List<Vector3> linePointList = new List<Vector3>();
             if (pointCount > 0 && points.Length >= 2)
             {
-                //线段拉直后所有点的位置
                 Vector3[] newPoints = new Vector3[points.Length];
                 if (points.Length >= 3)
                 {
                     Vector3 dir = (points[1] - points[0]).normalized;
-                    Debug.DrawLine(points[1], points[0]);
                     newPoints[0] = points[0];
                     newPoints[1] = points[1];
                     for (int i = 2; i < points.Length; i++)
@@ -498,11 +707,9 @@ namespace Common
                         newPoints[i] = newPoint;
                     }
                 }
-                //计算整条直线的定距平分点
-                Vector3[] linePoints = IsometricArranged(newPoints[0], newPoints[newPoints.Length - 1], pointCount);//直线段定距平分后的点
-                //linePointList.AddRange(IsometricArranged(newPoints[0], newPoints[newPoints.Length - 1], pointCount));
 
-                //复原到折线段上
+                Vector3[] linePoints = IsometricArranged(newPoints[0], newPoints[newPoints.Length - 1], pointCount);
+
                 for (int i = 0; i < linePoints.Length; i++)
                 {
                     for (int j = 0; j < newPoints.Length - 1; j++)
@@ -512,13 +719,13 @@ namespace Common
                         {
                             float dis = Vector3.Distance(linePoints[i], newPoints[j]);
                             Vector3 resultPoint = points[j] + (points[j + 1] - points[j]).normalized * dis;
-                            resultList.Add(resultPoint);
+                            linePointList.Add(resultPoint);
                             break;
                         }
                     }
                 }
             }
-            return resultList.ToArray();
+            return linePointList.ToArray();
         }
 
         /// <summary>
@@ -530,8 +737,7 @@ namespace Common
         /// <returns></returns>
         public static Vector3[] DistanceArranged(Vector3 from, Vector3 to, float distance)
         {
-            //线段拉直后所有点的位置
-            float totalLength = Vector3.Distance(from, to);
+            float totalLength = Vector3.Distance(from, to);//8.395981  13.00873  22.07345
             Vector3[] newPoints = new Vector3[(int)(totalLength / distance) + 1];
             Vector3 dir = (to - from).normalized;
             for (int i = 0; i < newPoints.Length; i++)
@@ -549,39 +755,31 @@ namespace Common
         /// <returns></returns>
         public static Vector3[] DistanceArranged(Vector3[] points, float distance)
         {
-            //线段拉直后所有点的位置
-            List<Vector3> resultList = new List<Vector3>();//最后结果点集合
-            Vector3[] newPoints = new Vector3[points.Length];
+            List<Vector3> resultList = new List<Vector3>();
+            Vector3[] linearSegmentPoints = new Vector3[points.Length];//直线上的点
             if (points.Length >= 3)
             {
                 Vector3 dir = (points[1] - points[0]).normalized;
-                Debug.DrawLine(points[1], points[0]);
-                newPoints[0] = points[0];
-                newPoints[1] = points[1];
+                linearSegmentPoints[0] = points[0];
+                linearSegmentPoints[1] = points[1];
                 for (int i = 2; i < points.Length; i++)
                 {
                     float dis = Vector3.Distance(points[i - 1], points[i]);
-                    Vector3 newPoint = newPoints[i - 1] + dir * dis;
-                    newPoints[i] = newPoint;
+                    Vector3 newPoint = linearSegmentPoints[i - 1] + dir * dis;
+                    linearSegmentPoints[i] = newPoint;
                 }
             }
 
-            Vector3[] linePoints = DistanceArranged(newPoints[0], newPoints[newPoints.Length - 1], distance);
+            Vector3[] linePoints = DistanceArranged(linearSegmentPoints[0], linearSegmentPoints[linearSegmentPoints.Length - 1], distance);
 
-            //复原到折线段上
+            int pointIndex = 0;
             for (int i = 0; i < linePoints.Length; i++)
             {
-                for (int j = 0; j < newPoints.Length - 1; j++)
-                {
-                    bool isIn = linePoints[i].IsPointInLineSegment(newPoints[j], newPoints[j + 1]);
-                    if (isIn == true)
-                    {
-                        float dis = Vector3.Distance(linePoints[i], newPoints[j]);
-                        Vector3 resultPoint = points[j] + (points[j + 1] - points[j]).normalized * dis;
-                        resultList.Add(resultPoint);
-                        break;
-                    }
-                }
+                bool isIn = linePoints[i].IsPointInLineSegment(linearSegmentPoints[pointIndex], linearSegmentPoints[pointIndex + 1]);
+                pointIndex = isIn ? pointIndex : ++pointIndex;
+                float dis = Vector3.Distance(linePoints[i], linearSegmentPoints[pointIndex]);
+                Vector3 resultPoint = points[pointIndex] + (points[pointIndex + 1] - points[pointIndex]).normalized * dis;
+                resultList.Add(resultPoint);
             }
             return resultList.ToArray();
         }
@@ -594,7 +792,7 @@ namespace Common
         /// <param name="angle"></param>
         /// <param name="totalTime"></param>
         /// <returns></returns>
-        public static Vector3 GetPosition(Vector3 startPoint, float speed, float angle, float totalTime)
+        public static Vector3 GetParabolaCoordinate(Vector3 startPoint, float speed, float angle, float totalTime)
         {
             Vector3 point = new Vector3();
             point.z = speed * Mathf.Cos(angle * Mathf.Deg2Rad) * totalTime + startPoint.z;
@@ -770,12 +968,61 @@ namespace Common
             return Vector3.Angle(myself.forward, dir);
         }
 
-        public enum EDirection
+        /// <summary>
+        /// 检查是否穿过Trigger，Exit Trigger 时调用，根据Trigger的前方向判断
+        /// </summary>
+        /// <param name="myself"></param>
+        /// <param name="trigger"></param>
+        /// <returns></returns>
+        public static bool CheckThroughTrigger(this Transform myself, Transform trigger)
         {
-            Forward,
-            Back,
-            Left,
-            Right,
+            Vector3 toMyselfDirection = myself.position - trigger.position;
+            return ProjectPlaneAngle(toMyselfDirection, trigger.forward, Vector3.up) < 90f;
+        }
+
+        /// <summary>
+        /// 检查是否穿过Trigger，Exit Trigger时调用，根据进入Trigger和退出时位置判断
+        /// </summary>
+        /// <param name="enterPos"></param>
+        /// <param name="exitPos"></param>
+        /// <param name="center"></param>
+        /// <returns></returns>
+        public static bool CheckThroughTrigger(Vector3 enterPos, Vector3 exitPos, Vector3 center)
+        {
+            Vector3 dirEnter = enterPos - center;
+            Vector3 dirExit = exitPos - center;
+            return ProjectPlaneAngle(dirEnter, dirExit, Vector3.up) > 91f;
+        }
+
+        /// <summary>
+        /// 获取2个向量投影在某一平面的夹角
+        /// </summary>
+        /// <param name="dir1"></param>
+        /// <param name="dir2"></param>
+        /// <param name="plane"></param>
+        /// <returns></returns>
+        public static float ProjectPlaneAngle(Vector3 dir1, Vector3 dir2, Vector3 plane)
+        {
+            Vector3 dirPlane1 = Vector3.ProjectOnPlane(dir1, plane);
+            Vector3 dirPlane2 = Vector3.ProjectOnPlane(dir2, plane);
+            float angle = Vector3.Angle(dirPlane1, dirPlane2);
+            return angle;
+        }
+
+        /// <summary>
+        /// Get the closest point on a line segment.
+        /// </summary>
+        /// <param name="p">A point in space</param>
+        /// <param name="s0">Start of line segment</param>
+        /// <param name="s1">End of line segment</param>
+        /// <returns>The interpolation parameter representing the point on the segment, with 0==s0, and 1==s1</returns>
+        public static float ClosestPointOnSegment(this Vector3 p, Vector3 s0, Vector3 s1)
+        {
+            Vector3 s = s1 - s0;
+            float len2 = Vector3.SqrMagnitude(s);
+            if (len2 < Epsilon)
+                return 0; // degenrate segment
+            return Mathf.Clamp01(Vector3.Dot(p - s0, s) / len2);
         }
     }
 }

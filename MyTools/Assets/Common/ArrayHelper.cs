@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Common
+namespace MarsPC
 {
     ///<summary>
     /// 数组助手
@@ -305,11 +305,25 @@ namespace Common
             return list;
         }
 
+        /// <summary>
+        /// 遍历数组每个元素
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="arr"></param>
+        /// <param name="action"></param>
         public static void ForEach<T>(this T[] arr, Action<T> action)
         {
             Array.ForEach(arr, action);
         }
 
+        /// <summary>
+        /// 将一种类型的数组转换为另一种类型的数组。
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="U"></typeparam>
+        /// <param name="arr"></param>
+        /// <param name="func"></param>
+        /// <returns></returns>
         public static U[] ConvertAll<T, U>(this T[] arr, Converter<T, U> func)
         {
             return Array.ConvertAll(arr, func);
