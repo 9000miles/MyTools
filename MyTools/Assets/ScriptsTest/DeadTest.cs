@@ -2,36 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RootMotion.FinalIK;
+using Invector.vCharacterController;
 
 public class DeadTest : MonoBehaviour
 {
-    RagdollUtility ragdollUtility;
-    bool ifDead;
-    Transform characterChest, characterHips;
-    Animator animator;
+    //RagdollUtility ragdollUtility;
+    //bool ifDead;
+    //Transform characterChest, characterHips;
+    //Animator animator;
     // Use this for initialization
-    void Start()
+    public bool isJump;
+
+    private void Start()
     {
-        ragdollUtility = GetComponent<RagdollUtility>();
-        ifDead = false;
-        characterHips = animator.GetBoneTransform(HumanBodyBones.Hips);
+        //ragdollUtility = GetComponent<RagdollUtility>();
+        //ifDead = false;
+        //characterHips = animator.GetBoneTransform(HumanBodyBones.Hips);
     }
-    
+
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.O))
-        {
-            if (ifDead == false)
-            {
-                Debug.Log("characterHips            "+characterHips);
-                ragdollUtility.EnableRagdoll();
-            }
-            else
-            {
-                ragdollUtility.DisableRagdoll();
-            }
-            ifDead = !ifDead;
-        }
+        this.isJump = GetComponent<vThirdPersonMotor>().isJumping;
+        //if (Input.GetKeyUp(KeyCode.O))
+        //{
+        //    if (ifDead == false)
+        //    {
+        //        Debug.Log("characterHips            "+characterHips);
+        //        ragdollUtility.EnableRagdoll();
+        //    }
+        //    else
+        //    {
+        //        ragdollUtility.DisableRagdoll();
+        //    }
+        //    ifDead = !ifDead;
+        //}
     }
 }

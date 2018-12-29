@@ -250,8 +250,6 @@ namespace Invector.vCharacterController
 
         #endregion Variables
 
-
-
         public override void Init()
         {
             base.Init();
@@ -673,7 +671,8 @@ namespace Invector.vCharacterController
             {
                 Vector3 p1 = transform.position + _capsuleCollider.center + Vector3.up * -_capsuleCollider.height * 0.5F;
                 Vector3 p2 = p1 + Vector3.up * _capsuleCollider.height;
-                return Physics.CapsuleCastAll(p1, p2, _capsuleCollider.radius * 0.5f, transform.forward, 0.6f, groundLayer).Length == 0;
+                RaycastHit[] hits = Physics.CapsuleCastAll(p1, p2, _capsuleCollider.radius * 0.5f, transform.forward, 0.6f, groundLayer);
+                return hits.Length == 0;
             }
         }
 
@@ -755,7 +754,7 @@ namespace Invector.vCharacterController
                 if (Physics.Raycast(ray2, out groundHit, colliderHeight / 2 + 2f, groundLayer))
                     dist = transform.position.y - groundHit.point.y;
                 // sphere cast around the base of the capsule to check the ground distance
-                Debug.Log("dist         qian " + dist);
+                //Debug.Log("dist         qian " + dist);
 
                 if (groundCheckMethod == GroundCheckMethod.High)
                 {
@@ -767,7 +766,7 @@ namespace Invector.vCharacterController
                         if (dist > (groundHit.distance - _capsuleCollider.radius * 0.1f))
                         {
                             dist = (groundHit.distance - _capsuleCollider.radius * 0.1f);
-                            Debug.Log("dist         hou " + dist);
+                            //Debug.Log("dist         hou " + dist);
                         }
                     }
                 }

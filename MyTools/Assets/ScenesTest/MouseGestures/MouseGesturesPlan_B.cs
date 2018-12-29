@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Common;
 using System.Threading.Tasks;
+using MarsPC;
 
 /// <summary>
 /// 在模板路径放置识别点，
@@ -240,13 +241,13 @@ public class MouseGesturesPlan_B : MonoBehaviour
         CheckIsInSide();
         foreach (var item in fixedPointList)
         {
-            Transform[] inSidePoint = item.GetAroundObject(recognitionRange, 360, "Point");
-            if (inSidePoint.Length > 0) fixedPointCount++;
-            foreach (var inSideItem in inSidePoint)
-            {
-                if (!inSidePointList.Contains(inSideItem))
-                    inSidePointList.Add(inSideItem);
-            }
+            //Transform[] inSidePoint = item.GetAroundObject(recognitionRange, 360, "Point");
+            //if (inSidePoint.Length > 0) fixedPointCount++;
+            //foreach (var inSideItem in inSidePoint)
+            //{
+            //    if (!inSidePointList.Contains(inSideItem))
+            //        inSidePointList.Add(inSideItem);
+            //}
         }
 
         float rate = 0;
