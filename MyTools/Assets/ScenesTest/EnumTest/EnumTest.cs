@@ -12,11 +12,22 @@ public class EnumTest : MonoBehaviour
     public int owljo;
     [SerializeField]
     private int oaoejojw;
+    public Transform point;
+    private bool isDraw;
 
     public void Start()
     {
         int value = (int)eHHH;
         Debug.Log("枚举选中的值  " + value);
+    }
+
+    private void Update()
+    {
+        if (!isDraw)
+        {
+            isDraw = !isDraw;
+            Debug.DrawLine(Vector3.zero, point.position, Color.red);
+        }
     }
 }
 
