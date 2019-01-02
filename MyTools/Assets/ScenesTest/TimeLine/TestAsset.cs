@@ -15,4 +15,12 @@ public class TestAsset : PlayableAsset
         TestBehavior clone = playable.GetBehaviour();
         return playable;
     }
+
+    [ContextMenuItem("add testName", "ContextMenuFunc2")]
+    public string testName = "";
+
+    private void ContextMenuFunc2()
+    {
+        Debug.Log(888888888888888888);
+    }
 }

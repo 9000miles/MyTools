@@ -2,6 +2,9 @@
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Experimental.UIElements;
+using UnityEngine.Playables;
+using UnityEngine.Timeline;
 using UnityEngine.UI;
 
 namespace MarsPC
@@ -249,6 +252,21 @@ namespace MarsPC
 
         #endregion 在同级中选择上下物体快捷键
 
+        #region 选择上一个下一个物体
+
+        //[MenuItem("MyTools/Selected Previou Object #W")]
+        //private void SelectedPreviouObject()
+        //{
+        //    int index = objectList.FindIndex((t) => t == selecte);
+        //    if (index > 0)
+        //    {
+        //        selecte = objectList[index - 1];
+        //    }
+        //    Selection.activeGameObject = selecte;
+        //}
+
+        #endregion 选择上一个下一个物体
+
         #region 微移物体快捷键
 
         [MenuItem("MyTools/Up Movement %&UP")]
@@ -312,6 +330,15 @@ namespace MarsPC
         [MenuItem("CONTEXT/Transform/Copy LocalPosition", false, 200)]
         private static void CopyLocalPosition(MenuCommand command)
         {
+            Transform tf = (Transform)command.context;
+            string str = "(" + tf.localPosition.x.ToString() + ", " + tf.localPosition.y.ToString() + ", " + tf.localPosition.z.ToString() + ")";
+            EditorGUIUtility.systemCopyBuffer = str;
+        }
+
+        [MenuItem("CONTEXT/PlayableAsset/Paste LocalPosition", false, 200)]
+        private static void PlayableAssetCopyLocalPosition(MenuCommand command)
+        {
+            //AnimationPlayableAsset
             Transform tf = (Transform)command.context;
             string str = "(" + tf.localPosition.x.ToString() + ", " + tf.localPosition.y.ToString() + ", " + tf.localPosition.z.ToString() + ")";
             EditorGUIUtility.systemCopyBuffer = str;
