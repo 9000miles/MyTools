@@ -12,9 +12,12 @@ public class EnumTest : MonoBehaviour
     public int owljo;
     [SerializeField]
     private int oaoejojw;
+
+    [ContextMenuItem("add testName", "Start")]
     public Transform point;
     private bool isDraw;
 
+    [ContextMenu("Test Function")]
     public void Start()
     {
         int value = (int)eHHH;
