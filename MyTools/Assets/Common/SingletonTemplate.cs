@@ -16,6 +16,10 @@ public class SingletonTemplate<T> where T : class, new()
         }
     }
 
+    public virtual void Init()
+    {
+    }
+
     public void OnDestroy()
     {
         // Clear();
