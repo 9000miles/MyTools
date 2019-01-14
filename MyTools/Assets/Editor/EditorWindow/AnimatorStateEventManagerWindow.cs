@@ -11,7 +11,6 @@ namespace MarsPC
     {
         private Vector2 scrollPos;
         private Animator curAnimator;
-        private AnimatorController animatorController;
         private Dictionary<AnimatorStateEventInfo, bool> stateEventFoldoutDic = new Dictionary<AnimatorStateEventInfo, bool>();
         private Dictionary<Animator, List<AnimatorStateEventInfo>> animatorStateEventDic;
 
@@ -174,6 +173,7 @@ namespace MarsPC
 
         private void OnGUI()
         {
+            animatorStateEventDic = AnimatorStateEventManager.Singleton.AnimatorStateEventDic;
             if (animatorStateEventDic == null || animatorStateEventDic.Count == 0)
             {
                 EditorGUILayout.HelpBox("AnimatorStateEventManager AnimatorStateEventDic There are no animator status events", MessageType.Info, true);
@@ -191,7 +191,7 @@ namespace MarsPC
                         stateEventFoldoutDic.Clear();
                         foreach (AnimatorStateEventInfo info in animatorStateEventDic[curAnimator])
                         {
-                            FindAnimationClip(curAnimator, info);
+                            SearchAnimationClip(curAnimator, info);
                             stateEventFoldoutDic.Add(info, false);
                         }
                     }
@@ -213,7 +213,7 @@ namespace MarsPC
             }
         }
 
-        private void FindAnimationClip(Animator animator, AnimatorStateEventInfo info)
+        private void SearchAnimationClip(Animator animator, AnimatorStateEventInfo info)
         {
             AnimatorController animatorController = (AnimatorController)animator.runtimeAnimatorController;
             if (animatorController == null) return;
@@ -224,16 +224,16 @@ namespace MarsPC
             if (indexOf > 0)
             {
                 string layerName = stateFullName.Substring(0, indexOf);
-                AnimatorControllerLayer controllerLayer = layers.Find<AnimatorControllerLayer>(t => t.name == layerName);
+                AnimatorControllerLayer controllerLayer = layers.Find(t => t.name == layerName);
                 if (controllerLayer != null)
                 {
                     string stateName = stateFullName.Substring(stateFullName.IndexOf('.') + 1);
-                    info.clip = GetAnimationClipFormAnimatorStateMachine(controllerLayer.stateMachine, stateName);
+                    info.clip = GetAnimationClip(controllerLayer.stateMachine, stateName);
                 }
             }
         }
 
-        private AnimationClip GetAnimationClipFormAnimatorStateMachine(AnimatorStateMachine stateMachine, string stateName)
+        private AnimationClip GetAnimationClip(AnimatorStateMachine stateMachine, string stateName)
         {
             AnimationClip animationClip = null;
             if (stateName.IndexOf('.') > 0)
@@ -244,7 +244,7 @@ namespace MarsPC
                 if (animatorStateMachine.stateMachine != null)
                 {
                     string _stateName = stateName.Substring(stateName.IndexOf('.') + 1);
-                    animationClip = GetAnimationClipFormAnimatorStateMachine(animatorStateMachine.stateMachine, _stateName);
+                    animationClip = GetAnimationClip(animatorStateMachine.stateMachine, _stateName);
                 }
                 else
                 {
@@ -257,8 +257,6 @@ namespace MarsPC
                 if (animatorState.state != null)
                 {
                     Motion motion = stateMachine.states.Find(t => t.state.name == stateName).state.motion;
-                    Type type = motion.GetType();
-                    //typeof(BlendTree);
                     if (motion as BlendTree)
                     {
                         animationClip = (AnimationClip)((motion as BlendTree).children[0].motion);
@@ -280,7 +278,6 @@ namespace MarsPC
             {
                 DrawOneStateEvent(stateEvent);
             }
-
             EditorGUILayout.EndScrollView();
         }
 
@@ -290,16 +287,19 @@ namespace MarsPC
             EditorGUILayout.BeginHorizontal();
             GUIStyle style = new GUIStyle(EditorStyles.foldout);
             style.fontStyle = FontStyle.Bold;
-            stateEventFoldoutDic[eventInfo] = EditorGUILayout.Foldout(stateEventFoldoutDic[eventInfo], eventInfo.stateEvent.fullName, true, style);
-            EditorGUILayout.ObjectField(eventInfo.clip, typeof(AnimationClip), false, GUILayout.MaxWidth(300));
-            EditorGUILayout.EndHorizontal();
-
-            if (stateEventFoldoutDic[eventInfo])
+            if (stateEventFoldoutDic.ContainsKey(eventInfo))
             {
-                DrawStateCall(eventInfo.stateEvent.OnEnterCall, "Enter Call");
-                DrawStateCall(eventInfo.stateEvent.OnUpdateCall, "Update Call");
-                DrawStateCall(eventInfo.stateEvent.OnExitCall, "Exit Call");
-                DrawDelayCall(eventInfo.delayCallDic, "Delay Call");
+                stateEventFoldoutDic[eventInfo] = EditorGUILayout.Foldout(stateEventFoldoutDic[eventInfo], eventInfo.stateEvent.fullName, true, style);
+                EditorGUILayout.ObjectField(eventInfo.clip, typeof(AnimationClip), false, GUILayout.MaxWidth(300));
+                EditorGUILayout.EndHorizontal();
+
+                if (stateEventFoldoutDic[eventInfo])
+                {
+                    DrawStateCall(eventInfo.stateEvent.OnEnterCall, "Enter Call");
+                    DrawStateCall(eventInfo.stateEvent.OnUpdateCall, "Update Call");
+                    DrawStateCall(eventInfo.stateEvent.OnExitCall, "Exit Call");
+                    DrawDelayCall(eventInfo.delayCallDic, "Delay Call");
+                }
             }
 
             EditorGUILayout.EndVertical();

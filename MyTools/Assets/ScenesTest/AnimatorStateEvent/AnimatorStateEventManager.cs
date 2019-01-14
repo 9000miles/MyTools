@@ -5,19 +5,23 @@ using UnityEngine;
 
 namespace MarsPC
 {
+    /// <summary>
+    /// Animator动画事件管理类
+    /// 添加，移除，更改事件
+    /// Enter，Update，Exit，Delay延时事件
+    /// 示例参考：AnimatorStateEvent_Test
+    /// </summary>
     public class AnimatorStateEventManager : SingletonTemplate<AnimatorStateEventManager>
     {
-        /// <summary>
-        /// 动画事件添加，请查看该脚本示例
-        /// </summary>
-        private AnimatorStateEvent_Test animatorStateEvent_Test;
+        private Dictionary<Animator, List<AnimatorStateEventInfo>> animatorStateEventDic = new Dictionary<Animator, List<AnimatorStateEventInfo>>();
 
         /// <summary>
         /// 动画状态事件字典，可同时处理多个Animator状态机的动画事件
         /// </summary>
-        private Dictionary<Animator, List<AnimatorStateEventInfo>> animatorStateEventDic = new Dictionary<Animator, List<AnimatorStateEventInfo>>();
-
-        public Dictionary<Animator, List<AnimatorStateEventInfo>> AnimatorStateEventDic { get; }
+        public Dictionary<Animator, List<AnimatorStateEventInfo>> AnimatorStateEventDic
+        {
+            get { return animatorStateEventDic; }
+        }
 
         public override void Init()
         {
@@ -66,7 +70,7 @@ namespace MarsPC
                 }
                 else
                 {
-                    Debug.LogError(stateEventInfo.stateEvent.fullName + " already existed");
+                    Debug.LogWarning(stateEventInfo.stateEvent.fullName + " already existed");
                     AnimatorStateEventInfo _stateEventInfo = list.Find(t => t.stateEvent.fullName == stateEventInfo.stateEvent.fullName);
 
                     if (stateEventInfo.stateEvent.delayTime != 0)
@@ -282,24 +286,35 @@ namespace MarsPC
             }
         }
 
-        private static void InvokeOnEnterCall(List<AnimatorStateEventInfo> list, int i)
+        /// <summary>
+        /// 执行Enter事件
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="index"></param>
+        private static void InvokeOnEnterCall(List<AnimatorStateEventInfo> list, int index)
         {
-            if (list[i].isInState == false)
+            if (list[index].isInState == false)
             {
-                list[i].stateEvent.OnEnterCall?.Invoke();
-                list[i].isInState = true;
+                list[index].stateEvent.OnEnterCall?.Invoke();
+                list[index].isInState = true;
             }
         }
 
-        private static void InvokeOnDelayCall(List<AnimatorStateEventInfo> list, int i, AnimatorStateInfo stateInfo)
+        /// <summary>
+        /// 执行延时时间在【0,1）的事件，
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="index"></param>
+        /// <param name="stateInfo"></param>
+        private static void InvokeOnDelayCall(List<AnimatorStateEventInfo> list, int index, AnimatorStateInfo stateInfo)
         {
-            Dictionary<float, List<AniamtorStateEventDelayCall>>.KeyCollection.Enumerator delayTimes = list[i].delayCallDic.Keys.GetEnumerator();
+            Dictionary<float, List<AniamtorStateEventDelayCall>>.KeyCollection.Enumerator delayTimes = list[index].delayCallDic.Keys.GetEnumerator();
             while (delayTimes.MoveNext())
             {
                 float delayTime = delayTimes.Current;
                 if (stateInfo.normalizedTime >= delayTime)
                 {
-                    foreach (AniamtorStateEventDelayCall delayCallItem in list[i].delayCallDic[delayTime])
+                    foreach (AniamtorStateEventDelayCall delayCallItem in list[index].delayCallDic[delayTime])
                     {
                         if (delayCallItem.delayCalled == false)
                         {
@@ -311,29 +326,44 @@ namespace MarsPC
             }
         }
 
-        private static void InvokeOnUpdateCall(List<AnimatorStateEventInfo> list, int i)
+        /// <summary>
+        /// 执行Update事件
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="index"></param>
+        private static void InvokeOnUpdateCall(List<AnimatorStateEventInfo> list, int index)
         {
-            list[i].stateEvent.OnUpdateCall?.Invoke();
+            list[index].stateEvent.OnUpdateCall?.Invoke();
         }
 
-        private static void InvokeOnDelay_1f_Call(List<AnimatorStateEventInfo> list, int i)
+        /// <summary>
+        /// 执行延时时间为1的事件，在Exit之前执行
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="index"></param>
+        private static void InvokeOnDelay_1f_Call(List<AnimatorStateEventInfo> list, int index)
         {
-            float[] delayTime_1f = new float[list[i].delayCallDic.Count];
-            list[i].delayCallDic.Keys.CopyTo(delayTime_1f, 0);
+            float[] delayTime_1f = new float[list[index].delayCallDic.Count];
+            list[index].delayCallDic.Keys.CopyTo(delayTime_1f, 0);
             for (int u = 0; u < delayTime_1f.Length; u++)
             {
-                for (int h = 0; h < list[i].delayCallDic[u].Count; h++)
+                for (int h = 0; h < list[index].delayCallDic[u].Count; h++)
                 {
-                    list[i].delayCallDic[u][h].delayCalled = false;
-                    list[i].delayCallDic[u][h].delayCall?.Invoke();
+                    list[index].delayCallDic[u][h].delayCalled = false;
+                    list[index].delayCallDic[u][h].delayCall?.Invoke();
                 }
             }
         }
 
-        private static void InvokeOnExitCall(List<AnimatorStateEventInfo> list, int i)
+        /// <summary>
+        /// 执行Exit事件
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="index"></param>
+        private static void InvokeOnExitCall(List<AnimatorStateEventInfo> list, int index)
         {
-            list[i].stateEvent.OnExitCall?.Invoke();
-            list[i].isInState = false;
+            list[index].stateEvent.OnExitCall?.Invoke();
+            list[index].isInState = false;
         }
 
         /// <summary>
