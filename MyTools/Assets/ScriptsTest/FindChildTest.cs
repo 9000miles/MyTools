@@ -4,11 +4,34 @@ using UnityEngine;
 using Common;
 using MarsPC;
 
-public class FindChildTest : MonoBehaviour
+public class FindChildTest : TestBase
 {
-    private void Start()
+    public override void Pringt()
     {
-        print("查找到第一个子物体   " + transform.FindChildByName("GunTF").parent.parent.name);
-        print("根据父物体查找子物体   " + transform.FindChildByName("Right", "GunTF").parent.parent.name);
+        base.Pringt();
+        Debug.Log(age);
+    }
+
+    //private void Start()
+    //{
+    //    print("查找到第一个子物体   " + transform.FindChildByName("GunTF").parent.parent.name);
+    //    print("根据父物体查找子物体   " + transform.FindChildByName("Right", "GunTF").parent.parent.name);
+    //}
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Pringt();
+        }
+    }
+}
+
+public class TestBase : MonoBehaviour
+{
+    public int age = 3;
+
+    public virtual void Pringt()
+    {
+        if (age > 5) return;
     }
 }
