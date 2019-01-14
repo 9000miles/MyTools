@@ -140,6 +140,16 @@ namespace MarsPC
         //    //window.Show();
         //}
 
+        /// <summary>
+        /// 打开动画事件窗口
+        /// </summary>
+        [MenuItem("MyTools/Animator State Event [W]")]
+        private static void OpenAnimatorStateEventWindow()
+        {
+            AnimatorStateEventManagerWindow window = new AnimatorStateEventManagerWindow();
+            window.Show();
+        }
+
         #endregion 打开功能窗口
 
         /// <summary>

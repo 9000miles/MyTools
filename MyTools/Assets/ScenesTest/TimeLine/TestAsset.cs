@@ -21,6 +21,7 @@ public class TestAsset : PlayableAsset
     [ContextMenuItem("add testName", "ContextMenuFunc2")]
     public string testName = "";
 
+    //[ContextMenu("Test Function")]
     private void ContextMenuFunc2()
     {
         Debug.Log(888888888888888888);
