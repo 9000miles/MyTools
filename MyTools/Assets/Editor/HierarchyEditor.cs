@@ -8,8 +8,10 @@ public class HierarchyEditor
 {
     /// <summary> 存储的容量大小 </summary>
     private static string count = "10";
+
     /// <summary> 选中的物体集合 </summary>
     private static List<GameObject> objectList = new List<GameObject>();
+
     /// <summary> 选中的物体 </summary>
     private static GameObject selecte;
 
@@ -56,7 +58,7 @@ public class HierarchyEditor
     /// <summary>
     /// 选中前一个物体
     /// </summary>
-    [MenuItem("MyTools/Selected Previou Object #W")]
+    [MenuItem("MyTools/Selected Previou Object #W", false, 200)]
     public static void SelectedPreviouObject()
     {
         int index = objectList.FindIndex((t) => t == selecte);
@@ -70,7 +72,7 @@ public class HierarchyEditor
     /// <summary>
     /// 选中后一个物体
     /// </summary>
-    [MenuItem("MyTools/Selected Next Object #S")]
+    [MenuItem("MyTools/Selected Next Object #S", false, 201)]
     public static void SelectedNextObject()
     {
         int index = objectList.FindIndex((t) => t == selecte);
@@ -82,32 +84,11 @@ public class HierarchyEditor
     }
 
     /// <summary>
-    /// 窗口显示图元
+    /// 清空列表
     /// </summary>
-    //private void ShowWindow()
-    //{
-    //    titleContent = new GUIContent("选择物体历史记录窗口");
-    //    EditorGUILayout.BeginHorizontal();
-    //    GUILayout.Space(8);
-    //    GUIStyle style = new GUIStyle();
-    //    style.fixedWidth = 55;
-    //    RectOffset offset = new RectOffset();
-    //    offset.top = 2;
-    //    style.padding = offset;
-    //    style.normal.background = null;
-    //    style.normal.textColor = new Color(0.7f, 0.7f, 0.7f);
-    //    GUILayout.Label("存储容量：", style);
-    //    count = GUILayout.TextField(count);
-    //    GUILayout.Space(5);
-    //    EditorGUILayout.EndHorizontal();
-
-    //    if (GUILayout.Button("前一个物体"))
-    //    {
-    //        SelectedPreviouObject();
-    //    }
-    //    if (GUILayout.Button("后一个物体"))
-    //    {
-    //        SelectedNextObject();
-    //    }
-    //}
+    [MenuItem("MyTools/Clear Selected Object List #C", false, 202)]
+    public static void ClearList()
+    {
+        objectList.Clear();
+    }
 }
