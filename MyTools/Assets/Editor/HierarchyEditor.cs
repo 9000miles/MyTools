@@ -58,7 +58,7 @@ public class HierarchyEditor
     /// <summary>
     /// 选中前一个物体
     /// </summary>
-    [MenuItem("MyTools/Selected Previou Object #W", false, 200)]
+    [MenuItem("MyTools/Selected Previou Object #%E", false, 200)]
     public static void SelectedPreviouObject()
     {
         int index = objectList.FindIndex((t) => t == selecte);
@@ -72,7 +72,7 @@ public class HierarchyEditor
     /// <summary>
     /// 选中后一个物体
     /// </summary>
-    [MenuItem("MyTools/Selected Next Object #S", false, 201)]
+    [MenuItem("MyTools/Selected Next Object #%D", false, 201)]
     public static void SelectedNextObject()
     {
         int index = objectList.FindIndex((t) => t == selecte);
@@ -86,7 +86,7 @@ public class HierarchyEditor
     /// <summary>
     /// 清空列表
     /// </summary>
-    [MenuItem("MyTools/Clear Selected Object List #C", false, 202)]
+    [MenuItem("MyTools/Clear Selected Object List #%C", false, 202)]
     public static void ClearList()
     {
         objectList.Clear();
