@@ -21,11 +21,6 @@ namespace MarsPC
             Right,
         }
 
-        internal static Vector3 GetPosition(Vector3 newPosition, float initialSpeed, float initialAngle, float totalTime)
-        {
-            throw new NotImplementedException();
-        }
-
         /// <summary>
         /// 根据名字查找子物体。
         /// </summary>
@@ -815,8 +810,8 @@ namespace MarsPC
         /// 获取指定坐标偏移角度和距离的点
         /// </summary>
         /// <param name="center"></param>
-        /// <param name="innerDis"></param>
-        /// <param name="outerDis"></param>
+        /// <param name="innerDis">小圈</param>
+        /// <param name="outerDis">大圈</param>
         /// <returns></returns>
         public static Vector2 GetPositionInAnnulus(Vector2 center, float innerDis, float outerDis)
         {
@@ -831,8 +826,8 @@ namespace MarsPC
         /// 获取指定坐标偏移角度和距离的点
         /// </summary>
         /// <param name="center"></param>
-        /// <param name="innerDis"></param>
-        /// <param name="outerDis"></param>
+        /// <param name="innerDis">小圈</param>
+        /// <param name="outerDis">大圈</param>
         /// <returns></returns>
         public static Vector3 GetPositionInAnnulus(Vector3 center, float innerDis, float outerDis)
         {
@@ -977,7 +972,8 @@ namespace MarsPC
         public static bool CheckThroughTrigger(this Transform myself, Transform trigger)
         {
             Vector3 toMyselfDirection = myself.position - trigger.position;
-            return ProjectPlaneAngle(toMyselfDirection, trigger.forward, Vector3.up) < 90f;
+            float angle = ProjectPlaneAngle(toMyselfDirection, trigger.forward, Vector3.up);
+            return angle <= 90f;
         }
 
         /// <summary>
@@ -985,13 +981,16 @@ namespace MarsPC
         /// </summary>
         /// <param name="enterPos"></param>
         /// <param name="exitPos"></param>
-        /// <param name="center"></param>
+        /// <param name="trigger"></param>
         /// <returns></returns>
-        public static bool CheckThroughTrigger(Vector3 enterPos, Vector3 exitPos, Vector3 center)
+        public static bool CheckThroughTrigger(Vector3 enterPos, Vector3 exitPos, Transform trigger)
         {
-            Vector3 dirEnter = enterPos - center;
-            Vector3 dirExit = exitPos - center;
-            return ProjectPlaneAngle(dirEnter, dirExit, Vector3.up) > 91f;
+            float enter = Vector3.Dot(enterPos - trigger.position, trigger.right);
+            float exit = Vector3.Dot(exitPos - trigger.position, trigger.right);
+            enter = Vector3.Cross(trigger.right, (enterPos - trigger.position).normalized).y;
+            exit = Vector3.Cross(trigger.right, (exitPos - trigger.position).normalized).y;
+
+            return (enter > 0 && exit < 0) || (enter < 0 && exit > 0);
         }
 
         /// <summary>
@@ -1023,6 +1022,45 @@ namespace MarsPC
             if (len2 < Epsilon)
                 return 0; // degenrate segment
             return Mathf.Clamp01(Vector3.Dot(p - s0, s) / len2);
+        }
+
+        public static Vector3 GetMinAngle(Vector3 fromAngle, Vector3 toAngle)
+        {
+            Vector3 disAngle = toAngle - fromAngle;
+            while (Mathf.Abs(disAngle.x) > 180)
+            {
+                if (disAngle.x > 0)
+                {
+                    disAngle -= new Vector3(360, 0, 0);
+                }
+                else
+                {
+                    disAngle += new Vector3(360, 0, 0);
+                }
+            }
+            while (Mathf.Abs(disAngle.y) > 180)
+            {
+                if (disAngle.y > 0)
+                {
+                    disAngle -= new Vector3(0, 360, 0);
+                }
+                else
+                {
+                    disAngle += new Vector3(0, 360, 0);
+                }
+            }
+            while (Mathf.Abs(disAngle.z) > 180)
+            {
+                if (disAngle.z > 0)
+                {
+                    disAngle -= new Vector3(0, 0, 360);
+                }
+                else
+                {
+                    disAngle += new Vector3(0, 0, 360);
+                }
+            }
+            return disAngle;
         }
     }
 }
