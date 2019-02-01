@@ -24,7 +24,8 @@ public class CurveTest : MonoBehaviour
 
     public Vector3 GetPosition(float totalTime)
     {
-        return TransformHelper.GetPosition(_newPosition, initialSpeed, initialAngle, totalTime);
+        //return TransformHelper.GetPosition(_newPosition, initialSpeed, initialAngle, totalTime);
+        return Vector3.zero;
     }
 
     public void UpdateOriginalPosition()
