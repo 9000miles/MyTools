@@ -63,11 +63,14 @@ public class TriggerBase : MonoBehaviour
         triggerType = ETriggerType.InActive;
     }
 
+    public GameObject enterPoint;
+    public GameObject exitPoint;
+
     public virtual bool OnTriggerEnterCall(Transform intruder)
     {
-        if (collider == null || isThroughTriggerOpen || triggerType == ETriggerType.Actived) return false;
         enterPos = GetComponent<Collider>().bounds.ClosestPoint(intruder.position);
-        Debug.Log(intruder.name + " --> " + gameObject.name);
+        if (collider == null || isThroughTriggerOpen || triggerType == ETriggerType.Actived) return false;
+        //Debug.Log(intruder.name + " --> " + gameObject.name);
         return true;
     }
 
@@ -79,11 +82,11 @@ public class TriggerBase : MonoBehaviour
 
     public virtual bool OnTriggerExitCall(Transform intruder)
     {
-        if (collider == null || triggerType == ETriggerType.Actived) return false;
         exitPos = GetComponent<Collider>().bounds.ClosestPoint(intruder.position);
+        if (collider == null || triggerType == ETriggerType.Actived) return false;
         if (isThroughTriggerOpen && !TransformHelper.CheckThroughTrigger(enterPos, exitPos, transform)) return false;
         if (isTestTrigger) TriggerType = ETriggerType.InActive;
-        Debug.Log(intruder.name + " <-- " + gameObject.name);
+        //Debug.Log(intruder.name + " <-- " + gameObject.name);
         return true;
     }
 

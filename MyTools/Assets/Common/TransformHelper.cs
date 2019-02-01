@@ -985,11 +985,8 @@ namespace MarsPC
         /// <returns></returns>
         public static bool CheckThroughTrigger(Vector3 enterPos, Vector3 exitPos, Transform trigger)
         {
-            float enter = Vector3.Dot(enterPos - trigger.position, trigger.right);
-            float exit = Vector3.Dot(exitPos - trigger.position, trigger.right);
-            enter = Vector3.Cross(trigger.right, (enterPos - trigger.position).normalized).y;
-            exit = Vector3.Cross(trigger.right, (exitPos - trigger.position).normalized).y;
-
+            float enter = Vector3.Dot(trigger.forward, enterPos - trigger.position);
+            float exit = Vector3.Dot(trigger.forward, exitPos - trigger.position);
             return (enter > 0 && exit < 0) || (enter < 0 && exit > 0);
         }
 

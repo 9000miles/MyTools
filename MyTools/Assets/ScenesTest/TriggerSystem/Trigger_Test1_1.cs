@@ -14,7 +14,7 @@ public class Trigger_Test1_1 : TriggerBase
     {
         if (base.OnTriggerEnterCall(intruder))
         {
-            Debug.Log("1_1 -- Enter");
+            //Debug.Log("1_1 -- Enter");
         }
         return true;
     }
@@ -23,7 +23,7 @@ public class Trigger_Test1_1 : TriggerBase
     {
         if (base.OnTriggerStayCall(intruder))
         {
-            Debug.Log("1_1 -- Stay");
+            //Debug.Log("1_1 -- Stay");
         }
         return true;
     }
@@ -32,7 +32,7 @@ public class Trigger_Test1_1 : TriggerBase
     {
         if (base.OnTriggerExitCall(intruder))
         {
-            Debug.Log("1_1 -- Exit");
+            //Debug.Log("1_1 -- Exit");
         }
         return true;
     }

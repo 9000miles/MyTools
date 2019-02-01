@@ -27,16 +27,16 @@ public class Vector3Test : MonoBehaviour
         //p4.position = Vector3.ProjectOnPlane(p3.position - p1.position, corssDir);
         //vaule = Vector3.Dot(p2.position, p1.forward);
         vaule = Vector3.Dot(p1.forward, p2.position - p1.position);
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            animation.Play();
-        }
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            animation["New Animation"].time = 0;
-            animation.Play();
-            animation.Sample();
-            animation.Stop();
-        }
+        //if (Input.GetKeyDown(KeyCode.Mouse0))
+        //{
+        //    animation.Play();
+        //}
+        //if (Input.GetKeyDown(KeyCode.Mouse1))
+        //{
+        //    animation["New Animation"].time = 0;
+        //    animation.Play();
+        //    animation.Sample();
+        //    animation.Stop();
+        //}
     }
 }
