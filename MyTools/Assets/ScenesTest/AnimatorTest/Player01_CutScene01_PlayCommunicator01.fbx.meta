@@ -1,0 +1,1479 @@
+fileFormatVersion: 2
+guid: 13ca7cc20eb43fd40872aabde96451dc
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Space_suit_rigFinal:AdvancedSkeleton_Eye_L
+    100004: Space_suit_rigFinal:AdvancedSkeleton_Eye_R
+    100006: Space_suit_rigFinal:AdvancedSkeleton_Head_M
+    100008: Space_suit_rigFinal:Ankle_L
+    100010: Space_suit_rigFinal:Ankle_R
+    100012: Space_suit_rigFinal:Bra_L
+    100014: Space_suit_rigFinal:Bra_R
+    100016: Space_suit_rigFinal:Chest_M
+    100018: Space_suit_rigFinal:Cup_L
+    100020: Space_suit_rigFinal:Cup_R
+    100022: Space_suit_rigFinal:Elbow_L
+    100024: Space_suit_rigFinal:Elbow_R
+    100026: Space_suit_rigFinal:ElbowPart1_L
+    100028: Space_suit_rigFinal:ElbowPart1_R
+    100030: Space_suit_rigFinal:ElbowPart2_L
+    100032: Space_suit_rigFinal:ElbowPart2_R
+    100034: Space_suit_rigFinal:EyeEnd_L
+    100036: Space_suit_rigFinal:EyeEnd_R
+    100038: Space_suit_rigFinal:HeadEnd_M
+    100040: Space_suit_rigFinal:Hip_L
+    100042: Space_suit_rigFinal:Hip_R
+    100044: Space_suit_rigFinal:HipAdd_R_L
+    100046: Space_suit_rigFinal:HipAdd_R_R
+    100048: Space_suit_rigFinal:HipPart1_L
+    100050: Space_suit_rigFinal:HipPart1_R
+    100052: Space_suit_rigFinal:HipPart2_L
+    100054: Space_suit_rigFinal:HipPart2_R
+    100056: Space_suit_rigFinal:IndexFinger1_L
+    100058: Space_suit_rigFinal:IndexFinger1_R
+    100060: Space_suit_rigFinal:IndexFinger2_L
+    100062: Space_suit_rigFinal:IndexFinger2_R
+    100064: Space_suit_rigFinal:IndexFinger3_L
+    100066: Space_suit_rigFinal:IndexFinger3_R
+    100068: Space_suit_rigFinal:IndexFinger4_L
+    100070: Space_suit_rigFinal:IndexFinger4_R
+    100072: Space_suit_rigFinal:Jaw_M
+    100074: Space_suit_rigFinal:JawEnd_M
+    100076: Space_suit_rigFinal:joint3
+    100078: Space_suit_rigFinal:joint3 1
+    100080: Space_suit_rigFinal:Knee_L
+    100082: Space_suit_rigFinal:Knee_R
+    100084: Space_suit_rigFinal:KneePart1_L
+    100086: Space_suit_rigFinal:KneePart1_R
+    100088: Space_suit_rigFinal:KneePart2_L
+    100090: Space_suit_rigFinal:KneePart2_R
+    100092: Space_suit_rigFinal:MiddleFinger1_L
+    100094: Space_suit_rigFinal:MiddleFinger1_R
+    100096: Space_suit_rigFinal:MiddleFinger2_L
+    100098: Space_suit_rigFinal:MiddleFinger2_R
+    100100: Space_suit_rigFinal:MiddleFinger3_L
+    100102: Space_suit_rigFinal:MiddleFinger3_R
+    100104: Space_suit_rigFinal:MiddleFinger4_L
+    100106: Space_suit_rigFinal:MiddleFinger4_R
+    100108: Space_suit_rigFinal:Neck_M
+    100110: Space_suit_rigFinal:NeckPart1_M
+    100112: Space_suit_rigFinal:NeckPart2_M
+    100114: Space_suit_rigFinal:PinkyFinger1_L
+    100116: Space_suit_rigFinal:PinkyFinger1_R
+    100118: Space_suit_rigFinal:PinkyFinger2_L
+    100120: Space_suit_rigFinal:PinkyFinger2_R
+    100122: Space_suit_rigFinal:PinkyFinger3_L
+    100124: Space_suit_rigFinal:PinkyFinger3_R
+    100126: Space_suit_rigFinal:PinkyFinger4_L
+    100128: Space_suit_rigFinal:PinkyFinger4_R
+    100130: Space_suit_rigFinal:RingFinger1_L
+    100132: Space_suit_rigFinal:RingFinger1_R
+    100134: Space_suit_rigFinal:RingFinger2_L
+    100136: Space_suit_rigFinal:RingFinger2_R
+    100138: Space_suit_rigFinal:RingFinger3_L
+    100140: Space_suit_rigFinal:RingFinger3_R
+    100142: Space_suit_rigFinal:RingFinger4_L
+    100144: Space_suit_rigFinal:RingFinger4_R
+    100146: Space_suit_rigFinal:root
+    100148: Space_suit_rigFinal:Root_M
+    100150: Space_suit_rigFinal:RootPart1_M
+    100152: Space_suit_rigFinal:Scapula_L
+    100154: Space_suit_rigFinal:Scapula_R
+    100156: Space_suit_rigFinal:Shoulder_L
+    100158: Space_suit_rigFinal:Shoulder_R
+    100160: Space_suit_rigFinal:ShoulderPart1_L
+    100162: Space_suit_rigFinal:ShoulderPart1_R
+    100164: Space_suit_rigFinal:ShoulderPart2_L
+    100166: Space_suit_rigFinal:ShoulderPart2_R
+    100168: Space_suit_rigFinal:Spine1_M
+    100170: Space_suit_rigFinal:Spine1Part1_M
+    100172: Space_suit_rigFinal:ThumbFinger1_L
+    100174: Space_suit_rigFinal:ThumbFinger1_R
+    100176: Space_suit_rigFinal:ThumbFinger2_L
+    100178: Space_suit_rigFinal:ThumbFinger2_R
+    100180: Space_suit_rigFinal:ThumbFinger3_L
+    100182: Space_suit_rigFinal:ThumbFinger3_R
+    100184: Space_suit_rigFinal:ThumbFinger4_L
+    100186: Space_suit_rigFinal:ThumbFinger4_R
+    100188: Space_suit_rigFinal:Toes_L
+    100190: Space_suit_rigFinal:Toes_R
+    100192: Space_suit_rigFinal:ToesEnd_L
+    100194: Space_suit_rigFinal:ToesEnd_R
+    100196: Space_suit_rigFinal:Wrist_L
+    100198: Space_suit_rigFinal:Wrist_R
+    400000: //RootNode
+    400002: Space_suit_rigFinal:AdvancedSkeleton_Eye_L
+    400004: Space_suit_rigFinal:AdvancedSkeleton_Eye_R
+    400006: Space_suit_rigFinal:AdvancedSkeleton_Head_M
+    400008: Space_suit_rigFinal:Ankle_L
+    400010: Space_suit_rigFinal:Ankle_R
+    400012: Space_suit_rigFinal:Bra_L
+    400014: Space_suit_rigFinal:Bra_R
+    400016: Space_suit_rigFinal:Chest_M
+    400018: Space_suit_rigFinal:Cup_L
+    400020: Space_suit_rigFinal:Cup_R
+    400022: Space_suit_rigFinal:Elbow_L
+    400024: Space_suit_rigFinal:Elbow_R
+    400026: Space_suit_rigFinal:ElbowPart1_L
+    400028: Space_suit_rigFinal:ElbowPart1_R
+    400030: Space_suit_rigFinal:ElbowPart2_L
+    400032: Space_suit_rigFinal:ElbowPart2_R
+    400034: Space_suit_rigFinal:EyeEnd_L
+    400036: Space_suit_rigFinal:EyeEnd_R
+    400038: Space_suit_rigFinal:HeadEnd_M
+    400040: Space_suit_rigFinal:Hip_L
+    400042: Space_suit_rigFinal:Hip_R
+    400044: Space_suit_rigFinal:HipAdd_R_L
+    400046: Space_suit_rigFinal:HipAdd_R_R
+    400048: Space_suit_rigFinal:HipPart1_L
+    400050: Space_suit_rigFinal:HipPart1_R
+    400052: Space_suit_rigFinal:HipPart2_L
+    400054: Space_suit_rigFinal:HipPart2_R
+    400056: Space_suit_rigFinal:IndexFinger1_L
+    400058: Space_suit_rigFinal:IndexFinger1_R
+    400060: Space_suit_rigFinal:IndexFinger2_L
+    400062: Space_suit_rigFinal:IndexFinger2_R
+    400064: Space_suit_rigFinal:IndexFinger3_L
+    400066: Space_suit_rigFinal:IndexFinger3_R
+    400068: Space_suit_rigFinal:IndexFinger4_L
+    400070: Space_suit_rigFinal:IndexFinger4_R
+    400072: Space_suit_rigFinal:Jaw_M
+    400074: Space_suit_rigFinal:JawEnd_M
+    400076: Space_suit_rigFinal:joint3
+    400078: Space_suit_rigFinal:joint3 1
+    400080: Space_suit_rigFinal:Knee_L
+    400082: Space_suit_rigFinal:Knee_R
+    400084: Space_suit_rigFinal:KneePart1_L
+    400086: Space_suit_rigFinal:KneePart1_R
+    400088: Space_suit_rigFinal:KneePart2_L
+    400090: Space_suit_rigFinal:KneePart2_R
+    400092: Space_suit_rigFinal:MiddleFinger1_L
+    400094: Space_suit_rigFinal:MiddleFinger1_R
+    400096: Space_suit_rigFinal:MiddleFinger2_L
+    400098: Space_suit_rigFinal:MiddleFinger2_R
+    400100: Space_suit_rigFinal:MiddleFinger3_L
+    400102: Space_suit_rigFinal:MiddleFinger3_R
+    400104: Space_suit_rigFinal:MiddleFinger4_L
+    400106: Space_suit_rigFinal:MiddleFinger4_R
+    400108: Space_suit_rigFinal:Neck_M
+    400110: Space_suit_rigFinal:NeckPart1_M
+    400112: Space_suit_rigFinal:NeckPart2_M
+    400114: Space_suit_rigFinal:PinkyFinger1_L
+    400116: Space_suit_rigFinal:PinkyFinger1_R
+    400118: Space_suit_rigFinal:PinkyFinger2_L
+    400120: Space_suit_rigFinal:PinkyFinger2_R
+    400122: Space_suit_rigFinal:PinkyFinger3_L
+    400124: Space_suit_rigFinal:PinkyFinger3_R
+    400126: Space_suit_rigFinal:PinkyFinger4_L
+    400128: Space_suit_rigFinal:PinkyFinger4_R
+    400130: Space_suit_rigFinal:RingFinger1_L
+    400132: Space_suit_rigFinal:RingFinger1_R
+    400134: Space_suit_rigFinal:RingFinger2_L
+    400136: Space_suit_rigFinal:RingFinger2_R
+    400138: Space_suit_rigFinal:RingFinger3_L
+    400140: Space_suit_rigFinal:RingFinger3_R
+    400142: Space_suit_rigFinal:RingFinger4_L
+    400144: Space_suit_rigFinal:RingFinger4_R
+    400146: Space_suit_rigFinal:root
+    400148: Space_suit_rigFinal:Root_M
+    400150: Space_suit_rigFinal:RootPart1_M
+    400152: Space_suit_rigFinal:Scapula_L
+    400154: Space_suit_rigFinal:Scapula_R
+    400156: Space_suit_rigFinal:Shoulder_L
+    400158: Space_suit_rigFinal:Shoulder_R
+    400160: Space_suit_rigFinal:ShoulderPart1_L
+    400162: Space_suit_rigFinal:ShoulderPart1_R
+    400164: Space_suit_rigFinal:ShoulderPart2_L
+    400166: Space_suit_rigFinal:ShoulderPart2_R
+    400168: Space_suit_rigFinal:Spine1_M
+    400170: Space_suit_rigFinal:Spine1Part1_M
+    400172: Space_suit_rigFinal:ThumbFinger1_L
+    400174: Space_suit_rigFinal:ThumbFinger1_R
+    400176: Space_suit_rigFinal:ThumbFinger2_L
+    400178: Space_suit_rigFinal:ThumbFinger2_R
+    400180: Space_suit_rigFinal:ThumbFinger3_L
+    400182: Space_suit_rigFinal:ThumbFinger3_R
+    400184: Space_suit_rigFinal:ThumbFinger4_L
+    400186: Space_suit_rigFinal:ThumbFinger4_R
+    400188: Space_suit_rigFinal:Toes_L
+    400190: Space_suit_rigFinal:Toes_R
+    400192: Space_suit_rigFinal:ToesEnd_L
+    400194: Space_suit_rigFinal:ToesEnd_R
+    400196: Space_suit_rigFinal:Wrist_L
+    400198: Space_suit_rigFinal:Wrist_R
+    7400000: Take 001
+    9500000: //RootNode
+    2186277476908879412: ImportLogs
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
+      might lower retargeting quality:\nNote: Activate translation DOF on avatar to
+      improve retargeting quality.\n\t'Space_suit_rigFinal:Hip_R' is inbetween humanoid
+      transforms and has rotation animation that will be discarded.\n\t'Space_suit_rigFinal:Spine1Part1_M'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'Space_suit_rigFinal:Scapula_R'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'Space_suit_rigFinal:ShoulderPart1_R'
+      has translation animation that will be discarded.\n\t'Space_suit_rigFinal:ShoulderPart2_R'
+      has translation animation that will be discarded.\n\t'Space_suit_rigFinal:ShoulderPart2_R'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'Space_suit_rigFinal:Elbow_R'
+      has translation animation that will be discarded.\n\t'Space_suit_rigFinal:ElbowPart1_R'
+      has translation animation that will be discarded.\n\t'Space_suit_rigFinal:ElbowPart1_R'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'Space_suit_rigFinal:ElbowPart2_R'
+      has translation animation that will be discarded.\n\t'Space_suit_rigFinal:Wrist_R'
+      has translation animation that will be discarded.\n\t'Space_suit_rigFinal:Wrist_R'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'Space_suit_rigFinal:NeckPart1_M'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'Space_suit_rigFinal:AdvancedSkeleton_Head_M'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'Space_suit_rigFinal:Scapula_L'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'Space_suit_rigFinal:ShoulderPart2_L'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'Space_suit_rigFinal:ElbowPart1_L'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'Space_suit_rigFinal:Wrist_L'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'Space_suit_rigFinal:Hip_L'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n"
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 120
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 00000000010000000100000000000000000000000100000001000000010000000100000000000000000000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Space_suit_rigFinal:root
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:HipAdd_R_L
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:HipAdd_R_L/Space_suit_rigFinal:Hip_L
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:HipAdd_R_L/Space_suit_rigFinal:Hip_L/Space_suit_rigFinal:HipPart1_L
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:HipAdd_R_L/Space_suit_rigFinal:Hip_L/Space_suit_rigFinal:HipPart1_L/Space_suit_rigFinal:HipPart2_L
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:HipAdd_R_L/Space_suit_rigFinal:Hip_L/Space_suit_rigFinal:HipPart1_L/Space_suit_rigFinal:HipPart2_L/Space_suit_rigFinal:Knee_L
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:HipAdd_R_L/Space_suit_rigFinal:Hip_L/Space_suit_rigFinal:HipPart1_L/Space_suit_rigFinal:HipPart2_L/Space_suit_rigFinal:Knee_L/Space_suit_rigFinal:KneePart1_L
+        weight: 0
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:HipAdd_R_L/Space_suit_rigFinal:Hip_L/Space_suit_rigFinal:HipPart1_L/Space_suit_rigFinal:HipPart2_L/Space_suit_rigFinal:Knee_L/Space_suit_rigFinal:KneePart1_L/Space_suit_rigFinal:KneePart2_L
+        weight: 0
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:HipAdd_R_L/Space_suit_rigFinal:Hip_L/Space_suit_rigFinal:HipPart1_L/Space_suit_rigFinal:HipPart2_L/Space_suit_rigFinal:Knee_L/Space_suit_rigFinal:KneePart1_L/Space_suit_rigFinal:KneePart2_L/Space_suit_rigFinal:Ankle_L
+        weight: 0
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:HipAdd_R_L/Space_suit_rigFinal:Hip_L/Space_suit_rigFinal:HipPart1_L/Space_suit_rigFinal:HipPart2_L/Space_suit_rigFinal:Knee_L/Space_suit_rigFinal:KneePart1_L/Space_suit_rigFinal:KneePart2_L/Space_suit_rigFinal:Ankle_L/Space_suit_rigFinal:Toes_L
+        weight: 0
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:HipAdd_R_L/Space_suit_rigFinal:Hip_L/Space_suit_rigFinal:HipPart1_L/Space_suit_rigFinal:HipPart2_L/Space_suit_rigFinal:Knee_L/Space_suit_rigFinal:KneePart1_L/Space_suit_rigFinal:KneePart2_L/Space_suit_rigFinal:Ankle_L/Space_suit_rigFinal:Toes_L/Space_suit_rigFinal:ToesEnd_L
+        weight: 0
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:HipAdd_R_R
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:HipAdd_R_R/Space_suit_rigFinal:Hip_R
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:HipAdd_R_R/Space_suit_rigFinal:Hip_R/Space_suit_rigFinal:HipPart1_R
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:HipAdd_R_R/Space_suit_rigFinal:Hip_R/Space_suit_rigFinal:HipPart1_R/Space_suit_rigFinal:HipPart2_R
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:HipAdd_R_R/Space_suit_rigFinal:Hip_R/Space_suit_rigFinal:HipPart1_R/Space_suit_rigFinal:HipPart2_R/Space_suit_rigFinal:Knee_R
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:HipAdd_R_R/Space_suit_rigFinal:Hip_R/Space_suit_rigFinal:HipPart1_R/Space_suit_rigFinal:HipPart2_R/Space_suit_rigFinal:Knee_R/Space_suit_rigFinal:KneePart1_R
+        weight: 0
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:HipAdd_R_R/Space_suit_rigFinal:Hip_R/Space_suit_rigFinal:HipPart1_R/Space_suit_rigFinal:HipPart2_R/Space_suit_rigFinal:Knee_R/Space_suit_rigFinal:KneePart1_R/Space_suit_rigFinal:KneePart2_R
+        weight: 0
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:HipAdd_R_R/Space_suit_rigFinal:Hip_R/Space_suit_rigFinal:HipPart1_R/Space_suit_rigFinal:HipPart2_R/Space_suit_rigFinal:Knee_R/Space_suit_rigFinal:KneePart1_R/Space_suit_rigFinal:KneePart2_R/Space_suit_rigFinal:Ankle_R
+        weight: 0
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:HipAdd_R_R/Space_suit_rigFinal:Hip_R/Space_suit_rigFinal:HipPart1_R/Space_suit_rigFinal:HipPart2_R/Space_suit_rigFinal:Knee_R/Space_suit_rigFinal:KneePart1_R/Space_suit_rigFinal:KneePart2_R/Space_suit_rigFinal:Ankle_R/Space_suit_rigFinal:Toes_R
+        weight: 0
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:HipAdd_R_R/Space_suit_rigFinal:Hip_R/Space_suit_rigFinal:HipPart1_R/Space_suit_rigFinal:HipPart2_R/Space_suit_rigFinal:Knee_R/Space_suit_rigFinal:KneePart1_R/Space_suit_rigFinal:KneePart2_R/Space_suit_rigFinal:Ankle_R/Space_suit_rigFinal:Toes_R/Space_suit_rigFinal:ToesEnd_R
+        weight: 0
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Bra_L
+        weight: 0
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Bra_L/Space_suit_rigFinal:joint3
+        weight: 0
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Bra_R
+        weight: 0
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Bra_R/Space_suit_rigFinal:joint3
+          1
+        weight: 0
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Neck_M
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Neck_M/Space_suit_rigFinal:NeckPart1_M
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Neck_M/Space_suit_rigFinal:NeckPart1_M/Space_suit_rigFinal:NeckPart2_M
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Neck_M/Space_suit_rigFinal:NeckPart1_M/Space_suit_rigFinal:NeckPart2_M/Space_suit_rigFinal:AdvancedSkeleton_Head_M
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Neck_M/Space_suit_rigFinal:NeckPart1_M/Space_suit_rigFinal:NeckPart2_M/Space_suit_rigFinal:AdvancedSkeleton_Head_M/Space_suit_rigFinal:AdvancedSkeleton_Eye_L
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Neck_M/Space_suit_rigFinal:NeckPart1_M/Space_suit_rigFinal:NeckPart2_M/Space_suit_rigFinal:AdvancedSkeleton_Head_M/Space_suit_rigFinal:AdvancedSkeleton_Eye_L/Space_suit_rigFinal:EyeEnd_L
+        weight: 0
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Neck_M/Space_suit_rigFinal:NeckPart1_M/Space_suit_rigFinal:NeckPart2_M/Space_suit_rigFinal:AdvancedSkeleton_Head_M/Space_suit_rigFinal:AdvancedSkeleton_Eye_R
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Neck_M/Space_suit_rigFinal:NeckPart1_M/Space_suit_rigFinal:NeckPart2_M/Space_suit_rigFinal:AdvancedSkeleton_Head_M/Space_suit_rigFinal:AdvancedSkeleton_Eye_R/Space_suit_rigFinal:EyeEnd_R
+        weight: 0
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Neck_M/Space_suit_rigFinal:NeckPart1_M/Space_suit_rigFinal:NeckPart2_M/Space_suit_rigFinal:AdvancedSkeleton_Head_M/Space_suit_rigFinal:HeadEnd_M
+        weight: 0
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Neck_M/Space_suit_rigFinal:NeckPart1_M/Space_suit_rigFinal:NeckPart2_M/Space_suit_rigFinal:AdvancedSkeleton_Head_M/Space_suit_rigFinal:Jaw_M
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Neck_M/Space_suit_rigFinal:NeckPart1_M/Space_suit_rigFinal:NeckPart2_M/Space_suit_rigFinal:AdvancedSkeleton_Head_M/Space_suit_rigFinal:Jaw_M/Space_suit_rigFinal:JawEnd_M
+        weight: 0
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_L
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_L/Space_suit_rigFinal:Shoulder_L
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_L/Space_suit_rigFinal:Shoulder_L/Space_suit_rigFinal:ShoulderPart1_L
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_L/Space_suit_rigFinal:Shoulder_L/Space_suit_rigFinal:ShoulderPart1_L/Space_suit_rigFinal:ShoulderPart2_L
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_L/Space_suit_rigFinal:Shoulder_L/Space_suit_rigFinal:ShoulderPart1_L/Space_suit_rigFinal:ShoulderPart2_L/Space_suit_rigFinal:Elbow_L
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_L/Space_suit_rigFinal:Shoulder_L/Space_suit_rigFinal:ShoulderPart1_L/Space_suit_rigFinal:ShoulderPart2_L/Space_suit_rigFinal:Elbow_L/Space_suit_rigFinal:ElbowPart1_L
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_L/Space_suit_rigFinal:Shoulder_L/Space_suit_rigFinal:ShoulderPart1_L/Space_suit_rigFinal:ShoulderPart2_L/Space_suit_rigFinal:Elbow_L/Space_suit_rigFinal:ElbowPart1_L/Space_suit_rigFinal:ElbowPart2_L
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_L/Space_suit_rigFinal:Shoulder_L/Space_suit_rigFinal:ShoulderPart1_L/Space_suit_rigFinal:ShoulderPart2_L/Space_suit_rigFinal:Elbow_L/Space_suit_rigFinal:ElbowPart1_L/Space_suit_rigFinal:ElbowPart2_L/Space_suit_rigFinal:Wrist_L
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_L/Space_suit_rigFinal:Shoulder_L/Space_suit_rigFinal:ShoulderPart1_L/Space_suit_rigFinal:ShoulderPart2_L/Space_suit_rigFinal:Elbow_L/Space_suit_rigFinal:ElbowPart1_L/Space_suit_rigFinal:ElbowPart2_L/Space_suit_rigFinal:Wrist_L/Space_suit_rigFinal:Cup_L
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_L/Space_suit_rigFinal:Shoulder_L/Space_suit_rigFinal:ShoulderPart1_L/Space_suit_rigFinal:ShoulderPart2_L/Space_suit_rigFinal:Elbow_L/Space_suit_rigFinal:ElbowPart1_L/Space_suit_rigFinal:ElbowPart2_L/Space_suit_rigFinal:Wrist_L/Space_suit_rigFinal:Cup_L/Space_suit_rigFinal:PinkyFinger1_L
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_L/Space_suit_rigFinal:Shoulder_L/Space_suit_rigFinal:ShoulderPart1_L/Space_suit_rigFinal:ShoulderPart2_L/Space_suit_rigFinal:Elbow_L/Space_suit_rigFinal:ElbowPart1_L/Space_suit_rigFinal:ElbowPart2_L/Space_suit_rigFinal:Wrist_L/Space_suit_rigFinal:Cup_L/Space_suit_rigFinal:PinkyFinger1_L/Space_suit_rigFinal:PinkyFinger2_L
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_L/Space_suit_rigFinal:Shoulder_L/Space_suit_rigFinal:ShoulderPart1_L/Space_suit_rigFinal:ShoulderPart2_L/Space_suit_rigFinal:Elbow_L/Space_suit_rigFinal:ElbowPart1_L/Space_suit_rigFinal:ElbowPart2_L/Space_suit_rigFinal:Wrist_L/Space_suit_rigFinal:Cup_L/Space_suit_rigFinal:PinkyFinger1_L/Space_suit_rigFinal:PinkyFinger2_L/Space_suit_rigFinal:PinkyFinger3_L
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_L/Space_suit_rigFinal:Shoulder_L/Space_suit_rigFinal:ShoulderPart1_L/Space_suit_rigFinal:ShoulderPart2_L/Space_suit_rigFinal:Elbow_L/Space_suit_rigFinal:ElbowPart1_L/Space_suit_rigFinal:ElbowPart2_L/Space_suit_rigFinal:Wrist_L/Space_suit_rigFinal:Cup_L/Space_suit_rigFinal:PinkyFinger1_L/Space_suit_rigFinal:PinkyFinger2_L/Space_suit_rigFinal:PinkyFinger3_L/Space_suit_rigFinal:PinkyFinger4_L
+        weight: 0
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_L/Space_suit_rigFinal:Shoulder_L/Space_suit_rigFinal:ShoulderPart1_L/Space_suit_rigFinal:ShoulderPart2_L/Space_suit_rigFinal:Elbow_L/Space_suit_rigFinal:ElbowPart1_L/Space_suit_rigFinal:ElbowPart2_L/Space_suit_rigFinal:Wrist_L/Space_suit_rigFinal:Cup_L/Space_suit_rigFinal:RingFinger1_L
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_L/Space_suit_rigFinal:Shoulder_L/Space_suit_rigFinal:ShoulderPart1_L/Space_suit_rigFinal:ShoulderPart2_L/Space_suit_rigFinal:Elbow_L/Space_suit_rigFinal:ElbowPart1_L/Space_suit_rigFinal:ElbowPart2_L/Space_suit_rigFinal:Wrist_L/Space_suit_rigFinal:Cup_L/Space_suit_rigFinal:RingFinger1_L/Space_suit_rigFinal:RingFinger2_L
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_L/Space_suit_rigFinal:Shoulder_L/Space_suit_rigFinal:ShoulderPart1_L/Space_suit_rigFinal:ShoulderPart2_L/Space_suit_rigFinal:Elbow_L/Space_suit_rigFinal:ElbowPart1_L/Space_suit_rigFinal:ElbowPart2_L/Space_suit_rigFinal:Wrist_L/Space_suit_rigFinal:Cup_L/Space_suit_rigFinal:RingFinger1_L/Space_suit_rigFinal:RingFinger2_L/Space_suit_rigFinal:RingFinger3_L
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_L/Space_suit_rigFinal:Shoulder_L/Space_suit_rigFinal:ShoulderPart1_L/Space_suit_rigFinal:ShoulderPart2_L/Space_suit_rigFinal:Elbow_L/Space_suit_rigFinal:ElbowPart1_L/Space_suit_rigFinal:ElbowPart2_L/Space_suit_rigFinal:Wrist_L/Space_suit_rigFinal:Cup_L/Space_suit_rigFinal:RingFinger1_L/Space_suit_rigFinal:RingFinger2_L/Space_suit_rigFinal:RingFinger3_L/Space_suit_rigFinal:RingFinger4_L
+        weight: 0
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_L/Space_suit_rigFinal:Shoulder_L/Space_suit_rigFinal:ShoulderPart1_L/Space_suit_rigFinal:ShoulderPart2_L/Space_suit_rigFinal:Elbow_L/Space_suit_rigFinal:ElbowPart1_L/Space_suit_rigFinal:ElbowPart2_L/Space_suit_rigFinal:Wrist_L/Space_suit_rigFinal:IndexFinger1_L
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_L/Space_suit_rigFinal:Shoulder_L/Space_suit_rigFinal:ShoulderPart1_L/Space_suit_rigFinal:ShoulderPart2_L/Space_suit_rigFinal:Elbow_L/Space_suit_rigFinal:ElbowPart1_L/Space_suit_rigFinal:ElbowPart2_L/Space_suit_rigFinal:Wrist_L/Space_suit_rigFinal:IndexFinger1_L/Space_suit_rigFinal:IndexFinger2_L
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_L/Space_suit_rigFinal:Shoulder_L/Space_suit_rigFinal:ShoulderPart1_L/Space_suit_rigFinal:ShoulderPart2_L/Space_suit_rigFinal:Elbow_L/Space_suit_rigFinal:ElbowPart1_L/Space_suit_rigFinal:ElbowPart2_L/Space_suit_rigFinal:Wrist_L/Space_suit_rigFinal:IndexFinger1_L/Space_suit_rigFinal:IndexFinger2_L/Space_suit_rigFinal:IndexFinger3_L
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_L/Space_suit_rigFinal:Shoulder_L/Space_suit_rigFinal:ShoulderPart1_L/Space_suit_rigFinal:ShoulderPart2_L/Space_suit_rigFinal:Elbow_L/Space_suit_rigFinal:ElbowPart1_L/Space_suit_rigFinal:ElbowPart2_L/Space_suit_rigFinal:Wrist_L/Space_suit_rigFinal:IndexFinger1_L/Space_suit_rigFinal:IndexFinger2_L/Space_suit_rigFinal:IndexFinger3_L/Space_suit_rigFinal:IndexFinger4_L
+        weight: 0
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_L/Space_suit_rigFinal:Shoulder_L/Space_suit_rigFinal:ShoulderPart1_L/Space_suit_rigFinal:ShoulderPart2_L/Space_suit_rigFinal:Elbow_L/Space_suit_rigFinal:ElbowPart1_L/Space_suit_rigFinal:ElbowPart2_L/Space_suit_rigFinal:Wrist_L/Space_suit_rigFinal:MiddleFinger1_L
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_L/Space_suit_rigFinal:Shoulder_L/Space_suit_rigFinal:ShoulderPart1_L/Space_suit_rigFinal:ShoulderPart2_L/Space_suit_rigFinal:Elbow_L/Space_suit_rigFinal:ElbowPart1_L/Space_suit_rigFinal:ElbowPart2_L/Space_suit_rigFinal:Wrist_L/Space_suit_rigFinal:MiddleFinger1_L/Space_suit_rigFinal:MiddleFinger2_L
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_L/Space_suit_rigFinal:Shoulder_L/Space_suit_rigFinal:ShoulderPart1_L/Space_suit_rigFinal:ShoulderPart2_L/Space_suit_rigFinal:Elbow_L/Space_suit_rigFinal:ElbowPart1_L/Space_suit_rigFinal:ElbowPart2_L/Space_suit_rigFinal:Wrist_L/Space_suit_rigFinal:MiddleFinger1_L/Space_suit_rigFinal:MiddleFinger2_L/Space_suit_rigFinal:MiddleFinger3_L
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_L/Space_suit_rigFinal:Shoulder_L/Space_suit_rigFinal:ShoulderPart1_L/Space_suit_rigFinal:ShoulderPart2_L/Space_suit_rigFinal:Elbow_L/Space_suit_rigFinal:ElbowPart1_L/Space_suit_rigFinal:ElbowPart2_L/Space_suit_rigFinal:Wrist_L/Space_suit_rigFinal:MiddleFinger1_L/Space_suit_rigFinal:MiddleFinger2_L/Space_suit_rigFinal:MiddleFinger3_L/Space_suit_rigFinal:MiddleFinger4_L
+        weight: 0
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_L/Space_suit_rigFinal:Shoulder_L/Space_suit_rigFinal:ShoulderPart1_L/Space_suit_rigFinal:ShoulderPart2_L/Space_suit_rigFinal:Elbow_L/Space_suit_rigFinal:ElbowPart1_L/Space_suit_rigFinal:ElbowPart2_L/Space_suit_rigFinal:Wrist_L/Space_suit_rigFinal:ThumbFinger1_L
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_L/Space_suit_rigFinal:Shoulder_L/Space_suit_rigFinal:ShoulderPart1_L/Space_suit_rigFinal:ShoulderPart2_L/Space_suit_rigFinal:Elbow_L/Space_suit_rigFinal:ElbowPart1_L/Space_suit_rigFinal:ElbowPart2_L/Space_suit_rigFinal:Wrist_L/Space_suit_rigFinal:ThumbFinger1_L/Space_suit_rigFinal:ThumbFinger2_L
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_L/Space_suit_rigFinal:Shoulder_L/Space_suit_rigFinal:ShoulderPart1_L/Space_suit_rigFinal:ShoulderPart2_L/Space_suit_rigFinal:Elbow_L/Space_suit_rigFinal:ElbowPart1_L/Space_suit_rigFinal:ElbowPart2_L/Space_suit_rigFinal:Wrist_L/Space_suit_rigFinal:ThumbFinger1_L/Space_suit_rigFinal:ThumbFinger2_L/Space_suit_rigFinal:ThumbFinger3_L
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_L/Space_suit_rigFinal:Shoulder_L/Space_suit_rigFinal:ShoulderPart1_L/Space_suit_rigFinal:ShoulderPart2_L/Space_suit_rigFinal:Elbow_L/Space_suit_rigFinal:ElbowPart1_L/Space_suit_rigFinal:ElbowPart2_L/Space_suit_rigFinal:Wrist_L/Space_suit_rigFinal:ThumbFinger1_L/Space_suit_rigFinal:ThumbFinger2_L/Space_suit_rigFinal:ThumbFinger3_L/Space_suit_rigFinal:ThumbFinger4_L
+        weight: 0
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_R
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_R/Space_suit_rigFinal:Shoulder_R
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_R/Space_suit_rigFinal:Shoulder_R/Space_suit_rigFinal:ShoulderPart1_R
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_R/Space_suit_rigFinal:Shoulder_R/Space_suit_rigFinal:ShoulderPart1_R/Space_suit_rigFinal:ShoulderPart2_R
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_R/Space_suit_rigFinal:Shoulder_R/Space_suit_rigFinal:ShoulderPart1_R/Space_suit_rigFinal:ShoulderPart2_R/Space_suit_rigFinal:Elbow_R
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_R/Space_suit_rigFinal:Shoulder_R/Space_suit_rigFinal:ShoulderPart1_R/Space_suit_rigFinal:ShoulderPart2_R/Space_suit_rigFinal:Elbow_R/Space_suit_rigFinal:ElbowPart1_R
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_R/Space_suit_rigFinal:Shoulder_R/Space_suit_rigFinal:ShoulderPart1_R/Space_suit_rigFinal:ShoulderPart2_R/Space_suit_rigFinal:Elbow_R/Space_suit_rigFinal:ElbowPart1_R/Space_suit_rigFinal:ElbowPart2_R
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_R/Space_suit_rigFinal:Shoulder_R/Space_suit_rigFinal:ShoulderPart1_R/Space_suit_rigFinal:ShoulderPart2_R/Space_suit_rigFinal:Elbow_R/Space_suit_rigFinal:ElbowPart1_R/Space_suit_rigFinal:ElbowPart2_R/Space_suit_rigFinal:Wrist_R
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_R/Space_suit_rigFinal:Shoulder_R/Space_suit_rigFinal:ShoulderPart1_R/Space_suit_rigFinal:ShoulderPart2_R/Space_suit_rigFinal:Elbow_R/Space_suit_rigFinal:ElbowPart1_R/Space_suit_rigFinal:ElbowPart2_R/Space_suit_rigFinal:Wrist_R/Space_suit_rigFinal:Cup_R
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_R/Space_suit_rigFinal:Shoulder_R/Space_suit_rigFinal:ShoulderPart1_R/Space_suit_rigFinal:ShoulderPart2_R/Space_suit_rigFinal:Elbow_R/Space_suit_rigFinal:ElbowPart1_R/Space_suit_rigFinal:ElbowPart2_R/Space_suit_rigFinal:Wrist_R/Space_suit_rigFinal:Cup_R/Space_suit_rigFinal:PinkyFinger1_R
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_R/Space_suit_rigFinal:Shoulder_R/Space_suit_rigFinal:ShoulderPart1_R/Space_suit_rigFinal:ShoulderPart2_R/Space_suit_rigFinal:Elbow_R/Space_suit_rigFinal:ElbowPart1_R/Space_suit_rigFinal:ElbowPart2_R/Space_suit_rigFinal:Wrist_R/Space_suit_rigFinal:Cup_R/Space_suit_rigFinal:PinkyFinger1_R/Space_suit_rigFinal:PinkyFinger2_R
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_R/Space_suit_rigFinal:Shoulder_R/Space_suit_rigFinal:ShoulderPart1_R/Space_suit_rigFinal:ShoulderPart2_R/Space_suit_rigFinal:Elbow_R/Space_suit_rigFinal:ElbowPart1_R/Space_suit_rigFinal:ElbowPart2_R/Space_suit_rigFinal:Wrist_R/Space_suit_rigFinal:Cup_R/Space_suit_rigFinal:PinkyFinger1_R/Space_suit_rigFinal:PinkyFinger2_R/Space_suit_rigFinal:PinkyFinger3_R
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_R/Space_suit_rigFinal:Shoulder_R/Space_suit_rigFinal:ShoulderPart1_R/Space_suit_rigFinal:ShoulderPart2_R/Space_suit_rigFinal:Elbow_R/Space_suit_rigFinal:ElbowPart1_R/Space_suit_rigFinal:ElbowPart2_R/Space_suit_rigFinal:Wrist_R/Space_suit_rigFinal:Cup_R/Space_suit_rigFinal:PinkyFinger1_R/Space_suit_rigFinal:PinkyFinger2_R/Space_suit_rigFinal:PinkyFinger3_R/Space_suit_rigFinal:PinkyFinger4_R
+        weight: 0
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_R/Space_suit_rigFinal:Shoulder_R/Space_suit_rigFinal:ShoulderPart1_R/Space_suit_rigFinal:ShoulderPart2_R/Space_suit_rigFinal:Elbow_R/Space_suit_rigFinal:ElbowPart1_R/Space_suit_rigFinal:ElbowPart2_R/Space_suit_rigFinal:Wrist_R/Space_suit_rigFinal:Cup_R/Space_suit_rigFinal:RingFinger1_R
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_R/Space_suit_rigFinal:Shoulder_R/Space_suit_rigFinal:ShoulderPart1_R/Space_suit_rigFinal:ShoulderPart2_R/Space_suit_rigFinal:Elbow_R/Space_suit_rigFinal:ElbowPart1_R/Space_suit_rigFinal:ElbowPart2_R/Space_suit_rigFinal:Wrist_R/Space_suit_rigFinal:Cup_R/Space_suit_rigFinal:RingFinger1_R/Space_suit_rigFinal:RingFinger2_R
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_R/Space_suit_rigFinal:Shoulder_R/Space_suit_rigFinal:ShoulderPart1_R/Space_suit_rigFinal:ShoulderPart2_R/Space_suit_rigFinal:Elbow_R/Space_suit_rigFinal:ElbowPart1_R/Space_suit_rigFinal:ElbowPart2_R/Space_suit_rigFinal:Wrist_R/Space_suit_rigFinal:Cup_R/Space_suit_rigFinal:RingFinger1_R/Space_suit_rigFinal:RingFinger2_R/Space_suit_rigFinal:RingFinger3_R
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_R/Space_suit_rigFinal:Shoulder_R/Space_suit_rigFinal:ShoulderPart1_R/Space_suit_rigFinal:ShoulderPart2_R/Space_suit_rigFinal:Elbow_R/Space_suit_rigFinal:ElbowPart1_R/Space_suit_rigFinal:ElbowPart2_R/Space_suit_rigFinal:Wrist_R/Space_suit_rigFinal:Cup_R/Space_suit_rigFinal:RingFinger1_R/Space_suit_rigFinal:RingFinger2_R/Space_suit_rigFinal:RingFinger3_R/Space_suit_rigFinal:RingFinger4_R
+        weight: 0
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_R/Space_suit_rigFinal:Shoulder_R/Space_suit_rigFinal:ShoulderPart1_R/Space_suit_rigFinal:ShoulderPart2_R/Space_suit_rigFinal:Elbow_R/Space_suit_rigFinal:ElbowPart1_R/Space_suit_rigFinal:ElbowPart2_R/Space_suit_rigFinal:Wrist_R/Space_suit_rigFinal:IndexFinger1_R
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_R/Space_suit_rigFinal:Shoulder_R/Space_suit_rigFinal:ShoulderPart1_R/Space_suit_rigFinal:ShoulderPart2_R/Space_suit_rigFinal:Elbow_R/Space_suit_rigFinal:ElbowPart1_R/Space_suit_rigFinal:ElbowPart2_R/Space_suit_rigFinal:Wrist_R/Space_suit_rigFinal:IndexFinger1_R/Space_suit_rigFinal:IndexFinger2_R
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_R/Space_suit_rigFinal:Shoulder_R/Space_suit_rigFinal:ShoulderPart1_R/Space_suit_rigFinal:ShoulderPart2_R/Space_suit_rigFinal:Elbow_R/Space_suit_rigFinal:ElbowPart1_R/Space_suit_rigFinal:ElbowPart2_R/Space_suit_rigFinal:Wrist_R/Space_suit_rigFinal:IndexFinger1_R/Space_suit_rigFinal:IndexFinger2_R/Space_suit_rigFinal:IndexFinger3_R
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_R/Space_suit_rigFinal:Shoulder_R/Space_suit_rigFinal:ShoulderPart1_R/Space_suit_rigFinal:ShoulderPart2_R/Space_suit_rigFinal:Elbow_R/Space_suit_rigFinal:ElbowPart1_R/Space_suit_rigFinal:ElbowPart2_R/Space_suit_rigFinal:Wrist_R/Space_suit_rigFinal:IndexFinger1_R/Space_suit_rigFinal:IndexFinger2_R/Space_suit_rigFinal:IndexFinger3_R/Space_suit_rigFinal:IndexFinger4_R
+        weight: 0
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_R/Space_suit_rigFinal:Shoulder_R/Space_suit_rigFinal:ShoulderPart1_R/Space_suit_rigFinal:ShoulderPart2_R/Space_suit_rigFinal:Elbow_R/Space_suit_rigFinal:ElbowPart1_R/Space_suit_rigFinal:ElbowPart2_R/Space_suit_rigFinal:Wrist_R/Space_suit_rigFinal:MiddleFinger1_R
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_R/Space_suit_rigFinal:Shoulder_R/Space_suit_rigFinal:ShoulderPart1_R/Space_suit_rigFinal:ShoulderPart2_R/Space_suit_rigFinal:Elbow_R/Space_suit_rigFinal:ElbowPart1_R/Space_suit_rigFinal:ElbowPart2_R/Space_suit_rigFinal:Wrist_R/Space_suit_rigFinal:MiddleFinger1_R/Space_suit_rigFinal:MiddleFinger2_R
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_R/Space_suit_rigFinal:Shoulder_R/Space_suit_rigFinal:ShoulderPart1_R/Space_suit_rigFinal:ShoulderPart2_R/Space_suit_rigFinal:Elbow_R/Space_suit_rigFinal:ElbowPart1_R/Space_suit_rigFinal:ElbowPart2_R/Space_suit_rigFinal:Wrist_R/Space_suit_rigFinal:MiddleFinger1_R/Space_suit_rigFinal:MiddleFinger2_R/Space_suit_rigFinal:MiddleFinger3_R
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_R/Space_suit_rigFinal:Shoulder_R/Space_suit_rigFinal:ShoulderPart1_R/Space_suit_rigFinal:ShoulderPart2_R/Space_suit_rigFinal:Elbow_R/Space_suit_rigFinal:ElbowPart1_R/Space_suit_rigFinal:ElbowPart2_R/Space_suit_rigFinal:Wrist_R/Space_suit_rigFinal:MiddleFinger1_R/Space_suit_rigFinal:MiddleFinger2_R/Space_suit_rigFinal:MiddleFinger3_R/Space_suit_rigFinal:MiddleFinger4_R
+        weight: 0
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_R/Space_suit_rigFinal:Shoulder_R/Space_suit_rigFinal:ShoulderPart1_R/Space_suit_rigFinal:ShoulderPart2_R/Space_suit_rigFinal:Elbow_R/Space_suit_rigFinal:ElbowPart1_R/Space_suit_rigFinal:ElbowPart2_R/Space_suit_rigFinal:Wrist_R/Space_suit_rigFinal:ThumbFinger1_R
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_R/Space_suit_rigFinal:Shoulder_R/Space_suit_rigFinal:ShoulderPart1_R/Space_suit_rigFinal:ShoulderPart2_R/Space_suit_rigFinal:Elbow_R/Space_suit_rigFinal:ElbowPart1_R/Space_suit_rigFinal:ElbowPart2_R/Space_suit_rigFinal:Wrist_R/Space_suit_rigFinal:ThumbFinger1_R/Space_suit_rigFinal:ThumbFinger2_R
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_R/Space_suit_rigFinal:Shoulder_R/Space_suit_rigFinal:ShoulderPart1_R/Space_suit_rigFinal:ShoulderPart2_R/Space_suit_rigFinal:Elbow_R/Space_suit_rigFinal:ElbowPart1_R/Space_suit_rigFinal:ElbowPart2_R/Space_suit_rigFinal:Wrist_R/Space_suit_rigFinal:ThumbFinger1_R/Space_suit_rigFinal:ThumbFinger2_R/Space_suit_rigFinal:ThumbFinger3_R
+        weight: 1
+      - path: Space_suit_rigFinal:root/Space_suit_rigFinal:Root_M/Space_suit_rigFinal:RootPart1_M/Space_suit_rigFinal:Spine1_M/Space_suit_rigFinal:Spine1Part1_M/Space_suit_rigFinal:Chest_M/Space_suit_rigFinal:Scapula_R/Space_suit_rigFinal:Shoulder_R/Space_suit_rigFinal:ShoulderPart1_R/Space_suit_rigFinal:ShoulderPart2_R/Space_suit_rigFinal:Elbow_R/Space_suit_rigFinal:ElbowPart1_R/Space_suit_rigFinal:ElbowPart2_R/Space_suit_rigFinal:Wrist_R/Space_suit_rigFinal:ThumbFinger1_R/Space_suit_rigFinal:ThumbFinger2_R/Space_suit_rigFinal:ThumbFinger3_R/Space_suit_rigFinal:ThumbFinger4_R
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human:
+    - boneName: Space_suit_rigFinal:Root_M
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:HipAdd_R_L
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:HipAdd_R_R
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:HipPart1_L
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:HipPart1_R
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:HipPart2_L
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:HipPart2_R
+      humanName: RightFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:RootPart1_M
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:Spine1_M
+      humanName: Chest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:Neck_M
+      humanName: Neck
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:NeckPart2_M
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:Shoulder_L
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:Shoulder_R
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:ShoulderPart1_L
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:ShoulderPart1_R
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:Elbow_L
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:Elbow_R
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:ElbowPart2_L
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:ElbowPart2_R
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:Knee_L
+      humanName: LeftToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:Knee_R
+      humanName: RightToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:AdvancedSkeleton_Eye_L
+      humanName: LeftEye
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:AdvancedSkeleton_Eye_R
+      humanName: RightEye
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:Jaw_M
+      humanName: Jaw
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:ThumbFinger1_L
+      humanName: Left Thumb Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:ThumbFinger2_L
+      humanName: Left Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:ThumbFinger3_L
+      humanName: Left Thumb Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:IndexFinger1_L
+      humanName: Left Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:IndexFinger2_L
+      humanName: Left Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:IndexFinger3_L
+      humanName: Left Index Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:MiddleFinger1_L
+      humanName: Left Middle Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:MiddleFinger2_L
+      humanName: Left Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:MiddleFinger3_L
+      humanName: Left Middle Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:RingFinger1_L
+      humanName: Left Ring Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:RingFinger2_L
+      humanName: Left Ring Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:RingFinger3_L
+      humanName: Left Ring Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:PinkyFinger1_L
+      humanName: Left Little Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:PinkyFinger2_L
+      humanName: Left Little Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:PinkyFinger3_L
+      humanName: Left Little Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:ThumbFinger1_R
+      humanName: Right Thumb Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:ThumbFinger2_R
+      humanName: Right Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:ThumbFinger3_R
+      humanName: Right Thumb Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:IndexFinger1_R
+      humanName: Right Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:IndexFinger2_R
+      humanName: Right Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:IndexFinger3_R
+      humanName: Right Index Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:MiddleFinger1_R
+      humanName: Right Middle Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:MiddleFinger2_R
+      humanName: Right Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:MiddleFinger3_R
+      humanName: Right Middle Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:RingFinger1_R
+      humanName: Right Ring Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:RingFinger2_R
+      humanName: Right Ring Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:RingFinger3_R
+      humanName: Right Ring Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:PinkyFinger1_R
+      humanName: Right Little Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:PinkyFinger2_R
+      humanName: Right Little Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:PinkyFinger3_R
+      humanName: Right Little Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Space_suit_rigFinal:Chest_M
+      humanName: UpperChest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: Player01_CutScene01_PlayCommunicator01(Clone)
+      parentName: 
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:root
+      parentName: Player01_CutScene01_PlayCommunicator01(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:Root_M
+      parentName: Space_suit_rigFinal:root
+      position: {x: -0.00003969483, y: 0.48383912, z: 0.026831558}
+      rotation: {x: 0.52623767, y: -0.47254235, z: -0.52439916, w: 0.47411302}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:HipAdd_R_L
+      parentName: Space_suit_rigFinal:Root_M
+      position: {x: 0.011006887, y: -0.022918884, z: 0.10553016}
+      rotation: {x: 0.9672383, y: 0.032803398, z: -0.24795763, w: -0.04348669}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:Hip_L
+      parentName: Space_suit_rigFinal:HipAdd_R_L
+      position: {x: 0.056205127, y: 1.9539925e-16, z: 2.1316282e-16}
+      rotation: {x: -0.0028739967, y: 0.22005172, z: -0.04993214, w: 0.9742052}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:HipPart1_L
+      parentName: Space_suit_rigFinal:Hip_L
+      position: {x: 0.13738902, y: 3.5527135e-16, z: 9.858781e-16}
+      rotation: {x: 0.031363793, y: -0, z: -0, w: 0.999508}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:HipPart2_L
+      parentName: Space_suit_rigFinal:HipPart1_L
+      position: {x: 0.13738902, y: 4.2632563e-16, z: 9.592326e-16}
+      rotation: {x: 0.32368207, y: 0.00904076, z: -0.01632153, w: 0.9459819}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:Knee_L
+      parentName: Space_suit_rigFinal:HipPart2_L
+      position: {x: 0.13738902, y: 4.973799e-16, z: 9.325873e-16}
+      rotation: {x: 0.03124415, y: -0.0027368795, z: 0.08721946, w: 0.9956953}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:KneePart1_L
+      parentName: Space_suit_rigFinal:Knee_L
+      position: {x: 0.13042472, y: -2.4868996e-16, z: 2.220446e-16}
+      rotation: {x: -0.000314238, y: 0, z: -0, w: 0.99999994}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:KneePart2_L
+      parentName: Space_suit_rigFinal:KneePart1_L
+      position: {x: 0.13042472, y: -2.3980816e-16, z: 2.0428103e-16}
+      rotation: {x: -0.000314238, y: 0, z: -0, w: 0.99999994}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:Ankle_L
+      parentName: Space_suit_rigFinal:KneePart2_L
+      position: {x: 0.13042472, y: -2.4868996e-16, z: 2.0428103e-16}
+      rotation: {x: -0.06750794, y: 0.026162531, z: -0.063976154, w: 0.9953217}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:Toes_L
+      parentName: Space_suit_rigFinal:Ankle_L
+      position: {x: 0.09669859, y: -0.116263956, z: -1.2789769e-15}
+      rotation: {x: 0.0132780345, y: 0.0017959119, z: -0.6568591, w: 0.75389427}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:ToesEnd_L
+      parentName: Space_suit_rigFinal:Toes_L
+      position: {x: 0.0626901, y: 9.148237e-16, z: -2.3092638e-16}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:HipAdd_R_R
+      parentName: Space_suit_rigFinal:Root_M
+      position: {x: 0.011006887, y: -0.022918884, z: -0.10553016}
+      rotation: {x: -0.032432593, y: 0.97741693, z: -0.045241714, w: 0.20385665}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:Hip_R
+      parentName: Space_suit_rigFinal:HipAdd_R_R
+      position: {x: -0.056205127, y: -2.842171e-16, z: 7.105427e-17}
+      rotation: {x: -0.005621683, y: 0.22640857, z: -0.06308179, w: 0.97197133}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:HipPart1_R
+      parentName: Space_suit_rigFinal:Hip_R
+      position: {x: -0.13738902, y: -3.5527135e-16, z: -1.6697754e-15}
+      rotation: {x: 0.042732835, y: -0, z: -0, w: 0.99908656}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:HipPart2_R
+      parentName: Space_suit_rigFinal:HipPart1_R
+      position: {x: -0.13738902, y: -4.796163e-16, z: -1.5809576e-15}
+      rotation: {x: -0.1857594, y: -0.017124169, z: -0.011136599, w: 0.9823829}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:Knee_R
+      parentName: Space_suit_rigFinal:HipPart2_R
+      position: {x: -0.13738902, y: -6.3948843e-16, z: -1.5454305e-15}
+      rotation: {x: 0.042438596, y: -0.0050059245, z: 0.11703773, w: 0.9922077}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:KneePart1_R
+      parentName: Space_suit_rigFinal:Knee_R
+      position: {x: -0.13042472, y: 4.8405725e-16, z: -1.7763568e-17}
+      rotation: {x: 0.0091059115, y: -0, z: -0, w: 0.9999586}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:KneePart2_R
+      parentName: Space_suit_rigFinal:KneePart1_R
+      position: {x: -0.13042472, y: 5.218048e-16, z: -5.3290704e-17}
+      rotation: {x: 0.0091059115, y: -0, z: -0, w: 0.9999586}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:Ankle_R
+      parentName: Space_suit_rigFinal:KneePart2_R
+      position: {x: -0.13042472, y: 4.8849814e-16, z: -3.5527136e-17}
+      rotation: {x: -0.05946224, y: -0.017644597, z: -0.077368945, w: 0.99507135}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:Toes_R
+      parentName: Space_suit_rigFinal:Ankle_R
+      position: {x: -0.09669859, y: 0.116263956, z: 7.9936056e-16}
+      rotation: {x: 0.013278055, y: 0.0017958941, z: -0.6568591, w: 0.75389427}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:ToesEnd_R
+      parentName: Space_suit_rigFinal:Toes_R
+      position: {x: -0.0626901, y: -3.4638957e-16, z: 1.4210854e-16}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:RootPart1_M
+      parentName: Space_suit_rigFinal:Root_M
+      position: {x: -0.045400098, y: 3.5527136e-17, z: -6.217249e-17}
+      rotation: {x: -0.000090239715, y: -0.0017074348, z: 0.026397778, w: 0.99965006}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:Spine1_M
+      parentName: Space_suit_rigFinal:RootPart1_M
+      position: {x: -0.045400098, y: 9.7699626e-17, z: -1.5543122e-16}
+      rotation: {x: -0.000014549102, y: -0.014695652, z: 0.031055188, w: 0.9994096}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:Spine1Part1_M
+      parentName: Space_suit_rigFinal:Spine1_M
+      position: {x: -0.04120079, y: 3.5527136e-17, z: -8.8817837e-17}
+      rotation: {x: -0.000014549102, y: -0.014695652, z: 0.031055188, w: 0.9994096}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:Chest_M
+      parentName: Space_suit_rigFinal:Spine1Part1_M
+      position: {x: -0.04120079, y: 3.5527136e-17, z: -1.5987211e-16}
+      rotation: {x: -0.0026218125, y: 0.064619705, z: 0.15546253, w: 0.9857225}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:Bra_L
+      parentName: Space_suit_rigFinal:Chest_M
+      position: {x: -0.046485975, y: 0.044635464, z: 0.06866772}
+      rotation: {x: 0.7412461, y: -0.6456711, z: -0.13072026, w: -0.1287448}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:joint3
+      parentName: Space_suit_rigFinal:Bra_L
+      position: {x: -0.06221518, y: 1.4210854e-16, z: 5.3290704e-17}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:Bra_R
+      parentName: Space_suit_rigFinal:Chest_M
+      position: {x: -0.04648363, y: 0.04463496, z: -0.068667695}
+      rotation: {x: 0.6456711, y: 0.7412461, z: -0.1287448, w: 0.13072026}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:joint3 1
+      parentName: Space_suit_rigFinal:Bra_R
+      position: {x: 0.062214512, y: 0.00000080930096, z: 0.00000025423364}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:Neck_M
+      parentName: Space_suit_rigFinal:Chest_M
+      position: {x: -0.23367906, y: 0, z: 3.1086244e-16}
+      rotation: {x: 0, y: -0, z: -0.20948845, w: 0.97781116}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:NeckPart1_M
+      parentName: Space_suit_rigFinal:Neck_M
+      position: {x: -0.020512104, y: 1.5987211e-16, z: -3.5527136e-17}
+      rotation: {x: -0.016518911, y: 0, z: -0, w: 0.99986356}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:NeckPart2_M
+      parentName: Space_suit_rigFinal:NeckPart1_M
+      position: {x: -0.020512104, y: 3.7303492e-16, z: -6.217249e-17}
+      rotation: {x: -0.016518911, y: 0, z: -0, w: 0.99986356}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:AdvancedSkeleton_Head_M
+      parentName: Space_suit_rigFinal:NeckPart2_M
+      position: {x: -0.020512104, y: -2.1316282e-16, z: -1.3322676e-16}
+      rotation: {x: -0.010078962, y: -0.05879397, z: 0.08250896, w: 0.9948035}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:AdvancedSkeleton_Eye_L
+      parentName: Space_suit_rigFinal:AdvancedSkeleton_Head_M
+      position: {x: -0.07372447, y: 0.07626556, z: 0.030182825}
+      rotation: {x: 0, y: -0, z: -0.7071068, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:EyeEnd_L
+      parentName: Space_suit_rigFinal:AdvancedSkeleton_Eye_L
+      position: {x: -0.017087016, y: -2.842171e-16, z: -3.0198067e-16}
+      rotation: {x: -0.13868621, y: -0.0022722934, z: -0.00015833313, w: 0.99033374}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:AdvancedSkeleton_Eye_R
+      parentName: Space_suit_rigFinal:AdvancedSkeleton_Head_M
+      position: {x: -0.07372447, y: 0.07626556, z: -0.030182825}
+      rotation: {x: 0, y: -0, z: -0.7071068, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:EyeEnd_R
+      parentName: Space_suit_rigFinal:AdvancedSkeleton_Eye_R
+      position: {x: -0.017087016, y: -2.842171e-16, z: 1.9095835e-16}
+      rotation: {x: 0.13868621, y: 0.0022722934, z: -0.00015833313, w: 0.99033374}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:HeadEnd_M
+      parentName: Space_suit_rigFinal:AdvancedSkeleton_Head_M
+      position: {x: -0.15016973, y: 5.3290704e-17, z: -4.8051374e-16}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:Jaw_M
+      parentName: Space_suit_rigFinal:AdvancedSkeleton_Head_M
+      position: {x: -0.039406817, y: 0.01827548, z: -3.5527135e-16}
+      rotation: {x: 0, y: 0, z: 0.89281785, w: -0.450418}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:JawEnd_M
+      parentName: Space_suit_rigFinal:Jaw_M
+      position: {x: -0.092462264, y: -8.5265126e-16, z: -1.957599e-16}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:Scapula_L
+      parentName: Space_suit_rigFinal:Chest_M
+      position: {x: -0.18658991, y: -0.013084676, z: 0.030753545}
+      rotation: {x: 0.74403155, y: -0.22784264, z: 0.6263208, w: -0.047192127}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:Shoulder_L
+      parentName: Space_suit_rigFinal:Scapula_L
+      position: {x: 0.10947153, y: 4.3520743e-15, z: 2.5579537e-15}
+      rotation: {x: 0.08848456, y: -0.0039823498, z: -0.1398286, w: 0.9862062}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:ShoulderPart1_L
+      parentName: Space_suit_rigFinal:Shoulder_L
+      position: {x: 0.073455974, y: 2.6645352e-17, z: -1.4210854e-15}
+      rotation: {x: 0.016670557, y: 0.09124647, z: -0.041719746, w: 0.9948144}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:ShoulderPart2_L
+      parentName: Space_suit_rigFinal:ShoulderPart1_L
+      position: {x: 0.073455974, y: 0, z: -1.4921397e-15}
+      rotation: {x: 0.016755108, y: -0, z: -0, w: 0.99985963}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:Elbow_L
+      parentName: Space_suit_rigFinal:ShoulderPart2_L
+      position: {x: 0.073455974, y: -8.8817837e-17, z: -1.4210854e-15}
+      rotation: {x: 0.01714806, y: 0.00805665, z: -0.050221544, w: 0.9985584}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:ElbowPart1_L
+      parentName: Space_suit_rigFinal:Elbow_L
+      position: {x: 0.07376389, y: -1.0658141e-16, z: -1.0658141e-16}
+      rotation: {x: 0.0062544844, y: -0, z: -0, w: 0.99998045}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:ElbowPart2_L
+      parentName: Space_suit_rigFinal:ElbowPart1_L
+      position: {x: 0.07376389, y: -1.0658141e-16, z: -3.5527136e-17}
+      rotation: {x: 0.0062544844, y: -0, z: -0, w: 0.99998045}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:Wrist_L
+      parentName: Space_suit_rigFinal:ElbowPart2_L
+      position: {x: 0.07376389, y: -7.105427e-17, z: 3.5527136e-17}
+      rotation: {x: -0.0022420583, y: -0.108042054, z: -0.063009016, w: 0.99214506}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:Cup_L
+      parentName: Space_suit_rigFinal:Wrist_L
+      position: {x: 0.04743905, y: 0.013387595, z: -0.004749729}
+      rotation: {x: 0.00345932, y: -0.07195443, z: -0.04789631, w: 0.9962512}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:PinkyFinger1_L
+      parentName: Space_suit_rigFinal:Cup_L
+      position: {x: 0.035603438, y: 0.02029863, z: 0.009358995}
+      rotation: {x: 0.1636184, y: 0.06287938, z: 0.05803647, w: 0.98280567}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:PinkyFinger2_L
+      parentName: Space_suit_rigFinal:PinkyFinger1_L
+      position: {x: 0.027682185, y: -2.753353e-16, z: 2.4158453e-15}
+      rotation: {x: 0.0068142256, y: -0.029554725, z: 0.0013380292, w: 0.999539}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:PinkyFinger3_L
+      parentName: Space_suit_rigFinal:PinkyFinger2_L
+      position: {x: 0.018825442, y: -9.947598e-16, z: -7.105427e-16}
+      rotation: {x: 0.010809679, y: -0.02646556, z: -0.002227141, w: 0.9995888}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:PinkyFinger4_L
+      parentName: Space_suit_rigFinal:PinkyFinger3_L
+      position: {x: 0.021170668, y: 9.925393e-16, z: -2.131628e-15}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:RingFinger1_L
+      parentName: Space_suit_rigFinal:Cup_L
+      position: {x: 0.046687864, y: 0.008051294, z: 0.0031843656}
+      rotation: {x: 0.07097471, y: 0.055719916, z: 0.06643212, w: 0.9937025}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:RingFinger2_L
+      parentName: Space_suit_rigFinal:RingFinger1_L
+      position: {x: 0.038037412, y: -3.375078e-16, z: 1.4921397e-15}
+      rotation: {x: 0.0043755383, y: -0.024265455, z: 0.0010898974, w: 0.99969536}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:RingFinger3_L
+      parentName: Space_suit_rigFinal:RingFinger2_L
+      position: {x: 0.024820792, y: -1.0658141e-16, z: 1.2789769e-15}
+      rotation: {x: 0.0024011717, y: -0.026987934, z: -0.0006530971, w: 0.99963266}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:RingFinger4_L
+      parentName: Space_suit_rigFinal:RingFinger3_L
+      position: {x: 0.026859343, y: -1.7763568e-17, z: -1.4210854e-15}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:IndexFinger1_L
+      parentName: Space_suit_rigFinal:Wrist_L
+      position: {x: 0.09968534, y: -0.02303364, z: 0.004656572}
+      rotation: {x: -0.10310734, y: -0.028517801, z: 0.05224586, w: 0.9928877}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:IndexFinger2_L
+      parentName: Space_suit_rigFinal:IndexFinger1_L
+      position: {x: 0.035207834, y: 1.687539e-16, z: -2.4868995e-15}
+      rotation: {x: -0.004613682, y: -0.036451004, z: -0.007776072, w: 0.99929464}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:IndexFinger3_L
+      parentName: Space_suit_rigFinal:IndexFinger2_L
+      position: {x: 0.024663635, y: -2.664535e-16, z: 8.5265126e-16}
+      rotation: {x: -0.00956913, y: -0.033836585, z: 0.005144697, w: 0.99936837}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:IndexFinger4_L
+      parentName: Space_suit_rigFinal:IndexFinger3_L
+      position: {x: 0.02590897, y: 1.0658141e-16, z: 1.847411e-15}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:MiddleFinger1_L
+      parentName: Space_suit_rigFinal:Wrist_L
+      position: {x: 0.102308616, y: -1.4210854e-16, z: 1.5276668e-15}
+      rotation: {x: 0.019410728, y: -0.020310253, z: 0.03305994, w: 0.9990584}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:MiddleFinger2_L
+      parentName: Space_suit_rigFinal:MiddleFinger1_L
+      position: {x: 0.04135206, y: -1.0658141e-16, z: -2.0605739e-15}
+      rotation: {x: -0.001007732, y: -0.031421788, z: -0.0003536098, w: 0.9995057}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:MiddleFinger3_L
+      parentName: Space_suit_rigFinal:MiddleFinger2_L
+      position: {x: 0.025044112, y: -3.1974422e-16, z: 1.9895197e-15}
+      rotation: {x: 0.0013491951, y: -0.029318426, z: 0.00032958126, w: 0.9995691}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:MiddleFinger4_L
+      parentName: Space_suit_rigFinal:MiddleFinger3_L
+      position: {x: 0.027066814, y: 1.1324275e-16, z: 5.684342e-16}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:ThumbFinger1_L
+      parentName: Space_suit_rigFinal:Wrist_L
+      position: {x: 0.04040395, y: -0.0202548, z: 0.00759151}
+      rotation: {x: -0.6121964, y: 0.14274032, z: -0.3910515, w: 0.67224956}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:ThumbFinger2_L
+      parentName: Space_suit_rigFinal:ThumbFinger1_L
+      position: {x: 0.022402747, y: 1.1368684e-15, z: 2.5579537e-15}
+      rotation: {x: -0.0061586476, y: -0.025041832, z: -0.0009310987, w: 0.999667}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:ThumbFinger3_L
+      parentName: Space_suit_rigFinal:ThumbFinger2_L
+      position: {x: 0.036175035, y: -1.1013412e-15, z: -7.105427e-17}
+      rotation: {x: -0.0028364065, y: -0.026935019, z: -0.0017907409, w: 0.99963164}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:ThumbFinger4_L
+      parentName: Space_suit_rigFinal:ThumbFinger3_L
+      position: {x: 0.032476686, y: -1.2789769e-15, z: -9.237055e-16}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:Scapula_R
+      parentName: Space_suit_rigFinal:Chest_M
+      position: {x: -0.18658991, y: -0.013084676, z: -0.030753545}
+      rotation: {x: -0.23519105, y: -0.75477177, z: 0.0500794, w: 0.61032516}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:Shoulder_R
+      parentName: Space_suit_rigFinal:Scapula_R
+      position: {x: -0.10947153, y: -4.689582e-15, z: -3.694822e-15}
+      rotation: {x: 0.14054601, y: -0.07566648, z: -0.17802134, w: 0.97099423}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:ShoulderPart1_R
+      parentName: Space_suit_rigFinal:Shoulder_R
+      position: {x: -0.073455974, y: 0, z: 9.947598e-16}
+      rotation: {x: -0.015176696, y: 0.095083036, z: -0.040657874, w: 0.9945229}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:ShoulderPart2_R
+      parentName: Space_suit_rigFinal:ShoulderPart1_R
+      position: {x: -0.073455974, y: -1.0658141e-16, z: 1.065814e-15}
+      rotation: {x: -0.015258586, y: 0, z: -0, w: 0.9998836}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:Elbow_R
+      parentName: Space_suit_rigFinal:ShoulderPart2_R
+      position: {x: -0.073455974, y: -1.2434498e-16, z: 1.065814e-15}
+      rotation: {x: -0.0133919325, y: 0.018752648, z: -0.04826436, w: 0.9985688}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:ElbowPart1_R
+      parentName: Space_suit_rigFinal:Elbow_R
+      position: {x: -0.07376389, y: -2.842171e-16, z: 2.842171e-16}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:ElbowPart2_R
+      parentName: Space_suit_rigFinal:ElbowPart1_R
+      position: {x: -0.07376389, y: -1.4210854e-16, z: 2.842171e-16}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:Wrist_R
+      parentName: Space_suit_rigFinal:ElbowPart2_R
+      position: {x: -0.07376389, y: -3.5527135e-16, z: 2.842171e-16}
+      rotation: {x: -0.0068193367, y: -0.106015705, z: -0.07685051, w: 0.99136686}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:Cup_R
+      parentName: Space_suit_rigFinal:Wrist_R
+      position: {x: -0.04743905, y: -0.013387595, z: 0.004749729}
+      rotation: {x: 0.00345932, y: -0.07195443, z: -0.04789631, w: 0.9962512}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:PinkyFinger1_R
+      parentName: Space_suit_rigFinal:Cup_R
+      position: {x: -0.035603438, y: -0.02029863, z: -0.009358995}
+      rotation: {x: 0.16566165, y: 0.062153745, z: 0.07853876, w: 0.9810835}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:PinkyFinger2_R
+      parentName: Space_suit_rigFinal:PinkyFinger1_R
+      position: {x: -0.027682185, y: 4.0856205e-16, z: -6.3948843e-16}
+      rotation: {x: 0.005569652, y: -0.03397179, z: 0.0023177795, w: 0.9994046}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:PinkyFinger3_R
+      parentName: Space_suit_rigFinal:PinkyFinger2_R
+      position: {x: -0.018825442, y: -8.8817837e-17, z: 9.237055e-16}
+      rotation: {x: 0.01298917, y: -0.030466251, z: -0.0032908213, w: 0.999446}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:PinkyFinger4_R
+      parentName: Space_suit_rigFinal:PinkyFinger3_R
+      position: {x: -0.021170668, y: -3.1752377e-16, z: -7.105427e-16}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:RingFinger1_R
+      parentName: Space_suit_rigFinal:Cup_R
+      position: {x: -0.046687864, y: -0.008051294, z: -0.0031843656}
+      rotation: {x: 0.08030155, y: 0.05531717, z: 0.07625654, w: 0.9923088}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:RingFinger2_R
+      parentName: Space_suit_rigFinal:RingFinger1_R
+      position: {x: -0.038037412, y: 3.1974422e-16, z: -1.1368684e-15}
+      rotation: {x: 0.0040630614, y: -0.025048377, z: 0.0011785908, w: 0.99967736}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:RingFinger3_R
+      parentName: Space_suit_rigFinal:RingFinger2_R
+      position: {x: -0.024820792, y: 1.4210854e-16, z: -4.2632563e-16}
+      rotation: {x: 0.002520245, y: -0.027424075, z: -0.0006940366, w: 0.99962056}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:RingFinger4_R
+      parentName: Space_suit_rigFinal:RingFinger3_R
+      position: {x: -0.026859343, y: -2.664535e-16, z: 1.2789769e-15}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:IndexFinger1_R
+      parentName: Space_suit_rigFinal:Wrist_R
+      position: {x: -0.09968534, y: 0.02303364, z: -0.004656572}
+      rotation: {x: -0.10831216, y: -0.034290973, z: 0.044150136, w: 0.9925439}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:IndexFinger2_R
+      parentName: Space_suit_rigFinal:IndexFinger1_R
+      position: {x: -0.035207834, y: 0, z: 1.1191048e-15}
+      rotation: {x: -0.0041885516, y: -0.036957234, z: -0.009048783, w: 0.9992671}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:IndexFinger3_R
+      parentName: Space_suit_rigFinal:IndexFinger2_R
+      position: {x: -0.024663635, y: 0, z: -4.6185276e-16}
+      rotation: {x: -0.009983759, y: -0.034558613, z: 0.0057057342, w: 0.99933654}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:IndexFinger4_R
+      parentName: Space_suit_rigFinal:IndexFinger3_R
+      position: {x: -0.02590897, y: -3.0198067e-16, z: 5.684342e-16}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:MiddleFinger1_R
+      parentName: Space_suit_rigFinal:Wrist_R
+      position: {x: -0.102308616, y: 0, z: -1.1368684e-15}
+      rotation: {x: 0.01638104, y: -0.02260326, z: 0.0388737, w: 0.99885416}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:MiddleFinger2_R
+      parentName: Space_suit_rigFinal:MiddleFinger1_R
+      position: {x: -0.04135206, y: -1.0658141e-16, z: -9.947598e-16}
+      rotation: {x: -0.00093709456, y: -0.032636058, z: -0.00040830052, w: 0.9994668}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:MiddleFinger3_R
+      parentName: Space_suit_rigFinal:MiddleFinger2_R
+      position: {x: -0.025044112, y: 2.842171e-16, z: 7.105427e-17}
+      rotation: {x: 0.0012640175, y: -0.030545793, z: 0.000377883, w: 0.99953246}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:MiddleFinger4_R
+      parentName: Space_suit_rigFinal:MiddleFinger3_R
+      position: {x: -0.027066814, y: -2.3980816e-16, z: 1.563194e-15}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:ThumbFinger1_R
+      parentName: Space_suit_rigFinal:Wrist_R
+      position: {x: -0.04040395, y: 0.0202548, z: -0.00759151}
+      rotation: {x: -0.6090341, y: 0.15150887, z: -0.38271376, w: 0.67797697}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:ThumbFinger2_R
+      parentName: Space_suit_rigFinal:ThumbFinger1_R
+      position: {x: -0.022402747, y: -4.2632563e-16, z: -9.947598e-16}
+      rotation: {x: -0.006157665, y: -0.025043536, z: -0.0009349135, w: 0.99966705}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:ThumbFinger3_R
+      parentName: Space_suit_rigFinal:ThumbFinger2_R
+      position: {x: -0.036175035, y: 7.81597e-16, z: -3.5527135e-16}
+      rotation: {x: -0.0028358889, y: -0.026934287, z: -0.0017860091, w: 0.99963164}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Space_suit_rigFinal:ThumbFinger4_R
+      parentName: Space_suit_rigFinal:ThumbFinger3_R
+      position: {x: -0.032476686, y: 1.4210854e-16, z: 5.684342e-16}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 3
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -7,6 +7,7 @@ namespace Common
     ///<summary>
     /// 脚本单例类
     ///</summary>
+    [System.Diagnostics.DebuggerStepThrough]
     public class SingletonBehaviour<T> : MonoBehaviour where T : SingletonBehaviour<T>
     {
         private static T singleton;

@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Experimental.UIElements;
-using UnityEngine.Playables;
-using UnityEngine.Timeline;
 using UnityEngine.UI;
 
 namespace MarsPC
@@ -112,16 +110,6 @@ namespace MarsPC
             window.Show();
         }
 
-        /// <summary>
-        /// 打开选择物体窗口
-        /// </summary>
-        [MenuItem("MyTools/Open Selete History [W]")]
-        private static void OpenSelectionWindow()
-        {
-            SelectedGameObjectWindow window = new SelectedGameObjectWindow();
-            window.Show();
-        }
-
         //查找指定物体 是否在选中的物体中，如果在则选中此物体（如果有多个物体，则全部展开），否则提示没有。
         /// <summary>
         /// 查找指定物体，是否在选中的物体中
@@ -136,8 +124,8 @@ namespace MarsPC
         //[MenuItem("MyTools/Change Delta Vaule [W]")]
         //private static void ChangeDeltaVaule()
         //{
-        //    //ChangeDeltaVaule window = new ChangeDeltaVaule();
-        //    //window.Show();
+        //    ChangeDeltaVaule window = new ChangeDeltaVaule();
+        //    window.Show();
         //}
 
         /// <summary>
@@ -152,16 +140,12 @@ namespace MarsPC
 
         #endregion 打开功能窗口
 
-        /// <summary>
-        /// 获取选中的物体数量
-        /// </summary>
-
         #region 常用快捷键
 
         /// <summary>
         /// 改变物体激活状态
         /// </summary>
-        [MenuItem("MyTools/Change GameObject Active State %w")]
+        [MenuItem("MyTools/Change GameObject Active State %w", false, 300)]
         private static void ToggleActiveState()
         {
             GameObject[] select = Selection.gameObjects;
@@ -171,6 +155,9 @@ namespace MarsPC
             }
         }
 
+        /// <summary>
+        /// 获取选中的物体数量
+        /// </summary>
         private static int GetObjcetCount(GameObject go)
         {
             int count = 0;
@@ -191,7 +178,7 @@ namespace MarsPC
         /// <summary>
         /// 选中Player
         /// </summary>
-        [MenuItem("MyTools/Selected Player &Q")]
+        [MenuItem("MyTools/Selected Player &Q", false, 301)]
         private static void SelectedPlayer()
         {
             GameObject player;
@@ -213,7 +200,7 @@ namespace MarsPC
         /// <summary>
         /// Alt+Up向上移动GameObject的层级
         /// </summary>
-        [MenuItem("MyTools/Move Up GameObject In Hierarchy &UP")]
+        [MenuItem("MyTools/Move Up GameObject In Hierarchy &UP", false, 250)]
         private static void MoveUpGameObjectInHierarchy()
         {
             GameObject[] gos = Selection.gameObjects;
@@ -227,7 +214,7 @@ namespace MarsPC
         /// <summary>
         /// Alt+Down向下移动GameObject的层级
         /// </summary>
-        [MenuItem("MyTools/Move Down GameObject In Hierarchy &DOWN")]
+        [MenuItem("MyTools/Move Down GameObject In Hierarchy &DOWN", false, 251)]
         private static void MoveDownGameObjectInTheHierarchy()
         {
             GameObject[] gos = Selection.gameObjects;
@@ -242,7 +229,7 @@ namespace MarsPC
 
         #region 在同级中选择上下物体快捷键
 
-        [MenuItem("MyTools/Select Up GameObject %UP")]
+        [MenuItem("MyTools/Select Up GameObject %UP", false, 252)]
         public static void SelectUpGameObject()
         {
             GameObject go = Selection.activeGameObject;
@@ -251,104 +238,22 @@ namespace MarsPC
                 Selection.activeGameObject = go.transform.parent.GetChild(index - 1).gameObject;
         }
 
-        [MenuItem("MyTools/Select Down GameObject %DOWN")]
+        [MenuItem("MyTools/Select Down GameObject %DOWN", false, 253)]
         public static void SelectDownGameObject()
         {
             GameObject go = Selection.activeGameObject;
             int index = go.transform.GetSiblingIndex();
-            if (index < go.transform.parent.childCount - 1)
+            if (go.transform.parent != null && index < go.transform.parent.childCount - 1)
                 Selection.activeGameObject = go.transform.parent.GetChild(index + 1).gameObject;
         }
 
         #endregion 在同级中选择上下物体快捷键
-
-        #region 选择上一个下一个物体
-
-        //[MenuItem("MyTools/Selected Previou Object #W")]
-        //private void SelectedPreviouObject()
-        //{
-        //    int index = objectList.FindIndex((t) => t == selecte);
-        //    if (index > 0)
-        //    {
-        //        selecte = objectList[index - 1];
-        //    }
-        //    Selection.activeGameObject = selecte;
-        //}
-
-        #endregion 选择上一个下一个物体
-
-        #region 微移物体快捷键
-
-        [MenuItem("MyTools/Up Movement %&UP")]
-        private static void SmallChangeTransformUp()
-        {
-            GameObject go = Selection.activeGameObject;
-            Vector3 pos = go.transform.localPosition;
-            pos.y += deltaVaule;
-            go.transform.localPosition = pos;
-        }
-
-        [MenuItem("MyTools/Down Movement %&DOWN")]
-        private static void SmallChangeTransformDown()
-        {
-            GameObject go = Selection.activeGameObject;
-            Vector3 pos = go.transform.localPosition;
-            pos.y -= deltaVaule;
-            go.transform.localPosition = pos;
-        }
-
-        [MenuItem("MyTools/Left Movement %&LEFT")]
-        private static void SmallChangeTransformLeft()
-        {
-            GameObject go = Selection.activeGameObject;
-            Vector3 pos = go.transform.localPosition;
-            pos.x += deltaVaule;
-            go.transform.localPosition = pos;
-        }
-
-        [MenuItem("MyTools/Right Movement %&RIGHT")]
-        private static void SmallChangeTransformRight()
-        {
-            GameObject go = Selection.activeGameObject;
-            Vector3 pos = go.transform.localPosition;
-            pos.x -= deltaVaule;
-            go.transform.localPosition = pos;
-        }
-
-        [MenuItem("MyTools/Front Movement %&#UP")]
-        private static void SmallChangeTransformLeftFront()
-        {
-            GameObject go = Selection.activeGameObject;
-            Vector3 pos = go.transform.localPosition;
-            pos.z -= deltaVaule;
-            go.transform.localPosition = pos;
-        }
-
-        [MenuItem("MyTools/Back Movement %&#DOWN")]
-        private static void SmallChangeTransformBack()
-        {
-            GameObject go = Selection.activeGameObject;
-            Vector3 pos = go.transform.localPosition;
-            pos.z += deltaVaule;
-            go.transform.localPosition = pos;
-        }
-
-        #endregion 微移物体快捷键
 
         #region TransformHelper
 
         [MenuItem("CONTEXT/Transform/Copy LocalPosition", false, 200)]
         private static void CopyLocalPosition(MenuCommand command)
         {
-            Transform tf = (Transform)command.context;
-            string str = "(" + tf.localPosition.x.ToString() + ", " + tf.localPosition.y.ToString() + ", " + tf.localPosition.z.ToString() + ")";
-            EditorGUIUtility.systemCopyBuffer = str;
-        }
-
-        [MenuItem("CONTEXT/PlayableAsset/Paste LocalPosition", false, 200)]
-        private static void PlayableAssetCopyLocalPosition(MenuCommand command)
-        {
-            //AnimationPlayableAsset
             Transform tf = (Transform)command.context;
             string str = "(" + tf.localPosition.x.ToString() + ", " + tf.localPosition.y.ToString() + ", " + tf.localPosition.z.ToString() + ")";
             EditorGUIUtility.systemCopyBuffer = str;
@@ -407,41 +312,5 @@ namespace MarsPC
         }
 
         #endregion TransformHelper
-
-        //#region 测试方法
-
-        ///// <summary>
-        ///// 测试方法
-        ///// </summary>
-        //[MenuItem("MyTools/WalkPosturePathManager Create Function")]
-        //private static void WalkPosturePathManagerTestFunction()
-        //{
-        //    AutoWalkManager manager = new AutoWalkManager();
-        //    manager.FindAllPath();
-        //    manager.CreateAllPathPoint();
-        //}
-
-        ///// <summary>
-        ///// 测试方法
-        ///// </summary>
-        //[MenuItem("MyTools/WalkPosturePathManager Clear Function")]
-        //private static void WalkPosturePathManagerClearFunction()
-        //{
-        //    List<Transform> pathList = new List<Transform>();
-        //    Transform mainManager = GameObject.Find("WalkPostureManager").transform;
-        //    if (mainManager == null) return;
-
-        //    foreach (var item in mainManager.transform.GetComponentsInChildren<Transform>())
-        //    {
-        //        if (item != mainManager && item.parent != mainManager)
-        //        {
-        //            pathList.Add(item);
-        //        }
-        //    }
-
-        //    GameObjectHelper.DestroyChildren(pathList.ToArray());
-        //}
-
-        //#endregion 测试方法
     }
 }
