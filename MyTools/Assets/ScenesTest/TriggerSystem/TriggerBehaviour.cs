@@ -113,27 +113,6 @@ public class TriggerBehaviour : MonoBehaviour
         if (collider != null) return triggerDic[collider];
         return null;
     }
-
-    public Transform point1;
-    public Transform point2;
-    public Transform trigger;
-    public float value1;
-    public float value2;
-    public Transform point;
-    public float value;
-
-    private void Update()
-    {
-        if (trigger != null && point1 != null && point2 != null)
-        {
-            value1 = Vector3.Dot(trigger.forward, point1.position - trigger.position);
-            value2 = Vector3.Dot(trigger.forward, point2.position - trigger.position);
-        }
-        if (point != null)
-        {
-            value = Vector3.Dot(trigger.forward, point.position - trigger.position);
-        }
-    }
 }
 
 public enum ETriggerTargetTag

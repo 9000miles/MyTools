@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class Trigger_Test2 : TriggerBase
 {
-    protected override void Awake()
+    protected override void Start()
     {
-        //targetTag = ETriggerTargetTag.Player;
+        TargetTag = ETriggerTargetTag.Player;
         base.Awake();
     }
 
     public override bool OnTriggerEnterCall(Transform intruder)
     {
+        Debug.Log("2 -- Enter -- Test");
         if (base.OnTriggerEnterCall(intruder))
         {
             Debug.Log("2 -- Enter");

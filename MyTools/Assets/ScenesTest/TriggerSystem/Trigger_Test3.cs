@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Trigger_Test3 : TriggerBase
 {
-    protected override void Awake()
+    protected override void Start()
     {
-        //targetTag = ETriggerTargetTag.Player;
+        TargetTag = ETriggerTargetTag.Player;
         base.Awake();
     }
 

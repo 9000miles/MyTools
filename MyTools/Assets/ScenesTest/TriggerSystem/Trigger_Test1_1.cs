@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Trigger_Test1_1 : TriggerBase
 {
-    protected override void Awake()
+    protected override void Start()
     {
-        targetTag = ETriggerTargetTag.Enemy | ETriggerTargetTag.Player;
+        TargetTag = ETriggerTargetTag.Enemy | ETriggerTargetTag.Player;
         base.Awake();
     }
 
@@ -14,7 +14,7 @@ public class Trigger_Test1_1 : TriggerBase
     {
         if (base.OnTriggerEnterCall(intruder))
         {
-            //Debug.Log("1_1 -- Enter");
+            Debug.Log("1_1 -- Enter");
         }
         return true;
     }
