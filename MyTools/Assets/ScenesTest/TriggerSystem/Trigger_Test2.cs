@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Trigger_Test2 : TriggerBase
+public class Trigger_Test2 : TriggerBehaviourBase
 {
     protected override void Start()
     {
