@@ -6,7 +6,7 @@ using UnityEngine.Events;
 using Common;
 using MarsPC;
 
-public class TriggerBehaviour : MonoBehaviour
+public class CharacterTriggerBehaviour : MonoBehaviour
 {
     public UnityAction<Collider2D> OnEnterCall2D;
     public UnityAction<Collider2D> OnStayCall2D;
@@ -16,11 +16,11 @@ public class TriggerBehaviour : MonoBehaviour
     public UnityAction<Collider> OnStayCall;
     public UnityAction<Collider> OnExitCall;
 
-    public Dictionary<TriggerColliderBase, List<TriggerBase>> triggerDic = new Dictionary<TriggerColliderBase, List<TriggerBase>>();
+    public Dictionary<TriggerColliderBase, List<TriggerBehaviourBase>> triggerDic = new Dictionary<TriggerColliderBase, List<TriggerBehaviourBase>>();
 
     private void OnTriggerEnter(Collider other)
     {
-        List<TriggerBase> triggerList = GetTriggerBases(other);
+        List<TriggerBehaviourBase> triggerList = GetTriggerBases(other);
         if (triggerList == null || triggerList.Count == 0) return;
 
         for (int i = 0; i < triggerList.Count; i++)
@@ -33,7 +33,7 @@ public class TriggerBehaviour : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        List<TriggerBase> triggerList = GetTriggerBases(other);
+        List<TriggerBehaviourBase> triggerList = GetTriggerBases(other);
         if (triggerList == null || triggerList.Count == 0) return;
 
         for (int i = 0; i < triggerList.Count; i++)
@@ -46,7 +46,7 @@ public class TriggerBehaviour : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        List<TriggerBase> triggerList = GetTriggerBases(other);
+        List<TriggerBehaviourBase> triggerList = GetTriggerBases(other);
         if (triggerList == null || triggerList.Count == 0) return;
 
         for (int i = 0; i < triggerList.Count; i++)
@@ -59,7 +59,7 @@ public class TriggerBehaviour : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        List<TriggerBase> triggerList = GetTriggerBases(other);
+        List<TriggerBehaviourBase> triggerList = GetTriggerBases(other);
         if (triggerList == null || triggerList.Count == 0) return;
 
         for (int i = 0; i < triggerList.Count; i++)
@@ -72,7 +72,7 @@ public class TriggerBehaviour : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        List<TriggerBase> triggerList = GetTriggerBases(other);
+        List<TriggerBehaviourBase> triggerList = GetTriggerBases(other);
         if (triggerList == null || triggerList.Count == 0) return;
 
         for (int i = 0; i < triggerList.Count; i++)
@@ -85,7 +85,7 @@ public class TriggerBehaviour : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        List<TriggerBase> triggerList = GetTriggerBases(other);
+        List<TriggerBehaviourBase> triggerList = GetTriggerBases(other);
         if (triggerList == null || triggerList.Count == 0) return;
 
         for (int i = 0; i < triggerList.Count; i++)
@@ -96,7 +96,7 @@ public class TriggerBehaviour : MonoBehaviour
         OnExitCall2D?.Invoke(other);
     }
 
-    private List<TriggerBase> GetTriggerBases(Collider other)
+    private List<TriggerBehaviourBase> GetTriggerBases(Collider other)
     {
         TriggerColliderBase[] colliders = new TriggerColliderBase[triggerDic.Count];
         triggerDic.Keys.CopyTo(colliders, 0);
@@ -105,7 +105,7 @@ public class TriggerBehaviour : MonoBehaviour
         return null;
     }
 
-    private List<TriggerBase> GetTriggerBases(Collider2D other)
+    private List<TriggerBehaviourBase> GetTriggerBases(Collider2D other)
     {
         TriggerColliderBase[] colliders = new TriggerColliderBase[triggerDic.Count];
         triggerDic.Keys.CopyTo(colliders, 0);

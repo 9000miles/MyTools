@@ -4,10 +4,10 @@ using UnityEngine;
 using MarsPC;
 using System;
 
-public class TriggerBase : MonoBehaviour
+public class TriggerBehaviourBase : MonoBehaviour
 {
-    public bool isTestTrigger = false;//测试Trigger==true，会自动将triggerType设置为Active
-    public bool isThroughTriggerOpen = false;//是否穿过Trigger开启
+    public bool isTestTrigger = false; //测试Trigger==true，会自动将triggerType设置为Active
+    public bool isThroughTriggerOpen = false; //是否穿过Trigger开启
     public int triggerCount;
 
     private Vector3 enterPos;
@@ -16,33 +16,22 @@ public class TriggerBase : MonoBehaviour
     private new Collider collider;
     private new Collider2D collider2D;
 
-    [EnumFlags, SerializeField]
-    [SetProperty("Number")]
+    [EnumFlags, SerializeField, SetProperty("Number")]
     private ETriggerTargetTag targetTag = ETriggerTargetTag.Player;
-
-    [SerializeField]
     public ETriggerTargetTag TargetTag
     {
-        get
-        {
-            return targetTag;
-        }
+        get { return targetTag; }
         set
         {
             targetTag = value;
-            AddTrigger();
+            ChangeTrigger();
         }
     }
 
-    [SerializeField]
-    private ETriggerType triggerType;
-
+    [SerializeField] private ETriggerType triggerType;
     public ETriggerType TriggerType
     {
-        get
-        {
-            return triggerType;
-        }
+        get { return triggerType; }
         set
         {
             triggerType = value;
@@ -52,13 +41,18 @@ public class TriggerBase : MonoBehaviour
 
     protected virtual void Awake()
     {
+        GetCollider();
+    }
+
+    private void GetCollider()
+    {
         collider = GetComponent<Collider>();
         if (collider != null) collider.isTrigger = true;
         collider2D = GetComponent<Collider2D>();
         if (collider2D != null) collider2D.isTrigger = true;
     }
 
-    private void AddTrigger()
+    private void ChangeTrigger()
     {
         if ((collider != null && collider2D == null) || (collider == null && collider2D != null))
         {
@@ -67,7 +61,10 @@ public class TriggerBase : MonoBehaviour
                 collider.isTrigger = true;
                 foreach (ETriggerTargetTag item in Enum.GetValues(typeof(ETriggerTargetTag)))
                 {
-                    if ((item & targetTag) != 0) TriggerManager.Singleton.AddTrigger(item.ToString(), collider, null, this);
+                    if ((item & targetTag) != 0)
+                        TriggerManager.Singleton.AddTrigger(item.ToString(), collider, null, this);
+                    else
+                        TriggerManager.Singleton.RemoveTrigger(item.ToString(), collider, null, this);
                 }
             }
 
@@ -76,7 +73,10 @@ public class TriggerBase : MonoBehaviour
                 collider2D.isTrigger = true;
                 foreach (ETriggerTargetTag item in Enum.GetValues(typeof(ETriggerTargetTag)))
                 {
-                    if ((item & targetTag) != 0) TriggerManager.Singleton.AddTrigger(item.ToString(), null, collider2D, this);
+                    if ((item & targetTag) != 0)
+                        TriggerManager.Singleton.AddTrigger(item.ToString(), null, collider2D, this);
+                    else
+                        TriggerManager.Singleton.RemoveTrigger(item.ToString(), null, collider2D, this);
                 }
             }
         }
@@ -152,5 +152,14 @@ public class TriggerBase : MonoBehaviour
 
     public virtual void LateUpdate()
     {
+    }
+
+    private void OnValidate()
+    {
+        if (Application.isPlaying && this.enabled)
+        {
+            GetCollider();
+            ChangeTrigger();
+        }
     }
 }
