@@ -5,7 +5,7 @@ using Common;
 using System;
 using System.Collections.Generic;
 
-public class TriggerManager : SingletonBehaviour<TriggerManager>
+public class CharacterTriggerManager : SingletonBehaviour<CharacterTriggerManager>
 {
     private CharacterTriggerBehaviour[] triggerBehaviours;
 

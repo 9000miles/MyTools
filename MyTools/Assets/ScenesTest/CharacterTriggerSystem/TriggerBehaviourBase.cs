@@ -62,9 +62,9 @@ public class TriggerBehaviourBase : MonoBehaviour
                 foreach (ETriggerTargetTag item in Enum.GetValues(typeof(ETriggerTargetTag)))
                 {
                     if ((item & targetTag) != 0)
-                        TriggerManager.Singleton.AddTrigger(item.ToString(), collider, null, this);
+                        CharacterTriggerManager.Singleton.AddTrigger(item.ToString(), collider, null, this);
                     else
-                        TriggerManager.Singleton.RemoveTrigger(item.ToString(), collider, null, this);
+                        CharacterTriggerManager.Singleton.RemoveTrigger(item.ToString(), collider, null, this);
                 }
             }
 
@@ -74,9 +74,9 @@ public class TriggerBehaviourBase : MonoBehaviour
                 foreach (ETriggerTargetTag item in Enum.GetValues(typeof(ETriggerTargetTag)))
                 {
                     if ((item & targetTag) != 0)
-                        TriggerManager.Singleton.AddTrigger(item.ToString(), null, collider2D, this);
+                        CharacterTriggerManager.Singleton.AddTrigger(item.ToString(), null, collider2D, this);
                     else
-                        TriggerManager.Singleton.RemoveTrigger(item.ToString(), null, collider2D, this);
+                        CharacterTriggerManager.Singleton.RemoveTrigger(item.ToString(), null, collider2D, this);
                 }
             }
         }
