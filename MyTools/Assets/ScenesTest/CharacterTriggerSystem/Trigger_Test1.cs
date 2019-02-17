@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Trigger_Test2 : TriggerBase
+public class Trigger_Test1 : TriggerBehaviourBase
 {
-    protected override void Awake()
+    protected override void Start()
     {
-        //targetTag = ETriggerTargetTag.Player;
+        TargetTag = ETriggerTargetTag.Player;
         base.Awake();
     }
 
@@ -14,8 +14,7 @@ public class Trigger_Test2 : TriggerBase
     {
         if (base.OnTriggerEnterCall(intruder))
         {
-            Debug.Log("2 -- Enter");
-            TriggerType = ETriggerType.Actived;
+            Debug.Log("1 -- Enter");
         }
         return true;
     }
@@ -24,7 +23,7 @@ public class Trigger_Test2 : TriggerBase
     {
         if (base.OnTriggerStayCall(intruder))
         {
-            Debug.Log("2 -- Stay");
+            Debug.Log("1 -- Stay");
         }
         return true;
     }
@@ -33,7 +32,7 @@ public class Trigger_Test2 : TriggerBase
     {
         if (base.OnTriggerExitCall(intruder))
         {
-            Debug.Log("2 -- Exit");
+            Debug.Log("1 -- Exit");
         }
         return true;
     }

@@ -4,7 +4,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Basic.UnityAudioSource
 {
     [TaskCategory("Basic/AudioSource")]
     [TaskDescription("Sets the priority value of the AudioSource. Returns Success.")]
-    public class SetPriority : Action
+    public class setproperty : Action
     {
         [Tooltip("The GameObject that the task operates on. If null the task GameObject is used.")]
         public SharedGameObject targetGameObject;
