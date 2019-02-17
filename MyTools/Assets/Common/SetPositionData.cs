@@ -10,6 +10,16 @@ public class SetPositionData : ScriptableObject
     [System.Serializable]
     public class PositionData
     {
+        [HideInInspector]
+        public bool isFoldout;
+
+        public string userName;
+        public Data[] data;
+    }
+
+    [System.Serializable]
+    public class Data
+    {
         public string placename;
         public string position;
     }
