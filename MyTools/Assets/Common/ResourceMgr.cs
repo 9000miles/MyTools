@@ -47,7 +47,7 @@ public class ResourceMgr : SingletonBehaviour<ResourceMgr>
             return Contaner[path] as T;
         }
 
-        Debug.Log(string.Format("Load assset frome resource folder,path:{0},cache:{1}", path, cache));
+        //Debug.Log(string.Format("Load assset frome resource folder,path:{0},cache:{1}", path, cache));
         T assetObj = Resources.Load<T>(path);
         if (assetObj == null)
         {
